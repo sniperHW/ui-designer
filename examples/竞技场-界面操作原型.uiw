@@ -1,0 +1,3707 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "竞技场-界面操作原型",
+    "designWidth": 750,
+    "designHeight": 1600,
+    "orientation": "portrait"
+  },
+  "commonLayer": {
+    "id": "common",
+    "name": "公共层",
+    "nodes": [
+      {
+        "id": "nmtfewgjpiqvo",
+        "type": "ellipse",
+        "name": "等级徽章",
+        "x": 14,
+        "y": 14,
+        "w": 56,
+        "h": 56,
+        "visible": true,
+        "locked": false,
+        "props": {}
+      },
+      {
+        "id": "nmtfewh9neusn",
+        "type": "text",
+        "name": "等级数字",
+        "x": 14,
+        "y": 26,
+        "w": 56,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "2",
+          "fontSize": 26,
+          "bold": true,
+          "align": "center"
+        }
+      },
+      {
+        "id": "nmtfewiawt3fk",
+        "type": "text",
+        "name": "等级进度文字",
+        "x": 80,
+        "y": 20,
+        "w": 112,
+        "h": 30,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "20/130",
+          "fontSize": 24,
+          "bold": true,
+          "align": "left"
+        }
+      },
+      {
+        "id": "nmtfewjaj4k9p",
+        "type": "progress",
+        "name": "等级进度",
+        "x": 80,
+        "y": 56,
+        "w": 112,
+        "h": 14,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "progress": 15
+        }
+      },
+      {
+        "id": "nmtfewk4hhu5o",
+        "type": "placeholder",
+        "name": "宝箱图标",
+        "x": 200,
+        "y": 18,
+        "w": 46,
+        "h": 38,
+        "visible": true,
+        "locked": false,
+        "props": {}
+      },
+      {
+        "id": "nmtfewktfioxg",
+        "type": "placeholder",
+        "name": "定位按钮",
+        "x": 500,
+        "y": 14,
+        "w": 46,
+        "h": 46,
+        "visible": true,
+        "locked": false,
+        "props": {}
+      },
+      {
+        "id": "nmtfewlj6z27d",
+        "type": "button",
+        "name": "更多按钮",
+        "x": 556,
+        "y": 12,
+        "w": 80,
+        "h": 48,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "···",
+          "fontSize": 30,
+          "bold": false
+        }
+      },
+      {
+        "id": "nmtfewmhjpcgq",
+        "type": "ellipse",
+        "name": "录制按钮",
+        "x": 648,
+        "y": 12,
+        "w": 56,
+        "h": 56,
+        "visible": true,
+        "locked": false,
+        "props": {}
+      },
+      {
+        "id": "nmtfewn7b80tw",
+        "type": "rect",
+        "name": "资源条6",
+        "x": 112,
+        "y": 60,
+        "w": 118,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfewo13eeki",
+        "type": "text",
+        "name": "资源值6",
+        "x": 140,
+        "y": 66,
+        "w": 64,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "6",
+          "fontSize": 24,
+          "bold": true,
+          "align": "left"
+        }
+      },
+      {
+        "id": "nmtfewp0si4k1",
+        "type": "rect",
+        "name": "加号6",
+        "x": 206,
+        "y": 70,
+        "w": 22,
+        "h": 22,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 8
+        }
+      },
+      {
+        "id": "nmtfewpv17tft",
+        "type": "rect",
+        "name": "资源条0",
+        "x": 238,
+        "y": 60,
+        "w": 118,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfewqp0sbp4",
+        "type": "text",
+        "name": "资源值0",
+        "x": 266,
+        "y": 66,
+        "w": 64,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "0",
+          "fontSize": 24,
+          "bold": true,
+          "align": "left"
+        }
+      },
+      {
+        "id": "nmtfewrov5d4l",
+        "type": "rect",
+        "name": "加号0",
+        "x": 332,
+        "y": 70,
+        "w": 22,
+        "h": 22,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 8
+        }
+      },
+      {
+        "id": "nmtfewsj1ixz9",
+        "type": "rect",
+        "name": "资源条400",
+        "x": 364,
+        "y": 60,
+        "w": 118,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfewtdedy4a",
+        "type": "text",
+        "name": "资源值400",
+        "x": 392,
+        "y": 66,
+        "w": 64,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "400",
+          "fontSize": 24,
+          "bold": true,
+          "align": "left"
+        }
+      },
+      {
+        "id": "nmtfewudc9z5f",
+        "type": "rect",
+        "name": "加号400",
+        "x": 458,
+        "y": 70,
+        "w": 22,
+        "h": 22,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 8
+        }
+      },
+      {
+        "id": "nmtfewv7wvm95",
+        "type": "rect",
+        "name": "资源条139",
+        "x": 490,
+        "y": 60,
+        "w": 118,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfeww2cmzbz",
+        "type": "text",
+        "name": "资源值139",
+        "x": 518,
+        "y": 66,
+        "w": 64,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "139",
+          "fontSize": 24,
+          "bold": true,
+          "align": "left"
+        }
+      },
+      {
+        "id": "nmtfewx2ojk6g",
+        "type": "rect",
+        "name": "加号139",
+        "x": 584,
+        "y": 70,
+        "w": 22,
+        "h": 22,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 8
+        }
+      },
+      {
+        "id": "nmtfewxx7a8tv",
+        "type": "rect",
+        "name": "资源条280",
+        "x": 616,
+        "y": 60,
+        "w": 118,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfewyrhump2",
+        "type": "text",
+        "name": "资源值280",
+        "x": 644,
+        "y": 66,
+        "w": 64,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "280",
+          "fontSize": 24,
+          "bold": true,
+          "align": "left"
+        }
+      },
+      {
+        "id": "nmtfewzrziekr",
+        "type": "rect",
+        "name": "加号280",
+        "x": 710,
+        "y": 70,
+        "w": 22,
+        "h": 22,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 8
+        }
+      }
+    ]
+  },
+  "customWidgets": [],
+  "pages": [
+    {
+      "id": "pmtfewfmjrqop",
+      "name": "主界面",
+      "nodes": [
+        {
+          "id": "nmtfex0ru1s66",
+          "type": "tab",
+          "name": "底部导航",
+          "x": 0,
+          "y": 110,
+          "w": 750,
+          "h": 1490,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "tabs": [
+              "商店",
+              "卡牌",
+              "战斗",
+              "排名"
+            ],
+            "barPosition": "bottom"
+          },
+          "activeTab": 1,
+          "pages": [
+            [
+              {
+                "id": "nmtfeyiyfggjs",
+                "type": "tab",
+                "name": "商店分类",
+                "x": 15,
+                "y": 120,
+                "w": 720,
+                "h": 1400,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "tabs": [
+                    "特卖",
+                    "基础"
+                  ],
+                  "barPosition": "bottom"
+                },
+                "activeTab": 0,
+                "pages": [
+                  [
+                    {
+                      "id": "nmtfeyjtol0rn",
+                      "type": "scroll",
+                      "name": "特卖滚动区",
+                      "x": 15,
+                      "y": 120,
+                      "w": 720,
+                      "h": 1360,
+                      "visible": true,
+                      "locked": false,
+                      "props": {},
+                      "children": [
+                        {
+                          "id": "nmtfeykjlwaki",
+                          "type": "nine",
+                          "name": "月卡横幅",
+                          "x": 25,
+                          "y": 150,
+                          "w": 700,
+                          "h": 300,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfeyl9owec7",
+                          "type": "text",
+                          "name": "月卡标题",
+                          "x": 25,
+                          "y": 168,
+                          "w": 700,
+                          "h": 44,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "月卡",
+                            "fontSize": 34,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeymb2hlyj",
+                          "type": "ellipse",
+                          "name": "月卡超值角标",
+                          "x": 20,
+                          "y": 155,
+                          "w": 92,
+                          "h": 92,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfeyn0tnhdt",
+                          "type": "text",
+                          "name": "月卡超值文字",
+                          "x": 20,
+                          "y": 178,
+                          "w": 92,
+                          "h": 46,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "200%\n超值",
+                            "fontSize": 18,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeyo25thov",
+                          "type": "rect",
+                          "name": "去广告框",
+                          "x": 45,
+                          "y": 240,
+                          "w": 200,
+                          "h": 150,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfeyowhhkkr",
+                          "type": "text",
+                          "name": "去广告文字",
+                          "x": 45,
+                          "y": 345,
+                          "w": 200,
+                          "h": 30,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "去广告",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeypw7by4f",
+                          "type": "rect",
+                          "name": "加成框",
+                          "x": 275,
+                          "y": 240,
+                          "w": 200,
+                          "h": 150,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfeyqqnex9v",
+                          "type": "text",
+                          "name": "加成文字",
+                          "x": 275,
+                          "y": 345,
+                          "w": 200,
+                          "h": 30,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "奖励加成 +20%",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeyrqykuw4",
+                          "type": "rect",
+                          "name": "每日奖励框",
+                          "x": 505,
+                          "y": 240,
+                          "w": 200,
+                          "h": 150,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfeyslfqqw5",
+                          "type": "text",
+                          "name": "每日奖励文字",
+                          "x": 505,
+                          "y": 345,
+                          "w": 200,
+                          "h": 30,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "每日奖励",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeytlheh9i",
+                          "type": "text",
+                          "name": "月卡价格",
+                          "x": 25,
+                          "y": 398,
+                          "w": 700,
+                          "h": 44,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "💎 680",
+                            "fontSize": 34,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeyunabent",
+                          "type": "nine",
+                          "name": "人类礼包横幅",
+                          "x": 25,
+                          "y": 480,
+                          "w": 700,
+                          "h": 300,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfeyvcz7olk",
+                          "type": "placeholder",
+                          "name": "人类英雄",
+                          "x": 35,
+                          "y": 495,
+                          "w": 180,
+                          "h": 270,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfeyw33rvcn",
+                          "type": "text",
+                          "name": "人类礼包标题",
+                          "x": 250,
+                          "y": 498,
+                          "w": 450,
+                          "h": 40,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "人类礼包",
+                            "fontSize": 32,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeyx51j2zv",
+                          "type": "ellipse",
+                          "name": "人类超值角标",
+                          "x": 18,
+                          "y": 488,
+                          "w": 96,
+                          "h": 96,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfeyxuynqnm",
+                          "type": "text",
+                          "name": "人类超值文字",
+                          "x": 18,
+                          "y": 512,
+                          "w": 96,
+                          "h": 48,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "1500%\n超值",
+                            "fontSize": 17,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeyywpso03",
+                          "type": "rect",
+                          "name": "人类卡框",
+                          "x": 240,
+                          "y": 545,
+                          "w": 140,
+                          "h": 200,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfeyzre01zi",
+                          "type": "text",
+                          "name": "人类卡加成",
+                          "x": 240,
+                          "y": 645,
+                          "w": 140,
+                          "h": 60,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "+20\n0/4",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfez0sasxv7",
+                          "type": "rect",
+                          "name": "人类卡框",
+                          "x": 400,
+                          "y": 545,
+                          "w": 140,
+                          "h": 200,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfez1n1vltx",
+                          "type": "text",
+                          "name": "人类卡加成",
+                          "x": 400,
+                          "y": 645,
+                          "w": 140,
+                          "h": 60,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "+50\n5/8",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfez2nr1l3r",
+                          "type": "rect",
+                          "name": "人类卡框",
+                          "x": 560,
+                          "y": 545,
+                          "w": 140,
+                          "h": 200,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfez3ikled3",
+                          "type": "text",
+                          "name": "人类卡加成",
+                          "x": 560,
+                          "y": 645,
+                          "w": 140,
+                          "h": 60,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "+100\n8/6",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfez4iyi5ni",
+                          "type": "text",
+                          "name": "人类限时",
+                          "x": 35,
+                          "y": 780,
+                          "w": 190,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "1天16时2分",
+                            "fontSize": 20,
+                            "bold": false,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtfez5hjxapb",
+                          "type": "text",
+                          "name": "人类价格",
+                          "x": 280,
+                          "y": 742,
+                          "w": 200,
+                          "h": 40,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "💎 680",
+                            "fontSize": 32,
+                            "bold": true,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtfez6iso3s9",
+                          "type": "text",
+                          "name": "人类可用",
+                          "x": 560,
+                          "y": 742,
+                          "w": 140,
+                          "h": 40,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "5/5 可用",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "right"
+                          }
+                        },
+                        {
+                          "id": "nmtfez7jwbpe3",
+                          "type": "nine",
+                          "name": "兽人礼包横幅",
+                          "x": 25,
+                          "y": 810,
+                          "w": 700,
+                          "h": 300,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfez8abhqnv",
+                          "type": "placeholder",
+                          "name": "兽人英雄",
+                          "x": 35,
+                          "y": 825,
+                          "w": 180,
+                          "h": 270,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfez90354wz",
+                          "type": "text",
+                          "name": "兽人卡包标题",
+                          "x": 250,
+                          "y": 828,
+                          "w": 450,
+                          "h": 40,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "兽人卡包",
+                            "fontSize": 32,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfeza0mn00d",
+                          "type": "ellipse",
+                          "name": "兽人超值角标",
+                          "x": 18,
+                          "y": 818,
+                          "w": 96,
+                          "h": 96,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfezaqmvt0q",
+                          "type": "text",
+                          "name": "兽人超值文字",
+                          "x": 18,
+                          "y": 842,
+                          "w": 96,
+                          "h": 48,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "1500%\n超值",
+                            "fontSize": 17,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfezbt5chj0",
+                          "type": "rect",
+                          "name": "兽人卡框",
+                          "x": 240,
+                          "y": 875,
+                          "w": 140,
+                          "h": 200,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfezcob4gyd",
+                          "type": "text",
+                          "name": "兽人卡加成",
+                          "x": 240,
+                          "y": 975,
+                          "w": 140,
+                          "h": 60,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "+20\n0/4",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfezdoydeh2",
+                          "type": "rect",
+                          "name": "兽人卡框",
+                          "x": 400,
+                          "y": 875,
+                          "w": 140,
+                          "h": 200,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfezejwwps0",
+                          "type": "text",
+                          "name": "兽人卡加成",
+                          "x": 400,
+                          "y": 975,
+                          "w": 140,
+                          "h": 60,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "+50\n0/8",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfezfkymalk",
+                          "type": "rect",
+                          "name": "兽人卡框",
+                          "x": 560,
+                          "y": 875,
+                          "w": 140,
+                          "h": 200,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtfezgg9014j",
+                          "type": "text",
+                          "name": "兽人卡加成",
+                          "x": 560,
+                          "y": 975,
+                          "w": 140,
+                          "h": 60,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "+100\n0/2",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtfezhhckvwl",
+                          "type": "text",
+                          "name": "兽人限时",
+                          "x": 35,
+                          "y": 1120,
+                          "w": 190,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "1天16时2分",
+                            "fontSize": 20,
+                            "bold": false,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtfezihc1p1c",
+                          "type": "text",
+                          "name": "兽人价格",
+                          "x": 280,
+                          "y": 1072,
+                          "w": 200,
+                          "h": 40,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "💎 680",
+                            "fontSize": 32,
+                            "bold": true,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtfezjio9wk3",
+                          "type": "text",
+                          "name": "兽人可用",
+                          "x": 560,
+                          "y": 1072,
+                          "w": 140,
+                          "h": 40,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "5/5 可用",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "right"
+                          }
+                        },
+                        {
+                          "id": "nmtfezkjwokml",
+                          "type": "nine",
+                          "name": "传奇礼包横幅",
+                          "x": 25,
+                          "y": 1290,
+                          "w": 700,
+                          "h": 300,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfezla1rozm",
+                          "type": "placeholder",
+                          "name": "传奇英雄",
+                          "x": 35,
+                          "y": 1305,
+                          "w": 180,
+                          "h": 270,
+                          "visible": true,
+                          "locked": false,
+                          "props": {}
+                        },
+                        {
+                          "id": "nmtfezm0wwh65",
+                          "type": "text",
+                          "name": "传奇卡包标题",
+                          "x": 250,
+                          "y": 1308,
+                          "w": 450,
+                          "h": 40,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "传奇卡包",
+                            "fontSize": 32,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "id": "nmtfezn9itf8d",
+                      "type": "scroll",
+                      "name": "基础滚动区",
+                      "x": 15,
+                      "y": 120,
+                      "w": 720,
+                      "h": 1360,
+                      "visible": true,
+                      "locked": false,
+                      "props": {},
+                      "children": [
+                        {
+                          "id": "nmtfeznyyy5kg",
+                          "type": "text",
+                          "name": "资源标题",
+                          "x": 35,
+                          "y": 150,
+                          "w": 200,
+                          "h": 36,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "资源",
+                            "fontSize": 28,
+                            "bold": true,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtfezoyyfstd",
+                          "type": "grid",
+                          "name": "资源网格",
+                          "x": 25,
+                          "y": 200,
+                          "w": 700,
+                          "h": 480,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "cols": 3,
+                            "count": 9
+                          },
+                          "itemTags": [
+                            "金币",
+                            "金币",
+                            "钻石",
+                            "木材",
+                            "木材",
+                            "体力",
+                            "钥匙",
+                            "钥匙",
+                            "经验"
+                          ]
+                        },
+                        {
+                          "id": "nmtfezq2a3l6e",
+                          "type": "text",
+                          "name": "礼包标题",
+                          "x": 35,
+                          "y": 710,
+                          "w": 200,
+                          "h": 36,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "礼包",
+                            "fontSize": 28,
+                            "bold": true,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtfezr207j4f",
+                          "type": "grid",
+                          "name": "礼包网格",
+                          "x": 25,
+                          "y": 760,
+                          "w": 700,
+                          "h": 640,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "cols": 3,
+                            "count": 12
+                          },
+                          "itemTags": [
+                            "新手礼包",
+                            "成长礼包",
+                            "豪华礼包",
+                            "每日特惠",
+                            "每周特惠",
+                            "月度特惠",
+                            "首充礼包",
+                            "回流礼包",
+                            "节日礼包",
+                            "竞技礼包",
+                            "公会礼包",
+                            "限时礼包"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "id": "nmtfezsbnfi86",
+                "type": "tab",
+                "name": "卡牌子页签",
+                "x": 15,
+                "y": 120,
+                "w": 720,
+                "h": 1400,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "tabs": [
+                    "卡组",
+                    "段位",
+                    "图鉴",
+                    "聊天"
+                  ],
+                  "barPosition": "bottom"
+                },
+                "activeTab": 0,
+                "pages": [
+                  [
+                    {
+                      "id": "nmtfezt76nc2s",
+                      "type": "scroll",
+                      "name": "卡组滚动区",
+                      "x": 20,
+                      "y": 130,
+                      "w": 720,
+                      "h": 1360,
+                      "visible": true,
+                      "locked": false,
+                      "props": {},
+                      "children": [
+                        {
+                          "id": "nmtfeztwqrb7y",
+                          "type": "rect",
+                          "name": "牌组选择条",
+                          "x": 30,
+                          "y": 160,
+                          "w": 700,
+                          "h": 64,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 32
+                          }
+                        },
+                        {
+                          "id": "nmtfezur46zeo",
+                          "type": "text",
+                          "name": "牌组标题",
+                          "x": 50,
+                          "y": 174,
+                          "w": 110,
+                          "h": 36,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "牌组",
+                            "fontSize": 28,
+                            "bold": true,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtfezvr4qwc3",
+                          "type": "button",
+                          "name": "牌组按钮1",
+                          "x": 175,
+                          "y": 170,
+                          "w": 92,
+                          "h": 44,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "1",
+                            "fontSize": 26,
+                            "bold": false
+                          }
+                        },
+                        {
+                          "id": "nmtfezwpwwi4p",
+                          "type": "button",
+                          "name": "牌组按钮2",
+                          "x": 283,
+                          "y": 170,
+                          "w": 92,
+                          "h": 44,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "2",
+                            "fontSize": 26,
+                            "bold": false
+                          }
+                        },
+                        {
+                          "id": "nmtfezxp2l9g5",
+                          "type": "button",
+                          "name": "牌组按钮3",
+                          "x": 391,
+                          "y": 170,
+                          "w": 92,
+                          "h": 44,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "3",
+                            "fontSize": 26,
+                            "bold": false
+                          }
+                        },
+                        {
+                          "id": "nmtfezyo0nb9z",
+                          "type": "button",
+                          "name": "牌组按钮4",
+                          "x": 499,
+                          "y": 170,
+                          "w": 92,
+                          "h": 44,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "4",
+                            "fontSize": 26,
+                            "bold": false
+                          }
+                        },
+                        {
+                          "id": "nmtfezzmxcol5",
+                          "type": "button",
+                          "name": "牌组按钮5",
+                          "x": 607,
+                          "y": 170,
+                          "w": 92,
+                          "h": 44,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "5",
+                            "fontSize": 26,
+                            "bold": false
+                          }
+                        },
+                        {
+                          "id": "nmtff00lk0iy6",
+                          "type": "rect",
+                          "name": "牌组卡",
+                          "x": 35,
+                          "y": 250,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtff01g47vxv",
+                          "type": "text",
+                          "name": "卡等级",
+                          "x": 35,
+                          "y": 390,
+                          "w": 160,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "等级 1",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff02glxzz4",
+                          "type": "text",
+                          "name": "卡数量",
+                          "x": 35,
+                          "y": 424,
+                          "w": 160,
+                          "h": 26,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "0/4",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff03gr0e7r",
+                          "type": "rect",
+                          "name": "牌组卡",
+                          "x": 211,
+                          "y": 250,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtff04bfdqgv",
+                          "type": "text",
+                          "name": "卡等级",
+                          "x": 211,
+                          "y": 390,
+                          "w": 160,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "等级 1",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff05buncg8",
+                          "type": "text",
+                          "name": "卡数量",
+                          "x": 211,
+                          "y": 424,
+                          "w": 160,
+                          "h": 26,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "3/4",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff06c131il",
+                          "type": "rect",
+                          "name": "牌组卡",
+                          "x": 387,
+                          "y": 250,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtff076pw4yf",
+                          "type": "text",
+                          "name": "卡等级",
+                          "x": 387,
+                          "y": 390,
+                          "w": 160,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "等级 2",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff086u175l",
+                          "type": "text",
+                          "name": "卡数量",
+                          "x": 387,
+                          "y": 424,
+                          "w": 160,
+                          "h": 26,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "8/9",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0974upuw",
+                          "type": "rect",
+                          "name": "牌组卡",
+                          "x": 563,
+                          "y": 250,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtff0a1ztxza",
+                          "type": "text",
+                          "name": "卡等级",
+                          "x": 563,
+                          "y": 390,
+                          "w": 160,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "等级 1",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0b2zz52l",
+                          "type": "text",
+                          "name": "卡数量",
+                          "x": 563,
+                          "y": 424,
+                          "w": 160,
+                          "h": 26,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "8/6",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0c3jhmzb",
+                          "type": "rect",
+                          "name": "牌组卡",
+                          "x": 35,
+                          "y": 500,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtff0cyfaayf",
+                          "type": "text",
+                          "name": "卡等级",
+                          "x": 35,
+                          "y": 640,
+                          "w": 160,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "等级 1",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0dzm8ssr",
+                          "type": "text",
+                          "name": "卡数量",
+                          "x": 35,
+                          "y": 674,
+                          "w": 160,
+                          "h": 26,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "3/6",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0f0h0e86",
+                          "type": "rect",
+                          "name": "牌组卡",
+                          "x": 211,
+                          "y": 500,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtff0fvd8vgc",
+                          "type": "text",
+                          "name": "卡等级",
+                          "x": 211,
+                          "y": 640,
+                          "w": 160,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "等级 1",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0gwhl0bm",
+                          "type": "text",
+                          "name": "卡数量",
+                          "x": 211,
+                          "y": 674,
+                          "w": 160,
+                          "h": 26,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "0/8",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0hxags4x",
+                          "type": "rect",
+                          "name": "牌组卡",
+                          "x": 387,
+                          "y": 500,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtff0is4ns2j",
+                          "type": "text",
+                          "name": "卡等级",
+                          "x": 387,
+                          "y": 640,
+                          "w": 160,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "等级 1",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0jt2pto3",
+                          "type": "text",
+                          "name": "卡数量",
+                          "x": 387,
+                          "y": 674,
+                          "w": 160,
+                          "h": 26,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "0/10",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0ktweusz",
+                          "type": "rect",
+                          "name": "牌组卡",
+                          "x": 563,
+                          "y": 500,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 16
+                          }
+                        },
+                        {
+                          "id": "nmtff0loweax1",
+                          "type": "text",
+                          "name": "卡等级",
+                          "x": 563,
+                          "y": 640,
+                          "w": 160,
+                          "h": 28,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "等级 1",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0mq1v88a",
+                          "type": "text",
+                          "name": "卡数量",
+                          "x": 563,
+                          "y": 674,
+                          "w": 160,
+                          "h": 26,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "0/6",
+                            "fontSize": 22,
+                            "bold": false,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0nqvhcrl",
+                          "type": "rect",
+                          "name": "战力条",
+                          "x": 30,
+                          "y": 760,
+                          "w": 700,
+                          "h": 70,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "radius": 12
+                          }
+                        },
+                        {
+                          "id": "nmtff0olorof8",
+                          "type": "text",
+                          "name": "战力值",
+                          "x": 50,
+                          "y": 774,
+                          "w": 250,
+                          "h": 42,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "战力 9888",
+                            "fontSize": 30,
+                            "bold": true,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtff0pmvc9rv",
+                          "type": "text",
+                          "name": "部队统计",
+                          "x": 315,
+                          "y": 774,
+                          "w": 400,
+                          "h": 42,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "☠1 🐺2 🛡3 ⚙1 ⚔4 🏹3",
+                            "fontSize": 24,
+                            "bold": false,
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "id": "nmtff0qn7iv0n",
+                          "type": "text",
+                          "name": "所有卡牌标题",
+                          "x": 30,
+                          "y": 860,
+                          "w": 700,
+                          "h": 40,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "text": "所有卡牌",
+                            "fontSize": 30,
+                            "bold": true,
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "id": "nmtff0rrbs4gb",
+                          "type": "grid",
+                          "name": "全部卡牌网格",
+                          "x": 30,
+                          "y": 920,
+                          "w": 700,
+                          "h": 1140,
+                          "visible": true,
+                          "locked": false,
+                          "props": {
+                            "cols": 4,
+                            "count": 16
+                          },
+                          "itemTags": [
+                            "等级1 5/8",
+                            "未解锁",
+                            "未解锁",
+                            "未解锁",
+                            "等级1 3/8",
+                            "未解锁",
+                            "等级2 4/8",
+                            "未解锁",
+                            "等级1 2/8",
+                            "未解锁",
+                            "等级1 1/8",
+                            "未解锁",
+                            "等级1 6/8",
+                            "未解锁",
+                            "等级2 3/8",
+                            "未解锁"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "id": "nmtff0t3o71d1",
+                      "type": "placeholder",
+                      "name": "段位占位",
+                      "x": 175,
+                      "y": 450,
+                      "w": 400,
+                      "h": 400,
+                      "visible": true,
+                      "locked": false,
+                      "props": {}
+                    },
+                    {
+                      "id": "nmtff0tte8lcv",
+                      "type": "text",
+                      "name": "段位标题",
+                      "x": 175,
+                      "y": 880,
+                      "w": 400,
+                      "h": 36,
+                      "visible": true,
+                      "locked": false,
+                      "props": {
+                        "text": "段位（示例占位）",
+                        "fontSize": 28,
+                        "bold": false,
+                        "align": "center"
+                      }
+                    }
+                  ],
+                  [
+                    {
+                      "id": "nmtff0uzo4ntb",
+                      "type": "placeholder",
+                      "name": "图鉴占位",
+                      "x": 175,
+                      "y": 450,
+                      "w": 400,
+                      "h": 400,
+                      "visible": true,
+                      "locked": false,
+                      "props": {}
+                    },
+                    {
+                      "id": "nmtff0vplo943",
+                      "type": "text",
+                      "name": "图鉴标题",
+                      "x": 175,
+                      "y": 880,
+                      "w": 400,
+                      "h": 36,
+                      "visible": true,
+                      "locked": false,
+                      "props": {
+                        "text": "图鉴（示例占位）",
+                        "fontSize": 28,
+                        "bold": false,
+                        "align": "center"
+                      }
+                    }
+                  ],
+                  [
+                    {
+                      "id": "nmtff0wvy11o8",
+                      "type": "placeholder",
+                      "name": "聊天占位",
+                      "x": 175,
+                      "y": 450,
+                      "w": 400,
+                      "h": 400,
+                      "visible": true,
+                      "locked": false,
+                      "props": {}
+                    },
+                    {
+                      "id": "nmtff0xlj3i6q",
+                      "type": "text",
+                      "name": "聊天标题",
+                      "x": 175,
+                      "y": 880,
+                      "w": 400,
+                      "h": 36,
+                      "visible": true,
+                      "locked": false,
+                      "props": {
+                        "text": "聊天（示例占位）",
+                        "fontSize": 28,
+                        "bold": false,
+                        "align": "center"
+                      }
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "id": "nmtfex1tibjvy",
+                "type": "placeholder",
+                "name": "玩家头像",
+                "x": 12,
+                "y": 130,
+                "w": 140,
+                "h": 140,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfex2jgl3jz",
+                "type": "rect",
+                "name": "战力徽章",
+                "x": 150,
+                "y": 140,
+                "w": 250,
+                "h": 52,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 26
+                }
+              },
+              {
+                "id": "nmtfex3dd9ts1",
+                "type": "text",
+                "name": "战力文字",
+                "x": 165,
+                "y": 148,
+                "w": 220,
+                "h": 36,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "战力 9888",
+                  "fontSize": 26,
+                  "bold": true,
+                  "align": "left"
+                }
+              },
+              {
+                "id": "nmtfex4di4zcg",
+                "type": "rect",
+                "name": "名牌",
+                "x": 60,
+                "y": 200,
+                "w": 345,
+                "h": 56,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 12
+                }
+              },
+              {
+                "id": "nmtfex57z8jjc",
+                "type": "text",
+                "name": "玩家名",
+                "x": 80,
+                "y": 212,
+                "w": 305,
+                "h": 32,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "User315614",
+                  "fontSize": 28,
+                  "bold": true,
+                  "align": "left"
+                }
+              },
+              {
+                "id": "nmtfex67yz5e4",
+                "type": "rect",
+                "name": "联盟条",
+                "x": 0,
+                "y": 270,
+                "w": 365,
+                "h": 52,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 10
+                }
+              },
+              {
+                "id": "nmtfex727tuq2",
+                "type": "text",
+                "name": "联盟名",
+                "x": 20,
+                "y": 278,
+                "w": 180,
+                "h": 36,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "🛡 木头",
+                  "fontSize": 26,
+                  "bold": false,
+                  "align": "left"
+                }
+              },
+              {
+                "id": "nmtfex81hn9ra",
+                "type": "text",
+                "name": "奖杯数",
+                "x": 245,
+                "y": 278,
+                "w": 100,
+                "h": 36,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "🏆 6",
+                  "fontSize": 26,
+                  "bold": false,
+                  "align": "left"
+                }
+              },
+              {
+                "id": "nmtfex91qynea",
+                "type": "placeholder",
+                "name": "订阅特卖横幅",
+                "x": 415,
+                "y": 330,
+                "w": 205,
+                "h": 64,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfex9slgmjp",
+                "type": "text",
+                "name": "订阅特卖文字",
+                "x": 430,
+                "y": 346,
+                "w": 175,
+                "h": 32,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "订阅特卖",
+                  "fontSize": 22,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexauq0u6l",
+                "type": "placeholder",
+                "name": "左侧活动图",
+                "x": 14,
+                "y": 430,
+                "w": 96,
+                "h": 80,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexblf399y",
+                "type": "text",
+                "name": "倒计时",
+                "x": 0,
+                "y": 514,
+                "w": 124,
+                "h": 26,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "1天16时1分",
+                  "fontSize": 18,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexcnaizp8",
+                "type": "placeholder",
+                "name": "左侧活动图",
+                "x": 14,
+                "y": 560,
+                "w": 96,
+                "h": 80,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexdemqfk0",
+                "type": "text",
+                "name": "倒计时",
+                "x": 0,
+                "y": 644,
+                "w": 124,
+                "h": 26,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "1天16时1分",
+                  "fontSize": 18,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexegpdqxk",
+                "type": "placeholder",
+                "name": "左侧活动图",
+                "x": 14,
+                "y": 686,
+                "w": 96,
+                "h": 80,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexf7gcc8a",
+                "type": "text",
+                "name": "倒计时",
+                "x": 0,
+                "y": 770,
+                "w": 124,
+                "h": 26,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "16时1分53秒",
+                  "fontSize": 18,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexg9f8ak7",
+                "type": "placeholder",
+                "name": "礼包图",
+                "x": 620,
+                "y": 320,
+                "w": 112,
+                "h": 96,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexh154id2",
+                "type": "text",
+                "name": "礼包名",
+                "x": 612,
+                "y": 420,
+                "w": 128,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "桌面好礼",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexi3jnujb",
+                "type": "placeholder",
+                "name": "礼包图",
+                "x": 620,
+                "y": 450,
+                "w": 112,
+                "h": 96,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexiusotb5",
+                "type": "text",
+                "name": "礼包名",
+                "x": 612,
+                "y": 550,
+                "w": 128,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "入口有奖",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexjx380ce",
+                "type": "placeholder",
+                "name": "礼包图",
+                "x": 620,
+                "y": 580,
+                "w": 112,
+                "h": 96,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexko4vn7v",
+                "type": "text",
+                "name": "礼包名",
+                "x": 612,
+                "y": 680,
+                "w": 128,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "新手礼包",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexlq4fg28",
+                "type": "placeholder",
+                "name": "礼包图",
+                "x": 620,
+                "y": 710,
+                "w": 112,
+                "h": 96,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexmhklejo",
+                "type": "text",
+                "name": "礼包名",
+                "x": 612,
+                "y": 810,
+                "w": 128,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "基金",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexnjg4m6x",
+                "type": "placeholder",
+                "name": "礼包图",
+                "x": 620,
+                "y": 840,
+                "w": 112,
+                "h": 96,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexoam18c1",
+                "type": "text",
+                "name": "礼包名",
+                "x": 612,
+                "y": 940,
+                "w": 128,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "月卡+20%",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexpd1mk1a",
+                "type": "nine",
+                "name": "竞技场横幅",
+                "x": 215,
+                "y": 415,
+                "w": 320,
+                "h": 60,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexq4ecosp",
+                "type": "text",
+                "name": "竞技场标题",
+                "x": 215,
+                "y": 425,
+                "w": 320,
+                "h": 40,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "竞技场 1",
+                  "fontSize": 30,
+                  "bold": true,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexr8is3e3",
+                "type": "placeholder",
+                "name": "竞技场场景",
+                "x": 165,
+                "y": 490,
+                "w": 420,
+                "h": 340,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfexrznh9o9",
+                "type": "progress",
+                "name": "战斗进度",
+                "x": 225,
+                "y": 858,
+                "w": 300,
+                "h": 20,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "progress": 24
+                }
+              },
+              {
+                "id": "nmtfexsvv56cp",
+                "type": "text",
+                "name": "进度文字",
+                "x": 285,
+                "y": 846,
+                "w": 180,
+                "h": 40,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "6/25",
+                  "fontSize": 26,
+                  "bold": true,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexu00ztpy",
+                "type": "text",
+                "name": "成功文字",
+                "x": 520,
+                "y": 846,
+                "w": 130,
+                "h": 40,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "成功 +3",
+                  "fontSize": 22,
+                  "bold": false,
+                  "align": "left"
+                }
+              },
+              {
+                "id": "nmtfexv0rpsnl",
+                "type": "rect",
+                "name": "今日可获得框",
+                "x": 185,
+                "y": 895,
+                "w": 380,
+                "h": 86,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 12
+                }
+              },
+              {
+                "id": "nmtfexvwuo91r",
+                "type": "text",
+                "name": "今日可获得标题",
+                "x": 185,
+                "y": 903,
+                "w": 380,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "今日可获得",
+                  "fontSize": 24,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexwz946ti",
+                "type": "text",
+                "name": "今日奖励",
+                "x": 185,
+                "y": 938,
+                "w": 380,
+                "h": 36,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "🪙 200",
+                  "fontSize": 28,
+                  "bold": true,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfexy3fsqyj",
+                "type": "button",
+                "name": "玩家对战按钮",
+                "x": 185,
+                "y": 1000,
+                "w": 380,
+                "h": 110,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "玩家对战",
+                  "fontSize": 40,
+                  "bold": true
+                }
+              },
+              {
+                "id": "nmtfexz5whgpo",
+                "type": "rect",
+                "name": "宝箱卡",
+                "x": 8,
+                "y": 1140,
+                "w": 168,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 14
+                }
+              },
+              {
+                "id": "nmtfey02izcmg",
+                "type": "text",
+                "name": "宝箱分值",
+                "x": 8,
+                "y": 1150,
+                "w": 168,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "⚔ 5分",
+                  "fontSize": 22,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfey14z13d2",
+                "type": "placeholder",
+                "name": "宝箱图",
+                "x": 27,
+                "y": 1185,
+                "w": 130,
+                "h": 100,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfey1wro1k4",
+                "type": "text",
+                "name": "宝箱名",
+                "x": 8,
+                "y": 1290,
+                "w": 168,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "竞技场1",
+                  "fontSize": 24,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfey2zftbiw",
+                "type": "text",
+                "name": "解锁提示",
+                "x": 8,
+                "y": 1326,
+                "w": 168,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "点击解锁",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfey42b4snw",
+                "type": "rect",
+                "name": "宝箱卡",
+                "x": 196,
+                "y": 1140,
+                "w": 168,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 14
+                }
+              },
+              {
+                "id": "nmtfey4yvi0lv",
+                "type": "text",
+                "name": "宝箱分值",
+                "x": 196,
+                "y": 1150,
+                "w": 168,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "⚔ 5分",
+                  "fontSize": 22,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfey61jy595",
+                "type": "placeholder",
+                "name": "宝箱图",
+                "x": 215,
+                "y": 1185,
+                "w": 130,
+                "h": 100,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfey6t2fd0j",
+                "type": "text",
+                "name": "宝箱名",
+                "x": 196,
+                "y": 1290,
+                "w": 168,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "竞技场1",
+                  "fontSize": 24,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfey7vjaks4",
+                "type": "text",
+                "name": "解锁提示",
+                "x": 196,
+                "y": 1326,
+                "w": 168,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "点击解锁",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfey8yqr3t8",
+                "type": "rect",
+                "name": "宝箱卡",
+                "x": 384,
+                "y": 1140,
+                "w": 168,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 14
+                }
+              },
+              {
+                "id": "nmtfey9v6npud",
+                "type": "text",
+                "name": "宝箱分值",
+                "x": 384,
+                "y": 1150,
+                "w": 168,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "⚔ 10分",
+                  "fontSize": 22,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfeyaxohzab",
+                "type": "placeholder",
+                "name": "宝箱图",
+                "x": 403,
+                "y": 1185,
+                "w": 130,
+                "h": 100,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfeybpcpso5",
+                "type": "text",
+                "name": "宝箱名",
+                "x": 384,
+                "y": 1290,
+                "w": 168,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "竞技场1",
+                  "fontSize": 24,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfeycsyys4c",
+                "type": "text",
+                "name": "解锁提示",
+                "x": 384,
+                "y": 1326,
+                "w": 168,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "点击解锁",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfeydv07z14",
+                "type": "rect",
+                "name": "宝箱卡",
+                "x": 572,
+                "y": 1140,
+                "w": 168,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 14
+                }
+              },
+              {
+                "id": "nmtfeyes3lx4y",
+                "type": "text",
+                "name": "宝箱分值",
+                "x": 572,
+                "y": 1150,
+                "w": 168,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "⚔ 10分",
+                  "fontSize": 22,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfeyfvbarnx",
+                "type": "placeholder",
+                "name": "宝箱图",
+                "x": 591,
+                "y": 1185,
+                "w": 130,
+                "h": 100,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfeygn4kvt5",
+                "type": "text",
+                "name": "宝箱名",
+                "x": 572,
+                "y": 1290,
+                "w": 168,
+                "h": 30,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "竞技场1",
+                  "fontSize": 24,
+                  "bold": false,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtfeyhpu9wk3",
+                "type": "text",
+                "name": "解锁提示",
+                "x": 572,
+                "y": 1326,
+                "w": 168,
+                "h": 28,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "点击解锁",
+                  "fontSize": 20,
+                  "bold": false,
+                  "align": "center"
+                }
+              }
+            ],
+            [
+              {
+                "id": "nmtff0yr8fzvz",
+                "type": "placeholder",
+                "name": "联盟徽章",
+                "x": 325,
+                "y": 128,
+                "w": 100,
+                "h": 100,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtff0zh5w6j1",
+                "type": "text",
+                "name": "联盟名",
+                "x": 300,
+                "y": 232,
+                "w": 150,
+                "h": 34,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "木头",
+                  "fontSize": 26,
+                  "bold": true,
+                  "align": "center"
+                }
+              },
+              {
+                "id": "nmtff10ii70cu",
+                "type": "scroll",
+                "name": "榜单滚动区",
+                "x": 20,
+                "y": 290,
+                "w": 710,
+                "h": 1240,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "children": [
+                  {
+                    "id": "nmtff118buhxc",
+                    "type": "rect",
+                    "name": "榜单行58",
+                    "x": 40,
+                    "y": 310,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff122sh2dc",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 340,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#58",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1334q0gp",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 322,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff13soczft",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 340,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "躺赢大",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff14rg5aex",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 340,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 9",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff15s1ipbw",
+                    "type": "rect",
+                    "name": "榜单行59",
+                    "x": 40,
+                    "y": 428,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff16mbimd3",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 458,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#59",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff17mc4w97",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 440,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff18cjgd1j",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 458,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "Lets Win",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff19bnaka2",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 458,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 9",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff1ac2adyu",
+                    "type": "rect",
+                    "name": "榜单行60",
+                    "x": 40,
+                    "y": 546,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff1b6na6vh",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 576,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#60",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1c7ev4nz",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 558,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff1cx9glb6",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 576,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "今天吃什么",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1dweutid",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 576,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 9",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff1ewwte8s",
+                    "type": "rect",
+                    "name": "榜单行61",
+                    "x": 40,
+                    "y": 664,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff1frqwsz9",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 694,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#61",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1gsgmkt6",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 676,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff1hih1y09",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 694,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "Kero",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1ii0e5x2",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 694,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 9",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff1jiip9z3",
+                    "type": "rect",
+                    "name": "榜单行62",
+                    "x": 40,
+                    "y": 782,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff1kdjr4wi",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 812,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#62",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1le59vfh",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 794,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff1m4pgeqi",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 812,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "soyoo",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1n4jkqkk",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 812,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 9",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff1o5kseyd",
+                    "type": "rect",
+                    "name": "榜单行63",
+                    "x": 40,
+                    "y": 900,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff1p0fyssj",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 930,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#63",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1q0xcx5m",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 912,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff1qr9bm0o",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 930,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "夏夜晚风",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1rr7gcyg",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 930,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 9",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff1ssa4z3c",
+                    "type": "rect",
+                    "name": "榜单行64",
+                    "x": 40,
+                    "y": 1018,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff1tnfqsmr",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 1048,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#64",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1uowu2ti",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 1030,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff1vepp116",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 1048,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "咪劣情",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1wecx1ni",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 1048,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 8",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff1xg3u5t5",
+                    "type": "rect",
+                    "name": "榜单行65",
+                    "x": 40,
+                    "y": 1136,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff1ybkkp1r",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 1166,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#65",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff1zc95svk",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 1148,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff202tqhs4",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 1166,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "小雨在努力",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff212nhl26",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 1166,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 8",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff223wz2dl",
+                    "type": "rect",
+                    "name": "榜单行66",
+                    "x": 40,
+                    "y": 1254,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff22yxtdbg",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 1284,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#66",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff240es9sc",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 1266,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff24r2avc8",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 1284,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "阿伟",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff25qvo655",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 1284,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 8",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff26sqzono",
+                    "type": "rect",
+                    "name": "榜单行67",
+                    "x": 40,
+                    "y": 1372,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff27nxi0to",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 1402,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#67",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff28p4buio",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 1384,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff29fobjcm",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 1402,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "打工人",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff2ag0e375",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 1402,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 7",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff2bhlzkuy",
+                    "type": "rect",
+                    "name": "榜单行68",
+                    "x": 40,
+                    "y": 1490,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff2cdkq8us",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 1520,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#68",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff2dddt6j9",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 1502,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff2e47n729",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 1520,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "老猫",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff2f4ltbxp",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 1520,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 7",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  },
+                  {
+                    "id": "nmtff2g64wy5a",
+                    "type": "rect",
+                    "name": "榜单行69",
+                    "x": 40,
+                    "y": 1608,
+                    "w": 670,
+                    "h": 100,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "radius": 16
+                    }
+                  },
+                  {
+                    "id": "nmtff2h22nd2b",
+                    "type": "text",
+                    "name": "名次",
+                    "x": 60,
+                    "y": 1638,
+                    "w": 100,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "#69",
+                      "fontSize": 28,
+                      "bold": true,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff2i3kjuqf",
+                    "type": "placeholder",
+                    "name": "榜单头像",
+                    "x": 175,
+                    "y": 1620,
+                    "w": 76,
+                    "h": 76,
+                    "visible": true,
+                    "locked": false,
+                    "props": {}
+                  },
+                  {
+                    "id": "nmtff2iudr7gq",
+                    "type": "text",
+                    "name": "榜单玩家名",
+                    "x": 270,
+                    "y": 1638,
+                    "w": 260,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "夜风",
+                      "fontSize": 26,
+                      "bold": false,
+                      "align": "left"
+                    }
+                  },
+                  {
+                    "id": "nmtff2juu69s6",
+                    "type": "text",
+                    "name": "榜单奖杯数",
+                    "x": 540,
+                    "y": 1638,
+                    "w": 150,
+                    "h": 40,
+                    "visible": true,
+                    "locked": false,
+                    "props": {
+                      "text": "🏆 6",
+                      "fontSize": 28,
+                      "bold": false,
+                      "align": "right"
+                    }
+                  }
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

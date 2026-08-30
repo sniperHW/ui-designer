@@ -308,8 +308,11 @@ export function slotsOfDef(innerTree: WidgetNode[], def: CustomWidgetDef): { key
   return out
 }
 
+let clipSeq = 0
+
 function clipped(rect: Rect, key: string, body: string): string {
-  const id = `clip-${key}`
+  // id 每次渲染递增：同一节点会同时出现在画布与页面缩略图中，固定 id 会因 SVG 全局 id 冲突互相裁剪
+  const id = `clip-${key}-c${++clipSeq}`
   return (
     `<defs><clipPath id="${id}"><rect x="${rect.x}" y="${rect.y}" width="${rect.w}" height="${rect.h}"/></clipPath></defs>` +
     `<g clip-path="url(#${id})">${body}</g>`
