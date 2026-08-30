@@ -145,7 +145,7 @@ export function makeUI({ call, evalJs, sleep }) {
       const subs = [...(n.pages ?? []), ...(n.children ? [n.children] : []), ...(n.slots ? Object.values(n.slots) : [])]
       for (const c of subs) walk(c) } }
     walk(s.editRoot())
-    return f ? { id: f.id, type: f.type, name: f.name, x: f.x, y: f.y, w: f.w, h: f.h, props: f.props, activeTab: f.activeTab ?? null } : null
+    return f ? { id: f.id, type: f.type, name: f.name, x: f.x, y: f.y, w: f.w, h: f.h, props: f.props, activeTab: f.activeTab ?? null, overrides: f.overrides ?? null } : null
   })()`)
 
   /** 只读：工程概况 */

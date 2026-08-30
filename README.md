@@ -31,7 +31,7 @@ npm run build      # 构建产物（out/）
 ## 示例工程
 
 - `examples/竞技场-界面操作原型.uiw` — 以界面操作方式搭建的同款 4 界面原型（战斗 / 商店 / 卡牌 / 排名，竖屏 750×1600）：顶部状态栏在公共层，底部导航为 TabView；商店「特卖 / 基础」与卡牌「卡组 / 段位 / 图鉴 / 聊天」为嵌套 Tab 内嵌滚动区，排行榜为滚动区。
-- `tests/gui-arena/` — 上述原型的界面操作自动化（CDP 输入事件驱动真实 UI，不直接写数据）：`node tests/gui-arena/build.mjs` 全程界面操作复现搭建，`node tests/gui-arena/shot.mjs` 结构校验 + 逐页签截图。
+- `tests/gui-arena/` — 上述原型的界面操作自动化（CDP 输入事件驱动真实 UI，不直接写数据）：`node tests/gui-arena/build.mjs` 全程界面操作复现搭建，`node tests/gui-arena/shot.mjs` 结构校验 + 逐页签截图，`node tests/gui-arena/customize.mjs` / `customize2.mjs` / `customize3.mjs` 为定制控件化改造复现（牌组换筛选器；卡牌 / 特卖礼包 / 榜单条目 / 竞技场宝箱 / 左右侧栏活动做成定制控件并以暴露属性覆盖）。
 - `examples/竞技场-4页签原型.uiw` — 参考竞技场手游截图制作的 4 页面原型（战斗 / 商店 / 卡牌 / 排名，默认战斗页），竖屏 750×1600；顶部资源栏与底部页签导航在公共层（含锚点，切分辨率预览可看自适应），各页在自己的页签位叠加高亮。
 - `examples/竞技场-TabView原型.uiw` — 同一套界面的方式一实现：单页 + 底部 Tab 容器（页签栏在底部），画布点击页签头即可切换界面，默认选中战斗；导航图标以兄弟节点叠加在页签栏上（页签头只能渲染文字），Tab 容器从顶部资源栏下方开始以免自带白底遮住公共层。
 - 两版共享 `examples/arena-lib.mjs`（界面内容与宝箱卡 / 礼包横幅 / 榜单行定制控件定义，暴露属性改文字）；商店页内「特卖 / 基础」为嵌套 Tab 容器（页签栏在底部），页签内容用滚动区承载、可上下滚动（传奇卡包被下边缘裁剪示意继续下滑）；`node examples/build-arena-4tabs.mjs` / `node examples/build-arena-tabview.mjs` 重新生成。
