@@ -30,10 +30,11 @@ export async function doOpen(): Promise<void> {
     if (doc?.version !== 1 || !Array.isArray(doc.pages) || !doc.meta?.designWidth) {
       throw new Error('文件格式不正确')
     }
-    // 兼容旧工程文件：无 commonLayer 时补空公共层
+    // 兼容旧工程文件：无 commonLayer / customWidgets 时补默认值
     if (!doc.commonLayer) {
       doc.commonLayer = { id: 'common', name: '公共层', nodes: [] }
     }
+    if (!doc.customWidgets) doc.customWidgets = []
     useEditor.getState().loadProject(doc, r.path)
   } catch (e) {
     alert('无法打开工程文件：' + (e as Error).message)
@@ -53,13 +54,13 @@ export async function doExportPng(): Promise<void> {
     ? ''
     : s.doc.commonLayer.nodes
         .filter((n) => n.visible)
-        .map((n) => renderTreeSVG(n))
+        .map((n) => renderTreeSVG(n, s.doc.customWidgets))
         .join('')
   const body =
     commonBody +
     page.nodes
       .filter((n) => n.visible)
-      .map((n) => renderTreeSVG(n))
+      .map((n) => renderTreeSVG(n, s.doc.customWidgets))
       .join('')
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" width="${dw * scale}" height="${dh * scale}" viewBox="0 0 ${dw} ${dh}">` +

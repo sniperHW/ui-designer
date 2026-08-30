@@ -1,5 +1,7 @@
 import { useEditor } from '../store/editorStore'
 import { doSave, doOpen, doExportPng, confirmDiscard } from '../fileOps'
+import { PREVIEW_RATIOS } from '../widgets/registry'
+import type { WidgetNode } from '../types'
 
 function MenuItem({
   label,
@@ -28,6 +30,35 @@ function MenuItem({
   )
 }
 
+/** 当前选中是否为单个定制控件实例 */
+function useSingleCustomInstance(): { id: string; customId: string } | null {
+  const selectedIds = useEditor((s) => s.selectedIds)
+  const doc = useEditor((s) => s.doc)
+  const editingWidgetId = useEditor((s) => s.editingWidgetId)
+  if (selectedIds.length !== 1 || editingWidgetId) return null
+  for (const p of [doc.commonLayer, ...doc.pages]) {
+    const found = findCustom(p.nodes, selectedIds[0])
+    if (found) return found
+  }
+  return null
+}
+
+function findCustom(arr: WidgetNode[], id: string): { id: string; customId: string } | null {
+  for (const n of arr) {
+    if (n.id === id && n.type === 'custom' && n.customId) return { id: n.id, customId: n.customId }
+    const subs = [
+      ...(n.pages ?? []),
+      ...(n.children ? [n.children] : []),
+      ...(n.slots ? Object.values(n.slots) : [])
+    ]
+    for (const s of subs) {
+      const r = findCustom(s, id)
+      if (r) return r
+    }
+  }
+  return null
+}
+
 export default function Header() {
   const canUndo = useEditor((s) => s.past.length > 0)
   const canRedo = useEditor((s) => s.future.length > 0)
@@ -35,10 +66,13 @@ export default function Header() {
   const clipboardCount = useEditor((s) => s.clipboard.length)
   const showGrid = useEditor((s) => s.showGrid)
   const snapEnabled = useEditor((s) => s.snapEnabled)
+  const showSafeArea = useEditor((s) => s.showSafeArea)
+  const previewRatio = useEditor((s) => s.previewRatio)
   const zoom = useEditor((s) => s.viewport.zoom)
   const dirty = useEditor((s) => s.dirty)
   const docName = useEditor((s) => s.doc.meta.name)
   const hasProject = useEditor((s) => s.hasProject)
+  const inst = useSingleCustomInstance()
 
   const st = () => useEditor.getState()
 
@@ -84,6 +118,48 @@ export default function Header() {
           </div>
         </details>
         <details className="menu">
+          <summary>控件</summary>
+          <div className="menu-items">
+            <MenuItem label="新建定制控件（空白）" disabled={!hasProject} onClick={() => st().createCustomWidget({ kind: 'blank' })} />
+            <MenuItem
+              label="以 Tab 容器为骨架新建…"
+              disabled={!hasProject}
+              onClick={() => st().createCustomWidget({ kind: 'tab', tabs: ['页签 1', '页签 2'], barPosition: 'top' })}
+            />
+            <MenuItem
+              label="以面板为骨架新建"
+              disabled={!hasProject}
+              onClick={() => st().createCustomWidget({ kind: 'panel' })}
+            />
+            <MenuItem
+              label="以弹窗为骨架新建"
+              disabled={!hasProject}
+              onClick={() => st().createCustomWidget({ kind: 'dialog', title: '弹窗标题' })}
+            />
+            <MenuItem
+              label="以滚动区为骨架新建"
+              disabled={!hasProject}
+              onClick={() => st().createCustomWidget({ kind: 'scroll' })}
+            />
+            <div className="menu-sep" />
+            <MenuItem
+              label="存为定制控件"
+              disabled={selectedCount === 0}
+              onClick={() => st().saveSelectionAsCustom()}
+            />
+            <MenuItem
+              label="编辑选中实例的定义"
+              disabled={!inst}
+              onClick={() => inst && st().setEditingWidget(inst.customId)}
+            />
+            <MenuItem
+              label="打散实例为普通组合"
+              disabled={!inst}
+              onClick={() => inst && st().detachInstance(inst.id)}
+            />
+          </div>
+        </details>
+        <details className="menu">
           <summary>视图</summary>
           <div className="menu-items">
             <MenuItem label="放大" accel="⌘=" onClick={() => st().zoomByCenter(1.2)} />
@@ -93,6 +169,16 @@ export default function Header() {
             <div className="menu-sep" />
             <MenuItem label={(showGrid ? '✓ ' : '') + '显示网格'} onClick={() => st().toggleGrid()} />
             <MenuItem label={(snapEnabled ? '✓ ' : '') + '网格吸附'} onClick={() => st().toggleSnap()} />
+            <MenuItem label={(showSafeArea ? '✓ ' : '') + '安全区参考框'} onClick={() => st().toggleSafeArea()} />
+            <div className="menu-sep" />
+            <div className="menu-group-title">分辨率预览（按锚点重排，只读）</div>
+            {PREVIEW_RATIOS.map((r) => (
+              <MenuItem
+                key={r.id}
+                label={(previewRatio === r.id ? '✓ ' : '') + r.label}
+                onClick={() => st().setPreviewRatio(r.id)}
+              />
+            ))}
           </div>
         </details>
         <details className="menu">
@@ -100,7 +186,9 @@ export default function Header() {
           <div className="menu-items">
             <MenuItem
               label="关于…"
-              onClick={() => alert('手游 UI 雏形设计工具 v0.1\n线框图原型编辑器（M0 / M1）\n\n设计文档见：概念设计.md')}
+              onClick={() =>
+                alert('手游 UI 雏形设计工具 v0.1\n线框图原型编辑器（M0 – M2）\n\n设计文档见：概念设计.md')
+              }
             />
           </div>
         </details>

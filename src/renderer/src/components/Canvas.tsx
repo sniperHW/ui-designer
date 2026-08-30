@@ -1,8 +1,18 @@
 import { useEffect, useRef } from 'react'
 import type { DragEvent, PointerEvent as RPointerEvent, ReactNode } from 'react'
 import { useEditor } from '../store/editorStore'
-import { widgetInnerSVG, tabBarRect, renderTreeSVG } from '../widgets/registry'
-import type { WidgetDef } from '../widgets/registry'
+import {
+  contentRectOf,
+  previewDims,
+  renderCustomInstance,
+  renderKidsOf,
+  renderTreeSVG,
+  tabBarRect,
+  transformTree,
+  widgetInnerSVG
+} from '../widgets/registry'
+import type { CustomWidgetDef } from '../types'
+import type { Rect, SlotInfo, WidgetDef } from '../widgets/registry'
 import { canvasEl } from '../canvasRef'
 import type { WidgetNode } from '../types'
 import SelectionOverlay from './SelectionOverlay'
@@ -10,17 +20,33 @@ import SelectionOverlay from './SelectionOverlay'
 export default function Canvas() {
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
+  const editingWidgetId = useEditor((s) => s.editingWidgetId)
   const viewport = useEditor((s) => s.viewport)
   const showGrid = useEditor((s) => s.showGrid)
   const gridSize = useEditor((s) => s.gridSize)
   const fitToken = useEditor((s) => s.fitToken)
+  const previewRatio = useEditor((s) => s.previewRatio)
+  const showSafeArea = useEditor((s) => s.showSafeArea)
   const wrapRef = useRef<HTMLDivElement>(null)
-  const isCommon = pageIndex < 0
-  const page = isCommon
-    ? doc.commonLayer
-    : doc.pages[Math.min(pageIndex, doc.pages.length - 1)]
+  const isCommon = pageIndex < 0 && !editingWidgetId
+  const inPreview = previewRatio !== 'design' && !editingWidgetId
   const { designWidth: dw, designHeight: dh } = doc.meta
-  const commonVisible = isCommon ? [] : doc.commonLayer.nodes.filter((n) => n.visible)
+  const pd = previewDims(doc.meta, previewRatio)
+  const boardW = inPreview ? pd.w : dw
+  const boardH = inPreview ? pd.h : dh
+
+  const editingDef = editingWidgetId
+    ? doc.customWidgets.find((w) => w.id === editingWidgetId) ?? null
+    : null
+  const page = isCommon ? doc.commonLayer : doc.pages[Math.min(pageIndex, doc.pages.length - 1)]
+  const design = { x: 0, y: 0, w: dw, h: dh }
+  const target = { x: 0, y: 0, w: boardW, h: boardH }
+  // 预览模式：按锚点规则把设计尺寸布局重排到目标分辨率（只读）
+  const pageNodes = editingDef ? editingDef.tree : inPreview ? transformTree(page.nodes, design, target) : page.nodes
+  const commonNodes =
+    !isCommon && !editingDef ? (inPreview ? transformTree(doc.commonLayer.nodes, design, target) : doc.commonLayer.nodes) : []
+  const commonVisible = commonNodes.filter((n) => n.visible)
+  const interactive = !inPreview
 
   useEffect(() => {
     canvasEl.current = wrapRef.current
@@ -132,15 +158,27 @@ export default function Canvas() {
     const snapshot = new Map<string, { x: number; y: number }>()
     const addTree = (m: WidgetNode): void => {
       snapshot.set(m.id, { x: m.x, y: m.y })
-      if (m.pages) for (const p of m.pages) for (const c of p) addTree(c)
+      const subs: WidgetNode[][] = [
+        ...(m.pages ?? []),
+        ...(m.children ? [m.children] : []),
+        ...(m.slots ? Object.values(m.slots) : [])
+      ]
+      for (const p of subs) for (const c of p) addTree(c)
     }
     const collect = (arr: WidgetNode[]): void => {
       for (const m of arr) {
         if (selSet.has(m.id)) addTree(m)
-        else if (m.pages) for (const p of m.pages) collect(p)
+        else {
+          const subs: WidgetNode[][] = [
+            ...(m.pages ?? []),
+            ...(m.children ? [m.children] : []),
+            ...(m.slots ? Object.values(m.slots) : [])
+          ]
+          for (const p of subs) collect(p)
+        }
       }
     }
-    collect(st.currentPage().nodes)
+    collect(st.editRoot())
     const moveIds = [...snapshot.keys()]
     const primary = snapshot.get(n.id) ?? { x: n.x, y: n.y }
     let pushed = false
@@ -183,11 +221,17 @@ export default function Canvas() {
   const onDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     const json = e.dataTransfer.getData('application/x-widget-def')
-    if (!json) return
+    const customId = e.dataTransfer.getData('application/x-widget-custom')
+    if (!json && !customId) return
     try {
-      const def = JSON.parse(json) as WidgetDef
       const pt = toDoc(e.clientX, e.clientY)
-      useEditor.getState().addWidget(def, pt.x, pt.y)
+      const st = useEditor.getState()
+      if (customId) {
+        st.addWidgetCustom(customId, pt.x, pt.y)
+      } else {
+        const def = JSON.parse(json) as WidgetDef
+        st.addWidget(def, pt.x, pt.y)
+      }
     } catch {
       /* 忽略无效拖拽数据 */
     }
@@ -198,7 +242,7 @@ export default function Canvas() {
     useEditor.getState().setMouse(pt.x, pt.y)
   }
 
-  const hasNodes = page.nodes.length > 0 || commonVisible.length > 0
+  const hasNodes = pageNodes.length > 0 || commonVisible.length > 0
 
   return (
     <div
@@ -218,87 +262,157 @@ export default function Canvas() {
           <rect
             x={0}
             y={0}
-            width={dw}
-            height={dh}
+            width={boardW}
+            height={boardH}
             fill="#ffffff"
             style={{ filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.35))' }}
           />
-          {showGrid && <rect x={0} y={0} width={dw} height={dh} fill="url(#gridpat)" />}
+          {showGrid && !inPreview && <rect x={0} y={0} width={boardW} height={boardH} fill="url(#gridpat)" />}
           <rect
             x={0}
             y={0}
-            width={dw}
-            height={dh}
+            width={boardW}
+            height={boardH}
             fill="none"
             stroke="#9aa0ab"
             strokeWidth="1"
             vectorEffect="non-scaling-stroke"
           />
-          {/* 公共层：普通页面中只读显示（渲染在页面内容之下） */}
+          {/* 公共层：普通页面中只读显示（渲染在页面内容之下）；预览模式下按锚点重排 */}
           {!isCommon &&
+            !editingDef &&
             commonVisible.map((n) => (
               <g
                 key={'common-' + n.id}
                 className="common-layer"
                 style={{ pointerEvents: 'none' }}
-                dangerouslySetInnerHTML={{ __html: renderTreeSVG(n) }}
+                dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, doc.customWidgets) }}
               />
             ))}
-          {page.nodes
+          {pageNodes
             .filter((n) => n.visible)
             .map((n) => (
-              <NodeGroup key={n.id} n={n} nodeDown={nodeDown} />
+              <NodeGroup key={n.id} n={n} nodeDown={nodeDown} defs={doc.customWidgets} interactive={interactive} />
             ))}
+          {/* 安全区参考框（§6）：刘海屏参考，虚线示意 */}
+          {showSafeArea && !editingDef && (
+            <g style={{ pointerEvents: 'none' }}>
+              <rect
+                x={Math.round(boardW * 0.03)}
+                y={Math.round(boardH * 0.04)}
+                width={Math.round(boardW * 0.94)}
+                height={Math.round(boardH * 0.92)}
+                fill="none"
+                stroke="#e05555"
+                strokeWidth="1.5"
+                strokeDasharray="10 6"
+                vectorEffect="non-scaling-stroke"
+              />
+              <text x={Math.round(boardW * 0.03) + 6} y={Math.round(boardH * 0.04) + 18} fill="#e05555" fontSize="18">
+                安全区参考
+              </text>
+            </g>
+          )}
         </g>
       </svg>
-      {!hasNodes && <div className="canvas-empty">从左侧控件库拖入控件开始设计</div>}
-      {isCommon && (
-        <div className="common-badge">● 正在编辑公共层 — 修改对所有页面生效</div>
+      {!hasNodes && !editingDef && <div className="canvas-empty">从左侧控件库拖入控件开始设计</div>}
+      {editingDef && (
+        <div className="common-badge">🧩 正在编辑定制控件「{editingDef.name}」— 修改保存后所有实例同步更新</div>
       )}
-      <SelectionOverlay />
+      {inPreview && (
+        <div className="preview-badge">
+          分辨率预览 {boardW} × {boardH}（只读，按锚点重排）
+        </div>
+      )}
+      {isCommon && <div className="common-badge">● 正在编辑公共层 — 修改对所有页面生效</div>}
+      {!inPreview && <SelectionOverlay />}
     </div>
   )
 }
 
-/** 递归渲染控件：外形 + Tab 当前页签的子控件（裁剪到内容区） */
+/** 递归渲染控件：外形 + 容器当前内容（裁剪到内容区）+ 定制控件插槽内容 */
 function NodeGroup({
   n,
-  nodeDown
+  nodeDown,
+  defs,
+  interactive
 }: {
   n: WidgetNode
   nodeDown: (e: RPointerEvent<SVGGElement>, n: WidgetNode) => void
+  defs: CustomWidgetDef[]
+  interactive: boolean
 }) {
+  const down = interactive ? (e: RPointerEvent<SVGGElement>) => nodeDown(e, n) : undefined
+
+  // 定制控件实例：内部结构只读渲染；插槽内容是实例子控件，可交互
+  if (n.type === 'custom') {
+    const def = defs.find((d) => d.id === n.customId)
+    if (!def) {
+      return (
+        <g data-id={n.id} onPointerDown={down} style={{ cursor: interactive && !n.locked ? 'move' : 'default' }}>
+          <g dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, defs) }} />
+        </g>
+      )
+    }
+    const r = renderCustomInstance(n, def, defs)
+    return (
+      <g
+        data-id={n.id}
+        onPointerDown={down}
+        style={{ cursor: interactive && !n.locked ? 'move' : 'default' }}
+      >
+        <g dangerouslySetInnerHTML={{ __html: r.inner }} />
+        {r.slots.map((sl: SlotInfo) => {
+          const kids = sl.children.filter((c) => c.visible)
+          if (!kids.length) return null
+          return (
+            <ClippedGroup key={sl.key} clipId={`clip-${n.id}-${sl.key}`} rect={sl.rect}>
+              {kids.map((c) => (
+                <NodeGroup key={c.id} n={c} nodeDown={nodeDown} defs={defs} interactive={interactive} />
+              ))}
+            </ClippedGroup>
+          )
+        })}
+      </g>
+    )
+  }
+
+  // 容器：当前内容区子控件（Tab = 当前页签；面板 / 弹窗 / 滚动区 = children）
+  const kids = renderKidsOf(n)
+  const rect = contentRectOf(n)
   let children: ReactNode = null
-  if (n.type === 'tab' && n.pages && n.pages.length) {
-    const active = Math.max(0, Math.min((n.props.tabs?.length ?? 1) - 1, n.activeTab ?? 0))
-    const barH = Math.min(40, n.h / 2)
-    const bottom = (n.props.barPosition ?? 'top') === 'bottom'
-    const cy0 = bottom ? n.y : n.y + barH
-    const ch = Math.max(0, n.h - barH)
-    const clipId = `clip-${n.id}`
-    const visible = (n.pages[active] ?? []).filter((c) => c.visible)
+  if (kids && kids.length && rect) {
+    const visible = kids.filter((c) => c.visible)
     if (visible.length > 0) {
       children = (
-        <g clipPath={`url(#${clipId})`}>
-          <defs>
-            <clipPath id={clipId}>
-              <rect x={n.x} y={cy0} width={n.w} height={ch} />
-            </clipPath>
-          </defs>
+        <ClippedGroup clipId={`clip-${n.id}`} rect={rect}>
           {visible.map((c) => (
-            <NodeGroup key={c.id} n={c} nodeDown={nodeDown} />
+            <NodeGroup key={c.id} n={c} nodeDown={nodeDown} defs={defs} interactive={interactive} />
           ))}
-        </g>
+        </ClippedGroup>
       )
     }
   }
   return (
     <g
       data-id={n.id}
-      onPointerDown={(e) => nodeDown(e, n)}
-      style={{ cursor: n.locked ? 'default' : 'move' }}
+      onPointerDown={down}
+      style={{ cursor: n.locked || !interactive ? 'default' : 'move' }}
     >
       <g dangerouslySetInnerHTML={{ __html: widgetInnerSVG(n) }} />
+      {children}
+    </g>
+  )
+}
+
+function ClippedGroup({ clipId, rect, children }: { clipId: string; rect: Rect; children: ReactNode }) {
+  return (
+    <g clipPath={`url(#${clipId})`}>
+      <defs>
+        <clipPath id={clipId}>
+          <rect x={rect.x} y={rect.y} width={rect.w} height={rect.h} />
+        </clipPath>
+      </defs>
       {children}
     </g>
   )

@@ -43,7 +43,7 @@ export default function PagePanel() {
             <rect x={0} y={0} width={dw} height={dh} fill="#fff" stroke="#d9d9de" strokeWidth="4" />
             {doc.commonLayer.nodes
               .filter((n) => n.visible)
-              .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n) }} />)}
+              .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, doc.customWidgets) }} />)}
           </svg>
           <span className="page-name">⚙ 公共层（所有页面共享）</span>
         </div>
@@ -63,10 +63,10 @@ export default function PagePanel() {
               <rect x={0} y={0} width={dw} height={dh} fill="#fff" stroke="#d9d9de" strokeWidth="4" />
               {doc.commonLayer.nodes
                 .filter((n) => n.visible)
-                .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n) }} />)}
+                .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, doc.customWidgets) }} />)}
               {p.nodes
                 .filter((n) => n.visible)
-                .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n) }} />)}
+                .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, doc.customWidgets) }} />)}
             </svg>
             {editing === i ? (
               <input

@@ -52,8 +52,8 @@ async function main() {
   await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace' }))")
   await sleep(200)
 
-  // —— 1. 从控件库点击添加 Tab（真实点击，容器分组第 11 项）——
-  const c = await evalJs(`(() => { const r = document.querySelectorAll('.lib-item')[10].getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 } })()`)
+  // —— 1. 从控件库点击添加 Tab（真实点击，按标签定位；先滚动到可视区）——
+  const c = await evalJs(`(() => { const items = [...document.querySelectorAll('.lib-item')]; const el = items.find(i => i.querySelector('.lib-label')?.textContent === 'Tab 页签'); el.scrollIntoView({ block: 'center' }); const r = el.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 } })()`)
   await click(c.x, c.y)
   await sleep(300)
   const st1 = await evalJs(`(() => { const st = window.__uiw.getState(); const n = st.currentPage().nodes[0]; return n ? { type: n.type, tabs: n.props.tabs, pages: (n.pages || []).map(p => p.length), active: n.activeTab, w: n.w, h: n.h } : null })()`)

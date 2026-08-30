@@ -2,31 +2,49 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { useEditor } from '../store/editorStore'
 import type { WidgetNode, WidgetType } from '../types'
+import { renderKidsOf } from '../widgets/registry'
 
 const TYPE_LABEL: Record<WidgetType, string> = {
   rect: '形状',
   ellipse: '椭圆',
   line: '线段',
   placeholder: '占位图',
+  nine: '九宫格',
   text: '文本',
   button: '按钮',
   checkbox: '复选框',
   progress: '进度条',
   input: '输入框',
-  tab: '页签'
+  filter: '筛选器',
+  panel: '面板',
+  dialog: '弹窗',
+  scroll: '滚动',
+  list: '列表',
+  grid: '网格',
+  tab: '页签',
+  custom: '定制'
 }
 
 export default function LayerPanel() {
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
-  const page = pageIndex < 0 ? doc.commonLayer : doc.pages[pageIndex]
-  if (!page) return null
+  const editingWidgetId = useEditor((s) => s.editingWidgetId)
+  const editingDef = editingWidgetId ? doc.customWidgets.find((w) => w.id === editingWidgetId) : null
+  const root = editingDef
+    ? editingDef.tree
+    : pageIndex < 0
+      ? doc.commonLayer.nodes
+      : doc.pages[pageIndex]?.nodes ?? []
   const rows: ReactNode[] = []
-  renderRows(page.nodes, 0, rows)
+  renderRows(root, 0, rows)
   return (
     <div className="layers">
       <div className="panel-title">
-        {pageIndex < 0 ? '公共层图层（所有页面共享）' : '图层（排在前面的显示在上层；Tab 子控件缩进显示；双击重命名）'}
+        {editingDef
+          ? `定义图层「${editingDef.name}」（Tab 子控件、插槽内容缩进显示）`
+          : pageIndex < 0
+            ? '公共层图层（所有页面共享）'
+            : '图层（排在前面的显示在上层；容器子控件缩进显示；双击重命名）'}
       </div>
       <div className="layer-list">{rows}</div>
     </div>
@@ -37,9 +55,10 @@ function renderRows(arr: WidgetNode[], depth: number, out: ReactNode[]): void {
   for (let i = arr.length - 1; i >= 0; i--) {
     const n = arr[i]
     out.push(<Row key={n.id} n={n} depth={depth} />)
-    if (n.type === 'tab' && n.pages) {
-      const active = Math.max(0, Math.min((n.props.tabs?.length ?? 1) - 1, n.activeTab ?? 0))
-      renderRows(n.pages[active] ?? [], depth + 1, out)
+    const kids = renderKidsOf(n)
+    if (kids) renderRows(kids, depth + 1, out)
+    if (n.slots) {
+      for (const list of Object.values(n.slots)) renderRows(list, depth + 1, out)
     }
   }
 }

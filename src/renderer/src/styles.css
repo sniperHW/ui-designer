@@ -767,3 +767,152 @@ select {
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* ===== M2：锚点 / 定制控件 / 预览 ===== */
+.anchor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 26px);
+  gap: 3px;
+}
+.anchor-grid button {
+  width: 26px;
+  height: 24px;
+  border: 1px solid #d0d0d6;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #374151;
+}
+.anchor-grid button.on {
+  background: #e0eaff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+.prop-sub {
+  border: 1px solid #e5e5ea;
+  border-radius: 6px;
+  padding: 6px;
+  margin: 6px 0;
+  background: #fafafc;
+}
+.bind-row .bind-target {
+  flex: 1;
+  font-size: 12px;
+  color: #6b7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bind-form {
+  border-top: 1px dashed #d8d8de;
+  margin-top: 8px;
+  padding-top: 8px;
+}
+.w-full {
+  width: 100%;
+  margin-top: 6px;
+}
+.edit-target-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: #f7f7f9;
+  border-bottom: 1px solid #e2e2e8;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.edit-target-bar .chip {
+  height: 24px;
+  padding: 0 10px;
+  border: 1px solid #d5d5dc;
+  background: #fff;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #4b5563;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.edit-target-bar .chip.on {
+  background: #e0eaff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+.edit-target-bar .chip.widget.on {
+  background: #e8f7ee;
+  border-color: #16a34a;
+  color: #15803d;
+}
+.edit-target-bar .chip.add {
+  border-style: dashed;
+  color: #6b7280;
+}
+.edit-target-bar .chip-sep {
+  width: 1px;
+  height: 16px;
+  background: #d8d8de;
+  flex-shrink: 0;
+}
+.preview-badge {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 12px;
+  border-radius: 12px;
+  pointer-events: none;
+}
+.sb-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #6b7280;
+}
+.sb-select select {
+  height: 20px;
+  font-size: 11px;
+  border: 1px solid #d0d0d6;
+  border-radius: 4px;
+  background: #fff;
+}
+.lib-item.custom-item {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.lib-item.custom-item .lib-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lib-item.custom-item input {
+  flex: 1;
+  min-width: 0;
+  height: 20px;
+  font-size: 11px;
+  border: 1px solid #d0d0d6;
+  border-radius: 4px;
+}
+.menu-group-title {
+  font-size: 11px;
+  color: #9ca3af;
+  padding: 4px 14px 2px;
+}
+.prop-row select {
+  flex: 1;
+  min-width: 0;
+  height: 26px;
+  border: 1px solid #d0d0d6;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 12px;
+}

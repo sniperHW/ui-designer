@@ -8,6 +8,7 @@ import LayerPanel from './components/LayerPanel'
 import Canvas from './components/Canvas'
 import PropsPanel from './components/PropsPanel'
 import StatusBar from './components/StatusBar'
+import EditTargetBar from './components/EditTargetBar'
 import NewProjectModal from './components/NewProjectModal'
 import Welcome from './components/Welcome'
 
@@ -93,6 +94,7 @@ export default function App() {
             <PagePanel />
           </div>
           <div className="center">
+            <EditTargetBar />
             <Canvas />
             <LayerPanel />
           </div>

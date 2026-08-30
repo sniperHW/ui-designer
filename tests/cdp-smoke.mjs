@@ -78,9 +78,9 @@ async function main() {
   // 2. 基础界面
   results['标题'] = await evalJs('document.title')
   const libCount = await evalJs('document.querySelectorAll(".lib-item").length')
-  check('控件库', libCount === 11, `内置控件 ${libCount}/11 项`)
+  check('控件库', libCount === 18, `内置控件 ${libCount}/18 项`)
   const menus = await evalJs('[...document.querySelectorAll(".menu > summary")].map(s => s.textContent).join("/")')
-  check('菜单栏', menus === '文件/编辑/视图/帮助', menus)
+  check('菜单栏', menus === '文件/编辑/控件/视图/帮助', menus)
   const pages0 = await evalJs('document.querySelectorAll(".page-row").length')
   check('初始页面', pages0 === 1, `页面数 ${pages0}`)
 
@@ -99,10 +99,10 @@ async function main() {
   const nameInput = await evalJs('document.querySelector(".right input[type=text]") !== null')
   check('属性面板', nameInput, '名称/属性输入框已出现')
 
-  // 4. 再添加 2 个控件（按钮、进度条）
-  for (const n of [6, 9]) {
+  // 4. 再添加 2 个控件（按钮、进度条）——按标签定位，避免依赖序号
+  for (const label of ['按钮', '进度条']) {
     c = await evalJs(
-      `(() => { const items = document.querySelectorAll('.lib-item'); const r = items[${n}].getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 } })()`
+      `(() => { const items = [...document.querySelectorAll('.lib-item')]; const el = items.find(i => i.querySelector('.lib-label')?.textContent === ${JSON.stringify(label)}); el.scrollIntoView({ block: 'center' }); const r = el.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 } })()`
     )
     await click(c.x, c.y)
     await sleep(250)
