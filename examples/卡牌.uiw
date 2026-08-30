@@ -1,0 +1,1071 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "卡牌",
+    "designWidth": 750,
+    "designHeight": 1600,
+    "orientation": "portrait"
+  },
+  "commonLayer": {
+    "id": "common",
+    "name": "公共层",
+    "nodes": [
+      {
+        "id": "nmtfpefjik20h",
+        "type": "placeholder",
+        "name": "定位按钮",
+        "x": 500,
+        "y": 14,
+        "w": 46,
+        "h": 46,
+        "visible": true,
+        "locked": false,
+        "props": {}
+      },
+      {
+        "id": "nmtfpeg8oppmt",
+        "type": "button",
+        "name": "更多按钮",
+        "x": 556,
+        "y": 12,
+        "w": 80,
+        "h": 48,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "···",
+          "fontSize": 30,
+          "bold": false
+        }
+      },
+      {
+        "id": "nmtfpeh682mie",
+        "type": "ellipse",
+        "name": "录制按钮",
+        "x": 648,
+        "y": 12,
+        "w": 56,
+        "h": 56,
+        "visible": true,
+        "locked": false,
+        "props": {}
+      },
+      {
+        "id": "nmtfpehuyuv6v",
+        "type": "rect",
+        "name": "资源条💎 6",
+        "x": 14,
+        "y": 60,
+        "w": 160,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfpeio4jacg",
+        "type": "text",
+        "name": "资源值💎 6",
+        "x": 14,
+        "y": 66,
+        "w": 128,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "💎 6",
+          "fontSize": 22,
+          "bold": true,
+          "align": "center"
+        }
+      },
+      {
+        "id": "nmtfpejokzj2k",
+        "type": "rect",
+        "name": "资源加号💎 6",
+        "x": 148,
+        "y": 70,
+        "w": 20,
+        "h": 20,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 7
+        }
+      },
+      {
+        "id": "nmtfpekhtss5q",
+        "type": "text",
+        "name": "资源加号字💎 6",
+        "x": 148,
+        "y": 71,
+        "w": 20,
+        "h": 18,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "＋",
+          "fontSize": 14,
+          "bold": false,
+          "align": "center"
+        }
+      },
+      {
+        "id": "nmtfpelgdfx5t",
+        "type": "rect",
+        "name": "资源条🪵 400",
+        "x": 190,
+        "y": 60,
+        "w": 160,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfpema09tst",
+        "type": "text",
+        "name": "资源值🪵 400",
+        "x": 190,
+        "y": 66,
+        "w": 128,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "🪵 400",
+          "fontSize": 22,
+          "bold": true,
+          "align": "center"
+        }
+      },
+      {
+        "id": "nmtfpen9x9pve",
+        "type": "rect",
+        "name": "资源加号🪵 400",
+        "x": 324,
+        "y": 70,
+        "w": 20,
+        "h": 20,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 7
+        }
+      },
+      {
+        "id": "nmtfpeo3757f3",
+        "type": "text",
+        "name": "资源加号字🪵 400",
+        "x": 324,
+        "y": 71,
+        "w": 20,
+        "h": 18,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "＋",
+          "fontSize": 14,
+          "bold": false,
+          "align": "center"
+        }
+      },
+      {
+        "id": "nmtfpep27rvqd",
+        "type": "rect",
+        "name": "资源条🔮 139",
+        "x": 366,
+        "y": 60,
+        "w": 160,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfpepvqg0y8",
+        "type": "text",
+        "name": "资源值🔮 139",
+        "x": 366,
+        "y": 66,
+        "w": 128,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "🔮 139",
+          "fontSize": 22,
+          "bold": true,
+          "align": "center"
+        }
+      },
+      {
+        "id": "nmtfpeqvojqd9",
+        "type": "rect",
+        "name": "资源加号🔮 139",
+        "x": 500,
+        "y": 70,
+        "w": 20,
+        "h": 20,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 7
+        }
+      },
+      {
+        "id": "nmtfperp7d0zc",
+        "type": "text",
+        "name": "资源加号字🔮 139",
+        "x": 500,
+        "y": 71,
+        "w": 20,
+        "h": 18,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "＋",
+          "fontSize": 14,
+          "bold": false,
+          "align": "center"
+        }
+      },
+      {
+        "id": "nmtfpesol58ij",
+        "type": "rect",
+        "name": "资源条🪙 280",
+        "x": 542,
+        "y": 60,
+        "w": 160,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 22
+        }
+      },
+      {
+        "id": "nmtfpethzijdp",
+        "type": "text",
+        "name": "资源值🪙 280",
+        "x": 542,
+        "y": 66,
+        "w": 128,
+        "h": 32,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "🪙 280",
+          "fontSize": 22,
+          "bold": true,
+          "align": "center"
+        }
+      },
+      {
+        "id": "nmtfpeuibte3u",
+        "type": "rect",
+        "name": "资源加号🪙 280",
+        "x": 676,
+        "y": 70,
+        "w": 20,
+        "h": 20,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 7
+        }
+      },
+      {
+        "id": "nmtfpevc06p22",
+        "type": "text",
+        "name": "资源加号字🪙 280",
+        "x": 676,
+        "y": 71,
+        "w": 20,
+        "h": 18,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "＋",
+          "fontSize": 14,
+          "bold": false,
+          "align": "center"
+        }
+      }
+    ]
+  },
+  "customWidgets": [
+    {
+      "id": "wmtfpf5my34k7",
+      "name": "游戏卡牌",
+      "group": "未分组",
+      "w": 160,
+      "h": 220,
+      "props": [
+        {
+          "name": "配型",
+          "type": "string",
+          "default": "⛏",
+          "binds": [
+            {
+              "nodeId": "nmtfpf5mxyvsr",
+              "key": "text"
+            }
+          ]
+        },
+        {
+          "name": "等级",
+          "type": "string",
+          "default": "等级 1",
+          "binds": [
+            {
+              "nodeId": "nmtfpf5my7xr1",
+              "key": "text"
+            }
+          ]
+        },
+        {
+          "name": "进度",
+          "type": "number",
+          "default": 0,
+          "binds": [
+            {
+              "nodeId": "nmtfpf5mydhsa",
+              "key": "progress"
+            }
+          ]
+        },
+        {
+          "name": "碎片",
+          "type": "string",
+          "default": "0/4",
+          "binds": [
+            {
+              "nodeId": "nmtfpf5mywyn9",
+              "key": "text"
+            }
+          ]
+        },
+        {
+          "name": "可升级",
+          "type": "string",
+          "default": "·",
+          "binds": [
+            {
+              "nodeId": "nmtfpf5my5d5c",
+              "key": "text"
+            }
+          ]
+        }
+      ],
+      "tree": [
+        {
+          "id": "nmtfpf5mxr8wc",
+          "type": "rect",
+          "name": "卡框",
+          "x": 0,
+          "y": 0,
+          "w": 160,
+          "h": 220,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 16
+          }
+        },
+        {
+          "id": "nmtfpf5mxyl0p",
+          "type": "ellipse",
+          "name": "配型底",
+          "x": 8,
+          "y": 8,
+          "w": 34,
+          "h": 34,
+          "visible": true,
+          "locked": false,
+          "props": {}
+        },
+        {
+          "id": "nmtfpf5mxyvsr",
+          "type": "text",
+          "name": "配型图标",
+          "x": 8,
+          "y": 12,
+          "w": 34,
+          "h": 28,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "⛏",
+            "fontSize": 20,
+            "bold": false,
+            "align": "center"
+          }
+        },
+        {
+          "id": "nmtfpf5mxp1mw",
+          "type": "placeholder",
+          "name": "卡面图片",
+          "x": 14,
+          "y": 46,
+          "w": 112,
+          "h": 96,
+          "visible": true,
+          "locked": false,
+          "props": {}
+        },
+        {
+          "id": "nmtfpf5my7xr1",
+          "type": "text",
+          "name": "等级文字",
+          "x": 0,
+          "y": 144,
+          "w": 160,
+          "h": 28,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "等级 1",
+            "fontSize": 22,
+            "bold": false,
+            "align": "center"
+          }
+        },
+        {
+          "id": "nmtfpf5mydhsa",
+          "type": "progress",
+          "name": "碎片进度条",
+          "x": 12,
+          "y": 176,
+          "w": 136,
+          "h": 26,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "progress": 0
+          }
+        },
+        {
+          "id": "nmtfpf5mywyn9",
+          "type": "text",
+          "name": "碎片文字",
+          "x": 12,
+          "y": 178,
+          "w": 136,
+          "h": 22,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "0/4",
+            "fontSize": 20,
+            "bold": false,
+            "align": "center"
+          }
+        },
+        {
+          "id": "nmtfpf5my5d5c",
+          "type": "text",
+          "name": "可升级标识",
+          "x": 116,
+          "y": 6,
+          "w": 38,
+          "h": 26,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "·",
+            "fontSize": 22,
+            "bold": false,
+            "align": "center"
+          }
+        }
+      ],
+      "slotNodeIds": [],
+      "suggestAnchor": "none"
+    }
+  ],
+  "pages": [
+    {
+      "id": "pmtfpeemv42yh",
+      "name": "卡牌页",
+      "nodes": [
+        {
+          "id": "nmtfpewglapzq",
+          "type": "tab",
+          "name": "底部导航",
+          "x": 0,
+          "y": 110,
+          "w": 750,
+          "h": 1490,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "tabs": [
+              "商店",
+              "卡牌",
+              "战斗",
+              "城堡",
+              "成就"
+            ],
+            "barPosition": "bottom"
+          },
+          "activeTab": 1,
+          "pages": [
+            [],
+            [
+              {
+                "id": "nmtfpexgs7rvb",
+                "type": "filter",
+                "name": "牌组选择",
+                "x": 25,
+                "y": 130,
+                "w": 700,
+                "h": 64,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "options": [
+                    "牌组",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  "selected": 1
+                }
+              },
+              {
+                "id": "nmtfpf7x98l1b",
+                "type": "custom",
+                "customId": "wmtfpf5my34k7",
+                "name": "卡牌1",
+                "x": 30,
+                "y": 210,
+                "w": 160,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtfpf8dzscun",
+                "type": "custom",
+                "customId": "wmtfpf5my34k7",
+                "name": "卡牌2",
+                "x": 206,
+                "y": 210,
+                "w": 160,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "overrides": {
+                  "配型": "⚔",
+                  "碎片": "3/4",
+                  "进度": 75
+                }
+              },
+              {
+                "id": "nmtfpf981wk0p",
+                "type": "custom",
+                "customId": "wmtfpf5my34k7",
+                "name": "卡牌3",
+                "x": 382,
+                "y": 210,
+                "w": 160,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "overrides": {
+                  "配型": "⚔",
+                  "等级": "等级 2",
+                  "碎片": "8/9",
+                  "进度": 89
+                }
+              },
+              {
+                "id": "nmtfpfa6p3ta8",
+                "type": "custom",
+                "customId": "wmtfpf5my34k7",
+                "name": "卡牌4",
+                "x": 558,
+                "y": 210,
+                "w": 160,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "overrides": {
+                  "配型": "⚔",
+                  "碎片": "8/6",
+                  "进度": 100,
+                  "可升级": "⬆"
+                }
+              },
+              {
+                "id": "nmtfpfb5shn3c",
+                "type": "custom",
+                "customId": "wmtfpf5my34k7",
+                "name": "卡牌5",
+                "x": 30,
+                "y": 445,
+                "w": 160,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "overrides": {
+                  "配型": "⚔",
+                  "碎片": "3/6",
+                  "进度": 50
+                }
+              },
+              {
+                "id": "nmtfpfbzp6zxy",
+                "type": "custom",
+                "customId": "wmtfpf5my34k7",
+                "name": "卡牌6",
+                "x": 206,
+                "y": 445,
+                "w": 160,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "overrides": {
+                  "配型": "⚔",
+                  "碎片": "0/8"
+                }
+              },
+              {
+                "id": "nmtfpfcpilmil",
+                "type": "custom",
+                "customId": "wmtfpf5my34k7",
+                "name": "卡牌7",
+                "x": 382,
+                "y": 445,
+                "w": 160,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "overrides": {
+                  "配型": "⚔",
+                  "碎片": "0/10"
+                }
+              },
+              {
+                "id": "nmtfpfdfffr6n",
+                "type": "custom",
+                "customId": "wmtfpf5my34k7",
+                "name": "卡牌8",
+                "x": 558,
+                "y": 445,
+                "w": 160,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "overrides": {
+                  "配型": "🏰",
+                  "碎片": "0/6"
+                }
+              },
+              {
+                "id": "nmtfpfe5qqumv",
+                "type": "rect",
+                "name": "战力条",
+                "x": 25,
+                "y": 685,
+                "w": 700,
+                "h": 70,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "radius": 12
+                }
+              },
+              {
+                "id": "nmtfpfezx68xq",
+                "type": "text",
+                "name": "战力值",
+                "x": 45,
+                "y": 699,
+                "w": 250,
+                "h": 42,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "战力 9888",
+                  "fontSize": 30,
+                  "bold": true,
+                  "align": "left"
+                }
+              },
+              {
+                "id": "nmtfpffzrdfaz",
+                "type": "text",
+                "name": "兵种统计",
+                "x": 310,
+                "y": 699,
+                "w": 400,
+                "h": 42,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "💀1 🐺2 🛡3 ⚙1 ⚔4 🗡3",
+                  "fontSize": 24,
+                  "bold": false,
+                  "align": "left"
+                }
+              },
+              {
+                "id": "nmtfpfgz5mrw9",
+                "type": "tab",
+                "name": "卡牌分类",
+                "x": 25,
+                "y": 775,
+                "w": 700,
+                "h": 700,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "tabs": [
+                    "所有卡牌",
+                    "神器",
+                    "宝箱",
+                    "表情"
+                  ],
+                  "barPosition": "bottom"
+                },
+                "activeTab": 0,
+                "pages": [
+                  [
+                    {
+                      "id": "nmtfpfhwdfx02",
+                      "type": "scroll",
+                      "name": "全部卡牌滚动区",
+                      "x": 25,
+                      "y": 775,
+                      "w": 700,
+                      "h": 636,
+                      "visible": true,
+                      "locked": false,
+                      "props": {},
+                      "children": [
+                        {
+                          "id": "nmtfpfin4c3fa",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡1",
+                          "x": 31,
+                          "y": 795,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "碎片": "8/6",
+                            "进度": 100,
+                            "可升级": "⬆"
+                          }
+                        },
+                        {
+                          "id": "nmtfpfjnj7hz0",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡2",
+                          "x": 207,
+                          "y": 795,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        },
+                        {
+                          "id": "nmtfpfkjxjlii",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡3",
+                          "x": 383,
+                          "y": 795,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        },
+                        {
+                          "id": "nmtfpflfube9i",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡4",
+                          "x": 559,
+                          "y": 795,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        },
+                        {
+                          "id": "nmtfpfmbp4j6y",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡5",
+                          "x": 31,
+                          "y": 1035,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "碎片": "3/8",
+                            "进度": 38
+                          }
+                        },
+                        {
+                          "id": "nmtfpfn7tsic5",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡6",
+                          "x": 207,
+                          "y": 1035,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "🏰",
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        },
+                        {
+                          "id": "nmtfpfo4emc4t",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡7",
+                          "x": 383,
+                          "y": 1035,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "等级 2",
+                            "碎片": "4/8",
+                            "进度": 50
+                          }
+                        },
+                        {
+                          "id": "nmtfpfp5fikob",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡8",
+                          "x": 559,
+                          "y": 1035,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        },
+                        {
+                          "id": "nmtfpfq22f9pp",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡9",
+                          "x": 31,
+                          "y": 1275,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "碎片": "2/8",
+                            "进度": 25
+                          }
+                        },
+                        {
+                          "id": "nmtfpfqylla50",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡10",
+                          "x": 207,
+                          "y": 1275,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        },
+                        {
+                          "id": "nmtfpfrqfoesr",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡11",
+                          "x": 383,
+                          "y": 1275,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "碎片": "1/8",
+                            "进度": 13
+                          }
+                        },
+                        {
+                          "id": "nmtfpfsn6t1mn",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡12",
+                          "x": 559,
+                          "y": 1275,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        },
+                        {
+                          "id": "nmtfpftkd7blr",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡13",
+                          "x": 31,
+                          "y": 1515,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "碎片": "6/8",
+                            "进度": 75
+                          }
+                        },
+                        {
+                          "id": "nmtfpfuh4yrg2",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡14",
+                          "x": 207,
+                          "y": 1515,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        },
+                        {
+                          "id": "nmtfpfvdxzvvu",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡15",
+                          "x": 383,
+                          "y": 1515,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "等级 2",
+                            "碎片": "3/8",
+                            "进度": 38
+                          }
+                        },
+                        {
+                          "id": "nmtfpfwfvakpu",
+                          "type": "custom",
+                          "customId": "wmtfpf5my34k7",
+                          "name": "图鉴卡16",
+                          "x": 559,
+                          "y": 1515,
+                          "w": 160,
+                          "h": 220,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "配型": "⚔",
+                            "等级": "未解锁",
+                            "碎片": "—"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  [],
+                  [],
+                  []
+                ]
+              }
+            ],
+            [],
+            [],
+            []
+          ]
+        }
+      ]
+    }
+  ]
+}
