@@ -29,6 +29,24 @@ export default function PagePanel() {
     <div className="pages">
       <div className="panel-title">页面（双击重命名）</div>
       <div className="page-list">
+        <div
+          className={'common-row' + (currentIndex === -1 ? ' active' : '')}
+          onClick={() => setCurrentPage(-1)}
+          title="公共层：内容显示在所有页面之下（如顶部状态栏），在此编辑"
+        >
+          <svg
+            className="page-thumb"
+            viewBox={`0 0 ${dw} ${dh}`}
+            style={{ height: Math.round((56 * dh) / dw) }}
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <rect x={0} y={0} width={dw} height={dh} fill="#fff" stroke="#d9d9de" strokeWidth="4" />
+            {doc.commonLayer.nodes
+              .filter((n) => n.visible)
+              .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n) }} />)}
+          </svg>
+          <span className="page-name">⚙ 公共层（所有页面共享）</span>
+        </div>
         {doc.pages.map((p, i) => (
           <div
             key={p.id}
@@ -43,6 +61,9 @@ export default function PagePanel() {
               preserveAspectRatio="xMidYMid meet"
             >
               <rect x={0} y={0} width={dw} height={dh} fill="#fff" stroke="#d9d9de" strokeWidth="4" />
+              {doc.commonLayer.nodes
+                .filter((n) => n.visible)
+                .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n) }} />)}
               {p.nodes
                 .filter((n) => n.visible)
                 .map((n) => <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n) }} />)}

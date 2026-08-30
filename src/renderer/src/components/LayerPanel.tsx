@@ -19,13 +19,15 @@ const TYPE_LABEL: Record<WidgetType, string> = {
 export default function LayerPanel() {
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
-  const page = doc.pages[pageIndex]
+  const page = pageIndex < 0 ? doc.commonLayer : doc.pages[pageIndex]
   if (!page) return null
   const rows: ReactNode[] = []
   renderRows(page.nodes, 0, rows)
   return (
     <div className="layers">
-      <div className="panel-title">图层（排在前面的显示在上层；Tab 子控件缩进显示；双击重命名）</div>
+      <div className="panel-title">
+        {pageIndex < 0 ? '公共层图层（所有页面共享）' : '图层（排在前面的显示在上层；Tab 子控件缩进显示；双击重命名）'}
+      </div>
       <div className="layer-list">{rows}</div>
     </div>
   )

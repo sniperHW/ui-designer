@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { DragEvent, PointerEvent as RPointerEvent, ReactNode } from 'react'
 import { useEditor } from '../store/editorStore'
-import { widgetInnerSVG, tabBarRect } from '../widgets/registry'
+import { widgetInnerSVG, tabBarRect, renderTreeSVG } from '../widgets/registry'
 import type { WidgetDef } from '../widgets/registry'
 import { canvasEl } from '../canvasRef'
 import type { WidgetNode } from '../types'
@@ -15,8 +15,12 @@ export default function Canvas() {
   const gridSize = useEditor((s) => s.gridSize)
   const fitToken = useEditor((s) => s.fitToken)
   const wrapRef = useRef<HTMLDivElement>(null)
-  const page = doc.pages[Math.min(pageIndex, doc.pages.length - 1)]
+  const isCommon = pageIndex < 0
+  const page = isCommon
+    ? doc.commonLayer
+    : doc.pages[Math.min(pageIndex, doc.pages.length - 1)]
   const { designWidth: dw, designHeight: dh } = doc.meta
+  const commonVisible = isCommon ? [] : doc.commonLayer.nodes.filter((n) => n.visible)
 
   useEffect(() => {
     canvasEl.current = wrapRef.current
@@ -194,7 +198,7 @@ export default function Canvas() {
     useEditor.getState().setMouse(pt.x, pt.y)
   }
 
-  const hasNodes = page.nodes.length > 0
+  const hasNodes = page.nodes.length > 0 || commonVisible.length > 0
 
   return (
     <div
@@ -230,6 +234,16 @@ export default function Canvas() {
             strokeWidth="1"
             vectorEffect="non-scaling-stroke"
           />
+          {/* 公共层：普通页面中只读显示（渲染在页面内容之下） */}
+          {!isCommon &&
+            commonVisible.map((n) => (
+              <g
+                key={'common-' + n.id}
+                className="common-layer"
+                style={{ pointerEvents: 'none' }}
+                dangerouslySetInnerHTML={{ __html: renderTreeSVG(n) }}
+              />
+            ))}
           {page.nodes
             .filter((n) => n.visible)
             .map((n) => (
@@ -238,6 +252,9 @@ export default function Canvas() {
         </g>
       </svg>
       {!hasNodes && <div className="canvas-empty">从左侧控件库拖入控件开始设计</div>}
+      {isCommon && (
+        <div className="common-badge">● 正在编辑公共层 — 修改对所有页面生效</div>
+      )}
       <SelectionOverlay />
     </div>
   )

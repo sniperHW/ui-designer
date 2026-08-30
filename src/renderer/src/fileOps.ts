@@ -1,9 +1,17 @@
 import { useEditor } from './store/editorStore'
 import { renderTreeSVG } from './widgets/registry'
 
+/** 工程有未保存修改时确认丢弃；返回 false = 用户取消 */
+export function confirmDiscard(): boolean {
+  const s = useEditor.getState()
+  if (s.dirty && !window.confirm('当前工程有未保存的修改，确定丢弃吗？')) return false
+  return true
+}
+
 /** 保存工程；as=true 强制弹另存为对话框 */
 export async function doSave(as = false): Promise<void> {
   const s = useEditor.getState()
+  if (!s.hasProject) return
   const content = JSON.stringify(s.doc, null, 2)
   const path = as
     ? await window.api.saveProject({ content, defaultName: s.doc.meta.name + '.uiw' })
@@ -14,6 +22,7 @@ export async function doSave(as = false): Promise<void> {
 }
 
 export async function doOpen(): Promise<void> {
+  if (!confirmDiscard()) return
   const r = await window.api.openProject()
   if (!r) return
   try {
@@ -21,23 +30,37 @@ export async function doOpen(): Promise<void> {
     if (doc?.version !== 1 || !Array.isArray(doc.pages) || !doc.meta?.designWidth) {
       throw new Error('文件格式不正确')
     }
+    // 兼容旧工程文件：无 commonLayer 时补空公共层
+    if (!doc.commonLayer) {
+      doc.commonLayer = { id: 'common', name: '公共层', nodes: [] }
+    }
     useEditor.getState().loadProject(doc, r.path)
   } catch (e) {
     alert('无法打开工程文件：' + (e as Error).message)
   }
 }
 
-/** 导出当前页面为 PNG（2x 光栅化，白底） */
+/** 导出当前页面为 PNG（2x 光栅化，白底；页面导出时包含公共层） */
 export async function doExportPng(): Promise<void> {
   const s = useEditor.getState()
-  const page = s.doc.pages[s.currentPageIndex]
+  if (!s.hasProject) return
+  const isCommon = s.currentPageIndex < 0
+  const page = isCommon ? s.doc.commonLayer : s.doc.pages[s.currentPageIndex]
   if (!page) return
   const { designWidth: dw, designHeight: dh } = s.doc.meta
   const scale = 2
-  const body = page.nodes
-    .filter((n) => n.visible)
-    .map((n) => renderTreeSVG(n))
-    .join('')
+  const commonBody = isCommon
+    ? ''
+    : s.doc.commonLayer.nodes
+        .filter((n) => n.visible)
+        .map((n) => renderTreeSVG(n))
+        .join('')
+  const body =
+    commonBody +
+    page.nodes
+      .filter((n) => n.visible)
+      .map((n) => renderTreeSVG(n))
+      .join('')
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" width="${dw * scale}" height="${dh * scale}" viewBox="0 0 ${dw} ${dh}">` +
     `<rect width="${dw}" height="${dh}" fill="#ffffff"/>${body}</svg>`

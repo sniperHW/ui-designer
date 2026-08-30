@@ -43,9 +43,9 @@ async function main() {
     return r.result.value
   }
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
-  const click = async (x, y) => {
-    await call('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', buttons: 1, clickCount: 1 })
-    await call('Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', buttons: 1, clickCount: 1 })
+  const click = async (x, y, modifiers = 0) => {
+    await call('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', buttons: 1, clickCount: 1, modifiers })
+    await call('Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', buttons: 1, clickCount: 1, modifiers })
   }
   const center = (sel) =>
     evalJs(
@@ -57,10 +57,28 @@ async function main() {
     if (!ok) process.exitCode = 1
   }
 
-  // 1. 基础界面
+  // 0. 启动默认未打开工程 → 欢迎页
+  await evalJs('window.__uiw.getState().closeProject()')
+  await sleep(300)
+  const welcomeVisible = await evalJs('document.querySelector(".welcome") !== null')
+  check('启动欢迎页', welcomeVisible === true, welcomeVisible ? '未打开工程时显示欢迎页' : '未显示欢迎页')
+  const hp0 = await evalJs('window.__uiw.getState().hasProject')
+  check('默认无工程', hp0 === false, `hasProject=${hp0}`)
+  const noEditor = await evalJs('document.querySelector(".canvas-wrap") === null')
+  check('编辑器隐藏', noEditor === true, noEditor ? '无工程时不渲染画布' : '画布仍在渲染')
+
+  // 1. 新建工程 → 进入编辑器
+  await evalJs(
+    `window.__uiw.getState().newProject({ name: '冒烟测试', designWidth: 1334, designHeight: 750, orientation: 'landscape' })`
+  )
+  await sleep(300)
+  const editorVisible = await evalJs('document.querySelector(".canvas-wrap") !== null')
+  check('新建后进入编辑器', editorVisible === true, editorVisible ? '画布已渲染' : '画布未渲染')
+
+  // 2. 基础界面
   results['标题'] = await evalJs('document.title')
   const libCount = await evalJs('document.querySelectorAll(".lib-item").length')
-  check('控件库', libCount === 10, `内置控件 ${libCount}/10 项`)
+  check('控件库', libCount === 11, `内置控件 ${libCount}/11 项`)
   const menus = await evalJs('[...document.querySelectorAll(".menu > summary")].map(s => s.textContent).join("/")')
   check('菜单栏', menus === '文件/编辑/视图/帮助', menus)
   const pages0 = await evalJs('document.querySelectorAll(".page-row").length')
@@ -94,13 +112,16 @@ async function main() {
   const layerRows = await evalJs('document.querySelectorAll(".layer-row").length')
   check('图层树', layerRows === 3, `图层行 ${layerRows}/3`)
 
-  // 5. Shift 多选第一个图层 → 选择框 2 个
-  const firstLayer = await evalJs(
-    `(() => { const r = document.querySelector('.layer-row').getBoundingClientRect(); return { x: r.x + 40, y: r.y + r.height / 2 } })()`
+  // 5. Shift 多选：先把第一个控件移到左上角避免与其他控件重叠，再 Shift 点击其中心
+  //    （CDP 需在鼠标事件上传 modifiers: 8 = Shift；live=true 使移动不入撤销栈）
+  await evalJs(
+    `(() => { const st = window.__uiw.getState(); const n = st.currentPage().nodes[0]; st.updateNodes([n.id], m => { m.x = 60; m.y = 60 }, true); return true })()`
   )
-  await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Shift', code: 'ShiftLeft', windowsVirtualKeyCode: 16, modifiers: 8 })
-  await click(firstLayer.x, firstLayer.y)
-  await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Shift', code: 'ShiftLeft', windowsVirtualKeyCode: 16, modifiers: 8 })
+  await sleep(200)
+  const g0 = await evalJs(
+    `(() => { const r = document.querySelectorAll('g[data-id]')[0].getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 } })()`
+  )
+  await click(g0.x, g0.y, 8)
   await sleep(200)
   selBoxes = await evalJs('document.querySelectorAll(".sel-box").length')
   check('Shift 多选', selBoxes === 2, `选择框 ${selBoxes}/2`)

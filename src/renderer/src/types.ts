@@ -62,5 +62,7 @@ export interface PageData {
 export interface ProjectDoc {
   version: 1
   meta: ProjectMeta
+  /** 公共层：内容显示在所有页面之下（如顶部状态栏），在页面列表顶部的"公共层"条目中编辑 */
+  commonLayer: PageData
   pages: PageData[]
 }

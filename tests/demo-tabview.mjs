@@ -24,8 +24,14 @@ async function main() {
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
   const def = (type, label) => `window.__uiwDefs.find(d => d.type === '${type}' && d.label === '${label}')`
 
-  // 清空页面 1
-  await evalJs(`(() => { const st = window.__uiw.getState(); st.setCurrentPage(0); st.setSelection([]); return true })()`)
+  // 确保已打开工程，清空页面 1
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    if (!st.hasProject) st.newProject({ name: 'TabView 示例', designWidth: 1334, designHeight: 750, orientation: 'landscape' })
+    st.setCurrentPage(0)
+    st.setSelection([])
+    return true
+  })()`)
   await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'a', metaKey: true }))")
   await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace' }))")
   await sleep(200)

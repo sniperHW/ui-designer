@@ -23,7 +23,7 @@ export default function PropsPanel() {
   const alignSelected = useEditor((s) => s.alignSelected)
   const distributeSelected = useEditor((s) => s.distributeSelected)
 
-  const page = doc.pages[pageIndex]
+  const page = pageIndex < 0 ? doc.commonLayer : doc.pages[pageIndex]
   if (!page) return null
   const sel = page.nodes.filter((n) => selectedIds.includes(n.id))
   const ids = sel.map((n) => n.id)
@@ -39,7 +39,7 @@ export default function PropsPanel() {
             设计尺寸：{doc.meta.designWidth} × {doc.meta.designHeight}（
             {doc.meta.orientation === 'landscape' ? '横屏' : '竖屏'}）
             <br />
-            页面数：{doc.pages.length}
+            页面数：{doc.pages.length} · 公共层控件：{doc.commonLayer.nodes.length}
           </div>
           <div className="prop-hint">选中画布中的控件后，在此编辑属性。</div>
         </div>

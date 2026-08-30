@@ -21,8 +21,14 @@ export function createDefaultDoc(): ProjectDoc {
   return {
     version: 1,
     meta: { name: '未命名工程', designWidth: 1334, designHeight: 750, orientation: 'landscape' },
+    commonLayer: { id: 'common', name: '公共层', nodes: [] },
     pages: [{ id: uid('p'), name: '页面 1', nodes: [] }]
   }
+}
+
+/** currentPageIndex < 0 = 正在编辑公共层；返回该编辑目标的节点数组（用于 mutate 内部，随克隆文档变化） */
+function pageNodesOf(d: ProjectDoc, pageIndex: number): WidgetNode[] {
+  return pageIndex < 0 ? d.commonLayer.nodes : (d.pages[pageIndex]?.nodes ?? [])
 }
 
 function clonePage(page: PageData): PageData {
@@ -72,6 +78,8 @@ function findContainerArray(arr: WidgetNode[], id: string): WidgetNode[] | null 
 
 interface EditorState {
   doc: ProjectDoc
+  /** 是否已打开工程（启动默认 false，显示欢迎页） */
+  hasProject: boolean
   filePath: string | null
   dirty: boolean
   currentPageIndex: number
@@ -123,6 +131,7 @@ interface EditorState {
 
   newProject: (meta: ProjectMeta) => void
   loadProject: (doc: ProjectDoc, path: string) => void
+  closeProject: () => void
   markSaved: (path: string) => void
 
   setViewport: (v: Viewport) => void
@@ -139,6 +148,7 @@ interface EditorState {
 
 export const useEditor = create<EditorState>((set, get) => ({
   doc: createDefaultDoc(),
+  hasProject: false,
   filePath: null,
   dirty: false,
   currentPageIndex: 0,
@@ -156,7 +166,9 @@ export const useEditor = create<EditorState>((set, get) => ({
 
   currentPage: () => {
     const s = get()
-    return s.doc.pages[Math.min(s.currentPageIndex, s.doc.pages.length - 1)]
+    return s.currentPageIndex < 0
+      ? s.doc.commonLayer
+      : s.doc.pages[Math.min(s.currentPageIndex, s.doc.pages.length - 1)]
   },
 
   mutate: (fn, live) => {
@@ -243,15 +255,14 @@ export const useEditor = create<EditorState>((set, get) => ({
     }
     const parentId = parent?.id ?? null
     s.mutate((d) => {
-      const target = parentId
-        ? findNodeIn(d.pages[s.currentPageIndex].nodes, parentId)
-        : null
+      const arr = pageNodesOf(d, s.currentPageIndex)
+      const target = parentId ? findNodeIn(arr, parentId) : null
       if (target && target.pages) {
         const idx = activeTabIndex(target)
         if (!target.pages[idx]) target.pages[idx] = []
         target.pages[idx].push(node)
       } else {
-        d.pages[s.currentPageIndex].nodes.push(node)
+        arr.push(node)
       }
     })
     set({ selectedIds: [node.id] })
@@ -261,7 +272,7 @@ export const useEditor = create<EditorState>((set, get) => ({
     const s = get()
     const idSet = new Set(ids)
     s.mutate((d) => {
-      walkNodes(d.pages[s.currentPageIndex].nodes, (n) => {
+      walkNodes(pageNodesOf(d, s.currentPageIndex), (n) => {
         if (idSet.has(n.id)) fn(n)
       })
     }, live)
@@ -278,7 +289,7 @@ export const useEditor = create<EditorState>((set, get) => ({
           else if (arr[i].pages) for (const p of arr[i].pages!) rm(p)
         }
       }
-      rm(d.pages[s.currentPageIndex].nodes)
+      rm(pageNodesOf(d, s.currentPageIndex))
     })
     set({ selectedIds: [] })
   },
@@ -298,7 +309,7 @@ export const useEditor = create<EditorState>((set, get) => ({
     if (!s.clipboard.length) return
     const clones = s.clipboard.map((n) => ({ ...structuredClone(n), id: uid('n'), x: n.x + 20, y: n.y + 20 }))
     s.mutate((d) => {
-      d.pages[s.currentPageIndex].nodes.push(...clones)
+      pageNodesOf(d, s.currentPageIndex).push(...clones)
     })
     set({ selectedIds: clones.map((c) => c.id) })
   },
@@ -324,7 +335,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   moveLayer: (id, dir) => {
     const s = get()
     s.mutate((d) => {
-      const arr = findContainerArray(d.pages[s.currentPageIndex].nodes, id)
+      const arr = findContainerArray(pageNodesOf(d, s.currentPageIndex), id)
       if (!arr) return
       const i = arr.findIndex((n) => n.id === id)
       const j = i + dir
@@ -336,7 +347,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   bringToFront: (id) => {
     const s = get()
     s.mutate((d) => {
-      const arr = findContainerArray(d.pages[s.currentPageIndex].nodes, id)
+      const arr = findContainerArray(pageNodesOf(d, s.currentPageIndex), id)
       if (!arr) return
       const i = arr.findIndex((n) => n.id === id)
       if (i < 0 || i === arr.length - 1) return
@@ -347,7 +358,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   sendToBack: (id) => {
     const s = get()
     s.mutate((d) => {
-      const arr = findContainerArray(d.pages[s.currentPageIndex].nodes, id)
+      const arr = findContainerArray(pageNodesOf(d, s.currentPageIndex), id)
       if (!arr) return
       const i = arr.findIndex((n) => n.id === id)
       if (i <= 0) return
@@ -451,7 +462,13 @@ export const useEditor = create<EditorState>((set, get) => ({
 
   newProject: (meta) => {
     set({
-      doc: { version: 1, meta, pages: [{ id: uid('p'), name: '页面 1', nodes: [] }] },
+      doc: {
+        version: 1,
+        meta,
+        commonLayer: { id: 'common', name: '公共层', nodes: [] },
+        pages: [{ id: uid('p'), name: '页面 1', nodes: [] }]
+      },
+      hasProject: true,
       filePath: null,
       dirty: false,
       currentPageIndex: 0,
@@ -467,6 +484,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   loadProject: (doc, path) => {
     set({
       doc,
+      hasProject: true,
       filePath: path,
       dirty: false,
       currentPageIndex: 0,
@@ -475,6 +493,20 @@ export const useEditor = create<EditorState>((set, get) => ({
       past: [],
       future: [],
       fitToken: get().fitToken + 1
+    })
+  },
+
+  closeProject: () => {
+    set({
+      doc: createDefaultDoc(),
+      hasProject: false,
+      filePath: null,
+      dirty: false,
+      currentPageIndex: 0,
+      selectedIds: [],
+      clipboard: [],
+      past: [],
+      future: []
     })
   },
 

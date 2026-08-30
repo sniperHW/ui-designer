@@ -1,5 +1,5 @@
 import { useEditor } from '../store/editorStore'
-import { doSave, doOpen, doExportPng } from '../fileOps'
+import { doSave, doOpen, doExportPng, confirmDiscard } from '../fileOps'
 
 function MenuItem({
   label,
@@ -38,6 +38,7 @@ export default function Header() {
   const zoom = useEditor((s) => s.viewport.zoom)
   const dirty = useEditor((s) => s.dirty)
   const docName = useEditor((s) => s.doc.meta.name)
+  const hasProject = useEditor((s) => s.hasProject)
 
   const st = () => useEditor.getState()
 
@@ -47,12 +48,25 @@ export default function Header() {
         <details className="menu">
           <summary>文件</summary>
           <div className="menu-items">
-            <MenuItem label="新建工程…" accel="⌘N" onClick={() => st().setShowNewModal(true)} />
+            <MenuItem
+              label="新建工程…"
+              accel="⌘N"
+              onClick={() => {
+                if (confirmDiscard()) st().setShowNewModal(true)
+              }}
+            />
             <MenuItem label="打开…" accel="⌘O" onClick={() => void doOpen()} />
-            <MenuItem label="保存" accel="⌘S" onClick={() => void doSave(false)} />
-            <MenuItem label="另存为…" onClick={() => void doSave(true)} />
+            <MenuItem label="保存" accel="⌘S" disabled={!hasProject} onClick={() => void doSave(false)} />
+            <MenuItem label="另存为…" disabled={!hasProject} onClick={() => void doSave(true)} />
+            <MenuItem
+              label="关闭工程"
+              disabled={!hasProject}
+              onClick={() => {
+                if (confirmDiscard()) st().closeProject()
+              }}
+            />
             <div className="menu-sep" />
-            <MenuItem label="导出当前页 PNG…" onClick={() => void doExportPng()} />
+            <MenuItem label="导出当前页 PNG…" disabled={!hasProject} onClick={() => void doExportPng()} />
           </div>
         </details>
         <details className="menu">
@@ -173,16 +187,20 @@ export default function Header() {
           适配
         </button>
         <div className="spacer" />
-        <span className="doc-name">
-          {docName}
-          {dirty && <span className="dot" title="有未保存的修改" />}
-        </span>
-        <button className="tb-btn" onClick={() => void doExportPng()}>
-          导出 PNG
-        </button>
-        <button className="tb-btn primary" onClick={() => void doSave(false)}>
-          保存
-        </button>
+        {hasProject && (
+          <>
+            <span className="doc-name">
+              {docName}
+              {dirty && <span className="dot" title="有未保存的修改" />}
+            </span>
+            <button className="tb-btn" onClick={() => void doExportPng()}>
+              导出 PNG
+            </button>
+            <button className="tb-btn primary" onClick={() => void doSave(false)}>
+              保存
+            </button>
+          </>
+        )}
       </div>
     </div>
   )

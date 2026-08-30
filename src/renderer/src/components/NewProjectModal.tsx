@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useEditor } from '../store/editorStore'
+import { confirmDiscard } from '../fileOps'
 import type { Orientation } from '../types'
 
 const PRESETS: Record<Orientation, { w: number; h: number; label: string }[]> = {
@@ -35,6 +36,7 @@ export default function NewProjectModal() {
   }
 
   const create = () => {
+    if (!confirmDiscard()) return
     newProject({
       name: name.trim() || '未命名工程',
       designWidth: Math.max(200, Math.round(w) || 1334),

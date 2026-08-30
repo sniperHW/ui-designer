@@ -567,6 +567,97 @@ select {
   pointer-events: none;
 }
 
+/* ---------- 欢迎页（未打开工程） ---------- */
+.welcome {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #f7f7f9 0%, #ececf1 100%);
+  min-height: 0;
+}
+.welcome-card {
+  text-align: center;
+  padding: 48px 64px;
+  background: #fff;
+  border: 1px solid #e0e0e5;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(17, 24, 39, 0.08);
+}
+.welcome-mark {
+  font-size: 40px;
+  color: #2563eb;
+  letter-spacing: 6px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.welcome-card h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+}
+.welcome-sub {
+  margin: 0 0 24px;
+  color: #6b7280;
+  font-size: 13px;
+}
+.welcome-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.welcome-hint {
+  color: #9ca3af;
+  font-size: 12px;
+  margin: 0;
+}
+.btn-lg {
+  height: 36px;
+  padding: 0 22px;
+  font-size: 14px;
+}
+
+/* 公共层 */
+.common-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px;
+  border-radius: 6px;
+  border: 1px dashed #b9b9c4;
+  margin-bottom: 6px;
+  background: #f1f1f6;
+}
+.common-row:hover {
+  background: #e8e8f0;
+}
+.common-row.active {
+  background: #e0eaff;
+  border-color: #2563eb;
+  border-style: solid;
+}
+.common-row .page-name {
+  color: #4c5193;
+  font-size: 12px;
+}
+.common-layer {
+  opacity: 0.85;
+}
+.common-badge {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #7c3aed;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 14px;
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 6;
+  white-space: nowrap;
+}
+
 /* ---------- 状态栏 ---------- */
 .statusbar {
   height: 26px;
