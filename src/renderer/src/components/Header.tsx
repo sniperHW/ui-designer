@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { useEditor } from '../store/editorStore'
 import { doSave, doOpen, doExportPng, confirmDiscard } from '../fileOps'
 import { PREVIEW_RATIOS } from '../widgets/registry'
@@ -28,6 +28,24 @@ function MenuItem({
       <span>{label}</span>
       {accel && <span className="accel">{accel}</span>}
     </div>
+  )
+}
+
+/** 菜单栏类别：有菜单处于展开状态时，悬停其它类别 = 收起旧的、展开新的 */
+function Menu({ label, children }: { label: string; children: ReactNode }) {
+  const onSummaryEnter = (e: React.MouseEvent<HTMLElement>) => {
+    if (!document.querySelector('details.menu[open]')) return
+    const self = (e.currentTarget as HTMLElement).closest('details')
+    document.querySelectorAll('details.menu[open]').forEach((d) => {
+      if (d !== self) d.removeAttribute('open')
+    })
+    self?.setAttribute('open', '')
+  }
+  return (
+    <details className="menu">
+      <summary onMouseEnter={onSummaryEnter}>{label}</summary>
+      <div className="menu-items">{children}</div>
+    </details>
   )
 }
 
@@ -92,120 +110,105 @@ export default function Header() {
   return (
     <div className="header">
       <div className="menu-bar">
-        <details className="menu">
-          <summary>文件</summary>
-          <div className="menu-items">
+        <Menu label="文件">
+          <MenuItem
+            label="新建工程…"
+            accel="⌘N"
+            onClick={() => {
+              if (confirmDiscard()) st().setShowNewModal(true)
+            }}
+          />
+          <MenuItem label="打开…" accel="⌘O" onClick={() => void doOpen()} />
+          <MenuItem label="保存" accel="⌘S" disabled={!hasProject} onClick={() => void doSave(false)} />
+          <MenuItem label="另存为…" disabled={!hasProject} onClick={() => void doSave(true)} />
+          <MenuItem
+            label="关闭工程"
+            disabled={!hasProject}
+            onClick={() => {
+              if (confirmDiscard()) st().closeProject()
+            }}
+          />
+          <div className="menu-sep" />
+          <MenuItem label="导出当前页 PNG…" disabled={!hasProject} onClick={() => void doExportPng()} />
+        </Menu>
+        <Menu label="编辑">
+          <MenuItem label="撤销" accel="⌘Z" disabled={!canUndo} onClick={() => st().undo()} />
+          <MenuItem label="重做" accel="⇧⌘Z" disabled={!canRedo} onClick={() => st().redo()} />
+          <div className="menu-sep" />
+          <MenuItem label="复制" accel="⌘C" disabled={selectedCount === 0} onClick={() => st().copySelected()} />
+          <MenuItem label="粘贴" accel="⌘V" disabled={clipboardCount === 0} onClick={() => st().paste()} />
+          <MenuItem label="再制" accel="⌘D" disabled={selectedCount === 0} onClick={() => st().duplicateSelected()} />
+          <div className="menu-sep" />
+          <MenuItem label="全选" accel="⌘A" onClick={() => st().selectAll()} />
+          <MenuItem label="删除" accel="⌫" disabled={selectedCount === 0} onClick={() => st().deleteSelected()} />
+        </Menu>
+        <Menu label="控件">
+          <MenuItem label="新建定制控件（空白）" disabled={!hasProject} onClick={() => st().createCustomWidget({ kind: 'blank' })} />
+          <MenuItem
+            label="以 Tab 容器为骨架新建…"
+            disabled={!hasProject}
+            onClick={() => st().createCustomWidget({ kind: 'tab', tabs: ['页签 1', '页签 2'], barPosition: 'top' })}
+          />
+          <MenuItem
+            label="以面板为骨架新建"
+            disabled={!hasProject}
+            onClick={() => st().createCustomWidget({ kind: 'panel' })}
+          />
+          <MenuItem
+            label="以滚动区为骨架新建"
+            disabled={!hasProject}
+            onClick={() => st().createCustomWidget({ kind: 'scroll' })}
+          />
+          <div className="menu-sep" />
+          <MenuItem
+            label="存为定制控件"
+            disabled={selectedCount === 0}
+            onClick={() => st().saveSelectionAsCustom()}
+          />
+          <MenuItem
+            label="编辑选中实例的定义"
+            disabled={!inst}
+            onClick={() => inst && st().setEditingWidget(inst.customId)}
+          />
+          <MenuItem
+            label="打散实例为普通组合"
+            disabled={!inst}
+            onClick={() => inst && st().detachInstance(inst.id)}
+          />
+        </Menu>
+        <Menu label="视图">
+          <MenuItem label="放大" accel="⌘=" onClick={() => st().zoomByCenter(1.2)} />
+          <MenuItem label="缩小" accel="⌘-" onClick={() => st().zoomByCenter(1 / 1.2)} />
+          <MenuItem label="实际大小 (100%)" onClick={() => st().setZoom100()} />
+          <MenuItem label="适配窗口" onClick={() => st().fitView()} />
+          <div className="menu-sep" />
+          <MenuItem
+            label="▶ 运行原型预览"
+            disabled={!hasProject}
+            onClick={() => st().startPreview()}
+          />
+          <div className="menu-sep" />
+          <MenuItem label={(showGrid ? '✓ ' : '') + '显示网格'} onClick={() => st().toggleGrid()} />
+          <MenuItem label={(snapEnabled ? '✓ ' : '') + '网格吸附'} onClick={() => st().toggleSnap()} />
+          <MenuItem label={(showSafeArea ? '✓ ' : '') + '安全区参考框'} onClick={() => st().toggleSafeArea()} />
+          <div className="menu-sep" />
+          <div className="menu-group-title">分辨率预览（按锚点重排，只读）</div>
+          {PREVIEW_RATIOS.map((r) => (
             <MenuItem
-              label="新建工程…"
-              accel="⌘N"
-              onClick={() => {
-                if (confirmDiscard()) st().setShowNewModal(true)
-              }}
+              key={r.id}
+              label={(previewRatio === r.id ? '✓ ' : '') + r.label}
+              onClick={() => st().setPreviewRatio(r.id)}
             />
-            <MenuItem label="打开…" accel="⌘O" onClick={() => void doOpen()} />
-            <MenuItem label="保存" accel="⌘S" disabled={!hasProject} onClick={() => void doSave(false)} />
-            <MenuItem label="另存为…" disabled={!hasProject} onClick={() => void doSave(true)} />
-            <MenuItem
-              label="关闭工程"
-              disabled={!hasProject}
-              onClick={() => {
-                if (confirmDiscard()) st().closeProject()
-              }}
-            />
-            <div className="menu-sep" />
-            <MenuItem label="导出当前页 PNG…" disabled={!hasProject} onClick={() => void doExportPng()} />
-          </div>
-        </details>
-        <details className="menu">
-          <summary>编辑</summary>
-          <div className="menu-items">
-            <MenuItem label="撤销" accel="⌘Z" disabled={!canUndo} onClick={() => st().undo()} />
-            <MenuItem label="重做" accel="⇧⌘Z" disabled={!canRedo} onClick={() => st().redo()} />
-            <div className="menu-sep" />
-            <MenuItem label="复制" accel="⌘C" disabled={selectedCount === 0} onClick={() => st().copySelected()} />
-            <MenuItem label="粘贴" accel="⌘V" disabled={clipboardCount === 0} onClick={() => st().paste()} />
-            <MenuItem label="再制" accel="⌘D" disabled={selectedCount === 0} onClick={() => st().duplicateSelected()} />
-            <div className="menu-sep" />
-            <MenuItem label="全选" accel="⌘A" onClick={() => st().selectAll()} />
-            <MenuItem label="删除" accel="⌫" disabled={selectedCount === 0} onClick={() => st().deleteSelected()} />
-          </div>
-        </details>
-        <details className="menu">
-          <summary>控件</summary>
-          <div className="menu-items">
-            <MenuItem label="新建定制控件（空白）" disabled={!hasProject} onClick={() => st().createCustomWidget({ kind: 'blank' })} />
-            <MenuItem
-              label="以 Tab 容器为骨架新建…"
-              disabled={!hasProject}
-              onClick={() => st().createCustomWidget({ kind: 'tab', tabs: ['页签 1', '页签 2'], barPosition: 'top' })}
-            />
-            <MenuItem
-              label="以面板为骨架新建"
-              disabled={!hasProject}
-              onClick={() => st().createCustomWidget({ kind: 'panel' })}
-            />
-            <MenuItem
-              label="以滚动区为骨架新建"
-              disabled={!hasProject}
-              onClick={() => st().createCustomWidget({ kind: 'scroll' })}
-            />
-            <div className="menu-sep" />
-            <MenuItem
-              label="存为定制控件"
-              disabled={selectedCount === 0}
-              onClick={() => st().saveSelectionAsCustom()}
-            />
-            <MenuItem
-              label="编辑选中实例的定义"
-              disabled={!inst}
-              onClick={() => inst && st().setEditingWidget(inst.customId)}
-            />
-            <MenuItem
-              label="打散实例为普通组合"
-              disabled={!inst}
-              onClick={() => inst && st().detachInstance(inst.id)}
-            />
-          </div>
-        </details>
-        <details className="menu">
-          <summary>视图</summary>
-          <div className="menu-items">
-            <MenuItem label="放大" accel="⌘=" onClick={() => st().zoomByCenter(1.2)} />
-            <MenuItem label="缩小" accel="⌘-" onClick={() => st().zoomByCenter(1 / 1.2)} />
-            <MenuItem label="实际大小 (100%)" onClick={() => st().setZoom100()} />
-            <MenuItem label="适配窗口" onClick={() => st().fitView()} />
-            <div className="menu-sep" />
-            <MenuItem
-              label="▶ 运行原型预览"
-              disabled={!hasProject}
-              onClick={() => st().startPreview()}
-            />
-            <div className="menu-sep" />
-            <MenuItem label={(showGrid ? '✓ ' : '') + '显示网格'} onClick={() => st().toggleGrid()} />
-            <MenuItem label={(snapEnabled ? '✓ ' : '') + '网格吸附'} onClick={() => st().toggleSnap()} />
-            <MenuItem label={(showSafeArea ? '✓ ' : '') + '安全区参考框'} onClick={() => st().toggleSafeArea()} />
-            <div className="menu-sep" />
-            <div className="menu-group-title">分辨率预览（按锚点重排，只读）</div>
-            {PREVIEW_RATIOS.map((r) => (
-              <MenuItem
-                key={r.id}
-                label={(previewRatio === r.id ? '✓ ' : '') + r.label}
-                onClick={() => st().setPreviewRatio(r.id)}
-              />
-            ))}
-          </div>
-        </details>
-        <details className="menu">
-          <summary>帮助</summary>
-          <div className="menu-items">
-            <MenuItem
-              label="关于…"
-              onClick={() =>
-                alert('手游 UI 雏形设计工具 v0.1\n线框图原型编辑器（M0 – M2）\n\n设计文档见：概念设计.md')
-              }
-            />
-          </div>
-        </details>
+          ))}
+        </Menu>
+        <Menu label="帮助">
+          <MenuItem
+            label="关于…"
+            onClick={() =>
+              alert('手游 UI 雏形设计工具 v0.1\n线框图原型编辑器（M0 – M2）\n\n设计文档见：概念设计.md')
+            }
+          />
+        </Menu>
         <span className="app-title">手游 UI 雏形设计工具</span>
       </div>
 
