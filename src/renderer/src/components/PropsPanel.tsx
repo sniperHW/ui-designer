@@ -200,17 +200,18 @@ function AnchorEditor({ node }: { node: WidgetNode }) {
         </div>
       </div>
       <div className="prop-row">
-        <span />
+        <span>{a ? `当前：${PRESET_LABEL[a.preset]} · ${MODE_LABEL[a.mode]}` : '未设置（随父等比）'}</span>
         <button
           className="mini-btn"
           disabled={!a}
+          title="清除锚点"
           onClick={() =>
             updateNodes([node.id], (n) => {
               delete n.anchor
             })
           }
         >
-          {a ? `清除锚点（当前：${PRESET_LABEL[a.preset]} · ${MODE_LABEL[a.mode]}）` : '未设置（随父等比）'}
+          清除
         </button>
       </div>
     </div>
@@ -286,7 +287,7 @@ function ExposedPropsEditor({ def, selected }: { def: CustomWidgetDef; selected:
     <div className="prop-section">
       <h4>暴露属性（实例只能改这些）</h4>
       {def.props.length === 0 && <div className="prop-hint">暂无。选中内部控件后，把它的属性绑定为暴露属性。</div>}
-      {def.props.map((p) => (
+      {def.props.map((p, pi) => (
         <div key={p.name} className="prop-sub">
           <div className="prop-row">
             <input
@@ -324,7 +325,7 @@ function ExposedPropsEditor({ def, selected }: { def: CustomWidgetDef; selected:
               title="删除暴露属性"
               onClick={() =>
                 mutateWidget(def.id, (d) => {
-                  d.props = d.props.filter((x) => x.name !== p.name)
+                  d.props = d.props.filter((_, i) => i !== pi)
                 })
               }
             >

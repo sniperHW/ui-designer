@@ -327,7 +327,8 @@ select {
   flex-shrink: 0;
 }
 .page-row:hover .mini-btn,
-.layer-row:hover .mini-btn {
+.layer-row:hover .mini-btn,
+.prop-row:hover .mini-btn {
   visibility: visible;
 }
 .mini-btn:hover {
