@@ -208,6 +208,8 @@ interface EditorState {
   ctxMenu: { x: number; y: number } | null
   /** 点击效果演示：当前弹出的弹窗控件 id（会话状态，不入文档） */
   popupId: string | null
+  /** 原型预览（§8）：整套工程在编辑器内运行演示（可点击控件触发切页/返回/弹窗，Tab 可切换） */
+  previewing: boolean
   /** 「返回上一页」的来路：切换页面前的页面 id（无来路 = null，返回无效；会话状态，不入文档） */
   prevPageId: string | null
 
@@ -260,10 +262,9 @@ interface EditorState {
 
   /** 定制控件（§5） */
   createCustomWidget: (skeleton: {
-    kind: 'blank' | 'tab' | 'panel' | 'dialog' | 'scroll'
+    kind: 'blank' | 'tab' | 'panel' | 'scroll'
     tabs?: string[]
     barPosition?: 'top' | 'bottom'
-    title?: string
   }) => string
   /** 画布选中组合 → 存为定制控件，原位替换为实例 */
   saveSelectionAsCustom: () => void
@@ -300,9 +301,12 @@ interface EditorState {
   /** 右键菜单（画布上右键控件后弹出：删除 / 点击） */
   openCtxMenu: (x: number, y: number) => void
   closeCtxMenu: () => void
-  /** 触发控件的点击效果：切换页面 / 弹窗演示（编辑器内即可预演） */
+  /** 触发控件的点击效果：切换页面 / 返回上一页 / 弹窗演示（编辑器内即可预演） */
   triggerClick: (id: string) => void
   closePopup: () => void
+  /** 原型预览：进入（从当前页起跑） / 退出（Esc） */
+  startPreview: () => void
+  stopPreview: () => void
 }
 
 export const useEditor = create<EditorState>((set, get) => ({
@@ -328,6 +332,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   showNewModal: false,
   ctxMenu: null,
   popupId: null,
+  previewing: false,
   prevPageId: null,
 
   currentPage: () => {
@@ -400,9 +405,9 @@ export const useEditor = create<EditorState>((set, get) => ({
 
   addWidget: (def, cx, cy) => {
     const s = get()
-    // 弹窗控件只属于弹窗页 / 定制控件定义，不能拖到普通页面 / 公共层（§8：弹窗独立设计、点击弹出）
-    if (def.type === 'dialog' && !s.editingWidgetId && !s.editingPopupId) {
-      alert('弹窗请放到独立的弹窗页：左侧页面列表底部「弹窗」分组点「＋ 新建弹窗」，在其中设计内容，再在按钮的点击效果里选择它。')
+    // 弹窗只属于弹窗页（§8）：普通页面 / 公共层 / 定制控件定义内一律不放
+    if (def.type === 'dialog' && !s.editingPopupId) {
+      alert('弹窗只能放在弹窗页：左侧页面列表底部「弹窗」分组点「＋ 新建弹窗」设计内容，再在点击效果里选择它。')
       return
     }
     const g = s.snapEnabled ? s.gridSize : 1
@@ -528,10 +533,19 @@ export const useEditor = create<EditorState>((set, get) => ({
     const s = get()
     if (!s.selectedIds.length) return
     const ids = new Set(s.selectedIds)
+    // 弹窗页内的弹窗本体（根级 dialog）不参与删除——删除整个弹窗请用弹窗列表的 ✕
+    const bodyIds = new Set<string>()
+    if (s.editingPopupId) {
+      s.doc.popups
+        .find((p) => p.id === s.editingPopupId)
+        ?.nodes.forEach((n) => {
+          if (n.type === 'dialog') bodyIds.add(n.id)
+        })
+    }
     s.mutate((d) => {
       const rm = (arr: WidgetNode[]): void => {
         for (let i = arr.length - 1; i >= 0; i--) {
-          if (ids.has(arr[i].id)) arr.splice(i, 1)
+          if (ids.has(arr[i].id) && !bodyIds.has(arr[i].id)) arr.splice(i, 1)
           else for (const sub of childSubtreesOf(arr[i])) rm(sub)
         }
       }
@@ -812,7 +826,8 @@ export const useEditor = create<EditorState>((set, get) => ({
       slotNodeIds: []
     }
     if (skeleton.kind !== 'blank') {
-      const label = { tab: 'Tab 页签', panel: '面板', dialog: '弹窗', scroll: '滚动区' }[skeleton.kind]
+      // 弹窗不作为骨架（弹窗只属于弹窗页，§8）
+      const label = { tab: 'Tab 页签', panel: '面板', scroll: '滚动区' }[skeleton.kind]
       const node: WidgetNode = {
         id: uid('n'),
         type: skeleton.kind,
@@ -829,9 +844,6 @@ export const useEditor = create<EditorState>((set, get) => ({
         node.props = { tabs: skeleton.tabs?.length ? skeleton.tabs : ['页签 1', '页签 2'], barPosition: skeleton.barPosition ?? 'top' }
         node.activeTab = 0
         node.pages = (node.props.tabs ?? []).map(() => [])
-      } else if (skeleton.kind === 'dialog') {
-        node.props = { title: skeleton.title ?? '弹窗标题' }
-        node.children = []
       } else {
         node.children = []
       }
@@ -854,6 +866,15 @@ export const useEditor = create<EditorState>((set, get) => ({
       if (ids.has(n.id)) picked.push(n)
     })
     if (!picked.length) return
+    // 弹窗只属于弹窗页（§8）：含弹窗（含子孙）的组合不能存为定制控件
+    let hasDialog = false
+    walkNodes(picked, (n) => {
+      if (n.type === 'dialog') hasDialog = true
+    })
+    if (hasDialog) {
+      alert('弹窗不能放进定制控件：弹窗请在独立的弹窗页中设计，用点击效果（弹出）使用。')
+      return
+    }
     const bb = bboxOf(picked)
     if (!bb) return
     const tree = picked.map((n) => reids(structuredClone(n), () => uid('n')))
@@ -1023,6 +1044,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       previewRatio: 'design',
       ctxMenu: null,
       popupId: null,
+      previewing: false,
       prevPageId: null,
       fitToken: get().fitToken + 1,
       showNewModal: false
@@ -1046,6 +1068,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       previewRatio: 'design',
       ctxMenu: null,
       popupId: null,
+      previewing: false,
       prevPageId: null,
       fitToken: get().fitToken + 1
     })
@@ -1067,6 +1090,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       previewRatio: 'design',
       ctxMenu: null,
       popupId: null,
+      previewing: false,
       prevPageId: null
     })
   },
@@ -1138,7 +1162,6 @@ export const useEditor = create<EditorState>((set, get) => ({
   triggerClick: (id) => {
     const s = get()
     set({ ctxMenu: null })
-    if (s.editingWidgetId) return
     const node = findNodeInDoc(s.doc, id)
     if (!node || !isClickable(node)) return
     const act = node.clickAction
@@ -1171,7 +1194,25 @@ export const useEditor = create<EditorState>((set, get) => ({
     }
   },
 
-  closePopup: () => set({ popupId: null })
+  closePopup: () => set({ popupId: null }),
+
+  startPreview: () => {
+    const s = get()
+    set({
+      previewing: true,
+      // 从当前页起跑（公共层 / 弹窗页 / 定制定义编辑态进入时回到页面 1）
+      currentPageIndex:
+        s.currentPageIndex >= 0 ? Math.min(s.currentPageIndex, s.doc.pages.length - 1) : 0,
+      editingWidgetId: null,
+      editingPopupId: null,
+      selectedIds: [],
+      ctxMenu: null,
+      popupId: null,
+      prevPageId: null
+    })
+  },
+
+  stopPreview: () => set({ previewing: false, popupId: null, selectedIds: [], ctxMenu: null })
 }))
 
 /** 当前编辑目标的节点数组（mutate 内部，随克隆文档变化） */

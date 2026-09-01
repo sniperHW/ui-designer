@@ -60,10 +60,14 @@ function isFiniteNum(v) { return typeof v === 'number' && Number.isFinite(v) }
 /** 校验一棵节点树（页面 / 公共层 / 弹窗页 / 定义树）；返回树内全部节点（含子孙） */
 function checkTree(arr, rootLabel, rep, ctx) {
   const all = []
+  const popupRoot = rootLabel.includes('.popups[')
   walk(arr, (n, path, inScroll) => {
     all.push(n)
     const label = `「${n?.name ?? '?'}」(${n?.id ?? '?'})`
     const where = `${rootLabel}${path} ${label}`
+    if (!popupRoot && n.type === 'dialog') {
+      rep.warn(where, '弹窗控件只应出现在弹窗页（doc.popups）中——页面 / 公共层 / 定制控件定义内不放弹窗')
+    }
     if (typeof n?.id !== 'string' || !n.id) return rep.err(where, '缺少字符串 id')
     if (ctx.nodeIds.has(n.id)) rep.err(where, `节点 id 重复：${n.id}`)
     ctx.nodeIds.add(n.id)

@@ -193,6 +193,53 @@ async function main() {
   check('弹窗手柄伸缩', dlgAfter.w > dlgBefore.w && dlgAfter.h > dlgBefore.h,
     `弹窗 w ${dlgBefore.w}→${dlgAfter.w}，h ${dlgBefore.h}→${dlgAfter.h}`)
 
+  // 5c4. 弹窗页内右键弹窗本体 → 不弹菜单（弹窗本体即弹窗本身，不提供删除；删整个弹窗走弹窗列表 ✕）
+  const bodyPt = await toScreen(dlgAfter.x + dlgAfter.w / 2, dlgAfter.y + 24)
+  await rclick(bodyPt.x, bodyPt.y)
+  await sleep(250)
+  const noMenuOnBody = await evalJs(`!document.querySelector('.ctx-menu')`)
+  check('弹窗本体无删除项', noMenuOnBody === true, '右键弹窗本体不弹删除菜单')
+
+  // 5c5. Delete 键 / deleteSelected 同样不删弹窗本体
+  const bodyKept = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const dlg = st.editRoot().find(n => n.type === 'dialog')
+    st.setSelection([dlg.id])
+    st.deleteSelected()
+    return !!window.__uiw.getState().editRoot().find(n => n.type === 'dialog')
+  })()`)
+  check('弹窗本体删除保护', bodyKept === true, 'deleteSelected 跳过弹窗本体')
+
+  // 5c6. 右键弹窗内容子控件 → 仍可删除
+  const childGeo = await evalJs(`(() => {
+    const d = window.__uiw.getState().editRoot().find(n => n.type === 'dialog')
+    const b = d.children[0]
+    return { x: b.x + b.w / 2, y: b.y + b.h / 2 }
+  })()`)
+  const cpt = await toScreen(childGeo.x, childGeo.y)
+  await rclick(cpt.x, cpt.y)
+  await sleep(250)
+  const childMenu = await evalJs(`(() => {
+    const items = [...document.querySelectorAll('.ctx-menu .ctx-item')]
+    // 弹窗页内子控件：删除可用；按钮天生可点击 → 附加「点击」项（未配置效果时禁用）
+    return items.length === 2 && items[0].textContent.includes('删除') &&
+      items[1].textContent.includes('点击') && items[1].className.includes('disabled')
+  })()`)
+  check('内容控件可删除', childMenu === true, '右键弹窗内容子控件仍提供删除')
+  await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))")
+  await sleep(150)
+
+  // 5c7. 弹窗（含子孙）不能「存为定制控件」
+  const savedBlocked = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const defs0 = st.doc.customWidgets.length
+    const dlg = st.editRoot().find(n => n.type === 'dialog')
+    st.setSelection([dlg.id])
+    st.saveSelectionAsCustom()
+    return { same: window.__uiw.getState().doc.customWidgets.length === defs0 }
+  })()`)
+  check('弹窗不可存为定制', savedBlocked.same === true, '选中弹窗「存为定制控件」被拦截')
+
   // 5d. 回页面 1 放矩形（准备开启可点击）
   await evalJs(`(() => {
     const st = window.__uiw.getState()
@@ -340,9 +387,22 @@ async function main() {
   check('菜单删除控件', rectGone === true, '右键「删除」移除选中控件')
 
   // —— 10. 定制控件实例设为可点击（右键菜单出现禁用的点击项）——
-  await evalJs(`(() => {
+  const widgetDialog = await evalJs(`(() => {
     const st = window.__uiw.getState()
     const wid = st.createCustomWidget({ kind: 'panel' })
+    // 弹窗禁入定制控件定义（正在编辑定义树）
+    const defs0 = window.__uiw.getState().doc.customWidgets.length
+    const alerts0 = (window.__alertMsgs ?? []).length
+    st.addWidget(window.__uiwDefs.find(d => d.type === 'dialog'), 100, 100)
+    const s2 = window.__uiw.getState()
+    const tree = s2.doc.customWidgets.find(w => w.id === wid).tree
+    return { blocked: tree.every(n => n.type !== 'dialog'), defs: s2.doc.customWidgets.length === defs0, alerted: (window.__alertMsgs ?? []).length > alerts0 }
+  })()`)
+  check('弹窗禁入定制控件', widgetDialog.blocked === true && widgetDialog.alerted === true,
+    `定义树无 dialog=${widgetDialog.blocked}，拦截提示=${widgetDialog.alerted}`)
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const wid = st.doc.customWidgets[st.doc.customWidgets.length - 1].id
     st.setEditingWidget(null)
     st.addWidgetCustom(wid, 650, 550)
     return true
@@ -463,6 +523,113 @@ async function main() {
   })()`)
   check('旧格式自动迁移', mig.popups === 1 && mig.popupTypes[0] === 'dialog' && mig.pageHasDialog === false && mig.action.target === mig.popupId,
     `生成弹窗页=${mig.popups}，页面残留 dialog=${mig.pageHasDialog}，动作已改指向=${mig.action.target === mig.popupId}`)
+
+  // —— 16. 弹窗页内控件：属性面板可配点击效果（ClickEditor 不再对弹窗页隐藏）——
+  const popBtn = await evalJs(`(() => {
+    const st0 = window.__uiw.getState()
+    st0.addPage()
+    const st = window.__uiw.getState()
+    st.setCurrentPage(0)
+    st.setEditingPopup(st.doc.popups[0].id)
+    const dlg = window.__uiw.getState().doc.popups[0].nodes.find(n => n.type === 'dialog')
+    st.addWidget(window.__uiwDefs.find(d => d.type === 'button'), dlg.x + dlg.w / 2, dlg.y + 48 + (dlg.h - 48) / 2)
+    const s2 = window.__uiw.getState()
+    const btn = s2.doc.popups[0].nodes.find(n => n.type === 'dialog').children.find(n => n.type === 'button')
+    s2.updateNodes([btn.id], n => {
+      n.props.text = '确定'
+      n.clickAction = { type: 'goto', target: s2.doc.pages[1].id }
+    })
+    window.__uiw.getState().setSelection([btn.id])
+    const fin = window.__uiw.getState()
+    const b = fin.doc.popups[0].nodes.find(n => n.type === 'dialog').children.find(n => n.type === 'button')
+    return { id: b.id, cx: b.x + b.w / 2, cy: b.y + b.h / 2 }
+  })()`)
+  await sleep(200)
+  const popPanel = await evalJs(`(() => {
+    const sec = [...document.querySelectorAll('.prop-section')].find(s => s.querySelector('h4')?.textContent === '点击')
+    return sec
+      ? { ok: true, seg: sec.querySelectorAll('.seg button').length,
+          demo: !![...sec.querySelectorAll('button')].find(b => b.textContent.includes('演示点击效果')) }
+      : { ok: false, seg: 0, demo: false }
+  })()`)
+  check('弹窗页可配点击', popPanel.ok && popPanel.seg === 4 && popPanel.demo,
+    `弹窗页属性面板「点击」区=${popPanel.ok}，效果选项=${popPanel.seg}/4，演示按钮=${popPanel.demo}`)
+
+  // —— 17. 弹窗页内右键「点击」演示 → 跳转并退出弹窗编辑 ——
+  pt = await toScreen(popBtn.cx, popBtn.cy)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  items = await ctxItems()
+  const popGo = items[1] ?? ''
+  check('弹窗页右键点击项', popGo.includes('跳转「页面 2」'), `菜单项=[${items}]`)
+  const popGoItem = await evalJs(`(() => {
+    const el = [...document.querySelectorAll('.ctx-menu .ctx-item')][1]
+    const r = el.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await click(popGoItem.x, popGoItem.y)
+  await sleep(250)
+  const popGoState = await evalJs(`(() => ({ page: window.__uiw.getState().currentPageIndex, editing: window.__uiw.getState().editingPopupId }))()`)
+  check('弹窗页点击演示', popGoState.page === 1 && popGoState.editing === null,
+    `右键「点击」后 currentPageIndex=${popGoState.page}/1，退出弹窗编辑=${popGoState.editing === null}`)
+
+  // —— 18. 编辑态弹窗浮层内控件左键触发（PopupLayer 交互式渲染）——
+  await evalJs(`(() => { window.__uiw.getState().setCurrentPage(0); window.__uiw.getState().triggerClick('old_btn'); return true })()`)
+  await sleep(250)
+  pt = await toScreen(popBtn.cx, popBtn.cy)
+  await click(pt.x, pt.y)
+  await sleep(250)
+  const popupInner = await evalJs(`(() => ({ page: window.__uiw.getState().currentPageIndex, popup: window.__uiw.getState().popupId }))()`)
+  check('弹窗内控件可点击', popupInner.page === 1 && popupInner.popup === null,
+    `浮层内点「确定」→ 切页=${popupInner.page === 1}，弹窗收起=${popupInner.popup === null}`)
+
+  // —— 19. 定制控件定义内控件：属性面板可配「点击」（定义级，实例上按命中区域触发）——
+  const defBtn = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const wid = st.createCustomWidget({ kind: 'blank' })
+    window.__uiw.getState().setEditingWidget(wid)
+    window.__uiw.getState().addWidget(window.__uiwDefs.find(d => d.type === 'button'), 80, 60)
+    const s2 = window.__uiw.getState()
+    const btn = s2.doc.customWidgets.find(w => w.id === wid).tree.find(n => n.type === 'button')
+    s2.setSelection([btn.id])
+    const fin = window.__uiw.getState()
+    const b = fin.doc.customWidgets.find(w => w.id === wid).tree.find(n => n.type === 'button')
+    return { wid, id: b.id, cx: b.x + b.w / 2, cy: b.y + b.h / 2, editing: fin.editingWidgetId === wid }
+  })()`)
+  await sleep(250)
+  const defPanel = await evalJs(`(() => {
+    const sec = [...document.querySelectorAll('.prop-section')].find(s => s.querySelector('h4')?.textContent === '点击')
+    return sec
+      ? { ok: true, seg: sec.querySelectorAll('.seg button').length, hint: sec.textContent.includes('定义级设置') }
+      : { ok: false, seg: 0, hint: false }
+  })()`)
+  check('定义内可配点击', defPanel.ok && defBtn.editing && defPanel.seg === 4 && defPanel.hint,
+    `定义编辑选中按钮 → 「点击」区=${defPanel.ok}，效果选项=${defPanel.seg}/4（按钮天生可点击，无勾选框），定义级提示=${defPanel.hint}`)
+
+  // —— 20. 定义编辑内右键「点击」演示 → 触发跳转并退出定义编辑 ——
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const target = st.doc.pages[0].id
+    st.updateNodes(['${defBtn.id}'], n => { n.clickAction = { type: 'goto', target } })
+    return true
+  })()`)
+  await sleep(150)
+  pt = await toScreen(defBtn.cx, defBtn.cy)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  items = await ctxItems()
+  const defGo = items[1] ?? ''
+  check('定义内右键点击项', defGo.includes('跳转「旧页」'), `菜单项=[${items}]`)
+  const defGoItem = await evalJs(`(() => {
+    const el = [...document.querySelectorAll('.ctx-menu .ctx-item')][1]
+    const r = el.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await click(defGoItem.x, defGoItem.y)
+  await sleep(250)
+  const defGoState = await evalJs(`(() => ({ page: window.__uiw.getState().currentPageIndex, editing: window.__uiw.getState().editingWidgetId }))()`)
+  check('定义内点击演示', defGoState.page === 0 && defGoState.editing === null,
+    `右键「点击」后 currentPageIndex=${defGoState.page}/0，退出定义编辑=${defGoState.editing === null}`)
 
   console.log(JSON.stringify(results, null, 2))
   ws.close()

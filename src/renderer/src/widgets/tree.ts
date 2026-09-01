@@ -5,10 +5,14 @@ export function isClickable(n: WidgetNode): boolean {
   return n.type === 'button' || n.clickable === true
 }
 
-/** 在全文档（公共层 + 所有页面）中按 id 查找节点；找不到返回 null */
+/** 在全文档（公共层 + 所有页面 + 弹窗页 + 定制控件定义）中按 id 查找节点；找不到返回 null */
 export function findNodeInDoc(doc: ProjectDoc, id: string): WidgetNode | null {
-  for (const p of [doc.commonLayer, ...doc.pages]) {
+  for (const p of [doc.commonLayer, ...doc.pages, ...doc.popups]) {
     const r = findNodeById(p.nodes, id)
+    if (r) return r
+  }
+  for (const w of doc.customWidgets) {
+    const r = findNodeById(w.tree, id)
     if (r) return r
   }
   return null

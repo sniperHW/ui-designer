@@ -93,6 +93,20 @@ function textBlock(n: WidgetNode, x: number, width: number, fill = INK): string 
   return `<text x="${tx}" y="${Math.round(cy)}" fill="${fill}" font-size="${fontSize}" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif"${weight} text-anchor="${anchor}" dominant-baseline="central">${spans}</text>`
 }
 
+/** 滚动区边框 + 右侧滚动条轨道；滑块不在此画——编辑态画静态示意，预览随滚动位置动态计算 */
+export function scrollTrackSVG(x: number, y: number, w: number, h: number): string {
+  const sw = Math.min(14, w / 6)
+  let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>`
+  s += `<rect x="${x + w - sw}" y="${y + 2}" width="${sw - 3}" height="${h - 4}" fill="#f3f4f6" stroke="#c3c8d0" stroke-width="1" vector-effect="non-scaling-stroke"/>`
+  return s
+}
+
+/** 滚动区静态滑块（编辑态示意，位于顶部） */
+export function scrollThumbSVG(x: number, y: number, w: number, h: number): string {
+  const sw = Math.min(14, w / 6)
+  return `<rect x="${x + w - sw + 1}" y="${y + 4}" width="${sw - 5}" height="${Math.max(10, h * 0.35)}" fill="#d1d5db"/>`
+}
+
 /** Tab 的内容区矩形（页面绝对坐标，页签栏之外的区域） */
 export function tabContentRect(n: WidgetNode): Rect {
   const barH = Math.min(TAB_BAR_H, n.h / 2)
@@ -134,6 +148,46 @@ export function contentRectOf(n: WidgetNode): Rect | null {
 export function renderKidsOf(n: WidgetNode): WidgetNode[] | null {
   if (n.type === 'tab') return n.pages?.[activeTabIndex(n)] ?? null
   if (n.type === 'panel' || n.type === 'dialog' || n.type === 'scroll') return n.children ?? null
+  return null
+}
+
+/**
+ * 点击拾取（预览 / 演示用）：在节点树（同一坐标系的绝对坐标）中从上层到下层找 (x,y) 命中的节点，
+ * 返回「根 → 命中节点」的路径。点在容器内容区内优先命中子孙（内容区外命中容器自身，如弹窗标题栏）；
+ * 定制控件实例递归进定义树（实例矩形按比例换算回定义局部坐标）。未命中返回 null。
+ * 用于实例内部静态渲染的控件（含定义里配了可点击的控件）在预览中的点击命中。
+ */
+export function pickPathInTree(
+  nodes: WidgetNode[],
+  x: number,
+  y: number,
+  defs: CustomWidgetDef[] = []
+): WidgetNode[] | null {
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const n = nodes[i]
+    if (!n.visible) continue
+    if (x < n.x || x > n.x + n.w || y < n.y || y > n.y + n.h) continue
+    if (n.type === 'custom') {
+      const def = defs.find((d) => d.id === n.customId)
+      if (def && def.w > 0 && def.h > 0) {
+        const hit = pickPathInTree(
+          def.tree,
+          ((x - n.x) * def.w) / n.w,
+          ((y - n.y) * def.h) / n.h,
+          defs
+        )
+        if (hit) return [n, ...hit]
+      }
+      return [n]
+    }
+    const kids = renderKidsOf(n)
+    const cr = contentRectOf(n)
+    if (kids && cr && x >= cr.x && x <= cr.x + cr.w && y >= cr.y && y <= cr.y + cr.h) {
+      const hit = pickPathInTree(kids, x, y, defs)
+      if (hit) return [n, ...hit]
+    }
+    return [n]
+  }
   return null
 }
 
@@ -465,14 +519,9 @@ export function widgetInnerSVG(n: WidgetNode): string {
       s += `<path d="M ${bx - 8} ${bc - 8} L ${bx + 8} ${bc + 8} M ${bx + 8} ${bc - 8} L ${bx - 8} ${bc + 8}" ${STROKE}/>`
       return s
     }
-    case 'scroll': {
+    case 'scroll':
       // 滚动区：边框 + 右侧滚动条示意
-      const sw = Math.min(14, w / 6)
-      let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>`
-      s += `<rect x="${x + w - sw}" y="${y + 2}" width="${sw - 3}" height="${h - 4}" fill="#f3f4f6" stroke="#c3c8d0" stroke-width="1" vector-effect="non-scaling-stroke"/>`
-      s += `<rect x="${x + w - sw + 1}" y="${y + 4}" width="${sw - 5}" height="${Math.max(10, h * 0.35)}" fill="#d1d5db"/>`
-      return s
-    }
+      return scrollTrackSVG(x, y, w, h) + scrollThumbSVG(x, y, w, h)
     case 'list':
     case 'grid': {
       // 列表 / 网格：数量可变的重复结构（项为生成的占位格，标记显示在格子底部）

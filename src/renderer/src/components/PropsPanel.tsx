@@ -69,7 +69,6 @@ const BINDABLE_KEYS: Partial<Record<WidgetType, { key: string; label: string }[]
 export default function PropsPanel({ width = 252 }: { width?: number }) {
   const doc = useEditor((s) => s.doc)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
-  const editingPopupId = useEditor((s) => s.editingPopupId)
   const selectedIds = useEditor((s) => s.selectedIds)
   const updateNodes = useEditor((s) => s.updateNodes)
   const alignSelected = useEditor((s) => s.alignSelected)
@@ -127,8 +126,8 @@ export default function PropsPanel({ width = 252 }: { width?: number }) {
       )}
       {editingDef && <ExposedPropsEditor def={editingDef} selected={sel.length === 1 ? sel[0] : null} />}
       {editingDef && sel.length === 1 && <SlotEditor def={editingDef} node={sel[0]} />}
-      {sel.length === 1 && !editingDef && <TypeProps node={sel[0]} defs={doc.customWidgets} />}
-      {sel.length === 1 && !editingDef && !editingPopupId && <ClickEditor node={sel[0]} />}
+      {sel.length === 1 && <TypeProps node={sel[0]} defs={doc.customWidgets} />}
+      {sel.length === 1 && <ClickEditor node={sel[0]} />}
       {sel.length >= 2 && (
         <div className="prop-section">
           <h4>对齐与分布</h4>
@@ -512,6 +511,7 @@ function ClickEditor({ node }: { node: WidgetNode }) {
   const triggerClick = useEditor((s) => s.triggerClick)
   const addPopup = useEditor((s) => s.addPopup)
   const setEditingPopup = useEditor((s) => s.setEditingPopup)
+  const editingDef = useEditor((s) => s.editingWidgetId)
   const doc = useEditor((s) => s.doc)
   const curPageId = useEditor((s) => (s.currentPageIndex >= 0 ? s.doc.pages[s.currentPageIndex]?.id : null))
   const prevPageId = useEditor((s) => s.prevPageId)
@@ -532,6 +532,11 @@ function ClickEditor({ node }: { node: WidgetNode }) {
   return (
     <div className="prop-section">
       <h4>点击</h4>
+      {editingDef && (
+        <div className="prop-hint">
+          定义级设置：保存在定制控件定义上，所有实例同步生效，预览中点击实例上的对应区域即触发；实例整体的可点击回页面选中实例单独配置。
+        </div>
+      )}
       {node.type === 'button' ? (
         <div className="prop-hint">按钮天生可点击；配置效果后右键可触发演示。</div>
       ) : (

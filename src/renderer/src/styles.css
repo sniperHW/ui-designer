@@ -931,6 +931,54 @@ select {
   flex-shrink: 0;
 }
 
+/* ---------- 原型预览（§8） ---------- */
+.preview-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: rgba(15, 17, 23, 0.97);
+  display: flex;
+  flex-direction: column;
+}
+.preview-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 42px;
+  padding: 0 14px;
+  background: #11141d;
+  color: #e5e7eb;
+  flex-shrink: 0;
+}
+.preview-top .preview-title {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.preview-top .preview-hint {
+  flex: 1;
+  color: #9ca3af;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.preview-top .tb-btn {
+  background: #1f2430;
+  border-color: #3a4152;
+  color: #e5e7eb;
+}
+.preview-top .tb-btn:hover {
+  background: #2a3040;
+}
+.preview-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
 /* 页面列表中的弹窗分组 */
 .popup-group-title {
   margin-top: 6px;

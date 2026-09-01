@@ -12,6 +12,7 @@ import EditTargetBar from './components/EditTargetBar'
 import NewProjectModal from './components/NewProjectModal'
 import Welcome from './components/Welcome'
 import Resizer from './components/Resizer'
+import Preview from './components/Preview'
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v))
 
@@ -85,9 +86,10 @@ export default function App() {
         e.preventDefault()
         st.nudge(0, e.shiftKey ? 10 : 1)
       } else if (e.key === 'Escape') {
-        // 优先收起弹窗演示 / 右键菜单，其次才清空选择
+        // 优先收起弹窗演示 / 右键菜单，其次退出原型预览，最后才清空选择
         if (st.popupId) st.closePopup()
         else if (st.ctxMenu) st.closeCtxMenu()
+        else if (st.previewing) st.stopPreview()
         else st.setSelection([])
       }
     }
@@ -120,6 +122,7 @@ export default function App() {
       )}
       <StatusBar />
       {showNewModal && <NewProjectModal />}
+      {useEditor((s) => s.previewing) && <Preview />}
     </div>
   )
 }

@@ -20,8 +20,13 @@
         "h": 40,
         "visible": true,
         "locked": false,
-        "props": { "radius": 20 },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "radius": 20
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_wood_v",
@@ -33,8 +38,16 @@
         "h": 28,
         "visible": true,
         "locked": false,
-        "props": { "text": "🪵 400", "fontSize": 22, "bold": false, "align": "left" },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "text": "🪵 400",
+          "fontSize": 22,
+          "bold": false,
+          "align": "left"
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_wood_p",
@@ -46,8 +59,13 @@
         "h": 24,
         "visible": true,
         "locked": false,
-        "props": { "radius": 8 },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "radius": 8
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_wood_pt",
@@ -59,8 +77,16 @@
         "h": 24,
         "visible": true,
         "locked": false,
-        "props": { "text": "＋", "fontSize": 22, "bold": true, "align": "center" },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "text": "＋",
+          "fontSize": 22,
+          "bold": true,
+          "align": "center"
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_gem",
@@ -72,8 +98,13 @@
         "h": 40,
         "visible": true,
         "locked": false,
-        "props": { "radius": 20 },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "radius": 20
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_gem_v",
@@ -85,8 +116,16 @@
         "h": 28,
         "visible": true,
         "locked": false,
-        "props": { "text": "🟣 139", "fontSize": 22, "bold": false, "align": "left" },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "text": "🟣 139",
+          "fontSize": 22,
+          "bold": false,
+          "align": "left"
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_gem_p",
@@ -98,8 +137,13 @@
         "h": 24,
         "visible": true,
         "locked": false,
-        "props": { "radius": 8 },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "radius": 8
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_gem_pt",
@@ -111,8 +155,16 @@
         "h": 24,
         "visible": true,
         "locked": false,
-        "props": { "text": "＋", "fontSize": 22, "bold": true, "align": "center" },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "text": "＋",
+          "fontSize": 22,
+          "bold": true,
+          "align": "center"
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_gold",
@@ -124,8 +176,13 @@
         "h": 40,
         "visible": true,
         "locked": false,
-        "props": { "radius": 20 },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "radius": 20
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_gold_v",
@@ -137,8 +194,16 @@
         "h": 28,
         "visible": true,
         "locked": false,
-        "props": { "text": "🪙 280", "fontSize": 22, "bold": false, "align": "left" },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "text": "🪙 280",
+          "fontSize": 22,
+          "bold": false,
+          "align": "left"
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_gold_p",
@@ -150,8 +215,13 @@
         "h": 24,
         "visible": true,
         "locked": false,
-        "props": { "radius": 8 },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "radius": 8
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_res_gold_pt",
@@ -163,8 +233,16 @@
         "h": 24,
         "visible": true,
         "locked": false,
-        "props": { "text": "＋", "fontSize": 22, "bold": true, "align": "center" },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "text": "＋",
+          "fontSize": 22,
+          "bold": true,
+          "align": "center"
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_top_pin",
@@ -177,7 +255,10 @@
         "visible": true,
         "locked": false,
         "props": {},
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_top_more",
@@ -189,8 +270,15 @@
         "h": 44,
         "visible": true,
         "locked": false,
-        "props": { "text": "···", "fontSize": 26, "bold": false },
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "props": {
+          "text": "···",
+          "fontSize": 26,
+          "bold": false
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       },
       {
         "id": "n_top_record",
@@ -203,7 +291,10 @@
         "visible": true,
         "locked": false,
         "props": {},
-        "anchor": { "preset": "tr", "mode": "fixed" }
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
       }
     ]
   },
@@ -219,19 +310,34 @@
           "name": "rank",
           "type": "string",
           "default": "#1",
-          "binds": [{ "nodeId": "n_lb_rank", "key": "text" }]
+          "binds": [
+            {
+              "nodeId": "n_lb_rank",
+              "key": "text"
+            }
+          ]
         },
         {
           "name": "name",
           "type": "string",
           "default": "玩家名",
-          "binds": [{ "nodeId": "n_lb_name", "key": "text" }]
+          "binds": [
+            {
+              "nodeId": "n_lb_name",
+              "key": "text"
+            }
+          ]
         },
         {
           "name": "cups",
           "type": "string",
           "default": "9",
-          "binds": [{ "nodeId": "n_lb_count", "key": "text" }]
+          "binds": [
+            {
+              "nodeId": "n_lb_count",
+              "key": "text"
+            }
+          ]
         }
       ],
       "tree": [
@@ -245,7 +351,14 @@
           "h": 120,
           "visible": true,
           "locked": false,
-          "props": { "radius": 16 }
+          "props": {
+            "radius": 16
+          },
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "pp_player"
+          }
         },
         {
           "id": "n_lb_rank",
@@ -257,7 +370,12 @@
           "h": 44,
           "visible": true,
           "locked": false,
-          "props": { "text": "#58", "fontSize": 30, "bold": true, "align": "center" }
+          "props": {
+            "text": "#58",
+            "fontSize": 30,
+            "bold": true,
+            "align": "center"
+          }
         },
         {
           "id": "n_lb_avatar",
@@ -281,7 +399,12 @@
           "h": 44,
           "visible": true,
           "locked": false,
-          "props": { "text": "玩家名", "fontSize": 30, "bold": false, "align": "left" }
+          "props": {
+            "text": "玩家名",
+            "fontSize": 30,
+            "bold": false,
+            "align": "left"
+          }
         },
         {
           "id": "n_lb_cup",
@@ -293,7 +416,12 @@
           "h": 44,
           "visible": true,
           "locked": false,
-          "props": { "text": "🏆", "fontSize": 30, "bold": false, "align": "center" }
+          "props": {
+            "text": "🏆",
+            "fontSize": 30,
+            "bold": false,
+            "align": "center"
+          }
         },
         {
           "id": "n_lb_count",
@@ -305,7 +433,12 @@
           "h": 44,
           "visible": true,
           "locked": false,
-          "props": { "text": "9", "fontSize": 30, "bold": true, "align": "center" }
+          "props": {
+            "text": "9",
+            "fontSize": 30,
+            "bold": true,
+            "align": "center"
+          }
         }
       ],
       "slotNodeIds": []
@@ -327,8 +460,20 @@
           "h": 1460,
           "visible": true,
           "locked": false,
-          "props": { "tabs": ["商店", "卡牌", "战斗", "城堡", "排名"], "barPosition": "bottom" },
-          "anchor": { "preset": "bc", "mode": "stretch" },
+          "props": {
+            "tabs": [
+              "商店",
+              "卡牌",
+              "战斗",
+              "城堡",
+              "排名"
+            ],
+            "barPosition": "bottom"
+          },
+          "anchor": {
+            "preset": "bc",
+            "mode": "stretch"
+          },
           "pages": [
             [],
             [],
@@ -357,7 +502,12 @@
                 "h": 36,
                 "visible": true,
                 "locked": false,
-                "props": { "text": "木头", "fontSize": 28, "bold": true, "align": "center" }
+                "props": {
+                  "text": "木头",
+                  "fontSize": 28,
+                  "bold": true,
+                  "align": "center"
+                }
               },
               {
                 "id": "n_lb_panel",
@@ -369,7 +519,9 @@
                 "h": 1160,
                 "visible": true,
                 "locked": false,
-                "props": { "radius": 24 }
+                "props": {
+                  "radius": 24
+                }
               },
               {
                 "id": "n_lb_scroll",
@@ -395,7 +547,16 @@
                     "locked": false,
                     "props": {},
                     "customId": "w_lb_item",
-                    "overrides": { "rank": "#58", "name": "躺赢大", "cups": "9" }
+                    "overrides": {
+                      "rank": "#58",
+                      "name": "躺赢大",
+                      "cups": "9"
+                    },
+                    "clickable": true,
+                    "clickAction": {
+                      "type": "popup",
+                      "target": "pp_player"
+                    }
                   },
                   {
                     "id": "n_lb_i2",
@@ -409,7 +570,16 @@
                     "locked": false,
                     "props": {},
                     "customId": "w_lb_item",
-                    "overrides": { "rank": "#59", "name": "Lets Win", "cups": "9" }
+                    "overrides": {
+                      "rank": "#59",
+                      "name": "Lets Win",
+                      "cups": "9"
+                    },
+                    "clickable": true,
+                    "clickAction": {
+                      "type": "popup",
+                      "target": "pp_player"
+                    }
                   },
                   {
                     "id": "n_lb_i3",
@@ -423,7 +593,16 @@
                     "locked": false,
                     "props": {},
                     "customId": "w_lb_item",
-                    "overrides": { "rank": "#60", "name": "今天吃什么", "cups": "9" }
+                    "overrides": {
+                      "rank": "#60",
+                      "name": "今天吃什么",
+                      "cups": "9"
+                    },
+                    "clickable": true,
+                    "clickAction": {
+                      "type": "popup",
+                      "target": "pp_player"
+                    }
                   },
                   {
                     "id": "n_lb_i4",
@@ -437,7 +616,16 @@
                     "locked": false,
                     "props": {},
                     "customId": "w_lb_item",
-                    "overrides": { "rank": "#61", "name": "Kero", "cups": "9" }
+                    "overrides": {
+                      "rank": "#61",
+                      "name": "Kero",
+                      "cups": "9"
+                    },
+                    "clickable": true,
+                    "clickAction": {
+                      "type": "popup",
+                      "target": "pp_player"
+                    }
                   },
                   {
                     "id": "n_lb_i5",
@@ -451,7 +639,16 @@
                     "locked": false,
                     "props": {},
                     "customId": "w_lb_item",
-                    "overrides": { "rank": "#62", "name": "soyoo", "cups": "9" }
+                    "overrides": {
+                      "rank": "#62",
+                      "name": "soyoo",
+                      "cups": "9"
+                    },
+                    "clickable": true,
+                    "clickAction": {
+                      "type": "popup",
+                      "target": "pp_player"
+                    }
                   },
                   {
                     "id": "n_lb_i6",
@@ -465,7 +662,16 @@
                     "locked": false,
                     "props": {},
                     "customId": "w_lb_item",
-                    "overrides": { "rank": "#63", "name": "夏夜晚风", "cups": "9" }
+                    "overrides": {
+                      "rank": "#63",
+                      "name": "夏夜晚风",
+                      "cups": "9"
+                    },
+                    "clickable": true,
+                    "clickAction": {
+                      "type": "popup",
+                      "target": "pp_player"
+                    }
                   },
                   {
                     "id": "n_lb_i7",
@@ -479,7 +685,16 @@
                     "locked": false,
                     "props": {},
                     "customId": "w_lb_item",
-                    "overrides": { "rank": "#64", "name": "咻劣情", "cups": "8" }
+                    "overrides": {
+                      "rank": "#64",
+                      "name": "咻劣情",
+                      "cups": "8"
+                    },
+                    "clickable": true,
+                    "clickAction": {
+                      "type": "popup",
+                      "target": "pp_player"
+                    }
                   },
                   {
                     "id": "n_lb_i8",
@@ -493,7 +708,16 @@
                     "locked": false,
                     "props": {},
                     "customId": "w_lb_item",
-                    "overrides": { "rank": "#65", "name": "小雨在努力", "cups": "8" }
+                    "overrides": {
+                      "rank": "#65",
+                      "name": "小雨在努力",
+                      "cups": "8"
+                    },
+                    "clickable": true,
+                    "clickAction": {
+                      "type": "popup",
+                      "target": "pp_player"
+                    }
                   }
                 ]
               }
@@ -510,7 +734,12 @@
           "h": 22,
           "visible": true,
           "locked": false,
-          "props": { "text": "5", "fontSize": 20, "bold": true, "align": "center" }
+          "props": {
+            "text": "5",
+            "fontSize": 20,
+            "bold": true,
+            "align": "center"
+          }
         },
         {
           "id": "n_badge_card",
@@ -522,7 +751,163 @@
           "h": 22,
           "visible": true,
           "locked": false,
-          "props": { "text": "!", "fontSize": 20, "bold": true, "align": "center" }
+          "props": {
+            "text": "!",
+            "fontSize": 20,
+            "bold": true,
+            "align": "center"
+          }
+        }
+      ]
+    }
+  ],
+  "popups": [
+    {
+      "id": "pp_player",
+      "name": "玩家详情",
+      "nodes": [
+        {
+          "id": "n_pd_dlg",
+          "type": "dialog",
+          "name": "玩家详情弹窗",
+          "x": 135,
+          "y": 520,
+          "w": 480,
+          "h": 560,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "玩家详情"
+          },
+          "children": [
+            {
+              "id": "n_pd_avatar",
+              "type": "placeholder",
+              "name": "头像",
+              "x": 315,
+              "y": 600,
+              "w": 120,
+              "h": 120,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "n_pd_name",
+              "type": "text",
+              "name": "玩家名",
+              "x": 175,
+              "y": 740,
+              "w": 400,
+              "h": 40,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "玩家名",
+                "fontSize": 32,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "n_pd_cups",
+              "type": "text",
+              "name": "奖杯数",
+              "x": 185,
+              "y": 800,
+              "w": 160,
+              "h": 40,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "🏆 9",
+                "fontSize": 26,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "n_pd_rank",
+              "type": "text",
+              "name": "排名",
+              "x": 405,
+              "y": 800,
+              "w": 160,
+              "h": 40,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "#58",
+                "fontSize": 26,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "n_pd_stats_bg",
+              "type": "rect",
+              "name": "战绩底板",
+              "x": 175,
+              "y": 860,
+              "w": 400,
+              "h": 120,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "radius": 12
+              }
+            },
+            {
+              "id": "n_pd_stats_1",
+              "type": "text",
+              "name": "战绩行1",
+              "x": 195,
+              "y": 880,
+              "w": 360,
+              "h": 32,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "胜场 128 · 胜率 56%",
+                "fontSize": 24,
+                "bold": false,
+                "align": "left"
+              }
+            },
+            {
+              "id": "n_pd_stats_2",
+              "type": "text",
+              "name": "战绩行2",
+              "x": 195,
+              "y": 920,
+              "w": 360,
+              "h": 32,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "最高奖杯 12",
+                "fontSize": 24,
+                "bold": false,
+                "align": "left"
+              }
+            },
+            {
+              "id": "n_pd_btn",
+              "type": "button",
+              "name": "挑战按钮",
+              "x": 215,
+              "y": 1000,
+              "w": 320,
+              "h": 64,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "⚔ 挑战",
+                "fontSize": 28,
+                "bold": false
+              }
+            }
+          ]
         }
       ]
     }

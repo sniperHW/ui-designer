@@ -15,9 +15,9 @@ import type { CustomWidgetDef } from '../types'
 import type { Rect, SlotInfo, WidgetDef } from '../widgets/registry'
 import { canvasEl } from '../canvasRef'
 import type { WidgetNode } from '../types'
-import { DIALOG_TITLE_H } from '../widgets/registry'
-import { findNodeInDoc, isClickable, walkNodes } from '../widgets/tree'
+import { findNodeInDoc, isClickable } from '../widgets/tree'
 import SelectionOverlay from './SelectionOverlay'
+import PopupLayer from './PopupLayer'
 
 export default function Canvas() {
   const doc = useEditor((s) => s.doc)
@@ -275,12 +275,8 @@ export default function Canvas() {
     useEditor.getState().setMouse(pt.x, pt.y)
   }
 
-  // 弹窗演示：目标弹窗页被删后自动收起
-  const popupId = useEditor((s) => s.popupId)
-  const popupShown = popupId ? doc.popups.find((p) => p.id === popupId) ?? null : null
-  useEffect(() => {
-    if (popupId && !popupShown) useEditor.getState().closePopup()
-  }, [popupId, popupShown])
+  // 弹窗演示提示条（浮层本体在 PopupLayer，与预览共用）
+  const popupName = useEditor((s) => (s.popupId ? s.doc.popups.find((p) => p.id === s.popupId)?.name ?? null : null))
 
   const hasNodes = pageNodes.length > 0 || commonVisible.length > 0
 
@@ -334,47 +330,8 @@ export default function Canvas() {
             .map((n) => (
               <NodeGroup key={n.id} n={n} nodeDown={nodeDown} nodeCtx={nodeCtx} defs={doc.customWidgets} interactive={interactive} />
             ))}
-          {/* 点击效果演示：弹出独立弹窗页——遮罩压暗整页、弹窗内容浮于其上；点 ✕ / 遮罩 / Esc 关闭 */}
-          {popupShown && (
-            <g>
-              <rect
-                className="popup-backdrop"
-                x={0}
-                y={0}
-                width={boardW}
-                height={boardH}
-                fill="rgba(17,24,39,0.42)"
-                style={{ cursor: 'pointer' }}
-                onPointerDown={(e) => {
-                  e.stopPropagation()
-                  useEditor.getState().closePopup()
-                }}
-              />
-              <g style={{ filter: 'drop-shadow(0 12px 32px rgba(0,0,0,0.5))' }}>
-                {popupShown.nodes
-                  .filter((n) => n.visible)
-                  .map((n) => (
-                    <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, doc.customWidgets) }} />
-                  ))}
-              </g>
-              {/* 弹窗标题栏 ✕ 的关闭热区（与 registry 绘制的 ✕ 几何对齐） */}
-              {dialogCloseRects(popupShown.nodes).map((r, i) => (
-                <rect
-                  key={'popupx' + i}
-                  x={r.x}
-                  y={r.y}
-                  width={r.w}
-                  height={r.h}
-                  fill="transparent"
-                  style={{ cursor: 'pointer' }}
-                  onPointerDown={(e) => {
-                    e.stopPropagation()
-                    useEditor.getState().closePopup()
-                  }}
-                />
-              ))}
-            </g>
-          )}
+          {/* 点击效果演示：弹出独立弹窗页（遮罩 + 置顶浮层，内容可交互，与原型预览共用） */}
+          <PopupLayer defs={doc.customWidgets} boardW={boardW} boardH={boardH} toDoc={(e) => toDoc(e.clientX, e.clientY)} />
           {/* 安全区参考框（§6）：刘海屏参考，虚线示意 */}
           {showSafeArea && !editingDef && (
             <g style={{ pointerEvents: 'none' }}>
@@ -405,9 +362,9 @@ export default function Canvas() {
           分辨率预览 {boardW} × {boardH}（只读，按锚点重排）
         </div>
       )}
-      {popupShown && (
+      {popupName && (
         <div className="popup-badge">
-          👆 点击效果演示：弹窗「{popupShown.name}」 — 点 ✕ / 遮罩或按 Esc 关闭
+          👆 点击效果演示：弹窗「{popupName}」 — 点 ✕ / 遮罩或按 Esc 关闭
         </div>
       )}
       {(isCommon || editingPopup) && (
@@ -443,7 +400,13 @@ function CanvasCtxMenu() {
 
   if (!ctxMenu) return null
   const single = selectedIds.length === 1 ? findNodeInDoc(doc, selectedIds[0]) : null
-  const clickable = single && !editingWidgetId && !editingPopupId && isClickable(single) ? single : null
+  // 点击演示：普通页面 / 公共层 / 弹窗页 / 定制控件定义编辑均可（定义内配的效果由实例在预览中按命中区域触发）
+  const clickable = single && isClickable(single) ? single : null
+  // 弹窗页内的弹窗本体（根级 dialog）不提供删除——它是弹窗本身，删除整个弹窗请用弹窗列表的 ✕
+  const popupPage = editingPopupId ? doc.popups.find((p) => p.id === editingPopupId) : null
+  const popupBodyIds = new Set(popupPage ? popupPage.nodes.filter((n) => n.type === 'dialog').map((n) => n.id) : [])
+  const canDelete = !selectedIds.some((id) => popupBodyIds.has(id))
+  if (!canDelete && !clickable) return null
   const act = clickable?.clickAction
   const backTarget = prevPageId ? doc.pages.find((p) => p.id === prevPageId) : undefined
   // 目标是否有效（决定点击项可否触发）：未配置 / 目标被删 / 返回无来路 → 禁用
@@ -468,16 +431,18 @@ function CanvasCtxMenu() {
 
   return (
     <div className="ctx-menu" style={{ left: x, top: y }}>
-      <div
-        className="ctx-item"
-        onClick={() => {
-          useEditor.getState().deleteSelected()
-          useEditor.getState().closeCtxMenu()
-        }}
-      >
-        <span>删除{selectedIds.length > 1 ? `（${selectedIds.length} 个控件）` : ''}</span>
-        <span className="accel">⌫</span>
-      </div>
+      {canDelete && (
+        <div
+          className="ctx-item"
+          onClick={() => {
+            useEditor.getState().deleteSelected()
+            useEditor.getState().closeCtxMenu()
+          }}
+        >
+          <span>删除{selectedIds.length > 1 ? `（${selectedIds.length} 个控件）` : ''}</span>
+          <span className="accel">⌫</span>
+        </div>
+      )}
       {clickable && (
         <div
           className={'ctx-item' + (actOk ? '' : ' disabled')}
@@ -591,18 +556,4 @@ function ClippedGroup({ clipId, rect, children }: { clipId: string; rect: Rect; 
       {children}
     </g>
   )
-}
-
-/** 弹窗页内每个 dialog 的 ✕ 关闭热区（与 registry 绘制的 ✕ 几何对齐，标题栏中央） */
-function dialogCloseRects(nodes: WidgetNode[]): Rect[] {
-  const out: Rect[] = []
-  walkNodes(nodes, (n) => {
-    if (n.type === 'dialog') {
-      const t = Math.min(DIALOG_TITLE_H, n.h / 2)
-      const cx = n.x + n.w - t / 2 - 8
-      const cy = n.y + t / 2
-      out.push({ x: cx - 14, y: cy - 14, w: 28, h: 28 })
-    }
-  })
-  return out
 }

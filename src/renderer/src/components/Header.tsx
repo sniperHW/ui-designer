@@ -145,11 +145,6 @@ export default function Header() {
               onClick={() => st().createCustomWidget({ kind: 'panel' })}
             />
             <MenuItem
-              label="以弹窗为骨架新建"
-              disabled={!hasProject}
-              onClick={() => st().createCustomWidget({ kind: 'dialog', title: '弹窗标题' })}
-            />
-            <MenuItem
               label="以滚动区为骨架新建"
               disabled={!hasProject}
               onClick={() => st().createCustomWidget({ kind: 'scroll' })}
@@ -179,6 +174,12 @@ export default function Header() {
             <MenuItem label="缩小" accel="⌘-" onClick={() => st().zoomByCenter(1 / 1.2)} />
             <MenuItem label="实际大小 (100%)" onClick={() => st().setZoom100()} />
             <MenuItem label="适配窗口" onClick={() => st().fitView()} />
+            <div className="menu-sep" />
+            <MenuItem
+              label="▶ 运行原型预览"
+              disabled={!hasProject}
+              onClick={() => st().startPreview()}
+            />
             <div className="menu-sep" />
             <MenuItem label={(showGrid ? '✓ ' : '') + '显示网格'} onClick={() => st().toggleGrid()} />
             <MenuItem label={(snapEnabled ? '✓ ' : '') + '网格吸附'} onClick={() => st().toggleSnap()} />
@@ -294,6 +295,9 @@ export default function Header() {
               {docName}
               {dirty && <span className="dot" title="有未保存的修改" />}
             </span>
+            <button className="tb-btn" title="运行原型预览（Esc 退出）" onClick={() => st().startPreview()}>
+              ▶ 预览
+            </button>
             <button className="tb-btn" onClick={() => void doExportPng()}>
               导出 PNG
             </button>
