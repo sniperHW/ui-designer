@@ -38,6 +38,41 @@ npm run build      # 构建产物（out/）
 - `examples/竞技场-TabView原型.uiw` — 同一套界面的方式一实现：单页 + 底部 Tab 容器（页签栏在底部），画布点击页签头即可切换界面，默认选中战斗；导航图标以兄弟节点叠加在页签栏上（页签头只能渲染文字），Tab 容器从顶部资源栏下方开始以免自带白底遮住公共层。
 - 两版共享 `examples/arena-lib.mjs`（界面内容与宝箱卡 / 礼包横幅 / 榜单行定制控件定义，暴露属性改文字）；商店页内「特卖 / 基础」为嵌套 Tab 容器（页签栏在底部），页签内容用滚动区承载、可上下滚动（传奇卡包被下边缘裁剪示意继续下滑）；`node examples/build-arena-4tabs.mjs` / `node examples/build-arena-tabview.mjs` 重新生成。
 
+## 用 AI Agent 生成设计工程（skill）
+
+仓库内置了 [skills/uiw-designer/](skills/uiw-designer/)，让 AI agent（ZCode / Claude Code 等）学会直接生成可打开的 `.uiw` 工程：
+
+- `SKILL.md` — 触发条件与生成工作流（读规范 → 生成 → 校验 → 修正循环）
+- `references/schema.md` — `ProjectDoc` 文档结构与字段约束（对应 `src/renderer/src/types.ts`）
+- `references/widgets.md` — 18 种控件的默认尺寸 / props / 容器语义（对应 `src/renderer/src/widgets/registry.ts`）
+- `scripts/validate.mjs` — 无依赖校验器：`node skills/uiw-designer/scripts/validate.mjs <文件.uiw>`，输出带节点路径的错误（✗）/ 警告（⚠），退出码 0/1
+- `examples/最小工程.uiw` — 覆盖公共层、定制控件实例 + 暴露属性覆盖、筛选器↔列表联动、底部 Tab 的最小样例
+
+skill 源码放在仓库 `skills/` 目录，**默认未安装**，按需导入到 ZCode：
+
+**方式一：全局 skill（用户级，所有项目可用）**
+
+```bash
+# 复制（快照，skill 更新后需重新复制）
+mkdir -p ~/.zcode/skills
+cp -R skills/uiw-designer ~/.zcode/skills/
+
+# 或软链（随仓库实时更新，推荐本仓库开发者使用）
+mkdir -p ~/.zcode/skills
+ln -s "$PWD/skills/uiw-designer" ~/.zcode/skills/uiw-designer
+```
+
+**方式二：项目级 skill（工作区级，仅本仓库可用，可随 git 分发给团队）**
+
+```bash
+mkdir -p .zcode/skills
+cp -R skills/uiw-designer .zcode/skills/    # 同样可用软链代替复制
+```
+
+放入 `.zcode/skills/` 并提交到 git 后，所有克隆本仓库的人生效。
+
+**生效与验证**：重启会话（或新开会话）后 ZCode 自动发现；在对话里说"帮我生成一个 xxx 界面的 .uiw 设计工程"会自动触发，也可输入 `/uiw-designer` 显式调用。注意同名 skill 的发现顺序为 用户级 `~/.zcode/skills/` → 工作区级 `.zcode/skills/`，先发现者优先（用户级会遮蔽同名工作区级 skill）。若要跨工具共享（Claude Code 等），改放 `~/.agents/skills/`。
+
 ## 快捷键
 
 ⌘Z / ⇧⌘Z 撤销重做 · ⌘C/⌘V/⌘D 复制粘贴再制 · ⌘A 全选 · ⌫ 删除 · 方向键微调（⇧ ×10）· ⌘S 保存 · ⌘O 打开 · ⌘N 新建 · ⌘= / ⌘- 缩放 · Esc 取消选择

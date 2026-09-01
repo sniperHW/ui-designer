@@ -1,0 +1,226 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "示例工程",
+    "designWidth": 750,
+    "designHeight": 1600,
+    "orientation": "portrait"
+  },
+  "commonLayer": {
+    "id": "common",
+    "name": "公共层",
+    "nodes": [
+      {
+        "id": "n_topbar",
+        "type": "rect",
+        "name": "顶栏",
+        "x": 0,
+        "y": 0,
+        "w": 750,
+        "h": 100,
+        "visible": true,
+        "locked": false,
+        "props": {},
+        "anchor": { "preset": "tc", "mode": "stretch" }
+      },
+      {
+        "id": "n_top_title",
+        "type": "text",
+        "name": "顶栏标题",
+        "x": 40,
+        "y": 30,
+        "w": 300,
+        "h": 40,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "示例游戏", "fontSize": 30, "bold": true, "align": "left" },
+        "anchor": { "preset": "tl", "mode": "fixed" }
+      },
+      {
+        "id": "n_top_more",
+        "type": "button",
+        "name": "更多按钮",
+        "x": 650,
+        "y": 26,
+        "w": 70,
+        "h": 48,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "···", "fontSize": 28, "bold": false },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      }
+    ]
+  },
+  "customWidgets": [
+    {
+      "id": "w_res_bar",
+      "name": "资源条",
+      "group": "通用",
+      "w": 160,
+      "h": 44,
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "999",
+          "binds": [{ "nodeId": "n_res_text", "key": "text" }]
+        }
+      ],
+      "tree": [
+        {
+          "id": "n_res_bg",
+          "type": "rect",
+          "name": "底板",
+          "x": 0,
+          "y": 0,
+          "w": 160,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": { "radius": 22 }
+        },
+        {
+          "id": "n_res_icon",
+          "type": "ellipse",
+          "name": "资源图标",
+          "x": 8,
+          "y": 8,
+          "w": 28,
+          "h": 28,
+          "visible": true,
+          "locked": false,
+          "props": {}
+        },
+        {
+          "id": "n_res_text",
+          "type": "text",
+          "name": "资源数值",
+          "x": 44,
+          "y": 6,
+          "w": 108,
+          "h": 32,
+          "visible": true,
+          "locked": false,
+          "props": { "text": "999", "fontSize": 24, "bold": false, "align": "left" }
+        }
+      ],
+      "slotNodeIds": []
+    }
+  ],
+  "pages": [
+    {
+      "id": "p_home",
+      "name": "主页",
+      "nodes": [
+        {
+          "id": "n_page_title",
+          "type": "text",
+          "name": "页面标题",
+          "x": 40,
+          "y": 140,
+          "w": 400,
+          "h": 48,
+          "visible": true,
+          "locked": false,
+          "props": { "text": "卡牌收集", "fontSize": 40, "bold": true, "align": "left" }
+        },
+        {
+          "id": "n_res_gold",
+          "type": "custom",
+          "name": "资源条 金币",
+          "x": 540,
+          "y": 146,
+          "w": 170,
+          "h": 46,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "customId": "w_res_bar",
+          "overrides": { "value": "128" }
+        },
+        {
+          "id": "n_filter_cat",
+          "type": "filter",
+          "name": "类别筛选",
+          "x": 40,
+          "y": 240,
+          "w": 480,
+          "h": 56,
+          "visible": true,
+          "locked": false,
+          "props": { "options": ["全部", "英雄", "部队", "道具"], "selected": 0 },
+          "binding": { "target": "n_card_list", "tagKey": "类别" }
+        },
+        {
+          "id": "n_card_list",
+          "type": "list",
+          "name": "卡牌列表",
+          "x": 40,
+          "y": 320,
+          "w": 670,
+          "h": 900,
+          "visible": true,
+          "locked": false,
+          "props": { "direction": "v", "count": 6 },
+          "itemTags": ["英雄", "部队", "英雄", "道具", "部队", "英雄"]
+        },
+        {
+          "id": "n_tab_main",
+          "type": "tab",
+          "name": "主 Tab",
+          "activeTab": 0,
+          "x": 0,
+          "y": 1320,
+          "w": 750,
+          "h": 280,
+          "visible": true,
+          "locked": false,
+          "props": { "tabs": ["卡牌", "商店"], "barPosition": "bottom" },
+          "anchor": { "preset": "bc", "mode": "stretch" },
+          "pages": [
+            [
+              {
+                "id": "n_draw_btn",
+                "type": "button",
+                "name": "抽卡按钮",
+                "x": 40,
+                "y": 1380,
+                "w": 280,
+                "h": 90,
+                "visible": true,
+                "locked": false,
+                "props": { "text": "抽卡一次", "fontSize": 30, "bold": true }
+              },
+              {
+                "id": "n_draw_cost",
+                "type": "text",
+                "name": "消耗说明",
+                "x": 340,
+                "y": 1402,
+                "w": 300,
+                "h": 44,
+                "visible": true,
+                "locked": false,
+                "props": { "text": "消耗 280 💎", "fontSize": 24, "bold": false, "align": "left" }
+              }
+            ],
+            [
+              {
+                "id": "n_shop_hint",
+                "type": "text",
+                "name": "商店占位",
+                "x": 40,
+                "y": 1402,
+                "w": 400,
+                "h": 44,
+                "visible": true,
+                "locked": false,
+                "props": { "text": "商店页签内容（占位）", "fontSize": 24, "bold": false, "align": "left" }
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,530 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "排行榜",
+    "designWidth": 750,
+    "designHeight": 1600,
+    "orientation": "portrait"
+  },
+  "commonLayer": {
+    "id": "common",
+    "name": "公共层",
+    "nodes": [
+      {
+        "id": "n_res_wood",
+        "type": "rect",
+        "name": "木材胶囊",
+        "x": 300,
+        "y": 40,
+        "w": 140,
+        "h": 40,
+        "visible": true,
+        "locked": false,
+        "props": { "radius": 20 },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_wood_v",
+        "type": "text",
+        "name": "木材值",
+        "x": 314,
+        "y": 46,
+        "w": 84,
+        "h": 28,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "🪵 400", "fontSize": 22, "bold": false, "align": "left" },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_wood_p",
+        "type": "rect",
+        "name": "木材加号",
+        "x": 408,
+        "y": 48,
+        "w": 24,
+        "h": 24,
+        "visible": true,
+        "locked": false,
+        "props": { "radius": 8 },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_wood_pt",
+        "type": "text",
+        "name": "木材加号字",
+        "x": 408,
+        "y": 48,
+        "w": 24,
+        "h": 24,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "＋", "fontSize": 22, "bold": true, "align": "center" },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_gem",
+        "type": "rect",
+        "name": "紫晶胶囊",
+        "x": 450,
+        "y": 40,
+        "w": 140,
+        "h": 40,
+        "visible": true,
+        "locked": false,
+        "props": { "radius": 20 },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_gem_v",
+        "type": "text",
+        "name": "紫晶值",
+        "x": 464,
+        "y": 46,
+        "w": 84,
+        "h": 28,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "🟣 139", "fontSize": 22, "bold": false, "align": "left" },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_gem_p",
+        "type": "rect",
+        "name": "紫晶加号",
+        "x": 558,
+        "y": 48,
+        "w": 24,
+        "h": 24,
+        "visible": true,
+        "locked": false,
+        "props": { "radius": 8 },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_gem_pt",
+        "type": "text",
+        "name": "紫晶加号字",
+        "x": 558,
+        "y": 48,
+        "w": 24,
+        "h": 24,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "＋", "fontSize": 22, "bold": true, "align": "center" },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_gold",
+        "type": "rect",
+        "name": "金币胶囊",
+        "x": 600,
+        "y": 40,
+        "w": 140,
+        "h": 40,
+        "visible": true,
+        "locked": false,
+        "props": { "radius": 20 },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_gold_v",
+        "type": "text",
+        "name": "金币值",
+        "x": 614,
+        "y": 46,
+        "w": 84,
+        "h": 28,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "🪙 280", "fontSize": 22, "bold": false, "align": "left" },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_gold_p",
+        "type": "rect",
+        "name": "金币加号",
+        "x": 708,
+        "y": 48,
+        "w": 24,
+        "h": 24,
+        "visible": true,
+        "locked": false,
+        "props": { "radius": 8 },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_res_gold_pt",
+        "type": "text",
+        "name": "金币加号字",
+        "x": 708,
+        "y": 48,
+        "w": 24,
+        "h": 24,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "＋", "fontSize": 22, "bold": true, "align": "center" },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_top_pin",
+        "type": "placeholder",
+        "name": "定位图钉",
+        "x": 430,
+        "y": 92,
+        "w": 44,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": {},
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_top_more",
+        "type": "button",
+        "name": "更多按钮",
+        "x": 490,
+        "y": 92,
+        "w": 64,
+        "h": 44,
+        "visible": true,
+        "locked": false,
+        "props": { "text": "···", "fontSize": 26, "bold": false },
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      },
+      {
+        "id": "n_top_record",
+        "type": "ellipse",
+        "name": "录制按钮",
+        "x": 570,
+        "y": 92,
+        "w": 48,
+        "h": 48,
+        "visible": true,
+        "locked": false,
+        "props": {},
+        "anchor": { "preset": "tr", "mode": "fixed" }
+      }
+    ]
+  },
+  "customWidgets": [
+    {
+      "id": "w_lb_item",
+      "name": "排行榜条目",
+      "group": "排行榜",
+      "w": 640,
+      "h": 120,
+      "props": [
+        {
+          "name": "rank",
+          "type": "string",
+          "default": "#1",
+          "binds": [{ "nodeId": "n_lb_rank", "key": "text" }]
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": "玩家名",
+          "binds": [{ "nodeId": "n_lb_name", "key": "text" }]
+        },
+        {
+          "name": "cups",
+          "type": "string",
+          "default": "9",
+          "binds": [{ "nodeId": "n_lb_count", "key": "text" }]
+        }
+      ],
+      "tree": [
+        {
+          "id": "n_lb_bg",
+          "type": "rect",
+          "name": "条目底板",
+          "x": 0,
+          "y": 0,
+          "w": 640,
+          "h": 120,
+          "visible": true,
+          "locked": false,
+          "props": { "radius": 16 }
+        },
+        {
+          "id": "n_lb_rank",
+          "type": "text",
+          "name": "排名",
+          "x": 16,
+          "y": 38,
+          "w": 96,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": { "text": "#58", "fontSize": 30, "bold": true, "align": "center" }
+        },
+        {
+          "id": "n_lb_avatar",
+          "type": "placeholder",
+          "name": "头像",
+          "x": 128,
+          "y": 16,
+          "w": 88,
+          "h": 88,
+          "visible": true,
+          "locked": false,
+          "props": {}
+        },
+        {
+          "id": "n_lb_name",
+          "type": "text",
+          "name": "名字",
+          "x": 232,
+          "y": 38,
+          "w": 240,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": { "text": "玩家名", "fontSize": 30, "bold": false, "align": "left" }
+        },
+        {
+          "id": "n_lb_cup",
+          "type": "text",
+          "name": "奖杯图标",
+          "x": 486,
+          "y": 38,
+          "w": 48,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": { "text": "🏆", "fontSize": 30, "bold": false, "align": "center" }
+        },
+        {
+          "id": "n_lb_count",
+          "type": "text",
+          "name": "奖杯数",
+          "x": 540,
+          "y": 38,
+          "w": 84,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": { "text": "9", "fontSize": 30, "bold": true, "align": "center" }
+        }
+      ],
+      "slotNodeIds": []
+    }
+  ],
+  "pages": [
+    {
+      "id": "p_rank",
+      "name": "排名",
+      "nodes": [
+        {
+          "id": "n_nav_tab",
+          "type": "tab",
+          "name": "底部导航",
+          "activeTab": 4,
+          "x": 0,
+          "y": 140,
+          "w": 750,
+          "h": 1460,
+          "visible": true,
+          "locked": false,
+          "props": { "tabs": ["商店", "卡牌", "战斗", "城堡", "排名"], "barPosition": "bottom" },
+          "anchor": { "preset": "bc", "mode": "stretch" },
+          "pages": [
+            [],
+            [],
+            [],
+            [],
+            [
+              {
+                "id": "n_league_badge",
+                "type": "placeholder",
+                "name": "联赛徽章",
+                "x": 330,
+                "y": 168,
+                "w": 90,
+                "h": 104,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "n_league_name",
+                "type": "text",
+                "name": "联赛段位",
+                "x": 310,
+                "y": 280,
+                "w": 130,
+                "h": 36,
+                "visible": true,
+                "locked": false,
+                "props": { "text": "木头", "fontSize": 28, "bold": true, "align": "center" }
+              },
+              {
+                "id": "n_lb_panel",
+                "type": "rect",
+                "name": "榜单面板",
+                "x": 20,
+                "y": 320,
+                "w": 710,
+                "h": 1160,
+                "visible": true,
+                "locked": false,
+                "props": { "radius": 24 }
+              },
+              {
+                "id": "n_lb_scroll",
+                "type": "scroll",
+                "name": "排行榜滚动区",
+                "x": 40,
+                "y": 380,
+                "w": 670,
+                "h": 1050,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "children": [
+                  {
+                    "id": "n_lb_i1",
+                    "type": "custom",
+                    "name": "条目 #58 躺赢大",
+                    "x": 55,
+                    "y": 396,
+                    "w": 640,
+                    "h": 120,
+                    "visible": true,
+                    "locked": false,
+                    "props": {},
+                    "customId": "w_lb_item",
+                    "overrides": { "rank": "#58", "name": "躺赢大", "cups": "9" }
+                  },
+                  {
+                    "id": "n_lb_i2",
+                    "type": "custom",
+                    "name": "条目 #59 Lets Win",
+                    "x": 55,
+                    "y": 532,
+                    "w": 640,
+                    "h": 120,
+                    "visible": true,
+                    "locked": false,
+                    "props": {},
+                    "customId": "w_lb_item",
+                    "overrides": { "rank": "#59", "name": "Lets Win", "cups": "9" }
+                  },
+                  {
+                    "id": "n_lb_i3",
+                    "type": "custom",
+                    "name": "条目 #60 今天吃什么",
+                    "x": 55,
+                    "y": 668,
+                    "w": 640,
+                    "h": 120,
+                    "visible": true,
+                    "locked": false,
+                    "props": {},
+                    "customId": "w_lb_item",
+                    "overrides": { "rank": "#60", "name": "今天吃什么", "cups": "9" }
+                  },
+                  {
+                    "id": "n_lb_i4",
+                    "type": "custom",
+                    "name": "条目 #61 Kero",
+                    "x": 55,
+                    "y": 804,
+                    "w": 640,
+                    "h": 120,
+                    "visible": true,
+                    "locked": false,
+                    "props": {},
+                    "customId": "w_lb_item",
+                    "overrides": { "rank": "#61", "name": "Kero", "cups": "9" }
+                  },
+                  {
+                    "id": "n_lb_i5",
+                    "type": "custom",
+                    "name": "条目 #62 soyoo",
+                    "x": 55,
+                    "y": 940,
+                    "w": 640,
+                    "h": 120,
+                    "visible": true,
+                    "locked": false,
+                    "props": {},
+                    "customId": "w_lb_item",
+                    "overrides": { "rank": "#62", "name": "soyoo", "cups": "9" }
+                  },
+                  {
+                    "id": "n_lb_i6",
+                    "type": "custom",
+                    "name": "条目 #63 夏夜晚风",
+                    "x": 55,
+                    "y": 1076,
+                    "w": 640,
+                    "h": 120,
+                    "visible": true,
+                    "locked": false,
+                    "props": {},
+                    "customId": "w_lb_item",
+                    "overrides": { "rank": "#63", "name": "夏夜晚风", "cups": "9" }
+                  },
+                  {
+                    "id": "n_lb_i7",
+                    "type": "custom",
+                    "name": "条目 #64 咻劣情",
+                    "x": 55,
+                    "y": 1212,
+                    "w": 640,
+                    "h": 120,
+                    "visible": true,
+                    "locked": false,
+                    "props": {},
+                    "customId": "w_lb_item",
+                    "overrides": { "rank": "#64", "name": "咻劣情", "cups": "8" }
+                  },
+                  {
+                    "id": "n_lb_i8",
+                    "type": "custom",
+                    "name": "条目 #65 小雨在努力",
+                    "x": 55,
+                    "y": 1348,
+                    "w": 640,
+                    "h": 120,
+                    "visible": true,
+                    "locked": false,
+                    "props": {},
+                    "customId": "w_lb_item",
+                    "overrides": { "rank": "#65", "name": "小雨在努力", "cups": "8" }
+                  }
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "id": "n_badge_shop",
+          "type": "text",
+          "name": "商店角标",
+          "x": 106,
+          "y": 1552,
+          "w": 22,
+          "h": 22,
+          "visible": true,
+          "locked": false,
+          "props": { "text": "5", "fontSize": 20, "bold": true, "align": "center" }
+        },
+        {
+          "id": "n_badge_card",
+          "type": "text",
+          "name": "卡牌角标",
+          "x": 256,
+          "y": 1552,
+          "w": 22,
+          "h": 22,
+          "visible": true,
+          "locked": false,
+          "props": { "text": "!", "fontSize": 20, "bold": true, "align": "center" }
+        }
+      ]
+    }
+  ]
+}
