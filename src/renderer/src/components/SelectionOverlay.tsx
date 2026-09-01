@@ -21,17 +21,23 @@ export default function SelectionOverlay() {
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
+  const editingPopupId = useEditor((s) => s.editingPopupId)
   const [hint, setHint] = useState<{ w: number; h: number } | null>(null)
 
-  // 与 Canvas 一致的编辑目标：定制控件定义树 / 公共层 / 当前页
+  // 与 Canvas 一致的编辑目标：定制控件定义树 / 弹窗页 / 公共层 / 当前页
   const editingDef = editingWidgetId
     ? doc.customWidgets.find((w) => w.id === editingWidgetId) ?? null
     : null
+  const editingPopup = !editingDef && editingPopupId
+    ? doc.popups.find((p) => p.id === editingPopupId) ?? null
+    : null
   const root = editingDef
     ? editingDef.tree
-    : pageIndex < 0
-      ? doc.commonLayer.nodes
-      : doc.pages[pageIndex]?.nodes ?? []
+    : editingPopup
+      ? editingPopup.nodes
+      : pageIndex < 0
+        ? doc.commonLayer.nodes
+        : doc.pages[pageIndex]?.nodes ?? []
 
   // 深度收集选中节点（Tab 页签 / 容器 children / 定制控件插槽内的内嵌控件都算）
   const sel: WidgetNode[] = []

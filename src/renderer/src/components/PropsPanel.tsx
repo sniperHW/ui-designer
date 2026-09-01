@@ -511,6 +511,7 @@ function ClickEditor({ node }: { node: WidgetNode }) {
   const updateNodes = useEditor((s) => s.updateNodes)
   const triggerClick = useEditor((s) => s.triggerClick)
   const addPopup = useEditor((s) => s.addPopup)
+  const setEditingPopup = useEditor((s) => s.setEditingPopup)
   const doc = useEditor((s) => s.doc)
   const curPageId = useEditor((s) => (s.currentPageIndex >= 0 ? s.doc.pages[s.currentPageIndex]?.id : null))
   const prevPageId = useEditor((s) => s.prevPageId)
@@ -615,6 +616,9 @@ function ClickEditor({ node }: { node: WidgetNode }) {
                   </select>
                 </div>
                 <div className="prop-hint">弹窗内容在左侧页面列表「弹窗」分组中独立设计；演示弹出后可点 ✕ / 遮罩关闭。</div>
+                <button className="tb-btn w-full" onClick={() => act.target && setEditingPopup(act.target)}>
+                  ✏ 编辑弹窗内容 →
+                </button>
               </>
             ) : (
               <>

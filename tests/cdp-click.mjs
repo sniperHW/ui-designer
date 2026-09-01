@@ -163,6 +163,36 @@ async function main() {
   })()`)
   check('弹窗内容可编辑', popupEdit.child === 'button', `弹窗 children[0]=${popupEdit.child}`)
 
+  // 5c2. 弹窗页内选中弹窗控件 → 高亮框 + 8 向缩放手柄（编辑目标须包含弹窗页）
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const dlg = st.editRoot().find(n => n.type === 'dialog')
+    st.setSelection([dlg.id])
+    return true
+  })()`)
+  await sleep(250)
+  const overlay1 = await evalJs(`(() => {
+    const box = document.querySelector('.sel-box')
+    return { has: !!box, handles: document.querySelectorAll('.sel-handle').length }
+  })()`)
+  check('弹窗选中高亮', overlay1.has === true && overlay1.handles === 8,
+    `高亮框=${overlay1.has}，缩放手柄=${overlay1.handles}/8`)
+
+  // 5c3. 拖右下角手柄伸缩弹窗
+  const dlgBefore = await evalJs(`window.__uiw.getState().editRoot().find(n => n.type === 'dialog')`)
+  const seHandle = await evalJs(`(() => {
+    const el = [...document.querySelectorAll('.sel-handle')].find(h => h.style.left === '100%' && h.style.top === '100%')
+    const r = el.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await call('Input.dispatchMouseEvent', { type: 'mousePressed', x: seHandle.x, y: seHandle.y, button: 'left', buttons: 1, clickCount: 1 })
+  await call('Input.dispatchMouseEvent', { type: 'mouseMoved', x: seHandle.x + 50, y: seHandle.y + 40, button: 'left', buttons: 1 })
+  await call('Input.dispatchMouseEvent', { type: 'mouseReleased', x: seHandle.x + 50, y: seHandle.y + 40, button: 'left', buttons: 1, clickCount: 1 })
+  await sleep(250)
+  const dlgAfter = await evalJs(`window.__uiw.getState().editRoot().find(n => n.type === 'dialog')`)
+  check('弹窗手柄伸缩', dlgAfter.w > dlgBefore.w && dlgAfter.h > dlgBefore.h,
+    `弹窗 w ${dlgBefore.w}→${dlgAfter.w}，h ${dlgBefore.h}→${dlgAfter.h}`)
+
   // 5d. 回页面 1 放矩形（准备开启可点击）
   await evalJs(`(() => {
     const st = window.__uiw.getState()
@@ -208,6 +238,27 @@ async function main() {
   await evalJs(`(() => {
     const st = window.__uiw.getState()
     st.updateNodes(['${rect.id}'], n => { n.clickAction = { type: 'popup', target: '${pp.id}' } })
+    return true
+  })()`)
+  await sleep(150)
+
+  // 5f. 「编辑弹窗内容」快捷入口：从按钮的点击效果直接跳到弹窗页编辑
+  const editBtn = await evalJs(`(() => {
+    const sec = [...document.querySelectorAll('.prop-section')].find(s => s.querySelector('h4')?.textContent === '点击')
+    const b = [...sec.querySelectorAll('button')].find(x => x.textContent.includes('编辑弹窗内容'))
+    if (!b) return null
+    const r = b.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await click(editBtn.x, editBtn.y)
+  await sleep(250)
+  const jumped = await evalJs(`window.__uiw.getState().editingPopupId`)
+  check('编辑弹窗入口', jumped === pp.id, `点「编辑弹窗内容」后进入弹窗页=${jumped === pp.id}`)
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.setEditingPopup(null)
+    st.setCurrentPage(0)
+    st.setSelection([st.currentPage().nodes.find(n => n.type === 'rect').id])
     return true
   })()`)
   await sleep(150)
