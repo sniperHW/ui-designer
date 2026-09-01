@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import type { CustomWidgetDef, PageData, ProjectDoc, ProjectMeta, WidgetNode } from '../types'
 import type { WidgetDef } from '../widgets/registry'
 import {
+  WIDGET_DEFS,
   activeTabIndex,
   contentRectOf,
   renderCustomInstance,
@@ -9,7 +10,7 @@ import {
   resolveTree,
   scaleTree
 } from '../widgets/registry'
-import { bboxOf, collectWithDescendants, findNodeById, reids, walkNodes } from '../widgets/tree'
+import { bboxOf, collectWithDescendants, findNodeById, findNodeInDoc, isClickable, reids, walkNodes } from '../widgets/tree'
 import { canvasEl } from '../canvasRef'
 
 export interface Viewport {
@@ -31,6 +32,7 @@ export function createDefaultDoc(): ProjectDoc {
     meta: { name: '未命名工程', designWidth: 1334, designHeight: 750, orientation: 'landscape' },
     commonLayer: { id: 'common', name: '公共层', nodes: [] },
     customWidgets: [],
+    popups: [],
     pages: [{ id: uid('p'), name: '页面 1', nodes: [] }]
   }
 }
@@ -141,6 +143,42 @@ function attachToTarget(
   }
 }
 
+/** 旧工程迁移：补 popups 数组；老格式 popup 动作指向页面上的 dialog 节点 → 移入独立弹窗页并改指向 */
+function migratePopups(doc: ProjectDoc): void {
+  if (!Array.isArray(doc.popups)) doc.popups = []
+  const surfaces = [doc.commonLayer, ...doc.pages]
+  const popupIds = new Set(doc.popups.map((p) => p.id))
+  // 先收集（不动结构），再搬移，避免遍历中修改
+  const oldActions: { node: WidgetNode; target: string }[] = []
+  for (const surf of surfaces) {
+    walkNodes(surf.nodes, (n) => {
+      const t = n.clickAction?.target
+      if (n.clickAction?.type === 'popup' && t && !popupIds.has(t)) oldActions.push({ node: n, target: t })
+    })
+  }
+  if (!oldActions.length) return
+  const map = new Map<string, string>()
+  for (const { target } of oldActions) {
+    if (map.has(target)) continue
+    for (const surf of surfaces) {
+      const dn = findNodeById(surf.nodes, target)
+      if (dn && dn.type === 'dialog') {
+        const newId = uid('pp')
+        doc.popups.push({ id: newId, name: dn.name || '弹窗', nodes: [reids(structuredClone(dn), () => uid('n'))] })
+        map.set(target, newId)
+        const arr = findContainerArrayIn(surf.nodes, target)
+        const i = arr ? arr.findIndex((x) => x.id === target) : -1
+        if (i >= 0) arr!.splice(i, 1)
+        break
+      }
+    }
+  }
+  for (const { node, target } of oldActions) {
+    const nid = map.get(target)
+    if (nid) node.clickAction!.target = nid
+  }
+}
+
 interface EditorState {
   doc: ProjectDoc
   /** 是否已打开工程（启动默认 false，显示欢迎页） */
@@ -148,8 +186,10 @@ interface EditorState {
   filePath: string | null
   dirty: boolean
   currentPageIndex: number
-  /** 正在编辑的定制控件定义 id（null = 编辑页面 / 公共层） */
+  /** 正在编辑的定制控件定义 id（null = 编辑页面 / 公共层 / 弹窗页） */
   editingWidgetId: string | null
+  /** 正在编辑的弹窗页 id（null = 编辑页面 / 公共层 / 定制控件定义） */
+  editingPopupId: string | null
   selectedIds: string[]
   clipboard: WidgetNode[]
   viewport: Viewport
@@ -164,9 +204,15 @@ interface EditorState {
   future: ProjectDoc[]
   fitToken: number
   showNewModal: boolean
+  /** 画布右键菜单（作用于当前选中；clientX/clientY 屏幕坐标；null = 关闭） */
+  ctxMenu: { x: number; y: number } | null
+  /** 点击效果演示：当前弹出的弹窗控件 id（会话状态，不入文档） */
+  popupId: string | null
+  /** 「返回上一页」的来路：切换页面前的页面 id（无来路 = null，返回无效；会话状态，不入文档） */
+  prevPageId: string | null
 
   currentPage: () => PageData
-  /** 当前编辑目标的节点数组（页面 / 公共层 / 定制控件定义树） */
+  /** 当前编辑目标的节点数组（页面 / 公共层 / 弹窗页 / 定制控件定义树） */
   editRoot: () => WidgetNode[]
 
   /** 修改文档；live=true 时不入撤销栈（用于拖拽过程中的连续更新） */
@@ -204,6 +250,13 @@ interface EditorState {
   setCurrentPage: (index: number) => void
   /** 切入定制控件定义编辑（null = 回到页面编辑） */
   setEditingWidget: (id: string | null) => void
+
+  /** 弹窗页（独立设计，点击效果弹出显示）：新建（自带居中弹窗）返回新页 id */
+  addPopup: () => string
+  deletePopup: (id: string) => void
+  renamePopup: (id: string, name: string) => void
+  /** 切入弹窗页编辑（null = 回到页面编辑） */
+  setEditingPopup: (id: string | null) => void
 
   /** 定制控件（§5） */
   createCustomWidget: (skeleton: {
@@ -243,6 +296,13 @@ interface EditorState {
   setShowNewModal: (v: boolean) => void
   setPreviewRatio: (id: string) => void
   toggleSafeArea: () => void
+
+  /** 右键菜单（画布上右键控件后弹出：删除 / 点击） */
+  openCtxMenu: (x: number, y: number) => void
+  closeCtxMenu: () => void
+  /** 触发控件的点击效果：切换页面 / 弹窗演示（编辑器内即可预演） */
+  triggerClick: (id: string) => void
+  closePopup: () => void
 }
 
 export const useEditor = create<EditorState>((set, get) => ({
@@ -252,6 +312,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   dirty: false,
   currentPageIndex: 0,
   editingWidgetId: null,
+  editingPopupId: null,
   selectedIds: [],
   clipboard: [],
   viewport: { zoom: 1, panX: 60, panY: 60 },
@@ -265,6 +326,9 @@ export const useEditor = create<EditorState>((set, get) => ({
   future: [],
   fitToken: 0,
   showNewModal: false,
+  ctxMenu: null,
+  popupId: null,
+  prevPageId: null,
 
   currentPage: () => {
     const s = get()
@@ -277,6 +341,9 @@ export const useEditor = create<EditorState>((set, get) => ({
     const s = get()
     if (s.editingWidgetId) {
       return s.doc.customWidgets.find((w) => w.id === s.editingWidgetId)?.tree ?? []
+    }
+    if (s.editingPopupId) {
+      return s.doc.popups.find((p) => p.id === s.editingPopupId)?.nodes ?? []
     }
     return s.currentPage().nodes
   },
@@ -303,7 +370,9 @@ export const useEditor = create<EditorState>((set, get) => ({
       past: s.past.slice(0, -1),
       future: [s.doc, ...s.future].slice(0, 100),
       dirty: true,
-      selectedIds: []
+      selectedIds: [],
+      ctxMenu: null,
+      popupId: null
     })
   },
 
@@ -311,7 +380,7 @@ export const useEditor = create<EditorState>((set, get) => ({
     const s = get()
     if (!s.future.length) return
     const next = s.future[0]
-    set({ doc: next, future: s.future.slice(1), past: [...s.past, s.doc], dirty: true, selectedIds: [] })
+    set({ doc: next, future: s.future.slice(1), past: [...s.past, s.doc], dirty: true, selectedIds: [], ctxMenu: null, popupId: null })
   },
 
   setSelection: (ids) => set({ selectedIds: ids }),
@@ -331,6 +400,11 @@ export const useEditor = create<EditorState>((set, get) => ({
 
   addWidget: (def, cx, cy) => {
     const s = get()
+    // 弹窗控件只属于弹窗页 / 定制控件定义，不能拖到普通页面 / 公共层（§8：弹窗独立设计、点击弹出）
+    if (def.type === 'dialog' && !s.editingWidgetId && !s.editingPopupId) {
+      alert('弹窗请放到独立的弹窗页：左侧页面列表底部「弹窗」分组点「＋ 新建弹窗」，在其中设计内容，再在按钮的点击效果里选择它。')
+      return
+    }
     const g = s.snapEnabled ? s.gridSize : 1
     const x = Math.round((cx - def.w / 2) / g) * g
     const y = Math.round((cy - def.h / 2) / g) * g
@@ -600,7 +674,16 @@ export const useEditor = create<EditorState>((set, get) => ({
     s.mutate((d) => {
       d.pages.push(page)
     })
-    set({ currentPageIndex: s.doc.pages.length, selectedIds: [], editingWidgetId: null })
+    const out = s.currentPageIndex >= 0 ? s.doc.pages[s.currentPageIndex] : null
+    set({
+      currentPageIndex: s.doc.pages.length,
+      selectedIds: [],
+      editingWidgetId: null,
+      editingPopupId: null,
+      ctxMenu: null,
+      popupId: null,
+      prevPageId: out ? out.id : s.prevPageId
+    })
   },
 
   duplicatePage: (index) => {
@@ -611,7 +694,16 @@ export const useEditor = create<EditorState>((set, get) => ({
     s.mutate((d) => {
       d.pages.splice(index + 1, 0, copy)
     })
-    set({ currentPageIndex: index + 1, selectedIds: [], editingWidgetId: null })
+    const out = s.currentPageIndex >= 0 ? s.doc.pages[s.currentPageIndex] : null
+    set({
+      currentPageIndex: index + 1,
+      selectedIds: [],
+      editingWidgetId: null,
+      editingPopupId: null,
+      ctxMenu: null,
+      popupId: null,
+      prevPageId: out ? out.id : s.prevPageId
+    })
   },
 
   deletePage: (index) => {
@@ -620,10 +712,16 @@ export const useEditor = create<EditorState>((set, get) => ({
     s.mutate((d) => {
       d.pages.splice(index, 1)
     })
+    // 用删除后的页数收拢当前页下标（原实现用旧页数，会越界一格）
+    const len = get().doc.pages.length
     set({
-      currentPageIndex: Math.min(s.currentPageIndex, s.doc.pages.length - 1),
+      currentPageIndex: Math.min(s.currentPageIndex, len - 1),
       selectedIds: [],
-      editingWidgetId: null
+      editingWidgetId: null,
+      editingPopupId: null,
+      ctxMenu: null,
+      popupId: null,
+      prevPageId: null // 被删页可能是来路页：记录作废
     })
   },
 
@@ -636,9 +734,70 @@ export const useEditor = create<EditorState>((set, get) => ({
     })
   },
 
-  setCurrentPage: (index) => set({ currentPageIndex: index, selectedIds: [], editingWidgetId: null }),
+  setCurrentPage: (index) => {
+    const s = get()
+    // 「返回上一页」来路：只在两个真实页面之间切换时记录（进公共层 / 弹窗页编辑不记）
+    const out = s.currentPageIndex >= 0 ? s.doc.pages[s.currentPageIndex] : null
+    const next = index >= 0 ? s.doc.pages[index] : null
+    const prevPageId = out && next && out.id !== next.id ? out.id : s.prevPageId
+    set({
+      currentPageIndex: index,
+      selectedIds: [],
+      editingWidgetId: null,
+      editingPopupId: null,
+      ctxMenu: null,
+      popupId: null,
+      prevPageId
+    })
+  },
 
-  setEditingWidget: (id) => set({ editingWidgetId: id, selectedIds: [] }),
+  setEditingWidget: (id) => set({ editingWidgetId: id, editingPopupId: null, selectedIds: [], ctxMenu: null, popupId: null }),
+
+  addPopup: () => {
+    const s = get()
+    // 新建弹窗页自带一个居中的弹窗控件，省一步
+    const def = WIDGET_DEFS.find((w) => w.type === 'dialog')!
+    const name = `弹窗 ${s.doc.popups.length + 1}`
+    const node: WidgetNode = {
+      id: uid('n'),
+      type: 'dialog',
+      name,
+      x: Math.round((s.doc.meta.designWidth - def.w) / 2),
+      y: Math.round((s.doc.meta.designHeight - def.h) / 2),
+      w: def.w,
+      h: def.h,
+      visible: true,
+      locked: false,
+      props: structuredClone(def.props),
+      children: []
+    }
+    const popup: PageData = { id: uid('pp'), name, nodes: [node] }
+    s.mutate((d) => {
+      d.popups.push(popup)
+    })
+    set({ editingPopupId: popup.id, editingWidgetId: null, selectedIds: [], ctxMenu: null, popupId: null })
+    return popup.id
+  },
+
+  deletePopup: (id) => {
+    const s = get()
+    if (!s.doc.popups.some((p) => p.id === id)) return
+    s.mutate((d) => {
+      d.popups = d.popups.filter((p) => p.id !== id)
+    })
+    if (s.editingPopupId === id) set({ editingPopupId: null, selectedIds: [], ctxMenu: null })
+  },
+
+  renamePopup: (id, name) => {
+    const s = get()
+    if (!name.trim()) return
+    s.mutate((d) => {
+      const p = d.popups.find((x) => x.id === id)
+      if (p) p.name = name.trim()
+    })
+  },
+
+  setEditingPopup: (id) => set({ editingPopupId: id, editingWidgetId: null, selectedIds: [], ctxMenu: null, popupId: null }),
 
   createCustomWidget: (skeleton) => {
     const s = get()
@@ -848,6 +1007,7 @@ export const useEditor = create<EditorState>((set, get) => ({
         meta,
         commonLayer: { id: 'common', name: '公共层', nodes: [] },
         customWidgets: [],
+        popups: [],
         pages: [{ id: uid('p'), name: '页面 1', nodes: [] }]
       },
       hasProject: true,
@@ -855,17 +1015,22 @@ export const useEditor = create<EditorState>((set, get) => ({
       dirty: false,
       currentPageIndex: 0,
       editingWidgetId: null,
+      editingPopupId: null,
       selectedIds: [],
       clipboard: [],
       past: [],
       future: [],
       previewRatio: 'design',
+      ctxMenu: null,
+      popupId: null,
+      prevPageId: null,
       fitToken: get().fitToken + 1,
       showNewModal: false
     })
   },
 
   loadProject: (doc, path) => {
+    migratePopups(doc)
     set({
       doc,
       hasProject: true,
@@ -873,11 +1038,15 @@ export const useEditor = create<EditorState>((set, get) => ({
       dirty: false,
       currentPageIndex: 0,
       editingWidgetId: null,
+      editingPopupId: null,
       selectedIds: [],
       clipboard: [],
       past: [],
       future: [],
       previewRatio: 'design',
+      ctxMenu: null,
+      popupId: null,
+      prevPageId: null,
       fitToken: get().fitToken + 1
     })
   },
@@ -890,11 +1059,15 @@ export const useEditor = create<EditorState>((set, get) => ({
       dirty: false,
       currentPageIndex: 0,
       editingWidgetId: null,
+      editingPopupId: null,
       selectedIds: [],
       clipboard: [],
       past: [],
       future: [],
-      previewRatio: 'design'
+      previewRatio: 'design',
+      ctxMenu: null,
+      popupId: null,
+      prevPageId: null
     })
   },
 
@@ -956,14 +1129,61 @@ export const useEditor = create<EditorState>((set, get) => ({
   toggleGrid: () => set({ showGrid: !get().showGrid }),
   toggleSnap: () => set({ snapEnabled: !get().snapEnabled }),
   setShowNewModal: (v) => set({ showNewModal: v }),
-  setPreviewRatio: (id) => set({ previewRatio: id, selectedIds: [] }),
-  toggleSafeArea: () => set({ showSafeArea: !get().showSafeArea })
+  setPreviewRatio: (id) => set({ previewRatio: id, selectedIds: [], ctxMenu: null, popupId: null }),
+  toggleSafeArea: () => set({ showSafeArea: !get().showSafeArea }),
+
+  openCtxMenu: (x, y) => set({ ctxMenu: { x, y } }),
+  closeCtxMenu: () => set({ ctxMenu: null }),
+
+  triggerClick: (id) => {
+    const s = get()
+    set({ ctxMenu: null })
+    if (s.editingWidgetId) return
+    const node = findNodeInDoc(s.doc, id)
+    if (!node || !isClickable(node)) return
+    const act = node.clickAction
+    if (!act) {
+      alert('该控件还没有配置点击效果：选中后在右侧属性面板「点击」区设置（切换页面 / 弹窗）。')
+      return
+    }
+    if (act.type === 'goto') {
+      const idx = s.doc.pages.findIndex((p) => p.id === act.target)
+      if (idx < 0) {
+        alert('点击效果指向的页面已被删除，请在属性面板重新设置。')
+        return
+      }
+      get().setCurrentPage(idx)
+    } else if (act.type === 'back') {
+      // 返回上一页：无来路（不是从别的页面切换过来）时点击无效果
+      const prevId = s.prevPageId
+      if (!prevId) return
+      const idx = s.doc.pages.findIndex((p) => p.id === prevId)
+      if (idx < 0 || idx === s.currentPageIndex) return
+      get().setCurrentPage(idx)
+    } else {
+      // 弹出弹窗：目标是独立弹窗页（doc.popups）
+      const popup = s.doc.popups.find((p) => p.id === act.target)
+      if (!popup) {
+        alert('点击效果指向的弹窗已被删除，请在属性面板重新设置。')
+        return
+      }
+      set({ popupId: popup.id, selectedIds: [] })
+    }
+  },
+
+  closePopup: () => set({ popupId: null })
 }))
 
 /** 当前编辑目标的节点数组（mutate 内部，随克隆文档变化） */
-function editNodesOf(d: ProjectDoc, s: { currentPageIndex: number; editingWidgetId: string | null }): WidgetNode[] {
+function editNodesOf(
+  d: ProjectDoc,
+  s: { currentPageIndex: number; editingWidgetId: string | null; editingPopupId: string | null }
+): WidgetNode[] {
   if (s.editingWidgetId) {
     return d.customWidgets.find((w) => w.id === s.editingWidgetId)?.tree ?? []
+  }
+  if (s.editingPopupId) {
+    return d.popups.find((p) => p.id === s.editingPopupId)?.nodes ?? []
   }
   return pageNodesOf(d, s.currentPageIndex)
 }

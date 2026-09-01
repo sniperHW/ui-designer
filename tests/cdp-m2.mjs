@@ -51,23 +51,33 @@ async function main() {
   })()`)
 
   // ============ 一、其余内置容器 ============
-  // 1. 面板 + 弹窗 + 滚动区 + 列表 + 网格 入场
+  // 1. 面板 / 滚动区 / 列表 / 网格 入场；弹窗只入弹窗页（§8：弹窗独立设计、点击弹出）
   await evalJs(`(() => {
     const st = window.__uiw.getState()
     st.addWidget(${JSON.stringify(D('面板'))}, 300, 200)
-    st.addWidget(${JSON.stringify(D('弹窗'))}, 900, 200)
     st.addWidget(${JSON.stringify(D('滚动区'))}, 300, 550)
     st.addWidget(${JSON.stringify(D('列表'))}, 750, 550)
     st.addWidget(${JSON.stringify(D('网格'))}, 1050, 550)
+    st.addWidget(${JSON.stringify(D('弹窗'))}, 900, 200)
     return true
   })()`)
   await sleep(300)
   const containers = await evalJs(`(() => {
     const ns = window.__uiw.getState().currentPage().nodes
-    return ns.map(n => n.type)
+    return ns.map((n) => n.type)
   })()`)
-  check('容器全集入场', ['panel', 'dialog', 'scroll', 'list', 'grid'].every((t) => containers.includes(t)),
-    `types=[${containers}]`)
+  check('容器入场+弹窗拦截', ['panel', 'scroll', 'list', 'grid'].every((t) => containers.includes(t)) && !containers.includes('dialog'),
+    `页面 types=[${containers}]（弹窗控件被拦截，只入弹窗页）`)
+  const popupIn = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const id = st.addPopup()
+    st.addWidget(${JSON.stringify(D('弹窗'))}, 900, 200)
+    const s2 = window.__uiw.getState()
+    return { editing: s2.editingPopupId === id, dialogs: s2.doc.popups[0].nodes.filter(n => n.type === 'dialog').length }
+  })()`)
+  check('弹窗入弹窗页', popupIn.editing === true && popupIn.dialogs >= 2,
+    `弹窗页内 dialog 数=${popupIn.dialogs}（自带 1 + 新拖 1），已切入编辑=${popupIn.editing}`)
+  await evalJs(`(() => { const st = window.__uiw.getState(); st.setEditingPopup(null); st.setCurrentPage(0); return true })()`)
 
   // 2. 拖入按钮到面板内容区 → 成为面板 children
   await evalJs(`(() => {
@@ -81,7 +91,7 @@ async function main() {
     const p = window.__uiw.getState().currentPage().nodes[0]
     return { top: window.__uiw.getState().currentPage().nodes.length, child: p.children?.[0]?.type ?? null }
   })()`)
-  check('面板挂子控件', panelChild.child === 'button' && panelChild.top === 5, `顶层=${panelChild.top}，面板子=${panelChild.child}`)
+  check('面板挂子控件', panelChild.child === 'button' && panelChild.top === 4, `顶层=${panelChild.top}，面板子=${panelChild.child}`)
 
   // 3. 面板移动 → 子控件联动
   const beforeMove = await evalJs(`(() => { const p = window.__uiw.getState().currentPage().nodes[0]; return p.children[0].x })()`)

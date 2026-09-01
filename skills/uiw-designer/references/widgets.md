@@ -41,6 +41,19 @@
 { "type": "list", "props": { "direction": "v", "count": 5 }, "itemTags": ["英雄", "部队", "英雄", "建筑", "部队"] }
 ```
 
+点击交互：`button` 天生可点击；其它控件（含 `custom` 实例）加 `"clickable": true` 开启。点击效果 `clickAction` 三选一——切换页面 / 返回上一页 / 弹出弹窗（弹窗在独立的**弹窗页** `popups` 中设计，不能放在普通页面上；详见 schema.md）：
+
+```jsonc
+// 按钮 → 跳转到某页面
+{ "type": "button", "props": { "text": "开始战斗" },
+  "clickAction": { "type": "goto", "target": "<目标页面id>" } }
+// 返回按钮 → 返回跳转来之前的页面（无来路时点击无效果，常用于二级页的「返回」）
+{ "type": "button", "props": { "text": "返回" }, "clickAction": { "type": "back" } }
+// 任意控件 → 弹出弹窗页（popups 中独立设计的弹窗）
+{ "type": "custom", "customId": "w_card", "clickable": true,
+  "clickAction": { "type": "popup", "target": "<弹窗页id>" } }
+```
+
 ## 容器
 
 | type | 名称 | 默认尺寸 | 子控件挂载 | 内容区 |

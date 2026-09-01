@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "弹窗测试",
+    "designWidth": 750,
+    "designHeight": 1334,
+    "orientation": "portrait"
+  },
+  "commonLayer": {
+    "id": "common",
+    "name": "公共层",
+    "nodes": []
+  },
+  "customWidgets": [],
+  "popups": [
+    {
+      "id": "pp_demo_dialog",
+      "name": "弹窗 1",
+      "nodes": [
+        {
+          "id": "nmti2svi022d9",
+          "type": "dialog",
+          "name": "弹窗 1",
+          "x": 140,
+          "y": 90,
+          "w": 480,
+          "h": 320,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "弹窗"
+          }
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "id": "pmti2rehq6evb",
+      "name": "页面 1",
+      "nodes": [
+        {
+          "id": "nmti2rv71luwb",
+          "type": "button",
+          "name": "按钮 1",
+          "x": 270,
+          "y": 490,
+          "w": 200,
+          "h": 80,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "弹窗按钮",
+            "fontSize": 26,
+            "bold": false
+          },
+          "clickAction": {
+            "type": "popup",
+            "target": "pp_demo_dialog"
+          }
+        },
+        {
+          "id": "nmti2v424bftl",
+          "type": "button",
+          "name": "按钮 2",
+          "x": 270,
+          "y": 850,
+          "w": 200,
+          "h": 80,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "切页按钮",
+            "fontSize": 26,
+            "bold": false
+          },
+          "clickAction": {
+            "type": "goto",
+            "target": "pmti2vl8x3r5g"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pmti2vl8x3r5g",
+      "name": "页面 2",
+      "nodes": [
+        {
+          "id": "nmti2x94ui9qk",
+          "type": "button",
+          "name": "按钮 1",
+          "x": 250,
+          "y": 860,
+          "w": 200,
+          "h": 80,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "返回",
+            "fontSize": 26,
+            "bold": false
+          },
+          "clickAction": {
+            "type": "goto",
+            "target": "pmti2rehq6evb"
+          }
+        }
+      ]
+    }
+  ]
+}

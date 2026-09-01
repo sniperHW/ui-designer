@@ -57,7 +57,7 @@ function slotKeysOfDef(def) {
 
 function isFiniteNum(v) { return typeof v === 'number' && Number.isFinite(v) }
 
-/** 校验一棵节点树（页面 / 公共层 / 定义树）；返回树内全部节点（含子孙） */
+/** 校验一棵节点树（页面 / 公共层 / 弹窗页 / 定义树）；返回树内全部节点（含子孙） */
 function checkTree(arr, rootLabel, rep, ctx) {
   const all = []
   walk(arr, (n, path, inScroll) => {
@@ -151,6 +151,25 @@ function checkTree(arr, rootLabel, rep, ctx) {
       rep.err(where, `只有 filter 可以有 binding（当前类型 ${n.type}）`)
     }
 
+    // 点击交互（§8）：可点击 + 点击效果
+    if (n.clickable !== undefined && typeof n.clickable !== 'boolean') {
+      rep.err(where, '.clickable 必须是 boolean')
+    }
+    if (n.clickAction !== undefined) {
+      const a = n.clickAction
+      if (a?.type === 'goto') {
+        if (typeof a.target !== 'string' || !a.target) rep.err(where, 'clickAction(goto).target 必须是非空字符串（目标页面 id）')
+        else ctx.clickGotos.push({ where, target: a.target })
+      } else if (a?.type === 'popup') {
+        if (typeof a.target !== 'string' || !a.target) rep.err(where, 'clickAction(popup).target 必须是非空字符串（弹窗页 id）')
+        else ctx.clickPopups.push({ where, target: a.target })
+      } else if (a?.type === 'back') {
+        // 返回上一页：无需 target（运行时取来路页面）
+      } else {
+        rep.err(where, `clickAction.type 必须是 goto/back/popup，实际 ${JSON.stringify(a?.type)}`)
+      }
+    }
+
     // 列表 / 网格
     if (n.type === 'list') {
       if (n.props?.direction !== undefined && !['v', 'h'].includes(n.props.direction)) {
@@ -212,7 +231,16 @@ function validateFile(file) {
     rep.err(f, `meta.orientation 必须是 landscape/portrait，实际 ${JSON.stringify(meta.orientation)}`)
   }
 
-  const ctx = { nodeIds: new Set(), pageIds: new Set(), defsById: new Map(), filterBindings: [], meta }
+  const ctx = {
+    nodeIds: new Set(),
+    pageIds: new Set(),
+    popupIds: new Set(),
+    defsById: new Map(),
+    filterBindings: [],
+    clickGotos: [],
+    clickPopups: [],
+    meta
+  }
 
   // 先注册全部定义 id，再做其它检查（实例引用先于定义体校验）
   if (!Array.isArray(doc.customWidgets)) rep.err(f, '.customWidgets 必须是数组（可为空）')
@@ -245,6 +273,19 @@ function validateFile(file) {
     doc.pages.forEach((p, i) => {
       if (pageLike(p, `${f}.pages[${i}]`)) checkTree(p.nodes, `${f}.pages[${i}]`, rep, ctx)
     })
+  }
+
+  // 弹窗页（点击效果弹出显示的独立设计页）
+  if (doc.popups !== undefined) {
+    if (!Array.isArray(doc.popups)) rep.err(f, '.popups 必须是数组（可为空）')
+    else {
+      doc.popups.forEach((p, i) => {
+        if (pageLike(p, `${f}.popups[${i}]`)) {
+          ctx.popupIds.add(p.id)
+          checkTree(p.nodes, `${f}.popups[${i}]`, rep, ctx)
+        }
+      })
+    }
   }
 
   if (Array.isArray(doc.customWidgets)) {
@@ -314,6 +355,14 @@ function validateFile(file) {
     for (const { where, target } of ctx.filterBindings) {
       if (!listGridIds.has(target)) rep.err(where, `binding.target 不是列表/网格节点：${target}`)
     }
+  }
+
+  // 点击效果目标检查：goto → 页面 id；popup → 弹窗页 id
+  for (const { where, target } of ctx.clickGotos) {
+    if (!ctx.pageIds.has(target)) rep.err(where, `clickAction(goto).target 不是页面 id：${target}`)
+  }
+  for (const { where, target } of ctx.clickPopups) {
+    if (!ctx.popupIds.has(target)) rep.err(where, `clickAction(popup).target 不是弹窗页（doc.popups）id：${target}`)
   }
 
   return rep

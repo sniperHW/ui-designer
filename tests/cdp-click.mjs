@@ -1,0 +1,419 @@
+// 点击交互专项测试：可点击控件（按钮 / 自定义开启）+ 点击效果（切换页面 / 弹窗）+ 右键菜单
+const BASE = 'http://localhost:9222'
+async function main() {
+  let targets = null
+  for (let i = 0; i < 20; i++) {
+    try {
+      targets = await (await fetch(BASE + '/json')).json()
+      break
+    } catch {
+      await new Promise((r) => setTimeout(r, 500))
+    }
+  }
+  const page = targets.find((t) => t.type === 'page' && t.url.includes('localhost:5173'))
+  const ws = new WebSocket(page.webSocketDebuggerUrl)
+  await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej })
+  let seq = 0
+  const pending = new Map()
+  ws.onmessage = (ev) => {
+    const msg = JSON.parse(ev.data)
+    if (msg.id && pending.has(msg.id)) { pending.get(msg.id)(msg); pending.delete(msg.id) }
+  }
+  const call = (method, params = {}) => new Promise((res, rej) => {
+    const id = ++seq
+    pending.set(id, (m) => (m.error ? rej(new Error(method)) : res(m.result)))
+    ws.send(JSON.stringify({ id, method, params }))
+  })
+  const evalJs = async (expression) => {
+    const r = await call('Runtime.evaluate', { expression, returnByValue: true })
+    if (r.exceptionDetails) throw new Error('eval 失败: ' + expression.slice(0, 100))
+    return r.result.value
+  }
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+  const click = async (x, y) => {
+    await call('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', buttons: 1, clickCount: 1 })
+    await call('Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', buttons: 1, clickCount: 1 })
+  }
+  const rclick = async (x, y) => {
+    await call('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'right', buttons: 2, clickCount: 1 })
+    await call('Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'right', buttons: 2, clickCount: 1 })
+  }
+  const results = {}
+  const check = (name, ok, detail) => {
+    results[name] = ok ? '✓ ' + detail : '✗ ' + detail
+    if (!ok) process.exitCode = 1
+  }
+  /** 文档坐标 → 屏幕坐标 */
+  const toScreen = async (docX, docY) => {
+    const geo = await evalJs(`(() => {
+      const v = window.__uiw.getState().viewport
+      const r = document.querySelector('.canvas-wrap').getBoundingClientRect()
+      return { x: r.x, y: r.y, panX: v.panX, panY: v.panY, zoom: v.zoom }
+    })()`)
+    return { x: geo.x + geo.panX + docX * geo.zoom, y: geo.y + geo.panY + docY * geo.zoom }
+  }
+  const ctxItems = () => evalJs(`(() => [...document.querySelectorAll('.ctx-menu .ctx-item')].map(i => i.textContent.trim()))()`)
+
+  // —— 准备：新工程（2 页），回到页面 1 并清空 ——
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.newProject({ name: '点击测试', designWidth: 1334, designHeight: 750, orientation: 'landscape' })
+    st.addPage()
+    st.setCurrentPage(0)
+    return true
+  })()`)
+  await sleep(200)
+
+  // —— 1. 页面 1 放一个按钮（天生可点击，暂不配效果）——
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.addWidget(window.__uiwDefs.find(d => d.type === 'button'), 400, 375)
+    return true
+  })()`)
+  await sleep(200)
+  const btn = await evalJs(`window.__uiw.getState().currentPage().nodes[0]`)
+  check('添加按钮', btn?.type === 'button', `type=${btn?.type}`)
+
+  // —— 2. 属性面板「点击」区：按钮显示效果配置（无「可点击」开关）——
+  await evalJs(`(() => { window.__uiw.getState().setSelection(['${btn.id}']); return true })()`)
+  await sleep(200)
+  const clickSec = await evalJs(`(() => {
+    const sec = [...document.querySelectorAll('.prop-section')].find(s => s.querySelector('h4')?.textContent === '点击')
+    if (!sec) return null
+    return { hasCheckbox: !!sec.querySelector('input[type=checkbox]'), hasSeg: !!sec.querySelector('.seg') }
+  })()`)
+  check('属性面板点击区', clickSec?.hasCheckbox === false && clickSec?.hasSeg === true,
+    `按钮天生可点击（无开关=${clickSec?.hasCheckbox === false}，效果选择=${clickSec?.hasSeg})`)
+
+  // —— 3. 右键按钮 → 菜单（删除 + 点击·未配置效果且禁用）——
+  let pt = await toScreen(btn.x + btn.w / 2, btn.y + btn.h / 2)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  let items = await ctxItems()
+  check('右键弹出菜单', items.length === 2, `菜单项=[${items}]`)
+  check('未配置点击禁用', items.length === 2 && items[1].includes('未配置效果'),
+    `第 2 项="${items[1]}"`)
+  const disabledItem = await evalJs(`!!document.querySelector('.ctx-menu .ctx-item.disabled')`)
+  check('禁用态渲染', disabledItem === true, '未配置效果的点击项为禁用态')
+  // 左键点空白处收起菜单
+  const blank = await toScreen(60, 700)
+  await click(blank.x, blank.y)
+  await sleep(200)
+  const closedByOutside = await evalJs(`!document.querySelector('.ctx-menu')`)
+  check('点外收起菜单', closedByOutside === true, '点击菜单外后菜单关闭')
+
+  // —— 4. 配置 goto 效果 → 右键「点击」→ 切换到页面 2 ——
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.updateNodes(['${btn.id}'], n => { n.clickAction = { type: 'goto', target: st.doc.pages[1].id } })
+    return true
+  })()`)
+  await sleep(150)
+  pt = await toScreen(btn.x + btn.w / 2, btn.y + btn.h / 2)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  items = await ctxItems()
+  check('菜单显示效果', items[1]?.includes('跳转「页面 2」'), `点击项="${items[1]}"`)
+  const gotoLabel = await evalJs(`(() => {
+    const el = [...document.querySelectorAll('.ctx-menu .ctx-item')][1]
+    const r = el.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await click(gotoLabel.x, gotoLabel.y)
+  await sleep(250)
+  const afterGoto = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    return { page: st.currentPageIndex, menu: !!document.querySelector('.ctx-menu') }
+  })()`)
+  check('点击跳转页面', afterGoto.page === 1 && !afterGoto.menu, `currentPageIndex=${afterGoto.page}/1，菜单已关=${!afterGoto.menu}`)
+
+  // —— 5. 弹窗独立设计：普通页面禁止弹窗控件，弹窗在独立弹窗页中设计 ——
+  // 5a. 弹窗拖入普通页面 → 拦截并提示
+  const blocked = await evalJs(`(() => {
+    window.__alertMsgs = []
+    window.alert = (m) => { window.__alertMsgs.push(String(m)) }
+    const st = window.__uiw.getState()
+    st.setCurrentPage(0)
+    const before = st.currentPage().nodes.length
+    st.addWidget(window.__uiwDefs.find(d => d.type === 'dialog'), 900, 375)
+    const s2 = window.__uiw.getState()
+    return { before, after: s2.currentPage().nodes.length, msg: window.__alertMsgs[0] ?? '' }
+  })()`)
+  check('弹窗禁入普通页', blocked.before === blocked.after && blocked.msg.includes('弹窗页'),
+    `页面节点 ${blocked.before}→${blocked.after}，提示「${blocked.msg.slice(0, 16)}…」`)
+
+  // 5b. 新建弹窗页（自带居中弹窗）→ 自动切入弹窗编辑
+  const pp = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const id = st.addPopup()
+    const s2 = window.__uiw.getState()
+    const p = s2.doc.popups.find((x) => x.id === id)
+    return { id, name: p.name, types: p.nodes.map((n) => n.type), editing: s2.editingPopupId === id, dlg: p.nodes[0] }
+  })()`)
+  check('新建弹窗页', pp.types[0] === 'dialog' && pp.editing === true,
+    `弹窗页「${pp.name}」自带 dialog=${pp.types[0]}，已切入编辑=${pp.editing}`)
+
+  // 5c. 弹窗页内往弹窗内容区加按钮（编辑目标 = 弹窗页）
+  const popupEdit = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const dlg = st.editRoot()[0]
+    st.addWidget(window.__uiwDefs.find(d => d.type === 'button'), dlg.x + dlg.w / 2, dlg.y + 48 + 110)
+    const d2 = window.__uiw.getState().editRoot()[0]
+    return { child: d2.children?.[0]?.type ?? null }
+  })()`)
+  check('弹窗内容可编辑', popupEdit.child === 'button', `弹窗 children[0]=${popupEdit.child}`)
+
+  // 5d. 回页面 1 放矩形（准备开启可点击）
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.setCurrentPage(0)
+    st.addWidget(window.__uiwDefs.find(d => d.type === 'rect' && d.label === '矩形'), 200, 375)
+    return true
+  })()`)
+  await sleep(200)
+  const pair = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const rect = st.currentPage().nodes.find(n => n.type === 'rect')
+    return { rectId: rect.id, rectClickable: rect.clickable === undefined }
+  })()`)
+  check('矩形默认不可点击', pair.rectClickable === true, '未开启 clickable 的矩形：右键菜单不应有「点击」')
+
+  // 5a. 右键矩形（未开启）→ 菜单只有删除
+  const rect = await evalJs(`window.__uiw.getState().currentPage().nodes.find(n => n.type === 'rect')`)
+  pt = await toScreen(rect.x + rect.w / 2, rect.y + rect.h / 2)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  items = await ctxItems()
+  check('非点击控件菜单', items.length === 1 && items[0].includes('删除'), `菜单项=[${items}]`)
+  await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))")
+  await sleep(150)
+
+  // 5b. 属性面板勾选「可点击」（真实点击 checkbox）
+  await evalJs(`(() => { window.__uiw.getState().setSelection(['${rect.id}']); return true })()`)
+  await sleep(200)
+  const cbGeo = await evalJs(`(() => {
+    const sec = [...document.querySelectorAll('.prop-section')].find(s => s.querySelector('h4')?.textContent === '点击')
+    const cb = sec.querySelector('input[type=checkbox]')
+    const r = cb.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await click(cbGeo.x, cbGeo.y)
+  await sleep(200)
+  const rectClickable = await evalJs(`window.__uiw.getState().currentPage().nodes.find(n => n.id === '${rect.id}').clickable`)
+  check('勾选可点击', rectClickable === true, `rect.clickable=${rectClickable}`)
+  const badge = await evalJs(`!!document.querySelector('.clickable-tag')`)
+  check('图层可点击标记', badge === true, '图层树显示「点击」标记')
+
+  // 5e. 配置弹窗效果（指向独立弹窗页）
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.updateNodes(['${rect.id}'], n => { n.clickAction = { type: 'popup', target: '${pp.id}' } })
+    return true
+  })()`)
+  await sleep(150)
+
+  // —— 6. 属性面板「▶ 演示点击效果」→ 弹窗遮罩浮层 ——
+  const demoBtn = await evalJs(`(() => {
+    const sec = [...document.querySelectorAll('.prop-section')].find(s => s.querySelector('h4')?.textContent === '点击')
+    const b = [...sec.querySelectorAll('button')].find(x => x.textContent.includes('演示点击效果'))
+    const r = b.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await click(demoBtn.x, demoBtn.y)
+  await sleep(250)
+  const popup1 = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    return { popupId: st.popupId, backdrop: !!document.querySelector('.popup-backdrop'), badge: !!document.querySelector('.popup-badge') }
+  })()`)
+  check('弹窗演示打开', popup1.popupId === pp.id && popup1.backdrop && popup1.badge,
+    `popupId=${popup1.popupId === pp.id}，遮罩=${popup1.backdrop}，提示=${popup1.badge}`)
+
+  // —— 7. 点遮罩关闭；Esc 也能关闭 ——
+  const dim = await toScreen(40, 60)
+  await click(dim.x, dim.y)
+  await sleep(200)
+  const closedByBackdrop = await evalJs(`window.__uiw.getState().popupId === null && !document.querySelector('.popup-backdrop')`)
+  check('点遮罩关闭', closedByBackdrop === true, '遮罩点击后弹窗演示关闭')
+  await evalJs(`window.__uiw.getState().triggerClick('${rect.id}')`)
+  await sleep(200)
+  await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))")
+  await sleep(200)
+  const closedByEsc = await evalJs(`window.__uiw.getState().popupId === null`)
+  check('Esc 关闭弹窗', closedByEsc === true, 'Esc 收起弹窗演示')
+
+  // —— 7b. 点弹窗标题栏 ✕ 关闭 ——
+  await evalJs(`window.__uiw.getState().triggerClick('${rect.id}')`)
+  await sleep(250)
+  const xpt = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const popup = st.doc.popups.find(p => p.id === st.popupId)
+    const dlg = popup.nodes.find(n => n.type === 'dialog')
+    const t = Math.min(48, dlg.h / 2)
+    return { x: dlg.x + dlg.w - t / 2 - 8, y: dlg.y + t / 2 }
+  })()`)
+  const xs = await toScreen(xpt.x, xpt.y)
+  await click(xs.x, xs.y)
+  await sleep(200)
+  const closedByX = await evalJs(`window.__uiw.getState().popupId === null && !document.querySelector('.popup-backdrop')`)
+  check('✕ 关闭弹窗', closedByX === true, '点击弹窗标题栏 ✕ 后演示关闭')
+
+  // —— 8. 右键菜单「点击」触发弹窗（走菜单路径）——
+  pt = await toScreen(rect.x + rect.w / 2, rect.y + rect.h / 2)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  items = await ctxItems()
+  check('弹窗菜单项', items[1]?.includes('弹出'), `点击项="${items[1]}"`)
+  const popupItem = await evalJs(`(() => {
+    const el = [...document.querySelectorAll('.ctx-menu .ctx-item')][1]
+    const r = el.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await click(popupItem.x, popupItem.y)
+  await sleep(250)
+  const popup2 = await evalJs(`window.__uiw.getState().popupId`)
+  check('菜单触发弹窗', popup2 === pp.id, `popupId 匹配弹窗页`)
+  await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))")
+  await sleep(150)
+
+  // —— 9. 右键菜单「删除」——
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  const delItem = await evalJs(`(() => {
+    const el = document.querySelector('.ctx-menu .ctx-item')
+    const r = el.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  await click(delItem.x, delItem.y)
+  await sleep(200)
+  const rectGone = await evalJs(`!window.__uiw.getState().currentPage().nodes.some(n => n.id === '${rect.id}')`)
+  check('菜单删除控件', rectGone === true, '右键「删除」移除选中控件')
+
+  // —— 10. 定制控件实例设为可点击（右键菜单出现禁用的点击项）——
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const wid = st.createCustomWidget({ kind: 'panel' })
+    st.setEditingWidget(null)
+    st.addWidgetCustom(wid, 650, 550)
+    return true
+  })()`)
+  await sleep(250)
+  const inst = await evalJs(`window.__uiw.getState().currentPage().nodes.find(n => n.type === 'custom')`)
+  check('定制实例就位', !!inst, `custom 实例=${inst?.name}`)
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.updateNodes(['${inst.id}'], n => { n.clickable = true })
+    return true
+  })()`)
+  await sleep(150)
+  const i = await evalJs(`window.__uiw.getState().currentPage().nodes.find(n => n.id === '${inst.id}')`)
+  pt = await toScreen(i.x + i.w / 2, i.y + i.h / 2)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  items = await ctxItems()
+  const instDisabled = await evalJs(`!!document.querySelector('.ctx-menu .ctx-item.disabled')`)
+  check('定制实例可点击', items.length === 2 && items[1].includes('未配置效果') && instDisabled,
+    `菜单项=[${items}]，未配置时禁用`)
+  await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))")
+  await sleep(150)
+
+  // —— 11. 数据落盘：clickable / clickAction / popups 进入文档 ——
+  const persisted = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const saved = JSON.parse(JSON.stringify(st.doc))
+    const b = saved.pages[0].nodes.find(n => n.type === 'button')
+    return { btnAction: b.clickAction, pageOk: saved.pages.some(p => p.id === b.clickAction.target),
+      popups: Array.isArray(saved.popups) ? saved.popups.length : -1 }
+  })()`)
+  check('文档含点击数据', persisted.btnAction?.type === 'goto' && persisted.pageOk && persisted.popups >= 1,
+    `button.clickAction=${JSON.stringify(persisted.btnAction)}，弹窗页=${persisted.popups}`)
+
+  // —— 12. 配置「返回」效果：属性面板第 4 个效果选项 ——
+  await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.updateNodes(['${inst.id}'], n => { n.clickAction = { type: 'back' } })
+    st.setSelection(['${inst.id}'])
+    return true
+  })()`)
+  await sleep(200)
+  const backSel = await evalJs(`(() => {
+    const sec = [...document.querySelectorAll('.prop-section')].find(s => s.querySelector('h4')?.textContent === '点击')
+    const btns = [...sec.querySelectorAll('.seg button')]
+    const back = btns.find(b => b.textContent === '返回')
+    return { count: btns.length, on: !!back && back.className.includes('on'), hint: sec.textContent.includes('返回跳转来之前的页面') }
+  })()`)
+  check('返回效果选项', backSel.count === 4 && backSel.on === true && backSel.hint === true,
+    `效果按钮 ${backSel.count}/4 个，返回选中=${backSel.on}，提示=${backSel.hint}`)
+
+  // —— 13. 右键「点击 · 返回」→ 回到来路页面（此前从页面 2 切到页面 1，来路 = 页面 2）——
+  pt = await toScreen(i.x + i.w / 2, i.y + i.h / 2)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  items = await ctxItems()
+  const backEnabled = await evalJs(`(() => {
+    const el = [...document.querySelectorAll('.ctx-menu .ctx-item')][1]
+    return { disabled: el.className.includes('disabled'), geo: (() => { const r = el.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 } })() }
+  })()`)
+  check('菜单返回标签', items[1]?.includes('返回「页面 2」') === true && backEnabled.disabled === false,
+    `点击项="${items[1]}"，可触发=${!backEnabled.disabled}`)
+  await click(backEnabled.geo.x, backEnabled.geo.y)
+  await sleep(250)
+  const afterBack = await evalJs('window.__uiw.getState().currentPageIndex')
+  check('点击返回来路页', afterBack === 1, `currentPageIndex=${afterBack}/1（页面 2）`)
+
+  // —— 14. 无来路时点击没有效果：删除页面 2（来路作废）→ 返回保持原页 ——
+  await evalJs(`(() => { window.__uiw.getState().deletePage(1); return true })()`)
+  await sleep(200)
+  const afterDel = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    st.triggerClick('${inst.id}')
+    return { page: window.__uiw.getState().currentPageIndex, prev: st.prevPageId }
+  })()`)
+  check('无来路点击无效', afterDel.page === 0 && afterDel.prev === null,
+    `点击后仍停在页面 1=${afterDel.page === 0}，prevPageId=${afterDel.prev}`)
+  pt = await toScreen(i.x + i.w / 2, i.y + i.h / 2)
+  await rclick(pt.x, pt.y)
+  await sleep(250)
+  const noBack = await evalJs(`(() => {
+    const el = [...document.querySelectorAll('.ctx-menu .ctx-item')][1]
+    return { label: el.textContent.trim(), disabled: el.className.includes('disabled') }
+  })()`)
+  check('无来路菜单禁用', noBack.disabled === true && noBack.label.includes('无来路'),
+    `"${noBack.label}"，禁用=${noBack.disabled}`)
+  await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))")
+
+  // —— 15. 旧格式迁移：popup 动作指向页面上的 dialog 节点 → 自动移入弹窗页并改指向 ——
+  const mig = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const doc = {
+      version: 1,
+      meta: { name: '旧工程', designWidth: 1334, designHeight: 750, orientation: 'landscape' },
+      commonLayer: { id: 'common', name: '公共层', nodes: [] },
+      customWidgets: [],
+      pages: [
+        { id: 'old_p1', name: '旧页', nodes: [
+          { id: 'old_btn', type: 'button', name: '开', x: 100, y: 100, w: 200, h: 80, visible: true, locked: false,
+            props: { text: '开' }, clickAction: { type: 'popup', target: 'old_dlg' } },
+          { id: 'old_dlg', type: 'dialog', name: '旧弹窗', x: 400, y: 200, w: 480, h: 320, visible: true, locked: false,
+            props: { title: '旧' }, children: [] }
+        ] }
+      ]
+    }
+    st.loadProject(doc, '/tmp/old.uiw')
+    const s2 = window.__uiw.getState()
+    const p1 = s2.doc.pages[0]
+    const popup = s2.doc.popups[0]
+    return {
+      popups: s2.doc.popups.length,
+      popupTypes: popup ? popup.nodes.map(n => n.type) : [],
+      pageHasDialog: p1.nodes.some(n => n.type === 'dialog'),
+      action: p1.nodes.find(n => n.id === 'old_btn').clickAction,
+      popupId: popup?.id
+    }
+  })()`)
+  check('旧格式自动迁移', mig.popups === 1 && mig.popupTypes[0] === 'dialog' && mig.pageHasDialog === false && mig.action.target === mig.popupId,
+    `生成弹窗页=${mig.popups}，页面残留 dialog=${mig.pageHasDialog}，动作已改指向=${mig.action.target === mig.popupId}`)
+
+  console.log(JSON.stringify(results, null, 2))
+  ws.close()
+}
+main().catch((e) => { console.error('测试失败:', e.message); process.exit(1) })

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useEditor } from '../store/editorStore'
-import type { CustomPropType, WidgetNode, WidgetProps, WidgetType } from '../types'
+import type { ClickAction, CustomPropType, WidgetNode, WidgetProps, WidgetType } from '../types'
 import type { AnchorMode, AnchorPreset, CustomWidgetDef } from '../types'
-import { walkNodes, findNodeById } from '../widgets/tree'
+import { isClickable, walkNodes, findNodeById } from '../widgets/tree'
 
 const TYPE_LABEL: Record<WidgetType, string> = {
   rect: '形状',
@@ -69,6 +69,7 @@ const BINDABLE_KEYS: Partial<Record<WidgetType, { key: string; label: string }[]
 export default function PropsPanel({ width = 252 }: { width?: number }) {
   const doc = useEditor((s) => s.doc)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
+  const editingPopupId = useEditor((s) => s.editingPopupId)
   const selectedIds = useEditor((s) => s.selectedIds)
   const updateNodes = useEditor((s) => s.updateNodes)
   const alignSelected = useEditor((s) => s.alignSelected)
@@ -127,6 +128,7 @@ export default function PropsPanel({ width = 252 }: { width?: number }) {
       {editingDef && <ExposedPropsEditor def={editingDef} selected={sel.length === 1 ? sel[0] : null} />}
       {editingDef && sel.length === 1 && <SlotEditor def={editingDef} node={sel[0]} />}
       {sel.length === 1 && !editingDef && <TypeProps node={sel[0]} defs={doc.customWidgets} />}
+      {sel.length === 1 && !editingDef && !editingPopupId && <ClickEditor node={sel[0]} />}
       {sel.length >= 2 && (
         <div className="prop-section">
           <h4>对齐与分布</h4>
@@ -495,6 +497,146 @@ function SlotEditor({ def, node }: { def: CustomWidgetDef; node: WidgetNode }) {
           >
             {marked ? '✓ 已开放为插槽（点击取消）' : '开放为插槽'}
           </button>
+        </>
+      )}
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// 点击（§8 交互原型）：按钮天生可点击，其它控件可开启；点击效果 = 切换页面 / 弹窗
+// ---------------------------------------------------------------------------
+
+function ClickEditor({ node }: { node: WidgetNode }) {
+  const updateNodes = useEditor((s) => s.updateNodes)
+  const triggerClick = useEditor((s) => s.triggerClick)
+  const addPopup = useEditor((s) => s.addPopup)
+  const doc = useEditor((s) => s.doc)
+  const curPageId = useEditor((s) => (s.currentPageIndex >= 0 ? s.doc.pages[s.currentPageIndex]?.id : null))
+  const prevPageId = useEditor((s) => s.prevPageId)
+  const clickable = isClickable(node)
+  const act = node.clickAction
+  const valid = !act
+    ? false
+    : act.type === 'goto'
+      ? doc.pages.some((p) => p.id === act.target)
+      : act.type === 'back'
+        ? !!prevPageId && doc.pages.some((p) => p.id === prevPageId)
+        : doc.popups.some((p) => p.id === act.target)
+  const setAction = (a: ClickAction | undefined) =>
+    updateNodes([node.id], (n) => {
+      if (a) n.clickAction = a
+      else delete n.clickAction
+    })
+  return (
+    <div className="prop-section">
+      <h4>点击</h4>
+      {node.type === 'button' ? (
+        <div className="prop-hint">按钮天生可点击；配置效果后右键可触发演示。</div>
+      ) : (
+        <div className="prop-row">
+          <span>可点击</span>
+          <input
+            type="checkbox"
+            checked={!!node.clickable}
+            onChange={(e) =>
+              updateNodes([node.id], (n) => {
+                if (e.target.checked) n.clickable = true
+                else {
+                  delete n.clickable
+                  delete n.clickAction
+                }
+              })
+            }
+          />
+        </div>
+      )}
+      {clickable && (
+        <>
+          <div className="prop-row">
+            <span>点击效果</span>
+            <div className="seg">
+              <button className={!act ? 'on' : ''} onClick={() => setAction(undefined)}>
+                无
+              </button>
+              <button
+                className={act?.type === 'goto' ? 'on' : ''}
+                onClick={() => setAction({ type: 'goto', target: doc.pages[0]?.id ?? '' })}
+              >
+                切换页面
+              </button>
+              <button className={act?.type === 'back' ? 'on' : ''} onClick={() => setAction({ type: 'back' })}>
+                返回
+              </button>
+              <button
+                className={act?.type === 'popup' ? 'on' : ''}
+                onClick={() => setAction({ type: 'popup', target: doc.popups[0]?.id ?? '' })}
+              >
+                弹窗
+              </button>
+            </div>
+          </div>
+          {act?.type === 'back' && (
+            <div className="prop-hint">
+              点击后返回跳转来之前的页面
+              {prevPageId && doc.pages.some((p) => p.id === prevPageId)
+                ? `（当前来路：「${doc.pages.find((p) => p.id === prevPageId)?.name}」）`
+                : '；若当前页面不是从别的页面切换过来的，点击没有效果'}
+              。
+            </div>
+          )}
+          {act?.type === 'goto' && (
+            <div className="prop-row">
+              <span>目标页面</span>
+              <select value={act.target} onChange={(e) => setAction({ type: 'goto', target: e.target.value })}>
+                {doc.pages.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                    {p.id === curPageId ? '（当前页）' : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {act?.type === 'popup' &&
+            (doc.popups.length > 0 ? (
+              <>
+                <div className="prop-row">
+                  <span>弹窗</span>
+                  <select value={act.target} onChange={(e) => setAction({ type: 'popup', target: e.target.value })}>
+                    {!doc.popups.some((p) => p.id === act.target) && (
+                      <option value="">{act.target ? '（弹窗已删除）' : '（请选择）'}</option>
+                    )}
+                    {doc.popups.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="prop-hint">弹窗内容在左侧页面列表「弹窗」分组中独立设计；演示弹出后可点 ✕ / 遮罩关闭。</div>
+              </>
+            ) : (
+              <>
+                <div className="prop-hint">还没有弹窗：新建一个弹窗页来设计弹窗内容，再回到这里选择它。</div>
+                <button
+                  className="tb-btn w-full"
+                  onClick={() =>
+                    updateNodes([node.id], (n) => {
+                      n.clickAction = { type: 'popup', target: useEditor.getState().addPopup() }
+                    })
+                  }
+                >
+                  ＋ 新建弹窗并绑定
+                </button>
+              </>
+            ))}
+          {act && (
+            <button className="tb-btn w-full" disabled={!valid} onClick={() => triggerClick(node.id)}>
+              ▶ 演示点击效果
+            </button>
+          )}
+          <div className="prop-hint">编辑器内右键控件 →「点击」也可随时触发效果演示。</div>
         </>
       )}
     </div>

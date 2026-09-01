@@ -11,9 +11,21 @@
   "meta": { ... },                 // ProjectMeta，见下
   "commonLayer": { ... },          // PageData，公共层：内容显示在所有页面之下
   "customWidgets": [ ... ],        // CustomWidgetDef[]，定制控件定义库（可为空数组）
+  "popups": [ ... ],               // PageData[]，弹窗页：独立设计的弹窗，由点击效果（popup）弹出
   "pages": [ ... ]                 // PageData[]，至少 1 页
 }
 ```
+
+### 弹窗页（popups）
+
+弹窗在**独立的弹窗页**中设计（普通页面 / 公共层不允许放 `dialog` 控件），页面结构同 PageData：
+
+```jsonc
+{ "id": "pp_confirm", "name": "确认弹窗", "nodes": [ { "type": "dialog", ... } ] }
+```
+
+- 典型内容：一个居中的 `dialog`（+ 其 children 内容控件），按设计坐标摆放，触发弹出时原位浮层显示；
+- 页面上的按钮 / 控件通过 `clickAction: { "type": "popup", "target": "<弹窗页 id>" }` 绑定弹窗。
 
 ## meta（ProjectMeta）
 
@@ -54,6 +66,13 @@
 | `anchor` | Anchor | — | 多分辨率锚点，见下；缺省 = 左上锚定 + 随父拉伸 |
 | `binding` | object | — | 仅 filter：`{ "target": "<list/grid 节点 id>", "tagKey": "标记名" }` |
 | `itemTags` | string[] | — | 仅 list / grid：每项的标记值，与 `count` 对齐，供筛选器过滤 |
+| `clickable` | boolean | — | 设为 `true` 让非按钮控件**可点击**（`button` 天生可点击，无需此字段） |
+| `clickAction` | ClickAction | — | 点击效果：`{ "type": "goto", "target": "<目标页面 id>" }` 切换页面、`{ "type": "back" }` 返回上一页（无来路时无效）、或 `{ "type": "popup", "target": "<弹窗页 id>" }` 弹出弹窗 |
+
+### 点击交互（clickable / clickAction）
+
+- `goto` 的 `target` 必须是本工程某个**页面 id**；`popup` 的 `target` 必须是 `popups` 中某个**弹窗页 id**（弹窗页内不允许放到普通页面上）；`back` 无需 target。
+- 编辑器中右键可点击控件 →「点击」即可触发效果演示（弹窗以遮罩 + 置顶浮层显示，✕ / 遮罩 / Esc 关闭）；生成工程时给关键操作按钮 / 卡牌 / 导航项配置点击效果，可让原型具备可演示的页面流。
 
 ### 结构性约束（违反 = 非法文档）
 

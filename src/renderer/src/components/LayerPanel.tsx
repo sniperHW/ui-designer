@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { useEditor } from '../store/editorStore'
 import type { WidgetNode, WidgetType } from '../types'
+import { isClickable } from '../widgets/tree'
 import { renderKidsOf } from '../widgets/registry'
 
 const TYPE_LABEL: Record<WidgetType, string> = {
@@ -29,12 +30,16 @@ export default function LayerPanel({ height = 198 }: { height?: number }) {
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
+  const editingPopupId = useEditor((s) => s.editingPopupId)
   const editingDef = editingWidgetId ? doc.customWidgets.find((w) => w.id === editingWidgetId) : null
+  const editingPopup = !editingDef && editingPopupId ? doc.popups.find((p) => p.id === editingPopupId) : null
   const root = editingDef
     ? editingDef.tree
-    : pageIndex < 0
-      ? doc.commonLayer.nodes
-      : doc.pages[pageIndex]?.nodes ?? []
+    : editingPopup
+      ? editingPopup.nodes
+      : pageIndex < 0
+        ? doc.commonLayer.nodes
+        : doc.pages[pageIndex]?.nodes ?? []
   const rows: ReactNode[] = []
   renderRows(root, 0, rows)
   return (
@@ -42,9 +47,11 @@ export default function LayerPanel({ height = 198 }: { height?: number }) {
       <div className="panel-title">
         {editingDef
           ? `定义图层「${editingDef.name}」（Tab 子控件、插槽内容缩进显示）`
-          : pageIndex < 0
-            ? '公共层图层（所有页面共享）'
-            : '图层（排在前面的显示在上层；容器子控件缩进显示；双击重命名）'}
+          : editingPopup
+            ? `弹窗「${editingPopup.name}」图层（双击重命名）`
+            : pageIndex < 0
+              ? '公共层图层（所有页面共享）'
+              : '图层（排在前面的显示在上层；容器子控件缩进显示；双击重命名）'}
       </div>
       <div className="layer-list">{rows}</div>
     </div>
@@ -102,6 +109,11 @@ function Row({ n, depth }: { n: WidgetNode; depth: number }) {
       }}
     >
       <span className="type-tag">{TYPE_LABEL[n.type]}</span>
+      {isClickable(n) && (
+        <span className="clickable-tag" title="可点击控件：右键 →「点击」可演示点击效果">
+          点击
+        </span>
+      )}
       {editing ? (
         <input
           value={draft}

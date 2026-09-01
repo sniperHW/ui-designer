@@ -55,6 +55,13 @@ export interface Anchor {
   mode: AnchorMode
 }
 
+/** 点击效果（§8 交互原型）：切换页面 / 返回上一页 / 弹出弹窗 */
+export interface ClickAction {
+  type: 'goto' | 'back' | 'popup'
+  /** goto：目标页面 id；popup：弹窗页（doc.popups）id；back 无需目标（运行时取来路页面） */
+  target?: string
+}
+
 /** 定制控件：对外暴露的属性（内部子控件属性绑定到它，实例只覆盖它） */
 export interface CustomPropBind {
   /** 定义树内被绑定的节点 id */
@@ -119,6 +126,10 @@ export interface WidgetNode {
   binding?: { target: string; tagKey: string }
   /** 列表 / 网格：每项标记值（与项数对齐，供筛选器过滤） */
   itemTags?: string[]
+  /** 可点击（按钮天生可点击，无需此标记；其它控件显式开启） */
+  clickable?: boolean
+  /** 点击效果：切换页面 / 弹出弹窗（编辑器内右键「点击」演示触发） */
+  clickAction?: ClickAction
 }
 
 export type Orientation = 'landscape' | 'portrait'
@@ -143,5 +154,7 @@ export interface ProjectDoc {
   commonLayer: PageData
   /** 定制控件库（§5） */
   customWidgets: CustomWidgetDef[]
+  /** 弹窗页：独立设计的弹窗内容（典型：一个居中的 dialog），由点击效果（popup）弹出显示 */
+  popups: PageData[]
   pages: PageData[]
 }

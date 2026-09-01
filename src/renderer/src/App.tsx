@@ -85,7 +85,10 @@ export default function App() {
         e.preventDefault()
         st.nudge(0, e.shiftKey ? 10 : 1)
       } else if (e.key === 'Escape') {
-        st.setSelection([])
+        // 优先收起弹窗演示 / 右键菜单，其次才清空选择
+        if (st.popupId) st.closePopup()
+        else if (st.ctxMenu) st.closeCtxMenu()
+        else st.setSelection([])
       }
     }
     window.addEventListener('keydown', onKey)

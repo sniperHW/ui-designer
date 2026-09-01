@@ -41,21 +41,23 @@ export async function doOpen(): Promise<void> {
   }
 }
 
-/** 导出当前页面为 PNG（2x 光栅化，白底；页面导出时包含公共层） */
+/** 导出当前页面为 PNG（2x 光栅化，白底；页面导出时包含公共层；编辑弹窗时导出弹窗页） */
 export async function doExportPng(): Promise<void> {
   const s = useEditor.getState()
   if (!s.hasProject) return
-  const isCommon = s.currentPageIndex < 0
-  const page = isCommon ? s.doc.commonLayer : s.doc.pages[s.currentPageIndex]
+  const editingPopup = s.editingPopupId ? s.doc.popups.find((p) => p.id === s.editingPopupId) : null
+  const isCommon = !editingPopup && s.currentPageIndex < 0
+  const page = editingPopup ?? (isCommon ? s.doc.commonLayer : s.doc.pages[s.currentPageIndex])
   if (!page) return
   const { designWidth: dw, designHeight: dh } = s.doc.meta
   const scale = 2
-  const commonBody = isCommon
-    ? ''
-    : s.doc.commonLayer.nodes
-        .filter((n) => n.visible)
-        .map((n) => renderTreeSVG(n, s.doc.customWidgets))
-        .join('')
+  const commonBody =
+    isCommon || editingPopup
+      ? ''
+      : s.doc.commonLayer.nodes
+          .filter((n) => n.visible)
+          .map((n) => renderTreeSVG(n, s.doc.customWidgets))
+          .join('')
   const body =
     commonBody +
     page.nodes

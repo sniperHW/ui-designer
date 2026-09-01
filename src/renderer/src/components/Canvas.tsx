@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import type { DragEvent, PointerEvent as RPointerEvent, ReactNode } from 'react'
+import type { DragEvent, PointerEvent as RPointerEvent, MouseEvent as RMouseEvent, ReactNode } from 'react'
 import { useEditor } from '../store/editorStore'
 import {
   contentRectOf,
@@ -15,12 +15,15 @@ import type { CustomWidgetDef } from '../types'
 import type { Rect, SlotInfo, WidgetDef } from '../widgets/registry'
 import { canvasEl } from '../canvasRef'
 import type { WidgetNode } from '../types'
+import { DIALOG_TITLE_H } from '../widgets/registry'
+import { findNodeInDoc, isClickable, walkNodes } from '../widgets/tree'
 import SelectionOverlay from './SelectionOverlay'
 
 export default function Canvas() {
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
+  const editingPopupId = useEditor((s) => s.editingPopupId)
   const viewport = useEditor((s) => s.viewport)
   const showGrid = useEditor((s) => s.showGrid)
   const gridSize = useEditor((s) => s.gridSize)
@@ -28,8 +31,8 @@ export default function Canvas() {
   const previewRatio = useEditor((s) => s.previewRatio)
   const showSafeArea = useEditor((s) => s.showSafeArea)
   const wrapRef = useRef<HTMLDivElement>(null)
-  const isCommon = pageIndex < 0 && !editingWidgetId
-  const inPreview = previewRatio !== 'design' && !editingWidgetId
+  const isCommon = pageIndex < 0 && !editingWidgetId && !editingPopupId
+  const inPreview = previewRatio !== 'design' && !editingWidgetId && !editingPopupId
   const { designWidth: dw, designHeight: dh } = doc.meta
   const pd = previewDims(doc.meta, previewRatio)
   const boardW = inPreview ? pd.w : dw
@@ -38,13 +41,27 @@ export default function Canvas() {
   const editingDef = editingWidgetId
     ? doc.customWidgets.find((w) => w.id === editingWidgetId) ?? null
     : null
+  // 弹窗页：独立设计的弹窗内容（§8），编辑时画布只显示弹窗页节点
+  const editingPopup = !editingDef && editingPopupId
+    ? doc.popups.find((p) => p.id === editingPopupId) ?? null
+    : null
   const page = isCommon ? doc.commonLayer : doc.pages[Math.min(pageIndex, doc.pages.length - 1)]
   const design = { x: 0, y: 0, w: dw, h: dh }
   const target = { x: 0, y: 0, w: boardW, h: boardH }
   // 预览模式：按锚点规则把设计尺寸布局重排到目标分辨率（只读）
-  const pageNodes = editingDef ? editingDef.tree : inPreview ? transformTree(page.nodes, design, target) : page.nodes
+  const pageNodes = editingDef
+    ? editingDef.tree
+    : editingPopup
+      ? editingPopup.nodes
+      : inPreview
+        ? transformTree(page.nodes, design, target)
+        : page.nodes
   const commonNodes =
-    !isCommon && !editingDef ? (inPreview ? transformTree(doc.commonLayer.nodes, design, target) : doc.commonLayer.nodes) : []
+    !isCommon && !editingDef && !editingPopup
+      ? inPreview
+        ? transformTree(doc.commonLayer.nodes, design, target)
+        : doc.commonLayer.nodes
+      : []
   const commonVisible = commonNodes.filter((n) => n.visible)
   const interactive = !inPreview
 
@@ -218,6 +235,22 @@ export default function Canvas() {
     target.addEventListener('pointerup', up)
   }
 
+  // 控件右键：选中（若未选中）→ 弹出上下文菜单（删除 / 点击）
+  const nodeCtx = (e: RMouseEvent<SVGGElement>, n: WidgetNode) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!interactive) return
+    const st = useEditor.getState()
+    if (!st.selectedIds.includes(n.id)) st.setSelection([n.id])
+    st.openCtxMenu(e.clientX, e.clientY)
+  }
+
+  // 画布空白右键：屏蔽默认菜单并关闭自定义菜单
+  const bgCtx = (e: RMouseEvent<SVGSVGElement>) => {
+    e.preventDefault()
+    useEditor.getState().closeCtxMenu()
+  }
+
   const onDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     const json = e.dataTransfer.getData('application/x-widget-def')
@@ -242,6 +275,13 @@ export default function Canvas() {
     useEditor.getState().setMouse(pt.x, pt.y)
   }
 
+  // 弹窗演示：目标弹窗页被删后自动收起
+  const popupId = useEditor((s) => s.popupId)
+  const popupShown = popupId ? doc.popups.find((p) => p.id === popupId) ?? null : null
+  useEffect(() => {
+    if (popupId && !popupShown) useEditor.getState().closePopup()
+  }, [popupId, popupShown])
+
   const hasNodes = pageNodes.length > 0 || commonVisible.length > 0
 
   return (
@@ -252,7 +292,7 @@ export default function Canvas() {
       onDragOver={(e) => e.preventDefault()}
       onPointerMove={onPointerMove}
     >
-      <svg className="canvas-svg" onPointerDown={bgDown}>
+      <svg className="canvas-svg" onPointerDown={bgDown} onContextMenu={bgCtx}>
         <defs>
           <pattern id="gridpat" width={gridSize} height={gridSize} patternUnits="userSpaceOnUse">
             <path d={`M ${gridSize} 0 L 0 0 0 ${gridSize}`} fill="none" stroke="#d8d8de" strokeWidth="1" />
@@ -292,8 +332,49 @@ export default function Canvas() {
           {pageNodes
             .filter((n) => n.visible)
             .map((n) => (
-              <NodeGroup key={n.id} n={n} nodeDown={nodeDown} defs={doc.customWidgets} interactive={interactive} />
+              <NodeGroup key={n.id} n={n} nodeDown={nodeDown} nodeCtx={nodeCtx} defs={doc.customWidgets} interactive={interactive} />
             ))}
+          {/* 点击效果演示：弹出独立弹窗页——遮罩压暗整页、弹窗内容浮于其上；点 ✕ / 遮罩 / Esc 关闭 */}
+          {popupShown && (
+            <g>
+              <rect
+                className="popup-backdrop"
+                x={0}
+                y={0}
+                width={boardW}
+                height={boardH}
+                fill="rgba(17,24,39,0.42)"
+                style={{ cursor: 'pointer' }}
+                onPointerDown={(e) => {
+                  e.stopPropagation()
+                  useEditor.getState().closePopup()
+                }}
+              />
+              <g style={{ filter: 'drop-shadow(0 12px 32px rgba(0,0,0,0.5))' }}>
+                {popupShown.nodes
+                  .filter((n) => n.visible)
+                  .map((n) => (
+                    <g key={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, doc.customWidgets) }} />
+                  ))}
+              </g>
+              {/* 弹窗标题栏 ✕ 的关闭热区（与 registry 绘制的 ✕ 几何对齐） */}
+              {dialogCloseRects(popupShown.nodes).map((r, i) => (
+                <rect
+                  key={'popupx' + i}
+                  x={r.x}
+                  y={r.y}
+                  width={r.w}
+                  height={r.h}
+                  fill="transparent"
+                  style={{ cursor: 'pointer' }}
+                  onPointerDown={(e) => {
+                    e.stopPropagation()
+                    useEditor.getState().closePopup()
+                  }}
+                />
+              ))}
+            </g>
+          )}
           {/* 安全区参考框（§6）：刘海屏参考，虚线示意 */}
           {showSafeArea && !editingDef && (
             <g style={{ pointerEvents: 'none' }}>
@@ -324,8 +405,97 @@ export default function Canvas() {
           分辨率预览 {boardW} × {boardH}（只读，按锚点重排）
         </div>
       )}
-      {isCommon && <div className="common-badge">● 正在编辑公共层 — 修改对所有页面生效</div>}
+      {popupShown && (
+        <div className="popup-badge">
+          👆 点击效果演示：弹窗「{popupShown.name}」 — 点 ✕ / 遮罩或按 Esc 关闭
+        </div>
+      )}
+      {(isCommon || editingPopup) && (
+        <div className="common-badge">
+          {isCommon ? '● 正在编辑公共层 — 修改对所有页面生效' : `▣ 正在编辑弹窗「${editingPopup!.name}」— 由点击效果触发时遮罩弹出显示`}
+        </div>
+      )}
       {!inPreview && <SelectionOverlay />}
+      <CanvasCtxMenu />
+    </div>
+  )
+}
+
+/** 控件右键菜单：删除（任意选中）+ 点击（仅可点击控件，触发点击效果） */
+function CanvasCtxMenu() {
+  const ctxMenu = useEditor((s) => s.ctxMenu)
+  const selectedIds = useEditor((s) => s.selectedIds)
+  const doc = useEditor((s) => s.doc)
+  const editingWidgetId = useEditor((s) => s.editingWidgetId)
+  const editingPopupId = useEditor((s) => s.editingPopupId)
+  const prevPageId = useEditor((s) => s.prevPageId)
+
+  // 点击菜单外任意位置收起
+  useEffect(() => {
+    if (!ctxMenu) return
+    const onDown = (e: PointerEvent) => {
+      const t = e.target as HTMLElement | null
+      if (!(t && t.closest('.ctx-menu'))) useEditor.getState().closeCtxMenu()
+    }
+    document.addEventListener('pointerdown', onDown)
+    return () => document.removeEventListener('pointerdown', onDown)
+  }, [ctxMenu])
+
+  if (!ctxMenu) return null
+  const single = selectedIds.length === 1 ? findNodeInDoc(doc, selectedIds[0]) : null
+  const clickable = single && !editingWidgetId && !editingPopupId && isClickable(single) ? single : null
+  const act = clickable?.clickAction
+  const backTarget = prevPageId ? doc.pages.find((p) => p.id === prevPageId) : undefined
+  // 目标是否有效（决定点击项可否触发）：未配置 / 目标被删 / 返回无来路 → 禁用
+  const actOk = !act
+    ? false
+    : act.type === 'goto'
+      ? doc.pages.some((p) => p.id === act.target)
+      : act.type === 'back'
+        ? !!backTarget
+        : doc.popups.some((p) => p.id === act.target)
+  const actLabel = !act
+    ? '未配置效果'
+    : act.type === 'goto'
+      ? `跳转「${doc.pages.find((p) => p.id === act.target)?.name ?? '页面已删'}」`
+      : act.type === 'back'
+        ? backTarget
+          ? `返回「${backTarget.name}」`
+          : '返回上一页（无来路）'
+        : `弹出「${doc.popups.find((p) => p.id === act.target)?.name ?? '弹窗已删'}」`
+  const x = Math.min(ctxMenu.x, window.innerWidth - 224)
+  const y = Math.min(ctxMenu.y, window.innerHeight - 96)
+
+  return (
+    <div className="ctx-menu" style={{ left: x, top: y }}>
+      <div
+        className="ctx-item"
+        onClick={() => {
+          useEditor.getState().deleteSelected()
+          useEditor.getState().closeCtxMenu()
+        }}
+      >
+        <span>删除{selectedIds.length > 1 ? `（${selectedIds.length} 个控件）` : ''}</span>
+        <span className="accel">⌫</span>
+      </div>
+      {clickable && (
+        <div
+          className={'ctx-item' + (actOk ? '' : ' disabled')}
+          title={
+            actOk
+              ? '触发该控件的点击效果'
+              : act?.type === 'back'
+                ? '当前页面不是从别的页面切换过来的，返回没有效果'
+                : '尚未配置点击效果——去右侧属性面板「点击」区设置'
+          }
+          onClick={() => {
+            if (!actOk) return
+            useEditor.getState().triggerClick(clickable.id)
+          }}
+        >
+          <span>点击 · {actLabel}</span>
+        </div>
+      )}
     </div>
   )
 }
@@ -334,22 +504,25 @@ export default function Canvas() {
 function NodeGroup({
   n,
   nodeDown,
+  nodeCtx,
   defs,
   interactive
 }: {
   n: WidgetNode
   nodeDown: (e: RPointerEvent<SVGGElement>, n: WidgetNode) => void
+  nodeCtx: (e: RMouseEvent<SVGGElement>, n: WidgetNode) => void
   defs: CustomWidgetDef[]
   interactive: boolean
 }) {
   const down = interactive ? (e: RPointerEvent<SVGGElement>) => nodeDown(e, n) : undefined
+  const ctx = interactive ? (e: RMouseEvent<SVGGElement>) => nodeCtx(e, n) : undefined
 
   // 定制控件实例：内部结构只读渲染；插槽内容是实例子控件，可交互
   if (n.type === 'custom') {
     const def = defs.find((d) => d.id === n.customId)
     if (!def) {
       return (
-        <g data-id={n.id} onPointerDown={down} style={{ cursor: interactive && !n.locked ? 'move' : 'default' }}>
+        <g data-id={n.id} onPointerDown={down} onContextMenu={ctx} style={{ cursor: interactive && !n.locked ? 'move' : 'default' }}>
           <g dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, defs) }} />
         </g>
       )
@@ -359,6 +532,7 @@ function NodeGroup({
       <g
         data-id={n.id}
         onPointerDown={down}
+        onContextMenu={ctx}
         style={{ cursor: interactive && !n.locked ? 'move' : 'default' }}
       >
         <g dangerouslySetInnerHTML={{ __html: r.inner }} />
@@ -368,7 +542,7 @@ function NodeGroup({
           return (
             <ClippedGroup key={sl.key} clipId={`clip-${n.id}-${sl.key}`} rect={sl.rect}>
               {kids.map((c) => (
-                <NodeGroup key={c.id} n={c} nodeDown={nodeDown} defs={defs} interactive={interactive} />
+                <NodeGroup key={c.id} n={c} nodeDown={nodeDown} nodeCtx={nodeCtx} defs={defs} interactive={interactive} />
               ))}
             </ClippedGroup>
           )
@@ -387,7 +561,7 @@ function NodeGroup({
       children = (
         <ClippedGroup clipId={`clip-${n.id}`} rect={rect}>
           {visible.map((c) => (
-            <NodeGroup key={c.id} n={c} nodeDown={nodeDown} defs={defs} interactive={interactive} />
+            <NodeGroup key={c.id} n={c} nodeDown={nodeDown} nodeCtx={nodeCtx} defs={defs} interactive={interactive} />
           ))}
         </ClippedGroup>
       )
@@ -397,6 +571,7 @@ function NodeGroup({
     <g
       data-id={n.id}
       onPointerDown={down}
+      onContextMenu={ctx}
       style={{ cursor: n.locked || !interactive ? 'default' : 'move' }}
     >
       <g dangerouslySetInnerHTML={{ __html: widgetInnerSVG(n) }} />
@@ -416,4 +591,18 @@ function ClippedGroup({ clipId, rect, children }: { clipId: string; rect: Rect; 
       {children}
     </g>
   )
+}
+
+/** 弹窗页内每个 dialog 的 ✕ 关闭热区（与 registry 绘制的 ✕ 几何对齐，标题栏中央） */
+function dialogCloseRects(nodes: WidgetNode[]): Rect[] {
+  const out: Rect[] = []
+  walkNodes(nodes, (n) => {
+    if (n.type === 'dialog') {
+      const t = Math.min(DIALOG_TITLE_H, n.h / 2)
+      const cx = n.x + n.w - t / 2 - 8
+      const cy = n.y + t / 2
+      out.push({ x: cx - 14, y: cy - 14, w: 28, h: 28 })
+    }
+  })
+  return out
 }

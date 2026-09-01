@@ -872,6 +872,77 @@ select {
   border-radius: 12px;
   pointer-events: none;
 }
+.popup-badge {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #7c3aed;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 14px;
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 6;
+  white-space: nowrap;
+}
+
+/* ---------- 画布右键菜单（删除 / 点击） ---------- */
+.ctx-menu {
+  position: fixed;
+  z-index: 300;
+  min-width: 208px;
+  background: #fff;
+  border: 1px solid #d9d9de;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+  padding: 4px;
+  user-select: none;
+}
+.ctx-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.ctx-item:hover {
+  background: #eef3ff;
+  color: #1d4ed8;
+}
+.ctx-item.disabled {
+  color: #9ca3af;
+  pointer-events: none;
+}
+.ctx-item .accel {
+  color: #9ca3af;
+}
+
+/* 图层树中可点击控件的标记 */
+.clickable-tag {
+  font-size: 10px;
+  color: #1d4ed8;
+  background: #e3edff;
+  border: 1px solid #bcd0ff;
+  border-radius: 3px;
+  padding: 0 4px;
+  line-height: 15px;
+  flex-shrink: 0;
+}
+
+/* 页面列表中的弹窗分组 */
+.popup-group-title {
+  margin-top: 6px;
+  padding: 2px 10px;
+  color: #7c3aed;
+  font-size: 11px;
+  border-top: 1px dashed #d9d9de;
+  user-select: none;
+}
+.popup-row .page-thumb {
+  background: #faf7ff;
+}
 .sb-select {
   display: inline-flex;
   align-items: center;

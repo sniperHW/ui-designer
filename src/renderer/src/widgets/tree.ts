@@ -1,4 +1,18 @@
-import type { WidgetNode } from '../types'
+import type { ProjectDoc, WidgetNode } from '../types'
+
+/** 控件是否可点击：按钮天生可点击，其它控件需显式开启 clickable */
+export function isClickable(n: WidgetNode): boolean {
+  return n.type === 'button' || n.clickable === true
+}
+
+/** 在全文档（公共层 + 所有页面）中按 id 查找节点；找不到返回 null */
+export function findNodeInDoc(doc: ProjectDoc, id: string): WidgetNode | null {
+  for (const p of [doc.commonLayer, ...doc.pages]) {
+    const r = findNodeById(p.nodes, id)
+    if (r) return r
+  }
+  return null
+}
 
 /** 节点的全部子树数组（Tab 全部页签 + children + 定制控件插槽），用于全量遍历 / 查找 / 删除 */
 export function childSubtrees(n: WidgetNode): WidgetNode[][] {
