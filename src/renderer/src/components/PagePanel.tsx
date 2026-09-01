@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useEditor } from '../store/editorStore'
 import { renderTreeSVG } from '../widgets/registry'
 
-export default function PagePanel() {
+export default function PagePanel({ height = 212 }: { height?: number }) {
   const doc = useEditor((s) => s.doc)
   const currentIndex = useEditor((s) => s.currentPageIndex)
   const setCurrentPage = useEditor((s) => s.setCurrentPage)
@@ -26,7 +26,7 @@ export default function PagePanel() {
   const dh = doc.meta.designHeight
 
   return (
-    <div className="pages">
+    <div className="pages" style={{ height }}>
       <div className="panel-title">页面（双击重命名）</div>
       <div className="page-list">
         <div

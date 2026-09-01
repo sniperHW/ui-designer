@@ -66,7 +66,7 @@ const BINDABLE_KEYS: Partial<Record<WidgetType, { key: string; label: string }[]
   tab: [{ key: 'activeTab', label: '当前页签（activeTab）' }]
 }
 
-export default function PropsPanel() {
+export default function PropsPanel({ width = 252 }: { width?: number }) {
   const doc = useEditor((s) => s.doc)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
   const selectedIds = useEditor((s) => s.selectedIds)
@@ -83,7 +83,7 @@ export default function PropsPanel() {
   const ids = sel.map((n) => n.id)
 
   return (
-    <div className="right">
+    <div className="right" style={{ width }}>
       {editingDef && <DefInfo def={editingDef} />}
       {sel.length === 0 ? (
         <div className="prop-section">

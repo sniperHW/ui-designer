@@ -25,7 +25,7 @@ const TYPE_LABEL: Record<WidgetType, string> = {
   custom: '定制'
 }
 
-export default function LayerPanel() {
+export default function LayerPanel({ height = 198 }: { height?: number }) {
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
@@ -38,7 +38,7 @@ export default function LayerPanel() {
   const rows: ReactNode[] = []
   renderRows(root, 0, rows)
   return (
-    <div className="layers">
+    <div className="layers" style={{ height }}>
       <div className="panel-title">
         {editingDef
           ? `定义图层「${editingDef.name}」（Tab 子控件、插槽内容缩进显示）`

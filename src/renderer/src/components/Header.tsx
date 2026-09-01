@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useEditor } from '../store/editorStore'
 import { doSave, doOpen, doExportPng, confirmDiscard } from '../fileOps'
 import { PREVIEW_RATIOS } from '../widgets/registry'
@@ -75,6 +76,18 @@ export default function Header() {
   const inst = useSingleCustomInstance()
 
   const st = () => useEditor.getState()
+
+  // 点击菜单外部任意位置收起菜单；pointerdown 先于 click，点其它菜单时旧的先收起再展开新的
+  useEffect(() => {
+    const onPointerDown = (e: PointerEvent) => {
+      const t = e.target as HTMLElement | null
+      document.querySelectorAll('details.menu[open]').forEach((d) => {
+        if (!(t && d.contains(t))) d.removeAttribute('open')
+      })
+    }
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => document.removeEventListener('pointerdown', onPointerDown)
+  }, [])
 
   return (
     <div className="header">

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { PointerEvent as RPointerEvent } from 'react'
 import { useEditor } from '../store/editorStore'
+import { childSubtrees } from '../widgets/tree'
 import type { WidgetNode } from '../types'
 
 const HANDLES = [
@@ -19,19 +20,28 @@ export default function SelectionOverlay() {
   const selectedIds = useEditor((s) => s.selectedIds)
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
+  const editingWidgetId = useEditor((s) => s.editingWidgetId)
   const [hint, setHint] = useState<{ w: number; h: number } | null>(null)
 
-  const page = doc.pages[pageIndex]
-  if (!page) return null
-  // 深度收集选中节点（含 Tab 页签内的子控件）
+  // 与 Canvas 一致的编辑目标：定制控件定义树 / 公共层 / 当前页
+  const editingDef = editingWidgetId
+    ? doc.customWidgets.find((w) => w.id === editingWidgetId) ?? null
+    : null
+  const root = editingDef
+    ? editingDef.tree
+    : pageIndex < 0
+      ? doc.commonLayer.nodes
+      : doc.pages[pageIndex]?.nodes ?? []
+
+  // 深度收集选中节点（Tab 页签 / 容器 children / 定制控件插槽内的内嵌控件都算）
   const sel: WidgetNode[] = []
   const walk = (arr: WidgetNode[]): void => {
     for (const n of arr) {
       if (selectedIds.includes(n.id)) sel.push(n)
-      if (n.pages) for (const p of n.pages) walk(p)
+      for (const sub of childSubtrees(n)) walk(sub)
     }
   }
-  walk(page.nodes)
+  walk(root)
   if (sel.length === 0) return null
 
   const { zoom: z, panX, panY } = viewport

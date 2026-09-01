@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useEditor } from './store/editorStore'
 import { doSave, doOpen, confirmDiscard } from './fileOps'
 import Header from './components/Header'
@@ -11,10 +11,18 @@ import StatusBar from './components/StatusBar'
 import EditTargetBar from './components/EditTargetBar'
 import NewProjectModal from './components/NewProjectModal'
 import Welcome from './components/Welcome'
+import Resizer from './components/Resizer'
+
+const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v))
 
 export default function App() {
   const showNewModal = useEditor((s) => s.showNewModal)
   const hasProject = useEditor((s) => s.hasProject)
+  // 各功能区尺寸（会话内记忆，不入文档）
+  const [leftW, setLeftW] = useState(232)
+  const [pagesH, setPagesH] = useState(212)
+  const [layersH, setLayersH] = useState(198)
+  const [rightW, setRightW] = useState(252)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -89,16 +97,20 @@ export default function App() {
       <Header />
       {hasProject ? (
         <div className="body">
-          <div className="left">
+          <div className="left" style={{ width: leftW }}>
             <LibraryPanel />
-            <PagePanel />
+            <Resizer dir="h" onResize={(d) => setPagesH((h) => clamp(h - d, 110, 520))} />
+            <PagePanel height={pagesH} />
           </div>
+          <Resizer dir="v" onResize={(d) => setLeftW((w) => clamp(w + d, 160, 440))} />
           <div className="center">
             <EditTargetBar />
             <Canvas />
-            <LayerPanel />
+            <Resizer dir="h" onResize={(d) => setLayersH((h) => clamp(h - d, 100, 560))} />
+            <LayerPanel height={layersH} />
           </div>
-          <PropsPanel />
+          <Resizer dir="v" onResize={(d) => setRightW((w) => clamp(w - d, 200, 440))} />
+          <PropsPanel width={rightW} />
         </div>
       ) : (
         <Welcome />

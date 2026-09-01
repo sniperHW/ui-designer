@@ -539,11 +539,16 @@ select {
 .sel-box {
   position: absolute;
   border: 1px solid #2563eb;
+  /* 半透明填充：内嵌控件被选中时从画布内容中突出显示 */
+  background: rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6);
   pointer-events: none;
 }
 .sel-box.thin {
   border-color: #7ea2ff;
   border-style: dashed;
+  background: rgba(37, 99, 235, 0.05);
+  box-shadow: none;
 }
 .sel-handle {
   position: absolute;
@@ -915,4 +920,37 @@ select {
   border-radius: 5px;
   background: #fff;
   font-size: 12px;
+}
+
+/* ---------- 面板拉伸条 ---------- */
+.resizer-v {
+  width: 5px;
+  flex-shrink: 0;
+  cursor: col-resize;
+  background: transparent;
+  touch-action: none;
+}
+.resizer-h {
+  height: 5px;
+  flex-shrink: 0;
+  cursor: row-resize;
+  background: transparent;
+  touch-action: none;
+}
+.resizer-v:hover,
+.resizer-h:hover,
+.resizer-v.active,
+.resizer-h.active {
+  background: rgba(37, 99, 235, 0.35);
+}
+/* 拖拽中锁定全局光标，指针划出拉伸条也保持形状 */
+body.resizing-v,
+body.resizing-v * {
+  cursor: col-resize !important;
+  user-select: none;
+}
+body.resizing-h,
+body.resizing-h * {
+  cursor: row-resize !important;
+  user-select: none;
 }
