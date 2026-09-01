@@ -57,7 +57,7 @@ export default function PagePanel({ height = 212 }: { height?: number }) {
 
   return (
     <div className="pages" style={{ height }}>
-      <div className="panel-title">页面（双击重命名）</div>
+      <div className="panel-title">页面（✎ / 双击重命名）</div>
       <div className="page-list">
         <div
           className={'common-row' + (currentIndex === -1 && !editingPopupId ? ' active' : '')}
@@ -94,6 +94,16 @@ export default function PagePanel({ height = 212 }: { height?: number }) {
             )}
             <button
               className="mini-btn"
+              title="重命名页面"
+              onClick={(e) => {
+                e.stopPropagation()
+                startEdit(i, p.name)
+              }}
+            >
+              ✎
+            </button>
+            <button
+              className="mini-btn"
               title="复制页面"
               onClick={(e) => {
                 e.stopPropagation()
@@ -124,7 +134,7 @@ export default function PagePanel({ height = 212 }: { height?: number }) {
             className={'page-row popup-row' + (editingPopupId === p.id ? ' active' : '')}
             onClick={() => setEditingPopup(p.id)}
             onDoubleClick={() => startRenamePopup(p.id, p.name)}
-            title="点击进入弹窗设计；双击重命名"
+            title="点击进入弹窗设计；✎ / 双击重命名"
           >
             {thumb(nodesOf(p.nodes))}
             {renamingPopup === p.id ? (
@@ -144,6 +154,16 @@ export default function PagePanel({ height = 212 }: { height?: number }) {
                 ▣ {p.name}
               </span>
             )}
+            <button
+              className="mini-btn"
+              title="重命名弹窗"
+              onClick={(e) => {
+                e.stopPropagation()
+                startRenamePopup(p.id, p.name)
+              }}
+            >
+              ✎
+            </button>
             <button
               className="mini-btn"
               title="删除弹窗"

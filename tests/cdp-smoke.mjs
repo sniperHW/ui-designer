@@ -150,6 +150,62 @@ async function main() {
   const emptyHint = await evalJs('document.querySelector(".canvas-empty") !== null')
   check('空页提示', emptyHint, '空页面显示引导文案')
 
+  // 8b. 页面 ✎ 重命名按钮：点 ✎ 出现内联输入框 → 改名 → Enter 提交
+  await evalJs(`(() => {
+    const btn = [...document.querySelectorAll('.page-row .mini-btn')].find(b => b.title === '重命名页面')
+    if (btn) btn.click()
+    return !!btn
+  })()`)
+  await sleep(200)
+  const pageRename = await evalJs(`(() => {
+    const input = document.querySelector('.page-row input')
+    if (!input) return { ok: false, why: '未出现重命名输入框' }
+    const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set
+    setter.call(input, '首页')
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))
+    return { ok: true }
+  })()`)
+  await sleep(200)
+  const pageName = await evalJs('window.__uiw.getState().doc.pages[0].name')
+  check('页面✎重命名', pageRename.ok && pageName === '首页',
+    `✎流程=${pageRename.ok}${pageRename.why ? '（' + pageRename.why + '）' : ''}，页 1 名称="${pageName}"`)
+
+  // 8c. 弹窗 ✎ 重命名：新建弹窗页（自动切入编辑）→ 弹窗行 ✎ 改名 → 点页面行退回
+  await evalJs(`(() => {
+    const add = [...document.querySelectorAll('.page-foot button')].find(b => b.textContent.includes('新建弹窗'))
+    if (add) add.click()
+    return !!add
+  })()`)
+  await sleep(250)
+  await evalJs(`(() => {
+    const row = document.querySelector('.popup-row')
+    const btn = row && [...row.querySelectorAll('.mini-btn')].find(b => b.title === '重命名弹窗')
+    if (btn) btn.click()
+    return !!btn
+  })()`)
+  await sleep(200)
+  const popupRename = await evalJs(`(() => {
+    const row = document.querySelector('.popup-row')
+    if (!row) return { ok: false, why: '无弹窗行' }
+    const input = row.querySelector('input')
+    if (!input) return { ok: false, why: '未出现重命名输入框' }
+    const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set
+    setter.call(input, '结算弹窗')
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))
+    return { ok: true }
+  })()`)
+  await sleep(250)
+  const popupState = await evalJs(`(() => {
+    const row = [...document.querySelectorAll('.page-row')].find(r => !r.className.includes('popup-row'))
+    if (row) row.click()
+    const st = window.__uiw.getState()
+    return { name: st.doc.popups[0]?.name, title: st.doc.popups[0]?.nodes[0]?.props.title, editing: st.editingPopupId, page: st.currentPageIndex }
+  })()`)
+  check('弹窗✎重命名', popupRename.ok && popupState.name === '结算弹窗' && popupState.editing === null && popupState.title === '结算弹窗',
+    `✎流程=${popupRename.ok}${popupRename.why ? '（' + popupRename.why + '）' : ''}，弹窗名="${popupState.name}"，标题栏同步="${popupState.title}"，已退回页面=${popupState.editing === null}`)
+
   // 9. 网格开关切换
   await evalJs("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))")
   const gridOn1 = await evalJs('document.querySelectorAll("#gridpat").length')

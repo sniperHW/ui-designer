@@ -1,7 +1,11 @@
 import type { ProjectDoc, WidgetNode } from '../types'
 
-/** 控件是否可点击：按钮天生可点击，其它控件需显式开启 clickable */
+/**
+ * 控件是否可点击：按钮天生可点击，其它控件需显式开启 clickable。
+ * 定制控件实例例外——可点击标记统一配在定义内（选中定义内部控件开启），实例自身标记不生效。
+ */
 export function isClickable(n: WidgetNode): boolean {
+  if (n.type === 'custom') return false
   return n.type === 'button' || n.clickable === true
 }
 

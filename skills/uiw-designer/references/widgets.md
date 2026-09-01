@@ -1,6 +1,6 @@
 # 控件类型参考（默认值来自 `src/renderer/src/widgets/registry.ts`）
 
-> 频率常量：Tab 页签栏高 `40`，弹窗标题栏高 `48`（内容区在标题栏下方）。
+> 频率常量：Tab 页签栏默认高 `40`（可用 `props.barHeight` 调整，页签字号 `props.fontSize` 默认 22），弹窗标题栏高 `48`（内容区在标题栏下方）。
 > 文本一律垂直居中；字号默认区间 20–30；坐标建议对齐 10px 网格。
 
 ## 形状
@@ -41,7 +41,7 @@
 { "type": "list", "props": { "direction": "v", "count": 5 }, "itemTags": ["英雄", "部队", "英雄", "建筑", "部队"] }
 ```
 
-点击交互：`button` 天生可点击；其它控件（含 `custom` 实例）加 `"clickable": true` 开启。点击效果 `clickAction` 三选一——切换页面 / 返回上一页 / 弹出弹窗（弹窗在独立的**弹窗页** `popups` 中设计，不能放在普通页面上；详见 schema.md）：
+点击交互：`button` 天生可点击；其它控件加 `"clickable": true` 开启（**定制控件实例 `custom` 除外**——实例整体的可点击不生效，点击标记统一配在**定义树内的控件**上，所有实例同步响应）。点击效果 `clickAction` 三选一——切换页面 / 返回上一页 / 弹出弹窗（弹窗在独立的**弹窗页** `popups` 中设计，不能放在普通页面上；详见 schema.md）：
 
 ```jsonc
 // 按钮 → 跳转到某页面
@@ -49,9 +49,11 @@
   "clickAction": { "type": "goto", "target": "<目标页面id>" } }
 // 返回按钮 → 返回跳转来之前的页面（无来路时点击无效果，常用于二级页的「返回」）
 { "type": "button", "props": { "text": "返回" }, "clickAction": { "type": "back" } }
-// 任意控件 → 弹出弹窗页（popups 中独立设计的弹窗）
-{ "type": "custom", "customId": "w_card", "clickable": true,
-  "clickAction": { "type": "popup", "target": "<弹窗页id>" } }
+// 定制控件（如卡牌）整体可点 → 在其 customWidgets 定义树里给铺满的底层控件配 clickable
+{ "id": "w_card", "tree": [
+  { "id": "n_card_bg", "type": "rect", "clickable": true,
+    "clickAction": { "type": "popup", "target": "<弹窗页id>" }, /* …铺满整张卡… */ }
+] }
 ```
 
 ## 容器
@@ -59,9 +61,9 @@
 | type | 名称 | 默认尺寸 | 子控件挂载 | 内容区 |
 |---|---|---|---|---|
 | `panel` | 面板 | 320×240 | `children` | 整个矩形 |
-| `dialog` | 弹窗 | 480×320 | `children` | 标题栏（高 48）**下方**区域；props: `title`；**仅弹窗页（popups）内可用**，页面 / 公共层 / 定制控件内不放 |
+| `dialog` | 弹窗 | 480×320 | `children` | 标题栏（高 48）**下方**区域；props: `title`（弹窗页本体与页名保持一致，编辑器双向同步）；**仅弹窗页（popups）内可用**，页面 / 公共层 / 定制控件内不放 |
 | `scroll` | 滚动区 | 320×240 | `children` | 整个矩形（超出裁剪 + 滚动条示意；预览中滚轮可滚动，滑块随内容移动） |
-| `tab` | Tab 页签 | 480×320 | `pages`（每页签一个数组） | 页签栏（高 40）之外的区域；`barPosition`: `top`/`bottom` |
+| `tab` | Tab 页签 | 480×320 | `pages`（每页签一个数组） | 页签栏之外的区域；`barPosition`: `top`/`bottom`，`barHeight`: 页签栏高（默认 40，上限为控件高一半），`fontSize`: 页签字号（默认 22） |
 | `list` | 列表 | 300×320 | ❌ 不可挂子控件 | `direction`: `v`/`h`、`count`；项为生成的占位格 |
 | `grid` | 网格 | 400×320 | ❌ 不可挂子控件 | `cols`、`count`；项为生成的占位格 |
 | `custom` | 定制控件实例 | — | `slots` | 见 schema.md |

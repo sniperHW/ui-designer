@@ -2,6 +2,8 @@ import { useState } from 'react'
 import type { PointerEvent as RPointerEvent } from 'react'
 import { useEditor } from '../store/editorStore'
 import { childSubtrees } from '../widgets/tree'
+import { tabBarHeight } from '../widgets/registry'
+import { canvasEl } from '../canvasRef'
 import type { WidgetNode } from '../types'
 
 const HANDLES = [
@@ -22,7 +24,7 @@ export default function SelectionOverlay() {
   const pageIndex = useEditor((s) => s.currentPageIndex)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
   const editingPopupId = useEditor((s) => s.editingPopupId)
-  const [hint, setHint] = useState<{ w: number; h: number } | null>(null)
+  const [hint, setHint] = useState<string | null>(null)
 
   // 与 Canvas 一致的编辑目标：定制控件定义树 / 弹窗页 / 公共层 / 当前页
   const editingDef = editingWidgetId
@@ -125,7 +127,7 @@ export default function SelectionOverlay() {
           },
           true
         )
-        setHint({ w: Math.round(w), h: Math.round(h) })
+        setHint(`${Math.round(w)} × ${Math.round(h)}`)
       }
       const up = () => {
         el.removeEventListener('pointermove', move)
@@ -135,6 +137,51 @@ export default function SelectionOverlay() {
       el.addEventListener('pointermove', move)
       el.addEventListener('pointerup', up)
     }
+    // Tab：拖页签栏与内容区的分界，直接调整页签栏高度（props.barHeight）
+    const startBarDrag = (e: RPointerEvent<HTMLDivElement>) => {
+      e.stopPropagation()
+      e.preventDefault()
+      const el = e.currentTarget
+      el.setPointerCapture(e.pointerId)
+      const bottom = (n.props.barPosition ?? 'top') === 'bottom'
+      let pushed = false
+      const move = (ev: PointerEvent) => {
+        const s2 = useEditor.getState()
+        const wrap = canvasEl.current
+        if (!wrap) return
+        const r = wrap.getBoundingClientRect()
+        const docY = (ev.clientY - r.top - s2.viewport.panY) / s2.viewport.zoom
+        if (!pushed) {
+          s2.pushHistory()
+          pushed = true
+        }
+        let barH = bottom ? n.y + n.h - docY : docY - n.y
+        if (s2.snapEnabled) barH = Math.round(barH / s2.gridSize) * s2.gridSize
+        barH = Math.round(Math.max(8, Math.min(barH, n.h / 2)))
+        s2.updateNodes(
+          [n.id],
+          (m) => {
+            m.props.barHeight = barH
+          },
+          true
+        )
+        setHint(`页签栏高 ${barH}`)
+      }
+      const up = () => {
+        el.removeEventListener('pointermove', move)
+        el.removeEventListener('pointerup', up)
+        setHint(null)
+      }
+      el.addEventListener('pointermove', move)
+      el.addEventListener('pointerup', up)
+    }
+    const barSep =
+      n.type === 'tab'
+        ? (() => {
+            const barH = tabBarHeight(n)
+            return (n.props.barPosition ?? 'top') === 'bottom' ? n.y + n.h - barH : n.y + barH
+          })()
+        : null
     return (
       <div className="overlay">
         <div className="sel-box" style={{ left, top, width: n.w * z, height: n.h * z }}>
@@ -147,10 +194,16 @@ export default function SelectionOverlay() {
             />
           ))}
         </div>
+        {barSep !== null && (
+          <div
+            className="bar-handle"
+            title="拖动调整页签栏高度"
+            style={{ left: sx(n.x + n.w / 2), top: sy(barSep), width: Math.min(64, Math.max(32, n.w * z * 0.4)) }}
+            onPointerDown={startBarDrag}
+          />
+        )}
         {hint && (
-          <div className="size-hint" style={{ left: left + (n.w * z) / 2, top: top - 24 }}>
-            {hint.w} × {hint.h}
-          </div>
+          <div className="size-hint" style={{ left: left + (n.w * z) / 2, top: top - 24 }}>{hint}</div>
         )}
       </div>
     )

@@ -63,7 +63,11 @@ const BINDABLE_KEYS: Partial<Record<WidgetType, { key: string; label: string }[]
   progress: [{ key: 'progress', label: '进度' }],
   dialog: [{ key: 'title', label: '弹窗标题' }],
   filter: [{ key: 'selected', label: '选中项下标' }],
-  tab: [{ key: 'activeTab', label: '当前页签（activeTab）' }]
+  tab: [
+    { key: 'activeTab', label: '当前页签（activeTab）' },
+    { key: 'barHeight', label: '页签栏高' },
+    { key: 'fontSize', label: '页签字号' }
+  ]
 }
 
 export default function PropsPanel({ width = 252 }: { width?: number }) {
@@ -127,7 +131,8 @@ export default function PropsPanel({ width = 252 }: { width?: number }) {
       {editingDef && <ExposedPropsEditor def={editingDef} selected={sel.length === 1 ? sel[0] : null} />}
       {editingDef && sel.length === 1 && <SlotEditor def={editingDef} node={sel[0]} />}
       {sel.length === 1 && <TypeProps node={sel[0]} defs={doc.customWidgets} />}
-      {sel.length === 1 && <ClickEditor node={sel[0]} />}
+      {/* 定制控件实例：可点击标记统一配在定义内（编辑定义 → 选中内部控件），实例属性不显示「点击」区 */}
+      {sel.length === 1 && sel[0].type !== 'custom' && <ClickEditor node={sel[0]} />}
       {sel.length >= 2 && (
         <div className="prop-section">
           <h4>对齐与分布</h4>
@@ -434,7 +439,7 @@ function ExposedPropsEditor({ def, selected }: { def: CustomWidgetDef; selected:
               const key = bindKey
               const nodeId = selected.id
               const guessType: CustomPropType =
-                key === 'fontSize' || key === 'progress' || key === 'selected'
+                key === 'fontSize' || key === 'progress' || key === 'selected' || key === 'barHeight'
                   ? 'number'
                   : key === 'checked'
                     ? 'boolean'
@@ -534,7 +539,7 @@ function ClickEditor({ node }: { node: WidgetNode }) {
       <h4>点击</h4>
       {editingDef && (
         <div className="prop-hint">
-          定义级设置：保存在定制控件定义上，所有实例同步生效，预览中点击实例上的对应区域即触发；实例整体的可点击回页面选中实例单独配置。
+          定义级设置：保存在定制控件定义上，所有实例同步生效；预览 / 演示中点击实例上的对应区域即触发。
         </div>
       )}
       {node.type === 'button' ? (
@@ -658,6 +663,8 @@ function ClickEditor({ node }: { node: WidgetNode }) {
 
 function TypeProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[] }) {
   const updateNodes = useEditor((s) => s.updateNodes)
+  const editingPopupId = useEditor((s) => s.editingPopupId)
+  const doc = useEditor((s) => s.doc)
   const id = [node.id]
   const setProp = (patch: WidgetProps) =>
     updateNodes(id, (n) => {
@@ -733,14 +740,32 @@ function TypeProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[] }
           <NumField label="圆角" value={p.radius ?? 0} min={0} max={500} onCommit={(v) => setProp({ radius: v })} />
         </div>
       )
-    case 'dialog':
+    case 'dialog': {
+      // 弹窗页本体（首个根级 dialog）：标题与弹窗页名双向同步——改标题即改页名，显示处处一致
+      const pop = editingPopupId ? doc.popups.find((x) => x.id === editingPopupId) : null
+      const isBody = !!pop && pop.nodes.find((n) => n.type === 'dialog')?.id === node.id
       return (
         <div className="prop-section">
           <h4>弹窗</h4>
-          <TextField label="标题" value={p.title ?? ''} onCommit={(v) => setProp({ title: v })} />
-          <div className="prop-hint">把控件拖到标题栏以下的内容区即成为弹窗子控件。</div>
+          <TextField
+            label="标题"
+            value={p.title ?? ''}
+            onCommit={(v) => {
+              const s2 = useEditor.getState()
+              const pp = s2.editingPopupId ? s2.doc.popups.find((x) => x.id === s2.editingPopupId) : null
+              const body = pp?.nodes.find((n) => n.type === 'dialog')
+              if (pp && body && body.id === node.id && v.trim()) s2.renamePopup(pp.id, v)
+              else setProp({ title: v })
+            }}
+          />
+          <div className="prop-hint">
+            {isBody
+              ? '弹窗本体：标题与弹窗页名称同步（左侧弹窗列表、点击效果下拉同步更新）。'
+              : '把控件拖到标题栏以下的内容区即成为弹窗子控件。'}
+          </div>
         </div>
       )
+    }
     case 'list':
     case 'grid': {
       const count = p.count ?? 4
@@ -950,7 +975,23 @@ function TypeProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[] }
               ))}
             </div>
           </div>
-          <div className="prop-hint">画布中点击页签头切换编辑页；把控件拖到页签内容区即放入当前页签。</div>
+          <div className="grid-2">
+            <NumField
+              label="页签栏高"
+              value={p.barHeight ?? 40}
+              min={16}
+              max={400}
+              onCommit={(v) => setProp({ barHeight: v })}
+            />
+            <NumField
+              label="页签字号"
+              value={p.fontSize ?? 22}
+              min={8}
+              max={200}
+              onCommit={(v) => setProp({ fontSize: v })}
+            />
+          </div>
+          <div className="prop-hint">画布中点击页签头切换编辑页；把控件拖到页签内容区即放入当前页签；选中后可拖页签栏与内容区的分界调整栏高。</div>
         </div>
       )
     }
@@ -1005,7 +1046,9 @@ function CustomProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[]
         }
         return <TextField key={p.name} label={p.name} value={String(value)} onCommit={(v) => commit(v)} />
       })}
-      <div className="prop-hint">插槽：把控件直接拖到实例的插槽区域即可挂入（属实例，不属定义）。</div>
+      <div className="prop-hint">
+        插槽：把控件直接拖到实例的插槽区域即可挂入（属实例，不属定义）。可点击标记在定义内配置（全局生效）。
+      </div>
       <button className="tb-btn w-full" onClick={() => setEditingWidget(def.id)}>
         编辑定义（改一处全局生效）
       </button>

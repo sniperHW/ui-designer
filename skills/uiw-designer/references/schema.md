@@ -25,6 +25,7 @@
 ```
 
 - 典型内容：一个居中的 `dialog`（+ 其 children 内容控件），按设计坐标摆放，触发弹出时原位浮层显示；
+- **弹窗页 `name` 应与其本体 dialog 的 `title`（标题栏文字）保持一致**——编辑器中两者双向同步（重命名弹窗页即改标题栏，反之亦然）；
 - 页面上的按钮 / 控件通过 `clickAction: { "type": "popup", "target": "<弹窗页 id>" }` 绑定弹窗。
 
 ## meta（ProjectMeta）
@@ -66,13 +67,13 @@
 | `anchor` | Anchor | — | 多分辨率锚点，见下；缺省 = 左上锚定 + 随父拉伸 |
 | `binding` | object | — | 仅 filter：`{ "target": "<list/grid 节点 id>", "tagKey": "标记名" }` |
 | `itemTags` | string[] | — | 仅 list / grid：每项的标记值，与 `count` 对齐，供筛选器过滤 |
-| `clickable` | boolean | — | 设为 `true` 让非按钮控件**可点击**（`button` 天生可点击，无需此字段） |
+| `clickable` | boolean | — | 设为 `true` 让非按钮控件**可点击**（`button` 天生可点击，无需此字段；**定制控件实例 `custom` 不支持**——点击标记统一配在定义树内控件上） |
 | `clickAction` | ClickAction | — | 点击效果：`{ "type": "goto", "target": "<目标页面 id>" }` 切换页面、`{ "type": "back" }` 返回上一页（无来路时无效）、或 `{ "type": "popup", "target": "<弹窗页 id>" }` 弹出弹窗 |
 
 ### 点击交互（clickable / clickAction）
 
 - `goto` 的 `target` 必须是本工程某个**页面 id**；`popup` 的 `target` 必须是 `popups` 中某个**弹窗页 id**（弹窗页内不允许放到普通页面上）；`back` 无需 target。
-- 可点击标记加在**单个控件**上（含定制控件实例 `custom`，实例整体响应点击），**弹窗页内的控件**（如弹窗里的「确定」按钮）与**定制控件定义树内的控件**（定义级，所有实例同步）同样可配——预览与演示中弹窗浮层内可直接触发、实例上点击对应区域即触发改定义级效果。
+- 可点击标记加在**单个控件**上；**弹窗页内的控件**（如弹窗里的「确定」按钮）与**定制控件定义树内的控件**同样可配——后者为定义级，所有实例同步：预览 / 演示中弹窗浮层内可直接触发，点击实例上对应区域即触发改定义级效果。定制控件实例整体的可点击**不再支持**（实例自身 `clickable` 不生效，也不在编辑器实例属性中显示）；要让整张实例可点，在定义树里给铺满的底层控件配 `clickable` + `clickAction`。
 - 编辑器中右键可点击控件 →「点击」即可触发效果演示（弹窗以遮罩 + 置顶浮层显示，✕ / 遮罩 / Esc 关闭）；生成工程时给关键操作按钮 / 卡牌 / 导航项配置点击效果，可让原型具备可演示的页面流。
 
 ### 结构性约束（违反 = 非法文档）
@@ -123,7 +124,7 @@
 - 定义树 `tree` 内子控件坐标**相对于定义原点 (0,0)**（与页面节点的绝对坐标不同！）；实例化时按 `实例尺寸/def.w、def.h` 整体缩放平移到实例矩形。
 - 实例的 `slots` 键规则：定义树中 Tab 容器每页签一槽 → `"<容器节点id>:<页签下标>"`；`slotNodeIds` 开放的容器 → `"<容器节点id>"`。
 - 定义之间可互相引用（实例嵌套），但**不允许循环引用**（A 的定义链引用回 A 自身）。
-- `binds[].key` 可绑定：`text` `fontSize` `radius` `progress` `checked` `placeholder` `title` `activeTab` 等（须与目标节点类型匹配）。
+- `binds[].key` 可绑定：`text` `fontSize` `radius` `progress` `checked` `placeholder` `title` `activeTab` `barHeight`（tab 页签栏高）等（须与目标节点类型匹配）。
 
 ## 预览分辨率（只读行为，生成时无需处理）
 

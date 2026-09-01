@@ -107,9 +107,16 @@ export function scrollThumbSVG(x: number, y: number, w: number, h: number): stri
   return `<rect x="${x + w - sw + 1}" y="${y + 4}" width="${sw - 5}" height="${Math.max(10, h * 0.35)}" fill="#d1d5db"/>`
 }
 
+/** Tab 页签栏有效高度：props.barHeight 可调（默认 40），上限 h/2 保证内容区非负 */
+export function tabBarHeight(n: WidgetNode): number {
+  const custom = n.props.barHeight
+  const base = typeof custom === 'number' && custom > 0 ? custom : TAB_BAR_H
+  return Math.max(8, Math.min(base, n.h / 2))
+}
+
 /** Tab 的内容区矩形（页面绝对坐标，页签栏之外的区域） */
 export function tabContentRect(n: WidgetNode): Rect {
-  const barH = Math.min(TAB_BAR_H, n.h / 2)
+  const barH = tabBarHeight(n)
   const bottom = (n.props.barPosition ?? 'top') === 'bottom'
   return { x: n.x, y: bottom ? n.y : n.y + barH, w: n.w, h: Math.max(0, n.h - barH) }
 }
@@ -122,7 +129,7 @@ export function activeTabIndex(n: WidgetNode): number {
 
 /** Tab 页签头 i 的矩形（页面绝对坐标），供画布点击命中用 */
 export function tabBarRect(n: WidgetNode): Rect {
-  const barH = Math.min(TAB_BAR_H, n.h / 2)
+  const barH = tabBarHeight(n)
   const bottom = (n.props.barPosition ?? 'top') === 'bottom'
   return { x: n.x, y: bottom ? n.y + n.h - barH : n.y, w: n.w, h: barH }
 }
@@ -550,7 +557,8 @@ export function widgetInnerSVG(n: WidgetNode): string {
       const tabs = n.props.tabs && n.props.tabs.length ? n.props.tabs : ['页签 1']
       const count = tabs.length
       const hw = w / count
-      const barH = Math.min(TAB_BAR_H, h / 2)
+      const barH = tabBarHeight(n)
+      const fontSize = n.props.fontSize ?? 22
       const bottom = (n.props.barPosition ?? 'top') === 'bottom'
       const barY = bottom ? y + h - barH : y
       const active = activeTabIndex(n)
@@ -567,7 +575,7 @@ export function widgetInnerSVG(n: WidgetNode): string {
       s += `<rect x="${ax + 2}" y="${coverY}" width="${hw - 4}" height="${barH - 1}" fill="#ffffff"/>`
       for (let i = 0; i < count; i++) {
         const bold = i === active ? ' font-weight="700"' : ''
-        s += `<text x="${x + (i + 0.5) * hw}" y="${barY + barH / 2}" fill="${INK}" font-size="22" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif"${bold} text-anchor="middle" dominant-baseline="central">${esc(tabs[i] || `页签 ${i + 1}`)}</text>`
+        s += `<text x="${x + (i + 0.5) * hw}" y="${barY + barH / 2}" fill="${INK}" font-size="${fontSize}" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif"${bold} text-anchor="middle" dominant-baseline="central">${esc(tabs[i] || `页签 ${i + 1}`)}</text>`
       }
       return s
     }

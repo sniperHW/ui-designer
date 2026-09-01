@@ -393,6 +393,11 @@
           "locked": false,
           "props": {
             "radius": 16
+          },
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "ppmtib2nmywvzw"
           }
         },
         {
@@ -802,6 +807,11 @@
           "locked": false,
           "props": {
             "radius": 16
+          },
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "ppmtibu0ubzq4j"
           }
         },
         {
@@ -914,6 +924,11 @@
           "locked": false,
           "props": {
             "radius": 14
+          },
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "ppmtibtfdsaebh"
           }
         },
         {
@@ -1013,7 +1028,12 @@
           "h": 80,
           "visible": true,
           "locked": false,
-          "props": {}
+          "props": {},
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "ppmtiba60ubwdz"
+          }
         },
         {
           "id": "nmtfi6toglsnr",
@@ -1066,7 +1086,12 @@
           "h": 96,
           "visible": true,
           "locked": false,
-          "props": {}
+          "props": {},
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "ppmtiba60ubwdz"
+          }
         },
         {
           "id": "nmtfi6wdtv56f",
@@ -1112,9 +1137,10 @@
               "战斗",
               "排名"
             ],
-            "barPosition": "bottom"
+            "barPosition": "bottom",
+            "barHeight": 60
           },
-          "activeTab": 2,
+          "activeTab": 1,
           "pages": [
             [
               {
@@ -2590,6 +2616,121 @@
               }
             ]
           ]
+        }
+      ]
+    }
+  ],
+  "popups": [
+    {
+      "id": "ppmtib2nmywvzw",
+      "name": "角色弹窗",
+      "nodes": [
+        {
+          "id": "nmtib2nmymgfr",
+          "type": "dialog",
+          "name": "角色弹窗",
+          "x": 100,
+          "y": 440,
+          "w": 560,
+          "h": 520,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "卡牌弹窗"
+          },
+          "children": []
+        },
+        {
+          "id": "nmtib6l94ts9c",
+          "type": "placeholder",
+          "name": "占位图 1",
+          "x": 380,
+          "y": 720,
+          "w": 160,
+          "h": 120,
+          "visible": true,
+          "locked": false,
+          "props": {}
+        },
+        {
+          "id": "nmtib8n45cwiu",
+          "type": "text",
+          "name": "文本 1",
+          "x": 190,
+          "y": 730,
+          "w": 160,
+          "h": 32,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "文本",
+            "fontSize": 26,
+            "bold": false,
+            "align": "left"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ppmtiba60ubwdz",
+      "name": "活动弹窗",
+      "nodes": [
+        {
+          "id": "nmtiba60uoejg",
+          "type": "dialog",
+          "name": "活动弹窗",
+          "x": 135,
+          "y": 640,
+          "w": 480,
+          "h": 320,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "弹窗标题"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "ppmtibtfdsaebh",
+      "name": "宝箱弹窗",
+      "nodes": [
+        {
+          "id": "nmtibtfdr6xlv",
+          "type": "dialog",
+          "name": "宝箱弹窗",
+          "x": 135,
+          "y": 640,
+          "w": 480,
+          "h": 320,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "宝箱弹窗"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "ppmtibu0ubzq4j",
+      "name": "排行榜弹窗",
+      "nodes": [
+        {
+          "id": "nmtibu0ub342d",
+          "type": "dialog",
+          "name": "排行榜弹窗",
+          "x": 135,
+          "y": 640,
+          "w": 480,
+          "h": 320,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "排行榜弹窗"
+          },
+          "children": []
         }
       ]
     }

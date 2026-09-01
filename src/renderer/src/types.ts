@@ -33,6 +33,8 @@ export interface WidgetProps {
   tabs?: string[]
   /** Tab：页签栏位置 */
   barPosition?: 'top' | 'bottom'
+  /** Tab：页签栏高度（默认 40，上限为控件高一半） */
+  barHeight?: number
   /** 弹窗：标题栏文字 */
   title?: string
   /** 列表：方向 */
@@ -126,7 +128,7 @@ export interface WidgetNode {
   binding?: { target: string; tagKey: string }
   /** 列表 / 网格：每项标记值（与项数对齐，供筛选器过滤） */
   itemTags?: string[]
-  /** 可点击（按钮天生可点击，无需此标记；其它控件显式开启） */
+  /** 可点击（按钮天生可点击，无需此标记；其它控件显式开启。定制控件实例不支持——统一配在定义内控件上） */
   clickable?: boolean
   /** 点击效果：切换页面 / 弹出弹窗（编辑器内右键「点击」演示触发） */
   clickAction?: ClickAction

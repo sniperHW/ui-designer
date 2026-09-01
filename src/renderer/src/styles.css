@@ -560,6 +560,27 @@ select {
   transform: translate(-50%, -50%);
   pointer-events: auto;
 }
+/* Tab 页签栏分界拖拽手柄（选中 tab 时出现，上下拖调整栏高） */
+.bar-handle {
+  position: absolute;
+  height: 10px;
+  background: #2563eb;
+  border: 1.5px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%);
+  cursor: ns-resize;
+  pointer-events: auto;
+}
+.bar-handle::before {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 0;
+  margin: 4px auto 0;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.85);
+}
 .size-hint {
   position: absolute;
   background: #2563eb;

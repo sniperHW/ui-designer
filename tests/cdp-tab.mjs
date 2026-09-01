@@ -148,6 +148,81 @@ async function main() {
   check('页签增删', resized.tabs?.length === 2 && resized.pageLens?.[1] === 1,
     `tabs=[${resized.tabs}]，子控件保留=[${resized.pageLens}]`)
 
+  // —— 8b. 页签栏高 / 页签字号：属性面板数值输入 → 渲染联动 ——
+  await evalJs(`(() => { const st = window.__uiw.getState(); st.setSelection([st.currentPage().nodes[0].id]); return true })()`)
+  await sleep(200)
+  const setPropInput = async (label, value) => {
+    await evalJs(`(() => {
+      const row = [...document.querySelectorAll('.prop-row')].find(r => r.querySelector('span')?.textContent === '${label}')
+      const input = row && row.querySelector('input')
+      if (!input) return false
+      const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set
+      setter.call(input, '${value}')
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+      // NumField 提交挂在 blur：给焦点再失焦触发
+      input.focus()
+      input.blur()
+      return true
+    })()`)
+    await sleep(200)
+  }
+  const fieldsOk = await evalJs(`(() => {
+    const labels = [...document.querySelectorAll('.prop-row span')].map(s => s.textContent)
+    return { bar: labels.includes('页签栏高'), font: labels.includes('页签字号') }
+  })()`)
+  check('栏高字号字段', fieldsOk.bar && fieldsOk.font, `属性面板字段：栏高=${fieldsOk.bar}，字号=${fieldsOk.font}`)
+  await setPropInput('页签栏高', 72)
+  await setPropInput('页签字号', 30)
+  const tabId = await evalJs(`window.__uiw.getState().currentPage().nodes[0].id`)
+  const render72 = await evalJs(`(() => {
+    const t = window.__uiw.getState().currentPage().nodes[0]
+    const g = document.querySelector('g[data-id="${tabId}"]')
+    const bar = g && g.querySelector('rect[fill="#eceff3"]')
+    const text = g && [...g.querySelectorAll('text')][0]
+    return {
+      store: t.props.barHeight, font: t.props.fontSize,
+      barH: bar ? Math.round(+bar.getAttribute('height')) : null,
+      fontSize: text ? text.getAttribute('font-size') : null
+    }
+  })()`)
+  check('栏高字号落渲染', render72.store === 72 && render72.font === 30 && render72.barH === 70 && render72.fontSize === '30',
+    `store 栏高=${render72.store}/72 字号=${render72.font}/30，渲染栏底高=${render72.barH}/70，文字字号=${render72.fontSize}/30`)
+
+  // —— 8c. 自定义栏高下页签头命中：点 (n.y+60)（默认 40 栏这里是内容区）→ 切到页签 1 ——
+  const hit = await evalJs(`(() => {
+    const st = window.__uiw.getState()
+    const n = st.currentPage().nodes[0]
+    const v = st.viewport
+    const r = document.querySelector('.canvas-wrap').getBoundingClientRect()
+    return { x: r.x + v.panX + (n.x + n.w * 0.25) * v.zoom, y: r.y + v.panY + (n.y + 60) * v.zoom }
+  })()`)
+  await click(hit.x, hit.y)
+  await sleep(250)
+  const activeHit = await evalJs(`window.__uiw.getState().currentPage().nodes[0].activeTab`)
+  check('栏高命中切换', activeHit === 0, `点击页签 1 头部（栏高 72 内）→ activeTab=${activeHit}/0`)
+  await evalJs(`(() => { const st = window.__uiw.getState(); st.updateNodes([st.currentPage().nodes[0].id], n => { n.activeTab = 1 }, true); return true })()`)
+
+  // —— 8d. 选中后页签栏分界拖拽手柄：下拖 40 → 栏高 72→110（10 网格吸附），内容区裁剪随动 ——
+  const handleGeo = await evalJs(`(() => {
+    const el = document.querySelector('.bar-handle')
+    if (!el) return null
+    const r = el.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 }
+  })()`)
+  check('栏高手柄出现', !!handleGeo, `选中 Tab 后分界处出现拖拽手柄`)
+  const zoom0 = await evalJs(`window.__uiw.getState().viewport.zoom`)
+  await call('Input.dispatchMouseEvent', { type: 'mousePressed', x: handleGeo.x, y: handleGeo.y, button: 'left', buttons: 1, clickCount: 1 })
+  await call('Input.dispatchMouseEvent', { type: 'mouseMoved', x: handleGeo.x, y: handleGeo.y + 40 * zoom0, button: 'left', buttons: 1 })
+  await call('Input.dispatchMouseEvent', { type: 'mouseReleased', x: handleGeo.x, y: handleGeo.y + 40 * zoom0, button: 'left', buttons: 1, clickCount: 1 })
+  await sleep(250)
+  const dragState = await evalJs(`(() => {
+    const t = window.__uiw.getState().currentPage().nodes[0]
+    const clip = document.querySelector('clipPath#clip-${tabId} rect')
+    return { barH: t.props.barHeight, clipY: clip ? Math.round(+clip.getAttribute('y')) : null, ty: t.y }
+  })()`)
+  check('拖拽调整栏高', dragState.barH === 110 && dragState.clipY === dragState.ty + 110,
+    `拖后栏高=${dragState.barH}/110（吸附 10 网格），内容区裁剪 y=${dragState.clipY}（=${dragState.ty}+110）`)
+
   // —— 9. 删除 Tab → 子控件一起删除 ——
   await evalJs(`
     (() => { const st = window.__uiw.getState(); st.setSelection([st.currentPage().nodes[0].id]); return true })()

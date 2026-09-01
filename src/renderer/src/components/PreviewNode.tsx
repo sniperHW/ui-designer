@@ -78,7 +78,7 @@ export default function PreviewNode({
       if (isClickable(m)) defClickable = true
     })
     // 点击：坐标换算到定义局部系做几何拾取，沿「命中节点 → 祖先」链找第一个可点击控件触发；
-    // 定义内都没配时回退到实例自身的可点击标记
+    // 可点击标记统一配在定义内，实例自身不再有可点击标记
     const onInstClick = (e: RMouseEvent<SVGGElement>) => {
       e.stopPropagation()
       const st = useEditor.getState()
@@ -91,12 +91,11 @@ export default function PreviewNode({
           return
         }
       }
-      if (clickable) st.triggerClick(n.id)
     }
     return (
       <g
         data-id={n.id}
-        style={{ cursor: clickable || defClickable ? 'pointer' : 'default' }}
+        style={{ cursor: defClickable ? 'pointer' : 'default' }}
         onClick={onInstClick}
       >
         <g dangerouslySetInnerHTML={{ __html: r.inner }} />

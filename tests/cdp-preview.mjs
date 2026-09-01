@@ -172,11 +172,11 @@ async function main() {
   check('Esc 退出预览', exited.on === false && !exited.overlay && exited.page === 0,
     `previewing=${exited.on}，浮层=${exited.overlay}，退出后停在页面 1=${exited.page === 0}`)
 
-  // —— 准备 2：页 1 = 定制控件实例（整体可点击 → 跳页 2）+ 滚动区（内容溢出，底部按钮绑返回页 1）；弹窗页内容按钮绑跳页 2 ——
+  // —— 准备 2：页 1 = 定制控件实例（定义内面板配可点击 → 点实例跳页 2）+ 滚动区（内容溢出，底部按钮绑返回页 1）；弹窗页内容按钮绑跳页 2 ——
   const setup2 = await evalJs(`(() => {
     const D = (t) => window.__uiwDefs.find(d => d.type === t)
     let st = window.__uiw.getState()
-    // 页 1：面板骨架定制控件实例
+    // 页 1：面板骨架定制控件实例（可点击标记统一配在定义内的面板控件上）
     const wid = st.createCustomWidget({ kind: 'panel' })
     st = window.__uiw.getState()
     st.setCurrentPage(0)
@@ -185,8 +185,11 @@ async function main() {
     const inst = st.doc.pages[0].nodes.find(n => n.type === 'custom')
     st.updateNodes([inst.id], n => {
       n.w = 240; n.h = 140
-      n.clickable = true
-      n.clickAction = { type: 'goto', target: window.__uiw.getState().doc.pages[1].id }
+    })
+    st.mutateWidget(wid, d => {
+      const panel = d.tree.find(n => n.type === 'panel')
+      panel.clickable = true
+      panel.clickAction = { type: 'goto', target: window.__uiw.getState().doc.pages[1].id }
     })
     // 页 2：滚动区（80,300 360×300）+ 3 个子按钮，第 3 个移出可视区（内容溢出）并绑返回页 1
     st = window.__uiw.getState()
@@ -225,7 +228,7 @@ async function main() {
   })()`)
   await sleep(300)
 
-  // —— 7. 再入预览：点可点击定制控件实例 → 跳页 2 ——
+  // —— 7. 再入预览：点定制实例（定义内面板可点击）→ 跳页 2 ——
   const pvBtn2 = await evalJs(`(() => {
     const el = [...document.querySelectorAll('.toolbar .tb-btn')].find(b => b.textContent.includes('预览'))
     const r = el.getBoundingClientRect()

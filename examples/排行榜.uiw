@@ -551,11 +551,6 @@
                       "rank": "#58",
                       "name": "躺赢大",
                       "cups": "9"
-                    },
-                    "clickable": true,
-                    "clickAction": {
-                      "type": "popup",
-                      "target": "pp_player"
                     }
                   },
                   {
@@ -574,11 +569,6 @@
                       "rank": "#59",
                       "name": "Lets Win",
                       "cups": "9"
-                    },
-                    "clickable": true,
-                    "clickAction": {
-                      "type": "popup",
-                      "target": "pp_player"
                     }
                   },
                   {
@@ -597,11 +587,6 @@
                       "rank": "#60",
                       "name": "今天吃什么",
                       "cups": "9"
-                    },
-                    "clickable": true,
-                    "clickAction": {
-                      "type": "popup",
-                      "target": "pp_player"
                     }
                   },
                   {
@@ -620,11 +605,6 @@
                       "rank": "#61",
                       "name": "Kero",
                       "cups": "9"
-                    },
-                    "clickable": true,
-                    "clickAction": {
-                      "type": "popup",
-                      "target": "pp_player"
                     }
                   },
                   {
@@ -643,11 +623,6 @@
                       "rank": "#62",
                       "name": "soyoo",
                       "cups": "9"
-                    },
-                    "clickable": true,
-                    "clickAction": {
-                      "type": "popup",
-                      "target": "pp_player"
                     }
                   },
                   {
@@ -666,11 +641,6 @@
                       "rank": "#63",
                       "name": "夏夜晚风",
                       "cups": "9"
-                    },
-                    "clickable": true,
-                    "clickAction": {
-                      "type": "popup",
-                      "target": "pp_player"
                     }
                   },
                   {
@@ -689,11 +659,6 @@
                       "rank": "#64",
                       "name": "咻劣情",
                       "cups": "8"
-                    },
-                    "clickable": true,
-                    "clickAction": {
-                      "type": "popup",
-                      "target": "pp_player"
                     }
                   },
                   {
@@ -712,11 +677,6 @@
                       "rank": "#65",
                       "name": "小雨在努力",
                       "cups": "8"
-                    },
-                    "clickable": true,
-                    "clickAction": {
-                      "type": "popup",
-                      "target": "pp_player"
                     }
                   }
                 ]

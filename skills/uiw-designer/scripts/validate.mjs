@@ -95,6 +95,12 @@ function checkTree(arr, rootLabel, rep, ctx) {
       if (n.activeTab !== undefined && (!Number.isInteger(n.activeTab) || n.activeTab < 0)) {
         rep.err(where, `.activeTab 必须是非负整数，实际 ${JSON.stringify(n.activeTab)}`)
       }
+      if (n.props?.barHeight !== undefined && (typeof n.props.barHeight !== 'number' || !(n.props.barHeight > 0))) {
+        rep.err(where, 'props.barHeight 必须是正数（页签栏高）')
+      }
+      if (n.props?.fontSize !== undefined && (typeof n.props.fontSize !== 'number' || n.props.fontSize < 8)) {
+        rep.err(where, 'props.fontSize 必须是 ≥8 的数字（页签字号）')
+      }
     } else if (n.pages !== undefined) {
       rep.err(where, `只有 tab 可以有 pages（当前类型 ${n.type}）`)
     }
@@ -158,6 +164,9 @@ function checkTree(arr, rootLabel, rep, ctx) {
     // 点击交互（§8）：可点击 + 点击效果
     if (n.clickable !== undefined && typeof n.clickable !== 'boolean') {
       rep.err(where, '.clickable 必须是 boolean')
+    }
+    if (n.type === 'custom' && (n.clickable !== undefined || n.clickAction !== undefined)) {
+      rep.warn(where, '定制控件实例不支持 clickable/clickAction（不生效）——点击标记配在定义树内的控件上')
     }
     if (n.clickAction !== undefined) {
       const a = n.clickAction

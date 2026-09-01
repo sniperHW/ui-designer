@@ -769,7 +769,7 @@ export const useEditor = create<EditorState>((set, get) => ({
 
   addPopup: () => {
     const s = get()
-    // 新建弹窗页自带一个居中的弹窗控件，省一步
+    // 新建弹窗页自带一个居中的弹窗控件，省一步；标题栏直接用弹窗名（两者保持同步）
     const def = WIDGET_DEFS.find((w) => w.type === 'dialog')!
     const name = `弹窗 ${s.doc.popups.length + 1}`
     const node: WidgetNode = {
@@ -782,7 +782,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       h: def.h,
       visible: true,
       locked: false,
-      props: structuredClone(def.props),
+      props: { ...structuredClone(def.props), title: name },
       children: []
     }
     const popup: PageData = { id: uid('pp'), name, nodes: [node] }
@@ -807,7 +807,14 @@ export const useEditor = create<EditorState>((set, get) => ({
     if (!name.trim()) return
     s.mutate((d) => {
       const p = d.popups.find((x) => x.id === id)
-      if (p) p.name = name.trim()
+      if (!p) return
+      p.name = name.trim()
+      // 弹窗本体（首个根级 dialog）标题栏跟随页名：列表 / 点击效果下拉 / 弹出显示一致
+      const body = p.nodes.find((n) => n.type === 'dialog')
+      if (body) {
+        body.name = p.name
+        body.props.title = p.name
+      }
     })
   },
 
