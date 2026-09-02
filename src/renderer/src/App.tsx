@@ -23,7 +23,7 @@ export default function App() {
   const [leftW, setLeftW] = useState(232)
   const [pagesH, setPagesH] = useState(212)
   const [layersH, setLayersH] = useState(198)
-  const [rightW, setRightW] = useState(252)
+  const [rightW, setRightW] = useState(440)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

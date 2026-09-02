@@ -429,7 +429,7 @@ select {
 
 /* 右侧属性面板 */
 .right {
-  width: 252px;
+  width: 440px;
   border-left: 1px solid #d9d9de;
   background: #f7f7f9;
   overflow-y: auto;
