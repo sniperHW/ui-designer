@@ -1,4 +1,5 @@
 import type { CustomWidgetDef, ProjectMeta, WidgetNode, WidgetType } from '../types'
+import { isClickable } from './tree'
 
 export type Category = 'shape' | 'text' | 'control' | 'container'
 
@@ -161,7 +162,9 @@ export function renderKidsOf(n: WidgetNode): WidgetNode[] | null {
 /**
  * 点击拾取（预览 / 演示用）：在节点树（同一坐标系的绝对坐标）中从上层到下层找 (x,y) 命中的节点，
  * 返回「根 → 命中节点」的路径。点在容器内容区内优先命中子孙（内容区外命中容器自身，如弹窗标题栏）；
- * 定制控件实例递归进定义树（实例矩形按比例换算回定义局部坐标）。未命中返回 null。
+ * 定制控件实例递归进定义树（实例矩形按比例换算回定义局部坐标）。
+ * 命中链上没有可点击控件时不算命中、继续向下层找——文字 / 占位图等装饰性覆盖不挡住
+ * 下方可点击控件的点击（否则点在卡牌文字上会无响应）。全无命中返回 null。
  * 用于实例内部静态渲染的控件（含定义里配了可点击的控件）在预览中的点击命中。
  */
 export function pickPathInTree(
@@ -185,15 +188,16 @@ export function pickPathInTree(
         )
         if (hit) return [n, ...hit]
       }
-      return [n]
+      continue // 实例自身不携带可点击标记，内部无命中时落到下层兄弟
     }
+    if (isClickable(n)) return [n]
     const kids = renderKidsOf(n)
     const cr = contentRectOf(n)
     if (kids && cr && x >= cr.x && x <= cr.x + cr.w && y >= cr.y && y <= cr.y + cr.h) {
       const hit = pickPathInTree(kids, x, y, defs)
       if (hit) return [n, ...hit]
     }
-    return [n]
+    // 不可点击且子孙无命中：落到下层兄弟（覆盖物不挡点击）
   }
   return null
 }

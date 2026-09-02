@@ -13,7 +13,7 @@ import {
   widgetInnerSVG
 } from '../widgets/registry'
 import type { Rect, SlotInfo } from '../widgets/registry'
-import { bboxOf, isClickable, walkNodes } from '../widgets/tree'
+import { bboxOf, isClickable } from '../widgets/tree'
 import type { CustomWidgetDef, WidgetNode } from '../types'
 
 /** 预览会话内滚动区的竖向偏移（nodeId → 像素），进入预览时清空，切页回来位置保留 */
@@ -29,7 +29,8 @@ export default function PreviewNode({
   defs,
   toDoc,
   wheel = false,
-  scale = 1
+  scale = 1,
+  scrollDy = 0
 }: {
   n: WidgetNode
   defs: CustomWidgetDef[]
@@ -38,6 +39,8 @@ export default function PreviewNode({
   wheel?: boolean
   /** 屏幕像素 → 文档坐标比例（滚轮步长换算） */
   scale?: number
+  /** 祖先滚动区的累计位移（≤0）：几何命中换算前把预览点还原到未滚动坐标系 */
+  scrollDy?: number
 }) {
   const clickable = isClickable(n)
   const onClick = (e: RMouseEvent<SVGGElement>) => {
@@ -46,8 +49,9 @@ export default function PreviewNode({
     // Tab：点击页签栏就地切换内容页（§4.1 内容型）；导航型 goto 由页签内容里的可点击控件承担
     if (n.type === 'tab' && n.pages) {
       const pt = toDoc(e)
+      const py = pt.y - scrollDy
       const bar = tabBarRect(n)
-      if (pt.x >= bar.x && pt.x <= bar.x + bar.w && pt.y >= bar.y && pt.y <= bar.y + bar.h) {
+      if (pt.x >= bar.x && pt.x <= bar.x + bar.w && py >= bar.y && py <= bar.y + bar.h) {
         const count = Math.max(1, n.props.tabs?.length ?? 1)
         const idx = Math.max(0, Math.min(count - 1, Math.floor((pt.x - n.x) / (n.w / count))))
         if (idx !== activeTabIndex(n)) {
@@ -68,26 +72,33 @@ export default function PreviewNode({
 
   // 定制控件实例：内部结构只读渲染（可点击控件按命中区域触发），插槽内容可交互
   if (n.type === 'custom') {
+    const [hot, setHot] = useState(false)
     const def = defs.find((d) => d.id === n.customId)
     if (!def) {
       return <g data-id={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, defs) }} />
     }
     const r = renderCustomInstance(n, def, defs)
-    let defClickable = false
-    walkNodes(def.tree, (m) => {
-      if (isClickable(m)) defClickable = true
-    })
-    // 点击：坐标换算到定义局部系做几何拾取，沿「命中节点 → 祖先」链找第一个可点击控件触发；
-    // 可点击标记统一配在定义内，实例自身不再有可点击标记
+    // 命中拾取：坐标换算到定义局部系（滚动区内的实例先还原滚动位移）；
+    // 可点击标记统一配在定义内（含嵌套定制控件），实例自身不再有可点击标记
+    const pickAt = (e: RMouseEvent<SVGGElement>): WidgetNode[] => {
+      const pt = toDoc(e)
+      return (
+        pickPathInTree(
+          def.tree,
+          ((pt.x - n.x) * def.w) / n.w,
+          ((pt.y - scrollDy - n.y) * def.h) / n.h,
+          defs
+        ) ?? []
+      )
+    }
+    // 点击：沿「命中节点 → 祖先」链找第一个可点击控件触发；
+    // 悬停：命中区域（会真正触发的点击位置）才显示手指，而不是整个实例常亮
     const onInstClick = (e: RMouseEvent<SVGGElement>) => {
       e.stopPropagation()
-      const st = useEditor.getState()
-      const pt = toDoc(e)
-      const path =
-        pickPathInTree(def.tree, ((pt.x - n.x) * def.w) / n.w, ((pt.y - n.y) * def.h) / n.h, defs) ?? []
+      const path = pickAt(e)
       for (let i = path.length - 1; i >= 0; i--) {
         if (isClickable(path[i])) {
-          st.triggerClick(path[i].id)
+          useEditor.getState().triggerClick(path[i].id)
           return
         }
       }
@@ -95,8 +106,10 @@ export default function PreviewNode({
     return (
       <g
         data-id={n.id}
-        style={{ cursor: defClickable ? 'pointer' : 'default' }}
+        style={{ cursor: hot ? 'pointer' : 'default' }}
         onClick={onInstClick}
+        onMouseMove={(e) => setHot(pickAt(e).length > 0)}
+        onMouseLeave={() => setHot(false)}
       >
         <g dangerouslySetInnerHTML={{ __html: r.inner }} />
         {r.slots.map((sl: SlotInfo) => {
@@ -105,7 +118,7 @@ export default function PreviewNode({
           return (
             <ClippedGroup key={sl.key} clipId={`pclip-${n.id}-${sl.key}`} rect={sl.rect}>
               {kids.map((c) => (
-                <PreviewNode key={c.id} n={c} defs={defs} toDoc={toDoc} wheel={wheel} scale={scale} />
+                <PreviewNode key={c.id} n={c} defs={defs} toDoc={toDoc} wheel={wheel} scale={scale} scrollDy={scrollDy} />
               ))}
             </ClippedGroup>
           )
@@ -141,7 +154,7 @@ export default function PreviewNode({
           <ClippedGroup clipId={`pclip-${n.id}`} rect={{ x: n.x, y: n.y, w: n.w, h: n.h }}>
             <g transform={`translate(0 ${offset})`}>
               {kids.map((c) => (
-                <PreviewNode key={c.id} n={c} defs={defs} toDoc={toDoc} wheel={wheel} scale={scale} />
+                <PreviewNode key={c.id} n={c} defs={defs} toDoc={toDoc} wheel={wheel} scale={scale} scrollDy={scrollDy + offset} />
               ))}
             </g>
           </ClippedGroup>
@@ -169,7 +182,7 @@ export default function PreviewNode({
       children = (
         <ClippedGroup clipId={`pclip-${n.id}`} rect={rect}>
           {visible.map((c) => (
-            <PreviewNode key={c.id} n={c} defs={defs} toDoc={toDoc} wheel={wheel} scale={scale} />
+            <PreviewNode key={c.id} n={c} defs={defs} toDoc={toDoc} wheel={wheel} scale={scale} scrollDy={scrollDy} />
           ))}
         </ClippedGroup>
       )
