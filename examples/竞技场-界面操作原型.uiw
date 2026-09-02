@@ -71,58 +71,6 @@
         }
       },
       {
-        "id": "nmtfewk4hhu5o",
-        "type": "placeholder",
-        "name": "宝箱图标",
-        "x": 200,
-        "y": 18,
-        "w": 46,
-        "h": 38,
-        "visible": true,
-        "locked": false,
-        "props": {}
-      },
-      {
-        "id": "nmtfewktfioxg",
-        "type": "placeholder",
-        "name": "定位按钮",
-        "x": 500,
-        "y": 14,
-        "w": 46,
-        "h": 46,
-        "visible": true,
-        "locked": false,
-        "props": {}
-      },
-      {
-        "id": "nmtfewlj6z27d",
-        "type": "button",
-        "name": "更多按钮",
-        "x": 556,
-        "y": 12,
-        "w": 80,
-        "h": 48,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "text": "···",
-          "fontSize": 30,
-          "bold": false
-        }
-      },
-      {
-        "id": "nmtfewmhjpcgq",
-        "type": "ellipse",
-        "name": "录制按钮",
-        "x": 648,
-        "y": 12,
-        "w": 56,
-        "h": 56,
-        "visible": true,
-        "locked": false,
-        "props": {}
-      },
-      {
         "id": "nmtfewn7b80tw",
         "type": "rect",
         "name": "资源条6",
@@ -1113,6 +1061,237 @@
       ],
       "slotNodeIds": [],
       "suggestAnchor": "none"
+    },
+    {
+      "id": "w_deck",
+      "name": "牌组",
+      "group": "未分组",
+      "w": 705,
+      "h": 680,
+      "props": [
+        {
+          "name": "战力",
+          "type": "string",
+          "default": "战力 9888",
+          "binds": [
+            {
+              "nodeId": "nmtff0olorof8",
+              "key": "text"
+            }
+          ]
+        },
+        {
+          "name": "部队统计",
+          "type": "string",
+          "default": "☠1 🐺2 🛡3 ⚙1 ⚔4 🏹3",
+          "binds": [
+            {
+              "nodeId": "nmtff0pmvc9rv",
+              "key": "text"
+            }
+          ]
+        }
+      ],
+      "tree": [
+        {
+          "id": "nmtfgp32nzodd",
+          "type": "filter",
+          "name": "牌组筛选器",
+          "x": 0,
+          "y": 0,
+          "w": 700,
+          "h": 64,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "options": [
+              "牌组",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "selected": 1
+          }
+        },
+        {
+          "id": "nmtfgp71vvca4",
+          "type": "custom",
+          "customId": "wmtfgp4crg3mp",
+          "name": "卡牌1",
+          "x": 5,
+          "y": 90,
+          "w": 160,
+          "h": 230,
+          "visible": true,
+          "locked": false,
+          "props": {}
+        },
+        {
+          "id": "nmtfgp7jnm9d2",
+          "type": "custom",
+          "customId": "wmtfgp4crg3mp",
+          "name": "卡牌2",
+          "x": 181,
+          "y": 90,
+          "w": 160,
+          "h": 230,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "3/4"
+          }
+        },
+        {
+          "id": "nmtfgp864q4wq",
+          "type": "custom",
+          "customId": "wmtfgp4crg3mp",
+          "name": "卡牌3",
+          "x": 357,
+          "y": 90,
+          "w": 160,
+          "h": 230,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "等级": "等级 2",
+            "数量": "8/9"
+          }
+        },
+        {
+          "id": "nmtfgp8xrzkcp",
+          "type": "custom",
+          "customId": "wmtfgp4crg3mp",
+          "name": "卡牌4",
+          "x": 533,
+          "y": 90,
+          "w": 160,
+          "h": 230,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "8/6"
+          }
+        },
+        {
+          "id": "nmtfgp9k81748",
+          "type": "custom",
+          "customId": "wmtfgp4crg3mp",
+          "name": "卡牌5",
+          "x": 5,
+          "y": 340,
+          "w": 160,
+          "h": 230,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "3/6"
+          }
+        },
+        {
+          "id": "nmtfgpa6syecr",
+          "type": "custom",
+          "customId": "wmtfgp4crg3mp",
+          "name": "卡牌6",
+          "x": 181,
+          "y": 340,
+          "w": 160,
+          "h": 230,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "0/8"
+          }
+        },
+        {
+          "id": "nmtfgpat62tx6",
+          "type": "custom",
+          "customId": "wmtfgp4crg3mp",
+          "name": "卡牌7",
+          "x": 357,
+          "y": 340,
+          "w": 160,
+          "h": 230,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "0/10"
+          }
+        },
+        {
+          "id": "nmtfgpbfsd92j",
+          "type": "custom",
+          "customId": "wmtfgp4crg3mp",
+          "name": "卡牌8",
+          "x": 533,
+          "y": 340,
+          "w": 160,
+          "h": 230,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "0/6"
+          }
+        },
+        {
+          "id": "nmtff0nqvhcrl",
+          "type": "rect",
+          "name": "战力条",
+          "x": 5,
+          "y": 610,
+          "w": 700,
+          "h": 70,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 12
+          }
+        },
+        {
+          "id": "nmtff0olorof8",
+          "type": "text",
+          "name": "战力值",
+          "x": 25,
+          "y": 624,
+          "w": 250,
+          "h": 42,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "战力 9888",
+            "fontSize": 30,
+            "bold": true,
+            "align": "left"
+          }
+        },
+        {
+          "id": "nmtff0pmvc9rv",
+          "type": "text",
+          "name": "部队统计",
+          "x": 290,
+          "y": 624,
+          "w": 400,
+          "h": 42,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "☠1 🐺2 🛡3 ⚙1 ⚔4 🏹3",
+            "fontSize": 24,
+            "bold": false,
+            "align": "left"
+          }
+        }
+      ],
+      "slotNodeIds": [],
+      "suggestAnchor": "none"
     }
   ],
   "pages": [
@@ -1525,173 +1704,156 @@
                 "pages": [
                   [
                     {
-                      "id": "nmtfezt76nc2s",
-                      "type": "scroll",
-                      "name": "卡组滚动区",
+                      "id": "n_deck_main",
+                      "type": "custom",
+                      "customId": "w_deck",
+                      "name": "牌组",
                       "x": 20,
                       "y": 130,
-                      "w": 720,
-                      "h": 1360,
+                      "w": 705,
+                      "h": 680,
+                      "visible": true,
+                      "locked": false,
+                      "props": {}
+                    },
+                    {
+                      "id": "nmtff0qn7iv0n",
+                      "type": "text",
+                      "name": "所有卡牌标题",
+                      "x": 20,
+                      "y": 825,
+                      "w": 705,
+                      "h": 40,
+                      "visible": true,
+                      "locked": false,
+                      "props": {
+                        "text": "所有卡牌",
+                        "fontSize": 30,
+                        "bold": true,
+                        "align": "center"
+                      }
+                    },
+                    {
+                      "id": "nmtfezt76nc2s",
+                      "type": "scroll",
+                      "name": "所有卡牌滚动区",
+                      "x": 20,
+                      "y": 870,
+                      "w": 705,
+                      "h": 600,
                       "visible": true,
                       "locked": false,
                       "props": {},
                       "children": [
                         {
-                          "id": "nmtff0nqvhcrl",
-                          "type": "rect",
-                          "name": "战力条",
-                          "x": 30,
-                          "y": 760,
-                          "w": 700,
-                          "h": 70,
-                          "visible": true,
-                          "locked": false,
-                          "props": {
-                            "radius": 12
-                          }
-                        },
-                        {
-                          "id": "nmtff0olorof8",
-                          "type": "text",
-                          "name": "战力值",
-                          "x": 50,
-                          "y": 774,
-                          "w": 250,
-                          "h": 42,
-                          "visible": true,
-                          "locked": false,
-                          "props": {
-                            "text": "战力 9888",
-                            "fontSize": 30,
-                            "bold": true,
-                            "align": "left"
-                          }
-                        },
-                        {
-                          "id": "nmtff0pmvc9rv",
-                          "type": "text",
-                          "name": "部队统计",
-                          "x": 315,
-                          "y": 774,
-                          "w": 400,
-                          "h": 42,
-                          "visible": true,
-                          "locked": false,
-                          "props": {
-                            "text": "☠1 🐺2 🛡3 ⚙1 ⚔4 🏹3",
-                            "fontSize": 24,
-                            "bold": false,
-                            "align": "left"
-                          }
-                        },
-                        {
-                          "id": "nmtff0qn7iv0n",
-                          "type": "text",
-                          "name": "所有卡牌标题",
-                          "x": 30,
-                          "y": 860,
-                          "w": 700,
-                          "h": 40,
-                          "visible": true,
-                          "locked": false,
-                          "props": {
-                            "text": "所有卡牌",
-                            "fontSize": 30,
-                            "bold": true,
-                            "align": "center"
-                          }
-                        },
-                        {
-                          "id": "nmtff0rrbs4gb",
-                          "type": "grid",
-                          "name": "全部卡牌网格",
-                          "x": 30,
-                          "y": 920,
-                          "w": 700,
-                          "h": 1140,
-                          "visible": true,
-                          "locked": false,
-                          "props": {
-                            "cols": 4,
-                            "count": 16
-                          },
-                          "itemTags": [
-                            "等级1 5/8",
-                            "未解锁",
-                            "未解锁",
-                            "未解锁",
-                            "等级1 3/8",
-                            "未解锁",
-                            "等级2 4/8",
-                            "未解锁",
-                            "等级1 2/8",
-                            "未解锁",
-                            "等级1 1/8",
-                            "未解锁",
-                            "等级1 6/8",
-                            "未解锁",
-                            "等级2 3/8",
-                            "未解锁"
-                          ]
-                        },
-                        {
-                          "id": "nmtfgp32nzodd",
-                          "type": "filter",
-                          "name": "牌组选择",
-                          "x": 25,
-                          "y": 150,
-                          "w": 700,
-                          "h": 64,
-                          "visible": true,
-                          "locked": false,
-                          "props": {
-                            "options": [
-                              "牌组",
-                              "1",
-                              "2",
-                              "3",
-                              "4",
-                              "5"
-                            ],
-                            "selected": 1
-                          }
-                        },
-                        {
-                          "id": "nmtfgp71vvca4",
+                          "id": "n_allcard_1",
                           "type": "custom",
                           "customId": "wmtfgp4crg3mp",
-                          "name": "卡牌1",
+                          "name": "所有卡牌 1",
                           "x": 30,
-                          "y": 240,
-                          "w": 160,
-                          "h": 230,
-                          "visible": true,
-                          "locked": false,
-                          "props": {}
-                        },
-                        {
-                          "id": "nmtfgp7jnm9d2",
-                          "type": "custom",
-                          "customId": "wmtfgp4crg3mp",
-                          "name": "卡牌2",
-                          "x": 206,
-                          "y": 240,
+                          "y": 880,
                           "w": 160,
                           "h": 230,
                           "visible": true,
                           "locked": false,
                           "props": {},
                           "overrides": {
-                            "数量": "3/4"
+                            "等级": "等级 1",
+                            "数量": "5/8"
                           }
                         },
                         {
-                          "id": "nmtfgp864q4wq",
+                          "id": "n_allcard_2",
                           "type": "custom",
                           "customId": "wmtfgp4crg3mp",
-                          "name": "卡牌3",
+                          "name": "所有卡牌 2",
+                          "x": 206,
+                          "y": 880,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "未解锁",
+                            "数量": ""
+                          }
+                        },
+                        {
+                          "id": "n_allcard_3",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 3",
                           "x": 382,
-                          "y": 240,
+                          "y": 880,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "未解锁",
+                            "数量": ""
+                          }
+                        },
+                        {
+                          "id": "n_allcard_4",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 4",
+                          "x": 558,
+                          "y": 880,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "未解锁",
+                            "数量": ""
+                          }
+                        },
+                        {
+                          "id": "n_allcard_5",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 5",
+                          "x": 30,
+                          "y": 1130,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "等级 1",
+                            "数量": "3/8"
+                          }
+                        },
+                        {
+                          "id": "n_allcard_6",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 6",
+                          "x": 206,
+                          "y": 1130,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "未解锁",
+                            "数量": ""
+                          }
+                        },
+                        {
+                          "id": "n_allcard_7",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 7",
+                          "x": 382,
+                          "y": 1130,
                           "w": 160,
                           "h": 230,
                           "visible": true,
@@ -1699,87 +1861,160 @@
                           "props": {},
                           "overrides": {
                             "等级": "等级 2",
-                            "数量": "8/9"
+                            "数量": "4/8"
                           }
                         },
                         {
-                          "id": "nmtfgp8xrzkcp",
+                          "id": "n_allcard_8",
                           "type": "custom",
                           "customId": "wmtfgp4crg3mp",
-                          "name": "卡牌4",
+                          "name": "所有卡牌 8",
                           "x": 558,
-                          "y": 240,
+                          "y": 1130,
                           "w": 160,
                           "h": 230,
                           "visible": true,
                           "locked": false,
                           "props": {},
                           "overrides": {
-                            "数量": "8/6"
+                            "等级": "未解锁",
+                            "数量": ""
                           }
                         },
                         {
-                          "id": "nmtfgp9k81748",
+                          "id": "n_allcard_9",
                           "type": "custom",
                           "customId": "wmtfgp4crg3mp",
-                          "name": "卡牌5",
+                          "name": "所有卡牌 9",
                           "x": 30,
-                          "y": 490,
+                          "y": 1380,
                           "w": 160,
                           "h": 230,
                           "visible": true,
                           "locked": false,
                           "props": {},
                           "overrides": {
-                            "数量": "3/6"
+                            "等级": "等级 1",
+                            "数量": "2/8"
                           }
                         },
                         {
-                          "id": "nmtfgpa6syecr",
+                          "id": "n_allcard_10",
                           "type": "custom",
                           "customId": "wmtfgp4crg3mp",
-                          "name": "卡牌6",
+                          "name": "所有卡牌 10",
                           "x": 206,
-                          "y": 490,
+                          "y": 1380,
                           "w": 160,
                           "h": 230,
                           "visible": true,
                           "locked": false,
                           "props": {},
                           "overrides": {
-                            "数量": "0/8"
+                            "等级": "未解锁",
+                            "数量": ""
                           }
                         },
                         {
-                          "id": "nmtfgpat62tx6",
+                          "id": "n_allcard_11",
                           "type": "custom",
                           "customId": "wmtfgp4crg3mp",
-                          "name": "卡牌7",
+                          "name": "所有卡牌 11",
                           "x": 382,
-                          "y": 490,
+                          "y": 1380,
                           "w": 160,
                           "h": 230,
                           "visible": true,
                           "locked": false,
                           "props": {},
                           "overrides": {
-                            "数量": "0/10"
+                            "等级": "等级 1",
+                            "数量": "1/8"
                           }
                         },
                         {
-                          "id": "nmtfgpbfsd92j",
+                          "id": "n_allcard_12",
                           "type": "custom",
                           "customId": "wmtfgp4crg3mp",
-                          "name": "卡牌8",
+                          "name": "所有卡牌 12",
                           "x": 558,
-                          "y": 490,
+                          "y": 1380,
                           "w": 160,
                           "h": 230,
                           "visible": true,
                           "locked": false,
                           "props": {},
                           "overrides": {
-                            "数量": "0/6"
+                            "等级": "未解锁",
+                            "数量": ""
+                          }
+                        },
+                        {
+                          "id": "n_allcard_13",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 13",
+                          "x": 30,
+                          "y": 1630,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "等级 1",
+                            "数量": "6/8"
+                          }
+                        },
+                        {
+                          "id": "n_allcard_14",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 14",
+                          "x": 206,
+                          "y": 1630,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "未解锁",
+                            "数量": ""
+                          }
+                        },
+                        {
+                          "id": "n_allcard_15",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 15",
+                          "x": 382,
+                          "y": 1630,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "等级 2",
+                            "数量": "3/8"
+                          }
+                        },
+                        {
+                          "id": "n_allcard_16",
+                          "type": "custom",
+                          "customId": "wmtfgp4crg3mp",
+                          "name": "所有卡牌 16",
+                          "x": 558,
+                          "y": 1630,
+                          "w": 160,
+                          "h": 230,
+                          "visible": true,
+                          "locked": false,
+                          "props": {},
+                          "overrides": {
+                            "等级": "未解锁",
+                            "数量": ""
                           }
                         }
                       ]
