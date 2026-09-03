@@ -71,228 +71,83 @@
         }
       },
       {
-        "id": "nmtfewn7b80tw",
-        "type": "rect",
-        "name": "资源条6",
+        "id": "n71hj3zhybxl2",
+        "type": "custom",
+        "customId": "w5j5kcjluwe5d",
+        "name": "资源1",
         "x": 112,
         "y": 60,
         "w": 118,
         "h": 44,
         "visible": true,
         "locked": false,
-        "props": {
-          "radius": 22
+        "props": {},
+        "overrides": {
+          "数值": "6"
         }
       },
       {
-        "id": "nmtfewo13eeki",
-        "type": "text",
-        "name": "资源值6",
-        "x": 140,
-        "y": 66,
-        "w": 64,
-        "h": 32,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "text": "6",
-          "fontSize": 24,
-          "bold": true,
-          "align": "left"
-        }
-      },
-      {
-        "id": "nmtfewp0si4k1",
-        "type": "rect",
-        "name": "加号6",
-        "x": 206,
-        "y": 70,
-        "w": 22,
-        "h": 22,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "radius": 8
-        }
-      },
-      {
-        "id": "nmtfewpv17tft",
-        "type": "rect",
-        "name": "资源条0",
+        "id": "n3n3inli48e82",
+        "type": "custom",
+        "customId": "w5j5kcjluwe5d",
+        "name": "资源2",
         "x": 238,
         "y": 60,
         "w": 118,
         "h": 44,
         "visible": true,
         "locked": false,
-        "props": {
-          "radius": 22
+        "props": {},
+        "overrides": {
+          "数值": "0"
         }
       },
       {
-        "id": "nmtfewqp0sbp4",
-        "type": "text",
-        "name": "资源值0",
-        "x": 266,
-        "y": 66,
-        "w": 64,
-        "h": 32,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "text": "0",
-          "fontSize": 24,
-          "bold": true,
-          "align": "left"
-        }
-      },
-      {
-        "id": "nmtfewrov5d4l",
-        "type": "rect",
-        "name": "加号0",
-        "x": 332,
-        "y": 70,
-        "w": 22,
-        "h": 22,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "radius": 8
-        }
-      },
-      {
-        "id": "nmtfewsj1ixz9",
-        "type": "rect",
-        "name": "资源条400",
+        "id": "n17gmewp3mpqq",
+        "type": "custom",
+        "customId": "w5j5kcjluwe5d",
+        "name": "资源3",
         "x": 364,
         "y": 60,
         "w": 118,
         "h": 44,
         "visible": true,
         "locked": false,
-        "props": {
-          "radius": 22
+        "props": {},
+        "overrides": {
+          "数值": "400"
         }
       },
       {
-        "id": "nmtfewtdedy4a",
-        "type": "text",
-        "name": "资源值400",
-        "x": 392,
-        "y": 66,
-        "w": 64,
-        "h": 32,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "text": "400",
-          "fontSize": 24,
-          "bold": true,
-          "align": "left"
-        }
-      },
-      {
-        "id": "nmtfewudc9z5f",
-        "type": "rect",
-        "name": "加号400",
-        "x": 458,
-        "y": 70,
-        "w": 22,
-        "h": 22,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "radius": 8
-        }
-      },
-      {
-        "id": "nmtfewv7wvm95",
-        "type": "rect",
-        "name": "资源条139",
+        "id": "ndpmj3vb2yg1r",
+        "type": "custom",
+        "customId": "w5j5kcjluwe5d",
+        "name": "资源4",
         "x": 490,
         "y": 60,
         "w": 118,
         "h": 44,
         "visible": true,
         "locked": false,
-        "props": {
-          "radius": 22
+        "props": {},
+        "overrides": {
+          "数值": "139"
         }
       },
       {
-        "id": "nmtfeww2cmzbz",
-        "type": "text",
-        "name": "资源值139",
-        "x": 518,
-        "y": 66,
-        "w": 64,
-        "h": 32,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "text": "139",
-          "fontSize": 24,
-          "bold": true,
-          "align": "left"
-        }
-      },
-      {
-        "id": "nmtfewx2ojk6g",
-        "type": "rect",
-        "name": "加号139",
-        "x": 584,
-        "y": 70,
-        "w": 22,
-        "h": 22,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "radius": 8
-        }
-      },
-      {
-        "id": "nmtfewxx7a8tv",
-        "type": "rect",
-        "name": "资源条280",
+        "id": "ncbgwsu776sjw",
+        "type": "custom",
+        "customId": "w5j5kcjluwe5d",
+        "name": "资源5",
         "x": 616,
         "y": 60,
         "w": 118,
         "h": 44,
         "visible": true,
         "locked": false,
-        "props": {
-          "radius": 22
-        }
-      },
-      {
-        "id": "nmtfewyrhump2",
-        "type": "text",
-        "name": "资源值280",
-        "x": 644,
-        "y": 66,
-        "w": 64,
-        "h": 32,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "text": "280",
-          "fontSize": 24,
-          "bold": true,
-          "align": "left"
-        }
-      },
-      {
-        "id": "nmtfewzrziekr",
-        "type": "rect",
-        "name": "加号280",
-        "x": 710,
-        "y": 70,
-        "w": 22,
-        "h": 22,
-        "visible": true,
-        "locked": false,
-        "props": {
-          "radius": 8
+        "props": {},
+        "overrides": {
+          "数值": "280"
         }
       }
     ]
@@ -1287,6 +1142,80 @@
             "fontSize": 24,
             "bold": false,
             "align": "left"
+          }
+        }
+      ],
+      "slotNodeIds": [],
+      "suggestAnchor": "none"
+    },
+    {
+      "id": "w5j5kcjluwe5d",
+      "name": "资源项",
+      "group": "未分组",
+      "w": 118,
+      "h": 44,
+      "props": [
+        {
+          "name": "数值",
+          "type": "string",
+          "default": "100",
+          "binds": [
+            {
+              "nodeId": "nmtfewo13eeki",
+              "key": "text"
+            }
+          ]
+        }
+      ],
+      "tree": [
+        {
+          "id": "nmtfewn7b80tw",
+          "type": "rect",
+          "name": "资源条",
+          "x": 0,
+          "y": 0,
+          "w": 118,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 22
+          }
+        },
+        {
+          "id": "nmtfewo13eeki",
+          "type": "text",
+          "name": "资源值",
+          "x": 28,
+          "y": 6,
+          "w": 64,
+          "h": 32,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "100",
+            "fontSize": 24,
+            "bold": true,
+            "align": "left"
+          }
+        },
+        {
+          "id": "nmtfewp0si4k1",
+          "type": "rect",
+          "name": "加号",
+          "x": 94,
+          "y": 10,
+          "w": 22,
+          "h": 22,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 8
+          },
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "ppmtkulr4vgfd5"
           }
         }
       ],
@@ -2964,6 +2893,27 @@
           "locked": false,
           "props": {
             "title": "排行榜弹窗"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "ppmtkulr4vgfd5",
+      "name": "资源不足",
+      "nodes": [
+        {
+          "id": "nmtkulr4v6izv",
+          "type": "dialog",
+          "name": "资源不足",
+          "x": 135,
+          "y": 640,
+          "w": 480,
+          "h": 320,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "资源不足"
           },
           "children": []
         }
