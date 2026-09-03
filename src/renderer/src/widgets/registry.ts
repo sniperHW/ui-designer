@@ -128,6 +128,41 @@ export function activeTabIndex(n: WidgetNode): number {
   return Math.max(0, Math.min(count - 1, n.activeTab ?? 0))
 }
 
+/** 页签列表编辑后按名字重排内容页：同名页签保留自己的内容（支持中间插入 / 删除 / 调序不错位），
+ *  未配对的新页签按顺序继承未配对旧页签的内容（视作改名），多余的旧内容丢弃、多余的新页签给空页 */
+export function remapTabPages(
+  oldTabs: readonly string[],
+  newTabs: readonly string[],
+  oldPages: readonly WidgetNode[][]
+): WidgetNode[][] {
+  const n = oldTabs.length
+  const m = newTabs.length
+  // dp[i][j] = oldTabs[i:] 与 newTabs[j:] 按名字相等的最长公共子序列长度
+  const dp: number[][] = Array.from({ length: n + 1 }, () => new Array<number>(m + 1).fill(0))
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      dp[i][j] = oldTabs[i] === newTabs[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1])
+    }
+  }
+  const assigned: (WidgetNode[] | undefined)[] = new Array(m).fill(undefined)
+  const used = new Array<boolean>(n).fill(false)
+  let i = 0
+  let j = 0
+  while (i < n && j < m) {
+    if (oldTabs[i] === newTabs[j]) {
+      assigned[j] = oldPages[i] ?? []
+      used[i] = true
+      i++
+      j++
+    } else if (dp[i + 1][j] >= dp[i][j + 1]) i++
+    else j++
+  }
+  const spare = oldPages.filter((_, k) => !used[k])
+  let sp = 0
+  for (let k = 0; k < m; k++) if (!assigned[k]) assigned[k] = spare[sp++] ?? []
+  return assigned as WidgetNode[][]
+}
+
 /** Tab 页签头 i 的矩形（页面绝对坐标），供画布点击命中用 */
 export function tabBarRect(n: WidgetNode): Rect {
   const barH = tabBarHeight(n)

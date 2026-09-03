@@ -132,21 +132,56 @@ async function main() {
   // 放回顶部
   await evalJs(`(() => { const st = window.__uiw.getState(); st.updateNodes([st.currentPage().nodes[0].id], n => { n.props.barPosition = 'top' }, true); return true })()`)
 
-  // —— 8. 修改页签数量（3→2）：第 1 页签的子控件保留 ——
-  const resized = await evalJs(`(() => {
-    const st = window.__uiw.getState()
-    const t = st.currentPage().nodes[0]
-    st.updateNodes([t.id], n => {
-      n.props.tabs = ['装备', '商城']
-      const pages = n.pages ?? []
-      n.pages = ['装备', '商城'].map((_, i) => pages[i] ?? [])
-      n.activeTab = Math.min(n.activeTab ?? 0, 1)
-    })
-    const t2 = window.__uiw.getState().currentPage().nodes[0]
-    return { tabs: t2.props.tabs, pageLens: t2.pages.map(p => p.length) }
-  })()`)
-  check('页签增删', resized.tabs?.length === 2 && resized.pageLens?.[1] === 1,
-    `tabs=[${resized.tabs}]，子控件保留=[${resized.pageLens}]`)
+  // —— 8. 页签列表编辑（属性面板真实输入）：改名保留内容 / 中间插入不错位 / 删除页签 ——
+  await evalJs(`(() => { const st = window.__uiw.getState(); st.setSelection([st.currentPage().nodes[0].id]); return true })()`)
+  await sleep(300)
+  const setTabsField = async (text) => {
+    await evalJs(`(() => {
+      const row = [...document.querySelectorAll('.prop-row')].find(r => r.querySelector('span')?.textContent === '页签列表')
+      const ta = row && row.querySelector('textarea')
+      if (!ta) return false
+      const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set
+      setter.call(ta, ${JSON.stringify(text)})
+      ta.dispatchEvent(new Event('input', { bubbles: true }))
+      ta.focus()
+      ta.blur()
+      return true
+    })()`)
+    await sleep(250)
+  }
+  // 8.1 改名：页签 2 → 商城，按钮内容跟名字走
+  await setTabsField('页签 1\n商城\n页签 3')
+  const renamed = await evalJs(`(() => { const t = window.__uiw.getState().currentPage().nodes[0]; return { tabs: t.props.tabs, pageLens: t.pages.map(p => p.length) } })()`)
+  check('页签改名保留内容', renamed.tabs?.join() === '页签 1,商城,页签 3' && renamed.pageLens?.join() === '0,1,0',
+    `tabs=[${renamed.tabs}]，各页子控件=[${renamed.pageLens}]`)
+  // 8.2 中间插入：商城与页签 3 之间插入「领地」→ 领地是空页，后续页签内容不错位
+  await setTabsField('页签 1\n商城\n领地\n页签 3')
+  const inserted = await evalJs(`(() => { const t = window.__uiw.getState().currentPage().nodes[0]; return { tabs: t.props.tabs, pageLens: t.pages.map(p => p.length) } })()`)
+  check('中间插入页签不错位', inserted.tabs?.join() === '页签 1,商城,领地,页签 3' && inserted.pageLens?.join() === '0,1,0,0',
+    `tabs=[${inserted.tabs}]，各页子控件=[${inserted.pageLens}]`)
+  // 8.3 画布点「领地」页签头 → 空页无按钮；点回「商城」→ 按钮还在
+  const clickHeader = async (idx, count) => {
+    const geo = await evalJs(`(() => {
+      const st = window.__uiw.getState()
+      const n = st.currentPage().nodes[0]
+      const v = st.viewport
+      const r = document.querySelector('.canvas-wrap').getBoundingClientRect()
+      return { x: r.x + v.panX + (n.x + n.w * ${(idx + 0.5) / count}) * v.zoom, y: r.y + v.panY + (n.y + 20) * v.zoom }
+    })()`)
+    await click(geo.x, geo.y)
+    await sleep(250)
+  }
+  await clickHeader(2, 4)
+  const onTerritory = await evalJs(`(() => ({ active: window.__uiw.getState().currentPage().nodes[0].activeTab, dom: document.querySelectorAll('g[data-id]').length }))()`)
+  await clickHeader(1, 4)
+  const backToShop = await evalJs(`(() => ({ active: window.__uiw.getState().currentPage().nodes[0].activeTab, dom: document.querySelectorAll('g[data-id]').length }))()`)
+  check('画布切换新页签', onTerritory.active === 2 && onTerritory.dom === 1 && backToShop.active === 1 && backToShop.dom === 2,
+    `点领地：active=${onTerritory.active} 画布控件=${onTerritory.dom}/1；点回商城：active=${backToShop.active} 画布控件=${backToShop.dom}/2`)
+  // 8.4 删除页签（去掉了 领地 与 页签 3）：商城按钮仍在
+  await setTabsField('页签 1\n商城')
+  const deleted = await evalJs(`(() => { const t = window.__uiw.getState().currentPage().nodes[0]; return { tabs: t.props.tabs, pageLens: t.pages.map(p => p.length) } })()`)
+  check('删除页签', deleted.tabs?.join() === '页签 1,商城' && deleted.pageLens?.join() === '0,1',
+    `tabs=[${deleted.tabs}]，各页子控件=[${deleted.pageLens}]`)
 
   // —— 8b. 页签栏高 / 页签字号：属性面板数值输入 → 渲染联动 ——
   await evalJs(`(() => { const st = window.__uiw.getState(); st.setSelection([st.currentPage().nodes[0].id]); return true })()`)

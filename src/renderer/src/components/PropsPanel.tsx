@@ -3,6 +3,7 @@ import { useEditor } from '../store/editorStore'
 import type { ClickAction, CustomPropType, WidgetNode, WidgetProps, WidgetType } from '../types'
 import type { AnchorMode, AnchorPreset, CustomWidgetDef } from '../types'
 import { isClickable, walkNodes, findNodeById } from '../widgets/tree'
+import { remapTabPages } from '../widgets/registry'
 
 const TYPE_LABEL: Record<WidgetType, string> = {
   rect: '形状',
@@ -932,10 +933,14 @@ function TypeProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[] }
                 .filter((s) => s.length > 0)
               const next = lines.length ? lines : ['页签 1']
               updateNodes(id, (n) => {
+                const prevTabs = n.props.tabs?.length ? n.props.tabs : ['页签 1']
+                const prevPages = n.pages ?? []
+                // 内容页跟页签名走（LCS 重排）：中间插入/删除/调序不错位；激活页签尽量跟随原名
                 n.props.tabs = next
-                const pages = n.pages ?? next.map(() => [] as WidgetNode[])
-                n.pages = next.map((_, i) => pages[i] ?? [])
-                n.activeTab = Math.min(n.activeTab ?? 0, next.length - 1)
+                n.pages = remapTabPages(prevTabs, next, prevPages)
+                const prevActive = prevTabs[Math.max(0, Math.min(prevTabs.length - 1, n.activeTab ?? 0))]
+                const follow = next.indexOf(prevActive)
+                n.activeTab = follow >= 0 ? follow : Math.min(n.activeTab ?? 0, next.length - 1)
               })
             }}
           />
