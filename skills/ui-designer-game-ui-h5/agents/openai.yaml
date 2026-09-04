@@ -1,0 +1,3 @@
+interface:
+  display_name: "UI Designer → H5"
+  short_description: "Turn .uiw layouts and screenshots into deduplicated game UI H5 prototypes"

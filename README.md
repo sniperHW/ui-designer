@@ -76,6 +76,15 @@ cp -R skills/uiw-designer .zcode/skills/    # 同样可用软链代替复制
 
 **生效与验证**：重启会话（或新开会话）后 ZCode 自动发现；在对话里说"帮我生成一个 xxx 界面的 .uiw 设计工程"会自动触发，也可输入 `/uiw-designer` 显式调用。注意同名 skill 的发现顺序为 用户级 `~/.zcode/skills/` → 工作区级 `.zcode/skills/`，先发现者优先（用户级会遮蔽同名工作区级 skill）。若要跨工具共享（Claude Code 等），改放 `~/.agents/skills/`。
 
+### 配套技能（下游管线）
+
+除生成 `.uiw` 的 `uiw-designer` 外，`skills/` 下还有两个把设计工程继续往下游走的配套技能，安装方式同上（复制或软链到 `~/.zcode/skills/` 或 `.zcode/skills/`）：
+
+- [skills/ui-designer-game-ui-h5/](skills/ui-designer-game-ui-h5/) — **`.uiw` → 游戏 UI 美术资产 + H5 原型**。以 `.uiw` 为界面结构与交互的事实来源、参考截图为视觉语言来源，生成去重的美术资产、布局与资产绑定 JSON（`ui-layout.json` + `manifest.json`），并装配为可运行的 H5 原型。适用于「ui-designer 工程转 H5」「按 UI 原型和截图生图」「清理未引用游戏 UI 素材」等任务；不用于单独创建 `.uiw` 工程或只生成孤立 UI 图集。
+- [skills/laya-ui-import/](skills/laya-ui-import/) — **`ui-layout.json` → LayaAir 工程**。把 uiw-portable 契约与美术切图导入 LayaAir 工程，生成 ui2 场景 / 预制体 / 数据层 / 交互脚本（`<Widget>.lh`、Binder、Main.ts 等）。与 layaAir 技能配套：本技能负责「契约 → 工程」的导入管线。当提到 `ui-layout.json`、界面契约、切图导入、把原型/H5 设计稿转成 LayaAir 工程时触发。
+
+三者串成完整链路：`uiw-designer` 生成 `.uiw` 设计工程 → `ui-designer-game-ui-h5` 产出资产与 `ui-layout.json` 契约（可直接跑 H5 原型）→ `laya-ui-import` 把契约导入 LayaAir 正式工程。
+
 ## 快捷键
 
 ⌘Z / ⇧⌘Z 撤销重做 · ⌘C/⌘V/⌘D 复制粘贴再制 · ⌘A 全选 · ⌫ 删除 · 方向键微调（⇧ ×10）· ⌘S 保存 · ⌘O 打开 · ⌘N 新建 · ⌘= / ⌘- 缩放 · Esc 取消选择
