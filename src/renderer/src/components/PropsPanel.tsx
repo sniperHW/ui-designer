@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useEditor } from '../store/editorStore'
 import type { ClickAction, CustomPropType, WidgetNode, WidgetProps, WidgetType } from '../types'
 import type { AnchorMode, AnchorPreset, CustomWidgetDef } from '../types'
-import { isClickable, walkNodes, findNodeById } from '../widgets/tree'
+import { hasTip, isClickable, walkNodes, findNodeById } from '../widgets/tree'
 import { remapTabPages } from '../widgets/registry'
 
 const TYPE_LABEL: Record<WidgetType, string> = {
@@ -19,6 +19,7 @@ const TYPE_LABEL: Record<WidgetType, string> = {
   filter: '筛选器',
   panel: '面板',
   dialog: '弹窗',
+  tooltip: '轻提示框',
   scroll: '滚动区',
   list: '列表',
   grid: '网格',
@@ -134,6 +135,8 @@ export default function PropsPanel({ width = 252 }: { width?: number }) {
       {sel.length === 1 && <TypeProps node={sel[0]} defs={doc.customWidgets} />}
       {/* 定制控件实例：可点击标记统一配在定义内（编辑定义 → 选中内部控件），实例属性不显示「点击」区 */}
       {sel.length === 1 && sel[0].type !== 'custom' && <ClickEditor node={sel[0]} />}
+      {/* 轻提示标记同理：定制控件实例不显示「轻提示」区（配在定义内） */}
+      {sel.length === 1 && sel[0].type !== 'custom' && <TipEditor node={sel[0]} />}
       {sel.length >= 2 && (
         <div className="prop-section">
           <h4>对齐与分布</h4>
@@ -660,6 +663,84 @@ function ClickEditor({ node }: { node: WidgetNode }) {
 }
 
 // ---------------------------------------------------------------------------
+// 轻提示（§8 交互原型）：任意控件可标记，悬停弹出独立设计的轻提示框
+// ---------------------------------------------------------------------------
+
+function TipEditor({ node }: { node: WidgetNode }) {
+  const updateNodes = useEditor((s) => s.updateNodes)
+  const addTip = useEditor((s) => s.addTip)
+  const setEditingTip = useEditor((s) => s.setEditingTip)
+  const showTip = useEditor((s) => s.showTip)
+  const editingDef = useEditor((s) => s.editingWidgetId)
+  const doc = useEditor((s) => s.doc)
+  const marked = hasTip(node)
+  const valid = marked && doc.tips.some((p) => p.id === node.tipTarget)
+  const setTarget = (t: string | undefined) =>
+    updateNodes([node.id], (n) => {
+      if (t) n.tipTarget = t
+      else delete n.tipTarget
+    })
+  return (
+    <div className="prop-section">
+      <h4>轻提示</h4>
+      {editingDef && (
+        <div className="prop-hint">
+          定义级设置：保存在定制控件定义上，所有实例同步生效；预览中悬停实例上的对应区域即弹出。
+        </div>
+      )}
+      <div className="prop-row">
+        <span>轻提示</span>
+        <input
+          type="checkbox"
+          checked={marked}
+          onChange={(e) =>
+            setTarget(e.target.checked ? doc.tips[0]?.id ?? addTip() : undefined)
+          }
+        />
+      </div>
+      {marked &&
+        (doc.tips.length > 0 ? (
+          <>
+            <div className="prop-row">
+              <span>轻提示框</span>
+              <select value={node.tipTarget} onChange={(e) => setTarget(e.target.value)}>
+                {!doc.tips.some((p) => p.id === node.tipTarget) && (
+                  <option value="">{node.tipTarget ? '（轻提示已删除）' : '（请选择）'}</option>
+                )}
+                {doc.tips.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="prop-hint">轻提示内容在左侧页面列表「轻提示」分组中独立设计；原型预览中悬停该控件弹出、鼠标移开关闭。</div>
+            <button className="tb-btn w-full" onClick={() => node.tipTarget && setEditingTip(node.tipTarget)}>
+              ✏ 编辑轻提示内容 →
+            </button>
+            <button
+              className="tb-btn w-full"
+              disabled={!valid}
+              onClick={() =>
+                valid && showTip(node.tipTarget!, { x: node.x, y: node.y, w: node.w, h: node.h })
+              }
+            >
+              ▶ 演示轻提示
+            </button>
+          </>
+        ) : (
+          <>
+            <div className="prop-hint">还没有轻提示框：新建一个轻提示页来设计内容，再回到这里选择它。</div>
+            <button className="tb-btn w-full" onClick={() => setTarget(addTip())}>
+              ＋ 新建轻提示并绑定
+            </button>
+          </>
+        ))}
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
 // 控件属性（逐类型）
 // ---------------------------------------------------------------------------
 
@@ -740,6 +821,23 @@ function TypeProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[] }
         <div className="prop-section">
           <h4>形状</h4>
           <NumField label="圆角" value={p.radius ?? 0} min={0} max={500} onCommit={(v) => setProp({ radius: v })} />
+        </div>
+      )
+    case 'tooltip':
+      return (
+        <div className="prop-section">
+          <h4>轻提示框</h4>
+          <div className="prop-row">
+            <span>尾箭头</span>
+            <div className="seg">
+              {(['bottom', 'top', 'left', 'right'] as const).map((t) => (
+                <button key={t} className={(p.tail ?? 'bottom') === t ? 'on' : ''} onClick={() => setProp({ tail: t })}>
+                  {t === 'bottom' ? '下' : t === 'top' ? '上' : t === 'left' ? '左' : '右'}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="prop-hint">默认「下」（提示框悬在控件上方指向它）；弹出显示时会按空间自动上下翻转，左右向保持设计值。</div>
         </div>
       )
     case 'dialog': {

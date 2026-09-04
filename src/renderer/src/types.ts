@@ -12,6 +12,7 @@ export type WidgetType =
   | 'filter'
   | 'panel'
   | 'dialog'
+  | 'tooltip'
   | 'scroll'
   | 'list'
   | 'grid'
@@ -37,6 +38,8 @@ export interface WidgetProps {
   barHeight?: number
   /** 弹窗：标题栏文字 */
   title?: string
+  /** 轻提示框：尾箭头方向（默认 bottom，指向被提示控件） */
+  tail?: 'top' | 'bottom' | 'left' | 'right'
   /** 列表：方向 */
   direction?: 'v' | 'h'
   /** 列表 / 网格：项数 */
@@ -132,6 +135,9 @@ export interface WidgetNode {
   clickable?: boolean
   /** 点击效果：切换页面 / 弹出弹窗（编辑器内右键「点击」演示触发） */
   clickAction?: ClickAction
+  /** 轻提示标记：指向轻提示页（doc.tips）id，悬停该控件时弹出对应轻提示框。
+   *  与可点击同理配在定义内控件上（定义级，实例同步生效），定制控件实例自身不支持 */
+  tipTarget?: string
 }
 
 export type Orientation = 'landscape' | 'portrait'
@@ -158,5 +164,7 @@ export interface ProjectDoc {
   customWidgets: CustomWidgetDef[]
   /** 弹窗页：独立设计的弹窗内容（典型：一个居中的 dialog），由点击效果（popup）弹出显示 */
   popups: PageData[]
+  /** 轻提示页：独立设计的轻提示内容（典型：一个 tooltip 气泡），由轻提示标记（tipTarget）悬停弹出 */
+  tips: PageData[]
   pages: PageData[]
 }

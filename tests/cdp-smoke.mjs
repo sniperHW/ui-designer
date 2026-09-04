@@ -78,7 +78,7 @@ async function main() {
   // 2. 基础界面
   results['标题'] = await evalJs('document.title')
   const libCount = await evalJs('document.querySelectorAll(".lib-item").length')
-  check('控件库', libCount === 18, `内置控件 ${libCount}/18 项`)
+  check('控件库', libCount === 19, `内置控件 ${libCount}/19 项`)
   const menus = await evalJs('[...document.querySelectorAll(".menu > summary")].map(s => s.textContent).join("/")')
   check('菜单栏', menus === '文件/编辑/控件/视图/帮助', menus)
   const pages0 = await evalJs('document.querySelectorAll(".page-row").length')

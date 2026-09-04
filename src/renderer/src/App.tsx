@@ -86,8 +86,9 @@ export default function App() {
         e.preventDefault()
         st.nudge(0, e.shiftKey ? 10 : 1)
       } else if (e.key === 'Escape') {
-        // 优先收起弹窗演示 / 右键菜单，其次退出原型预览，最后才清空选择
-        if (st.popupId) st.closePopup()
+        // 优先收起弹窗 / 轻提示演示 / 右键菜单，其次退出原型预览，最后才清空选择
+        if (st.tip) st.closeTip()
+        else if (st.popupId) st.closePopup()
         else if (st.ctxMenu) st.closeCtxMenu()
         else if (st.previewing) st.stopPreview()
         else st.setSelection([])

@@ -14,9 +14,10 @@ import { basename } from 'node:path'
 
 const WIDGET_TYPES = new Set([
   'rect', 'ellipse', 'line', 'placeholder', 'nine', 'text', 'button', 'checkbox',
-  'progress', 'input', 'filter', 'panel', 'dialog', 'scroll', 'list', 'grid', 'tab', 'custom'
+  'progress', 'input', 'filter', 'panel', 'dialog', 'tooltip', 'scroll', 'list', 'grid', 'tab', 'custom'
 ])
-const CONTAINER_WITH_CHILDREN = new Set(['panel', 'dialog', 'scroll'])
+const CONTAINER_WITH_CHILDREN = new Set(['panel', 'dialog', 'tooltip', 'scroll'])
+const TIP_TAILS = new Set(['top', 'bottom', 'left', 'right'])
 const ANCHOR_PRESETS = new Set(['tl', 'tc', 'tr', 'ml', 'mc', 'mr', 'bl', 'bc', 'br'])
 const ANCHOR_MODES = new Set(['fixed', 'stretch', 'aspect'])
 const PROP_TYPES = new Set(['string', 'number', 'boolean', 'tab-index'])
@@ -61,12 +62,16 @@ function isFiniteNum(v) { return typeof v === 'number' && Number.isFinite(v) }
 function checkTree(arr, rootLabel, rep, ctx) {
   const all = []
   const popupRoot = rootLabel.includes('.popups[')
+  const tipRoot = rootLabel.includes('.tips[')
   walk(arr, (n, path, inScroll) => {
     all.push(n)
     const label = `「${n?.name ?? '?'}」(${n?.id ?? '?'})`
     const where = `${rootLabel}${path} ${label}`
     if (!popupRoot && n.type === 'dialog') {
       rep.warn(where, '弹窗控件只应出现在弹窗页（doc.popups）中——页面 / 公共层 / 定制控件定义内不放弹窗')
+    }
+    if (!tipRoot && n.type === 'tooltip') {
+      rep.warn(where, '轻提示框只应出现在轻提示页（doc.tips）中——页面 / 公共层 / 弹窗页 / 定制控件定义内不放')
     }
     if (typeof n?.id !== 'string' || !n.id) return rep.err(where, '缺少字符串 id')
     if (ctx.nodeIds.has(n.id)) rep.err(where, `节点 id 重复：${n.id}`)
@@ -107,10 +112,13 @@ function checkTree(arr, rootLabel, rep, ctx) {
     if (CONTAINER_WITH_CHILDREN.has(n.type)) {
       if (n.children !== undefined && !Array.isArray(n.children)) rep.err(where, '.children 必须是数组')
     } else if (n.children !== undefined) {
-      rep.err(where, `只有 panel/dialog/scroll 可以有 children（当前类型 ${n.type}）`)
+      rep.err(where, `只有 panel/dialog/tooltip/scroll 可以有 children（当前类型 ${n.type}）`)
     }
     if (n.type === 'dialog' && n.props?.title !== undefined && typeof n.props.title !== 'string') {
       rep.err(where, 'props.title 必须是字符串')
+    }
+    if (n.type === 'tooltip' && n.props?.tail !== undefined && !TIP_TAILS.has(n.props.tail)) {
+      rep.err(where, `props.tail 只能是 top/bottom/left/right，实际 ${JSON.stringify(n.props.tail)}`)
     }
 
     // 定制控件实例
@@ -183,6 +191,18 @@ function checkTree(arr, rootLabel, rep, ctx) {
       }
     }
 
+    // 轻提示标记（§8）：悬停弹出轻提示框
+    if (n.tipTarget !== undefined) {
+      if (typeof n.tipTarget !== 'string' || !n.tipTarget) {
+        rep.err(where, '.tipTarget 必须是非空字符串（轻提示页 id）')
+      } else {
+        ctx.tipRefs.push({ where, target: n.tipTarget })
+      }
+      if (n.type === 'custom') {
+        rep.warn(where, '定制控件实例不支持 tipTarget（不生效）——轻提示标记配在定义树内的控件上')
+      }
+    }
+
     // 列表 / 网格
     if (n.type === 'list') {
       if (n.props?.direction !== undefined && !['v', 'h'].includes(n.props.direction)) {
@@ -248,6 +268,8 @@ function validateFile(file) {
     nodeIds: new Set(),
     pageIds: new Set(),
     popupIds: new Set(),
+    tipIds: new Set(),
+    tipRefs: [],
     defsById: new Map(),
     filterBindings: [],
     clickGotos: [],
@@ -296,6 +318,19 @@ function validateFile(file) {
         if (pageLike(p, `${f}.popups[${i}]`)) {
           ctx.popupIds.add(p.id)
           checkTree(p.nodes, `${f}.popups[${i}]`, rep, ctx)
+        }
+      })
+    }
+  }
+
+  // 轻提示页（轻提示标记悬停弹出显示的独立设计页）
+  if (doc.tips !== undefined) {
+    if (!Array.isArray(doc.tips)) rep.err(f, '.tips 必须是数组（可为空）')
+    else {
+      doc.tips.forEach((p, i) => {
+        if (pageLike(p, `${f}.tips[${i}]`)) {
+          ctx.tipIds.add(p.id)
+          checkTree(p.nodes, `${f}.tips[${i}]`, rep, ctx)
         }
       })
     }
@@ -376,6 +411,10 @@ function validateFile(file) {
   }
   for (const { where, target } of ctx.clickPopups) {
     if (!ctx.popupIds.has(target)) rep.err(where, `clickAction(popup).target 不是弹窗页（doc.popups）id：${target}`)
+  }
+  // 轻提示标记目标检查：tipTarget → 轻提示页 id
+  for (const { where, target } of ctx.tipRefs) {
+    if (!ctx.tipIds.has(target)) rep.err(where, `tipTarget 不是轻提示页（doc.tips）id：${target}`)
   }
 
   return rep

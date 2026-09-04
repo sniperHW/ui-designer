@@ -33,6 +33,7 @@ export function createDefaultDoc(): ProjectDoc {
     commonLayer: { id: 'common', name: '公共层', nodes: [] },
     customWidgets: [],
     popups: [],
+    tips: [],
     pages: [{ id: uid('p'), name: '页面 1', nodes: [] }]
   }
 }
@@ -190,6 +191,8 @@ interface EditorState {
   editingWidgetId: string | null
   /** 正在编辑的弹窗页 id（null = 编辑页面 / 公共层 / 定制控件定义） */
   editingPopupId: string | null
+  /** 正在编辑的轻提示页 id（null = 编辑页面 / 公共层 / 弹窗页 / 定制控件定义） */
+  editingTipId: string | null
   selectedIds: string[]
   clipboard: WidgetNode[]
   viewport: Viewport
@@ -212,6 +215,8 @@ interface EditorState {
   previewing: boolean
   /** 「返回上一页」的来路：切换页面前的页面 id（无来路 = null，返回无效；会话状态，不入文档） */
   prevPageId: string | null
+  /** 轻提示弹出：轻提示页 id + 锚定控件矩形（文档坐标；预览悬停 / 属性面板演示共用，会话状态不入文档） */
+  tip: { tipId: string; x: number; y: number; w: number; h: number } | null
 
   currentPage: () => PageData
   /** 当前编辑目标的节点数组（页面 / 公共层 / 弹窗页 / 定制控件定义树） */
@@ -260,6 +265,13 @@ interface EditorState {
   /** 切入弹窗页编辑（null = 回到页面编辑） */
   setEditingPopup: (id: string | null) => void
 
+  /** 轻提示页（独立设计，悬停弹出显示）：新建（自带居中轻提示框）返回新页 id */
+  addTip: () => string
+  deleteTip: (id: string) => void
+  renameTip: (id: string, name: string) => void
+  /** 切入轻提示页编辑（null = 回到页面编辑） */
+  setEditingTip: (id: string | null) => void
+
   /** 定制控件（§5） */
   createCustomWidget: (skeleton: {
     kind: 'blank' | 'tab' | 'panel' | 'scroll'
@@ -304,6 +316,9 @@ interface EditorState {
   /** 触发控件的点击效果：切换页面 / 返回上一页 / 弹窗演示（编辑器内即可预演） */
   triggerClick: (id: string) => void
   closePopup: () => void
+  /** 弹出轻提示（锚定到触发控件的矩形，文档坐标）；轻提示页不存在时不弹 */
+  showTip: (tipId: string, rect: { x: number; y: number; w: number; h: number }) => void
+  closeTip: () => void
   /** 原型预览：进入（从当前页起跑） / 退出（Esc） */
   startPreview: () => void
   stopPreview: () => void
@@ -317,6 +332,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   currentPageIndex: 0,
   editingWidgetId: null,
   editingPopupId: null,
+  editingTipId: null,
   selectedIds: [],
   clipboard: [],
   viewport: { zoom: 1, panX: 60, panY: 60 },
@@ -332,6 +348,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   showNewModal: false,
   ctxMenu: null,
   popupId: null,
+  tip: null,
   previewing: false,
   prevPageId: null,
 
@@ -349,6 +366,9 @@ export const useEditor = create<EditorState>((set, get) => ({
     }
     if (s.editingPopupId) {
       return s.doc.popups.find((p) => p.id === s.editingPopupId)?.nodes ?? []
+    }
+    if (s.editingTipId) {
+      return s.doc.tips.find((p) => p.id === s.editingTipId)?.nodes ?? []
     }
     return s.currentPage().nodes
   },
@@ -377,7 +397,8 @@ export const useEditor = create<EditorState>((set, get) => ({
       dirty: true,
       selectedIds: [],
       ctxMenu: null,
-      popupId: null
+      popupId: null,
+      tip: null
     })
   },
 
@@ -385,7 +406,7 @@ export const useEditor = create<EditorState>((set, get) => ({
     const s = get()
     if (!s.future.length) return
     const next = s.future[0]
-    set({ doc: next, future: s.future.slice(1), past: [...s.past, s.doc], dirty: true, selectedIds: [], ctxMenu: null, popupId: null })
+    set({ doc: next, future: s.future.slice(1), past: [...s.past, s.doc], dirty: true, selectedIds: [], ctxMenu: null, popupId: null, tip: null })
   },
 
   setSelection: (ids) => set({ selectedIds: ids }),
@@ -408,6 +429,11 @@ export const useEditor = create<EditorState>((set, get) => ({
     // 弹窗只属于弹窗页（§8）：普通页面 / 公共层 / 定制控件定义内一律不放
     if (def.type === 'dialog' && !s.editingPopupId) {
       alert('弹窗只能放在弹窗页：左侧页面列表底部「弹窗」分组点「＋ 新建弹窗」设计内容，再在点击效果里选择它。')
+      return
+    }
+    // 轻提示框只属于轻提示页：普通页面 / 公共层 / 弹窗页 / 定制控件定义内一律不放
+    if (def.type === 'tooltip' && !s.editingTipId) {
+      alert('轻提示框只能放在轻提示页：左侧页面列表底部「轻提示」分组点「＋ 新建轻提示」设计内容，再在控件属性的「轻提示」标记里选择它。')
       return
     }
     const g = s.snapEnabled ? s.gridSize : 1
@@ -540,6 +566,14 @@ export const useEditor = create<EditorState>((set, get) => ({
         .find((p) => p.id === s.editingPopupId)
         ?.nodes.forEach((n) => {
           if (n.type === 'dialog') bodyIds.add(n.id)
+        })
+    }
+    // 轻提示页内的轻提示本体（根级 tooltip）同样不参与删除——删除整个轻提示请用轻提示列表的 ✕
+    if (s.editingTipId) {
+      s.doc.tips
+        .find((p) => p.id === s.editingTipId)
+        ?.nodes.forEach((n) => {
+          if (n.type === 'tooltip') bodyIds.add(n.id)
         })
     }
     s.mutate((d) => {
@@ -694,8 +728,10 @@ export const useEditor = create<EditorState>((set, get) => ({
       selectedIds: [],
       editingWidgetId: null,
       editingPopupId: null,
+      editingTipId: null,
       ctxMenu: null,
       popupId: null,
+      tip: null,
       prevPageId: out ? out.id : s.prevPageId
     })
   },
@@ -714,8 +750,10 @@ export const useEditor = create<EditorState>((set, get) => ({
       selectedIds: [],
       editingWidgetId: null,
       editingPopupId: null,
+      editingTipId: null,
       ctxMenu: null,
       popupId: null,
+      tip: null,
       prevPageId: out ? out.id : s.prevPageId
     })
   },
@@ -733,8 +771,10 @@ export const useEditor = create<EditorState>((set, get) => ({
       selectedIds: [],
       editingWidgetId: null,
       editingPopupId: null,
+      editingTipId: null,
       ctxMenu: null,
       popupId: null,
+      tip: null,
       prevPageId: null // 被删页可能是来路页：记录作废
     })
   },
@@ -759,13 +799,15 @@ export const useEditor = create<EditorState>((set, get) => ({
       selectedIds: [],
       editingWidgetId: null,
       editingPopupId: null,
+      editingTipId: null,
       ctxMenu: null,
       popupId: null,
+      tip: null,
       prevPageId
     })
   },
 
-  setEditingWidget: (id) => set({ editingWidgetId: id, editingPopupId: null, selectedIds: [], ctxMenu: null, popupId: null }),
+  setEditingWidget: (id) => set({ editingWidgetId: id, editingPopupId: null, editingTipId: null, selectedIds: [], ctxMenu: null, popupId: null, tip: null }),
 
   addPopup: () => {
     const s = get()
@@ -789,7 +831,7 @@ export const useEditor = create<EditorState>((set, get) => ({
     s.mutate((d) => {
       d.popups.push(popup)
     })
-    set({ editingPopupId: popup.id, editingWidgetId: null, selectedIds: [], ctxMenu: null, popupId: null })
+    set({ editingPopupId: popup.id, editingWidgetId: null, editingTipId: null, selectedIds: [], ctxMenu: null, popupId: null, tip: null })
     return popup.id
   },
 
@@ -818,7 +860,69 @@ export const useEditor = create<EditorState>((set, get) => ({
     })
   },
 
-  setEditingPopup: (id) => set({ editingPopupId: id, editingWidgetId: null, selectedIds: [], ctxMenu: null, popupId: null }),
+  setEditingPopup: (id) => set({ editingPopupId: id, editingWidgetId: null, editingTipId: null, selectedIds: [], ctxMenu: null, popupId: null, tip: null }),
+
+  addTip: () => {
+    const s = get()
+    // 新建轻提示页自带一个居中的轻提示框，省一步；本体名与页名保持同步（无标题栏）
+    const def = WIDGET_DEFS.find((w) => w.type === 'tooltip')!
+    const name = `轻提示 ${s.doc.tips.length + 1}`
+    const node: WidgetNode = {
+      id: uid('n'),
+      type: 'tooltip',
+      name,
+      x: Math.round((s.doc.meta.designWidth - def.w) / 2),
+      y: Math.round((s.doc.meta.designHeight - def.h) / 2),
+      w: def.w,
+      h: def.h,
+      visible: true,
+      locked: false,
+      props: {},
+      children: []
+    }
+    const tip: PageData = { id: uid('tp'), name, nodes: [node] }
+    s.mutate((d) => {
+      d.tips.push(tip)
+    })
+    set({ editingTipId: tip.id, editingWidgetId: null, editingPopupId: null, selectedIds: [], ctxMenu: null, popupId: null, tip: null })
+    return tip.id
+  },
+
+  deleteTip: (id) => {
+    const s = get()
+    if (!s.doc.tips.some((p) => p.id === id)) return
+    s.mutate((d) => {
+      d.tips = d.tips.filter((p) => p.id !== id)
+      // 引用该轻提示的标记一并清除（悬停目标已删）
+      for (const surf of [d.commonLayer, ...d.pages, ...d.popups, ...d.tips]) {
+        walkNodes(surf.nodes, (n) => {
+          if (n.tipTarget === id) delete n.tipTarget
+        })
+      }
+      for (const w of d.customWidgets) {
+        walkNodes(w.tree, (n) => {
+          if (n.tipTarget === id) delete n.tipTarget
+        })
+      }
+    })
+    if (s.editingTipId === id) set({ editingTipId: null, selectedIds: [], ctxMenu: null })
+    if (s.tip?.tipId === id) set({ tip: null })
+  },
+
+  renameTip: (id, name) => {
+    const s = get()
+    if (!name.trim()) return
+    s.mutate((d) => {
+      const p = d.tips.find((x) => x.id === id)
+      if (!p) return
+      p.name = name.trim()
+      // 轻提示本体（首个根级 tooltip）图层名跟随页名：列表 / 标记下拉处处一致
+      const body = p.nodes.find((n) => n.type === 'tooltip')
+      if (body) body.name = p.name
+    })
+  },
+
+  setEditingTip: (id) => set({ editingTipId: id, editingWidgetId: null, editingPopupId: null, selectedIds: [], ctxMenu: null, popupId: null, tip: null }),
 
   createCustomWidget: (skeleton) => {
     const s = get()
@@ -880,6 +984,14 @@ export const useEditor = create<EditorState>((set, get) => ({
     })
     if (hasDialog) {
       alert('弹窗不能放进定制控件：弹窗请在独立的弹窗页中设计，用点击效果（弹出）使用。')
+      return
+    }
+    let hasTipBox = false
+    walkNodes(picked, (n) => {
+      if (n.type === 'tooltip') hasTipBox = true
+    })
+    if (hasTipBox) {
+      alert('轻提示框不能放进定制控件：轻提示请在独立的轻提示页中设计，用控件的「轻提示」标记使用。')
       return
     }
     const bb = bboxOf(picked)
@@ -1036,6 +1148,7 @@ export const useEditor = create<EditorState>((set, get) => ({
         commonLayer: { id: 'common', name: '公共层', nodes: [] },
         customWidgets: [],
         popups: [],
+        tips: [],
         pages: [{ id: uid('p'), name: '页面 1', nodes: [] }]
       },
       hasProject: true,
@@ -1044,6 +1157,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       currentPageIndex: 0,
       editingWidgetId: null,
       editingPopupId: null,
+      editingTipId: null,
       selectedIds: [],
       clipboard: [],
       past: [],
@@ -1051,6 +1165,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       previewRatio: 'design',
       ctxMenu: null,
       popupId: null,
+      tip: null,
       previewing: false,
       prevPageId: null,
       fitToken: get().fitToken + 1,
@@ -1060,6 +1175,8 @@ export const useEditor = create<EditorState>((set, get) => ({
 
   loadProject: (doc, path) => {
     migratePopups(doc)
+    // 旧工程迁移：补轻提示页数组
+    if (!Array.isArray(doc.tips)) doc.tips = []
     set({
       doc,
       hasProject: true,
@@ -1068,6 +1185,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       currentPageIndex: 0,
       editingWidgetId: null,
       editingPopupId: null,
+      editingTipId: null,
       selectedIds: [],
       clipboard: [],
       past: [],
@@ -1075,6 +1193,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       previewRatio: 'design',
       ctxMenu: null,
       popupId: null,
+      tip: null,
       previewing: false,
       prevPageId: null,
       fitToken: get().fitToken + 1
@@ -1090,6 +1209,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       currentPageIndex: 0,
       editingWidgetId: null,
       editingPopupId: null,
+      editingTipId: null,
       selectedIds: [],
       clipboard: [],
       past: [],
@@ -1097,6 +1217,7 @@ export const useEditor = create<EditorState>((set, get) => ({
       previewRatio: 'design',
       ctxMenu: null,
       popupId: null,
+      tip: null,
       previewing: false,
       prevPageId: null
     })
@@ -1160,7 +1281,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   toggleGrid: () => set({ showGrid: !get().showGrid }),
   toggleSnap: () => set({ snapEnabled: !get().snapEnabled }),
   setShowNewModal: (v) => set({ showNewModal: v }),
-  setPreviewRatio: (id) => set({ previewRatio: id, selectedIds: [], ctxMenu: null, popupId: null }),
+  setPreviewRatio: (id) => set({ previewRatio: id, selectedIds: [], ctxMenu: null, popupId: null, tip: null }),
   toggleSafeArea: () => set({ showSafeArea: !get().showSafeArea }),
 
   openCtxMenu: (x, y) => set({ ctxMenu: { x, y } }),
@@ -1203,35 +1324,52 @@ export const useEditor = create<EditorState>((set, get) => ({
 
   closePopup: () => set({ popupId: null }),
 
+  showTip: (tipId, rect) => {
+    if (!get().doc.tips.some((p) => p.id === tipId)) return
+    set({ tip: { tipId, x: rect.x, y: rect.y, w: rect.w, h: rect.h } })
+  },
+
+  closeTip: () => set({ tip: null }),
+
   startPreview: () => {
     const s = get()
     set({
       previewing: true,
-      // 从当前页起跑（公共层 / 弹窗页 / 定制定义编辑态进入时回到页面 1）
+      // 从当前页起跑（公共层 / 弹窗页 / 轻提示页 / 定制定义编辑态进入时回到页面 1）
       currentPageIndex:
         s.currentPageIndex >= 0 ? Math.min(s.currentPageIndex, s.doc.pages.length - 1) : 0,
       editingWidgetId: null,
       editingPopupId: null,
+      editingTipId: null,
       selectedIds: [],
       ctxMenu: null,
       popupId: null,
+      tip: null,
       prevPageId: null
     })
   },
 
-  stopPreview: () => set({ previewing: false, popupId: null, selectedIds: [], ctxMenu: null })
+  stopPreview: () => set({ previewing: false, popupId: null, tip: null, selectedIds: [], ctxMenu: null })
 }))
 
 /** 当前编辑目标的节点数组（mutate 内部，随克隆文档变化） */
 function editNodesOf(
   d: ProjectDoc,
-  s: { currentPageIndex: number; editingWidgetId: string | null; editingPopupId: string | null }
+  s: {
+    currentPageIndex: number
+    editingWidgetId: string | null
+    editingPopupId: string | null
+    editingTipId: string | null
+  }
 ): WidgetNode[] {
   if (s.editingWidgetId) {
     return d.customWidgets.find((w) => w.id === s.editingWidgetId)?.tree ?? []
   }
   if (s.editingPopupId) {
     return d.popups.find((p) => p.id === s.editingPopupId)?.nodes ?? []
+  }
+  if (s.editingTipId) {
+    return d.tips.find((p) => p.id === s.editingTipId)?.nodes ?? []
   }
   return pageNodesOf(d, s.currentPageIndex)
 }

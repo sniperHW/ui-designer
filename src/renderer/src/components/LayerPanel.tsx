@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { useEditor } from '../store/editorStore'
 import type { WidgetNode, WidgetType } from '../types'
-import { isClickable } from '../widgets/tree'
+import { hasTip, isClickable } from '../widgets/tree'
 import { renderKidsOf } from '../widgets/registry'
 
 const TYPE_LABEL: Record<WidgetType, string> = {
@@ -19,6 +19,7 @@ const TYPE_LABEL: Record<WidgetType, string> = {
   filter: '筛选器',
   panel: '面板',
   dialog: '弹窗',
+  tooltip: '轻提示',
   scroll: '滚动',
   list: '列表',
   grid: '网格',
@@ -31,15 +32,19 @@ export default function LayerPanel({ height = 198 }: { height?: number }) {
   const pageIndex = useEditor((s) => s.currentPageIndex)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
   const editingPopupId = useEditor((s) => s.editingPopupId)
+  const editingTipId = useEditor((s) => s.editingTipId)
   const editingDef = editingWidgetId ? doc.customWidgets.find((w) => w.id === editingWidgetId) : null
   const editingPopup = !editingDef && editingPopupId ? doc.popups.find((p) => p.id === editingPopupId) : null
+  const editingTip = !editingDef && !editingPopup && editingTipId ? doc.tips.find((p) => p.id === editingTipId) : null
   const root = editingDef
     ? editingDef.tree
     : editingPopup
       ? editingPopup.nodes
-      : pageIndex < 0
-        ? doc.commonLayer.nodes
-        : doc.pages[pageIndex]?.nodes ?? []
+      : editingTip
+        ? editingTip.nodes
+        : pageIndex < 0
+          ? doc.commonLayer.nodes
+          : doc.pages[pageIndex]?.nodes ?? []
   const rows: ReactNode[] = []
   renderRows(root, 0, rows)
   return (
@@ -49,7 +54,9 @@ export default function LayerPanel({ height = 198 }: { height?: number }) {
           ? `定义图层「${editingDef.name}」（Tab 子控件、插槽内容缩进显示）`
           : editingPopup
             ? `弹窗「${editingPopup.name}」图层（双击重命名）`
-            : pageIndex < 0
+            : editingTip
+              ? `轻提示「${editingTip.name}」图层（双击重命名）`
+              : pageIndex < 0
               ? '公共层图层（所有页面共享）'
               : '图层（排在前面的显示在上层；容器子控件缩进显示；双击重命名）'}
       </div>
@@ -112,6 +119,11 @@ function Row({ n, depth }: { n: WidgetNode; depth: number }) {
       {isClickable(n) && (
         <span className="clickable-tag" title="可点击控件：右键 →「点击」可演示点击效果">
           点击
+        </span>
+      )}
+      {hasTip(n) && (
+        <span className="clickable-tag" title="轻提示控件：原型预览中悬停弹出轻提示框">
+          轻提示
         </span>
       )}
       {editing ? (

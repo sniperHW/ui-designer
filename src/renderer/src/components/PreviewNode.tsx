@@ -13,7 +13,7 @@ import {
   widgetInnerSVG
 } from '../widgets/registry'
 import type { Rect, SlotInfo } from '../widgets/registry'
-import { bboxOf, isClickable } from '../widgets/tree'
+import { bboxOf, hasTip, isClickable } from '../widgets/tree'
 import type { CustomWidgetDef, WidgetNode } from '../types'
 
 /** 预览会话内滚动区的竖向偏移（nodeId → 像素），进入预览时清空，切页回来位置保留 */
@@ -43,6 +43,16 @@ export default function PreviewNode({
   scrollDy?: number
 }) {
   const clickable = isClickable(n)
+  // 轻提示：悬停弹出 / 移开关闭（祖先滚动位移还原到视觉位置；实例内标记由实例分支按命中处理）
+  const onEnter = () => {
+    if (hasTip(n)) {
+      useEditor.getState().showTip(n.tipTarget!, { x: n.x, y: n.y + scrollDy, w: n.w, h: n.h })
+    }
+  }
+  const onLeave = () => {
+    const t = useEditor.getState().tip
+    if (t && t.tipId === n.tipTarget) useEditor.getState().closeTip()
+  }
   const onClick = (e: RMouseEvent<SVGGElement>) => {
     e.stopPropagation()
     const st = useEditor.getState()
@@ -72,7 +82,9 @@ export default function PreviewNode({
 
   // 定制控件实例：内部结构只读渲染（可点击控件按命中区域触发），插槽内容可交互
   if (n.type === 'custom') {
+    // 钩子须在分支内提前返回（def 缺失）之前声明，保证每次渲染钩子数量一致
     const [hot, setHot] = useState(false)
+    const [tipOf, setTipOf] = useState<string | null>(null)
     const def = defs.find((d) => d.id === n.customId)
     if (!def) {
       return <g data-id={n.id} dangerouslySetInnerHTML={{ __html: renderTreeSVG(n, defs) }} />
@@ -103,13 +115,61 @@ export default function PreviewNode({
         }
       }
     }
+    // 轻提示：命中带标记的定义内控件即弹出（锚定到命中区域换算回实例的矩形）
+    const onInstMove = (e: RMouseEvent<SVGGElement>) => {
+      setHot(pickAt(e).length > 0)
+      const pt = toDoc(e)
+      const path =
+        pickPathInTree(
+          def.tree,
+          ((pt.x - n.x) * def.w) / n.w,
+          ((pt.y - scrollDy - n.y) * def.h) / n.h,
+          defs,
+          hasTip
+        ) ?? []
+      const hit = path[path.length - 1]
+      if (hit && hit.tipTarget) {
+        if (tipOf !== hit.tipTarget) setTipOf(hit.tipTarget)
+        // 命中区域换算回页面坐标：定义内嵌套实例（如牌组里的部队）沿命中路径逐层乘回，
+        // 再经最外层实例（n / def）映射，最后还原祖先滚动位移
+        let rx = hit.x
+        let ry = hit.y
+        let rw = hit.w
+        let rh = hit.h
+        for (let i = path.length - 2; i >= 0; i--) {
+          const inst = path[i]
+          const d2 = defs.find((dd) => dd.id === inst.customId)
+          if (!d2 || d2.w <= 0 || d2.h <= 0) continue
+          rx = inst.x + (rx * inst.w) / d2.w
+          ry = inst.y + (ry * inst.h) / d2.h
+          rw = (rw * inst.w) / d2.w
+          rh = (rh * inst.h) / d2.h
+        }
+        useEditor.getState().showTip(hit.tipTarget, {
+          x: n.x + (rx * n.w) / def.w,
+          y: n.y + (ry * n.h) / def.h + scrollDy,
+          w: (rw * n.w) / def.w,
+          h: (rh * n.h) / def.h
+        })
+      } else if (tipOf) {
+        setTipOf(null)
+        useEditor.getState().closeTip()
+      }
+    }
+    const onInstLeave = () => {
+      setHot(false)
+      if (tipOf) {
+        setTipOf(null)
+        useEditor.getState().closeTip()
+      }
+    }
     return (
       <g
         data-id={n.id}
         style={{ cursor: hot ? 'pointer' : 'default' }}
         onClick={onInstClick}
-        onMouseMove={(e) => setHot(pickAt(e).length > 0)}
-        onMouseLeave={() => setHot(false)}
+        onMouseMove={onInstMove}
+        onMouseLeave={onInstLeave}
       >
         <g dangerouslySetInnerHTML={{ __html: r.inner }} />
         {r.slots.map((sl: SlotInfo) => {
@@ -189,7 +249,7 @@ export default function PreviewNode({
     }
   }
   return (
-    <g data-id={n.id} style={{ cursor }} onClick={onClick}>
+    <g data-id={n.id} style={{ cursor }} onClick={onClick} onMouseEnter={onEnter} onMouseLeave={onLeave}>
       <g dangerouslySetInnerHTML={{ __html: widgetInnerSVG(n) }} />
       {children}
     </g>

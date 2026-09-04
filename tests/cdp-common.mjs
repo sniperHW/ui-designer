@@ -100,7 +100,7 @@ async function main() {
   check('删除隔离', afterDel.page === 0 && afterDel.common === 3, `删除页面控件后：页面=${afterDel.page}，公共层=${afterDel.common}/3`)
 
   // —— 7. 页面列表公共层条目切换 ——
-  const rowPt = await evalJs(`(() => { const r = document.querySelector('.common-row').getBoundingClientRect(); return { x: r.x + 30, y: r.y + r.height / 2 } })()`)
+  const rowPt = await evalJs(`(() => { const row = document.querySelector('.common-row'); row.scrollIntoView({ block: 'nearest' }); const r = row.getBoundingClientRect(); return { x: r.x + 30, y: r.y + r.height / 2 } })()`)
   await click(rowPt.x, rowPt.y)
   await sleep(250)
   const backCommon = await evalJs(`(() => ({ idx: window.__uiw.getState().currentPageIndex, badge: document.querySelector('.common-badge') !== null }))()`)

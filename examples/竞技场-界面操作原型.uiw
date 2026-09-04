@@ -934,17 +934,6 @@
               "key": "text"
             }
           ]
-        },
-        {
-          "name": "部队统计",
-          "type": "string",
-          "default": "☠1 🐺2 🛡3 ⚙1 ⚔4 🏹3",
-          "binds": [
-            {
-              "nodeId": "nmtff0pmvc9rv",
-              "key": "text"
-            }
-          ]
         }
       ],
       "tree": [
@@ -1128,20 +1117,99 @@
           }
         },
         {
-          "id": "nmtff0pmvc9rv",
-          "type": "text",
-          "name": "部队统计",
-          "x": 290,
-          "y": 624,
-          "w": 400,
-          "h": 42,
+          "id": "nv2koamqxkzjl",
+          "type": "custom",
+          "customId": "wms7devmfrpeo",
+          "name": "部队☠",
+          "x": 285,
+          "y": 621,
+          "w": 66,
+          "h": 48,
           "visible": true,
           "locked": false,
-          "props": {
-            "text": "☠1 🐺2 🛡3 ⚙1 ⚔4 🏹3",
-            "fontSize": 24,
-            "bold": false,
-            "align": "left"
+          "props": {},
+          "overrides": {
+            "数量": "1"
+          }
+        },
+        {
+          "id": "nqyb6srnr7k6y",
+          "type": "custom",
+          "customId": "wms7devmfrpeo",
+          "name": "部队🐺",
+          "x": 353,
+          "y": 621,
+          "w": 66,
+          "h": 48,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "2"
+          }
+        },
+        {
+          "id": "nlwquz8but590",
+          "type": "custom",
+          "customId": "wms7devmfrpeo",
+          "name": "部队🛡",
+          "x": 421,
+          "y": 621,
+          "w": 66,
+          "h": 48,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "3"
+          }
+        },
+        {
+          "id": "n87q99bazcdag",
+          "type": "custom",
+          "customId": "wms7devmfrpeo",
+          "name": "部队⚙",
+          "x": 489,
+          "y": 621,
+          "w": 66,
+          "h": 48,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "1"
+          }
+        },
+        {
+          "id": "ntjg3pea0m5wh",
+          "type": "custom",
+          "customId": "wms7devmfrpeo",
+          "name": "部队⚔",
+          "x": 557,
+          "y": 621,
+          "w": 66,
+          "h": 48,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "4"
+          }
+        },
+        {
+          "id": "n53rz4r1lc7ru",
+          "type": "custom",
+          "customId": "wms7devmfrpeo",
+          "name": "部队🏹",
+          "x": 625,
+          "y": 621,
+          "w": 66,
+          "h": 48,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "overrides": {
+            "数量": "3"
           }
         }
       ],
@@ -1221,6 +1289,60 @@
       ],
       "slotNodeIds": [],
       "suggestAnchor": "none"
+    },
+    {
+      "id": "wms7devmfrpeo",
+      "name": "部队",
+      "group": "未分组",
+      "w": 66,
+      "h": 48,
+      "props": [
+        {
+          "name": "数量",
+          "type": "string",
+          "default": "0",
+          "binds": [
+            {
+              "nodeId": "nqi4lp32rujuj",
+              "key": "text"
+            }
+          ]
+        }
+      ],
+      "tree": [
+        {
+          "id": "nv976i07izt5p",
+          "type": "placeholder",
+          "name": "图标",
+          "x": 0,
+          "y": 10,
+          "w": 28,
+          "h": 28,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "tipTarget": "tprszof3ka6j85"
+        },
+        {
+          "id": "nqi4lp32rujuj",
+          "type": "text",
+          "name": "数量",
+          "x": 36,
+          "y": 8,
+          "w": 30,
+          "h": 32,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "0",
+            "fontSize": 24,
+            "bold": true,
+            "align": "left"
+          }
+        }
+      ],
+      "slotNodeIds": [],
+      "suggestAnchor": "none"
     }
   ],
   "pages": [
@@ -1243,12 +1365,13 @@
               "商店",
               "卡牌",
               "战斗",
+              "领地",
               "排名"
             ],
             "barPosition": "bottom",
             "barHeight": 60
           },
-          "activeTab": 1,
+          "activeTab": 2,
           "pages": [
             [
               {
@@ -1629,7 +1752,7 @@
                   ],
                   "barPosition": "bottom"
                 },
-                "activeTab": 0,
+                "activeTab": 3,
                 "pages": [
                   [
                     {
@@ -2530,6 +2653,37 @@
             ],
             [
               {
+                "id": "nmtl27c2nqfho",
+                "type": "placeholder",
+                "name": "占位图 1",
+                "x": 221,
+                "y": 490,
+                "w": 300,
+                "h": 220,
+                "visible": true,
+                "locked": false,
+                "props": {}
+              },
+              {
+                "id": "nmtl2brriljio",
+                "type": "text",
+                "name": "文本 1",
+                "x": 300,
+                "y": 800,
+                "w": 160,
+                "h": 32,
+                "visible": true,
+                "locked": false,
+                "props": {
+                  "text": "敬请期待",
+                  "fontSize": 26,
+                  "bold": false,
+                  "align": "left"
+                }
+              }
+            ],
+            [
+              {
                 "id": "nmtff0yr8fzvz",
                 "type": "placeholder",
                 "name": "联盟徽章",
@@ -2916,6 +3070,45 @@
             "title": "资源不足"
           },
           "children": []
+        }
+      ]
+    }
+  ],
+  "tips": [
+    {
+      "id": "tprszof3ka6j85",
+      "name": "部队说明",
+      "nodes": [
+        {
+          "id": "n0memf5tenfz0",
+          "type": "tooltip",
+          "name": "部队说明",
+          "x": 235,
+          "y": 700,
+          "w": 280,
+          "h": 140,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "children": [
+            {
+              "id": "nps5d4g0l594g",
+              "type": "text",
+              "name": "说明文字",
+              "x": 255,
+              "y": 716,
+              "w": 240,
+              "h": 96,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "部队：出征的兵种单位\n数量随兵营等级提升\n战斗中按克制关系结算损耗",
+                "fontSize": 22,
+                "bold": false,
+                "align": "left"
+              }
+            }
+          ]
         }
       ]
     }

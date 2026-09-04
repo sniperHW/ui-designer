@@ -18,12 +18,14 @@ import type { WidgetNode } from '../types'
 import { findNodeInDoc, isClickable } from '../widgets/tree'
 import SelectionOverlay from './SelectionOverlay'
 import PopupLayer from './PopupLayer'
+import TipLayer from './TipLayer'
 
 export default function Canvas() {
   const doc = useEditor((s) => s.doc)
   const pageIndex = useEditor((s) => s.currentPageIndex)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
   const editingPopupId = useEditor((s) => s.editingPopupId)
+  const editingTipId = useEditor((s) => s.editingTipId)
   const viewport = useEditor((s) => s.viewport)
   const showGrid = useEditor((s) => s.showGrid)
   const gridSize = useEditor((s) => s.gridSize)
@@ -31,8 +33,8 @@ export default function Canvas() {
   const previewRatio = useEditor((s) => s.previewRatio)
   const showSafeArea = useEditor((s) => s.showSafeArea)
   const wrapRef = useRef<HTMLDivElement>(null)
-  const isCommon = pageIndex < 0 && !editingWidgetId && !editingPopupId
-  const inPreview = previewRatio !== 'design' && !editingWidgetId && !editingPopupId
+  const isCommon = pageIndex < 0 && !editingWidgetId && !editingPopupId && !editingTipId
+  const inPreview = previewRatio !== 'design' && !editingWidgetId && !editingPopupId && !editingTipId
   const { designWidth: dw, designHeight: dh } = doc.meta
   const pd = previewDims(doc.meta, previewRatio)
   const boardW = inPreview ? pd.w : dw
@@ -45,6 +47,10 @@ export default function Canvas() {
   const editingPopup = !editingDef && editingPopupId
     ? doc.popups.find((p) => p.id === editingPopupId) ?? null
     : null
+  // 轻提示页：独立设计的轻提示内容，编辑时画布只显示轻提示页节点
+  const editingTip = !editingDef && !editingPopup && editingTipId
+    ? doc.tips.find((p) => p.id === editingTipId) ?? null
+    : null
   const page = isCommon ? doc.commonLayer : doc.pages[Math.min(pageIndex, doc.pages.length - 1)]
   const design = { x: 0, y: 0, w: dw, h: dh }
   const target = { x: 0, y: 0, w: boardW, h: boardH }
@@ -53,11 +59,13 @@ export default function Canvas() {
     ? editingDef.tree
     : editingPopup
       ? editingPopup.nodes
-      : inPreview
-        ? transformTree(page.nodes, design, target)
-        : page.nodes
+      : editingTip
+        ? editingTip.nodes
+        : inPreview
+          ? transformTree(page.nodes, design, target)
+          : page.nodes
   const commonNodes =
-    !isCommon && !editingDef && !editingPopup
+    !isCommon && !editingDef && !editingPopup && !editingTip
       ? inPreview
         ? transformTree(doc.commonLayer.nodes, design, target)
         : doc.commonLayer.nodes
@@ -123,7 +131,10 @@ export default function Canvas() {
     const up = () => {
       svg.removeEventListener('pointermove', move)
       svg.removeEventListener('pointerup', up)
-      if (!moved) useEditor.getState().setSelection([])
+      if (!moved) {
+        useEditor.getState().setSelection([])
+        useEditor.getState().closeTip()
+      }
     }
     svg.addEventListener('pointermove', move)
     svg.addEventListener('pointerup', up)
@@ -277,6 +288,8 @@ export default function Canvas() {
 
   // 弹窗演示提示条（浮层本体在 PopupLayer，与预览共用）
   const popupName = useEditor((s) => (s.popupId ? s.doc.popups.find((p) => p.id === s.popupId)?.name ?? null : null))
+  // 轻提示演示提示条（浮层本体在 TipLayer，与预览共用）
+  const tipName = useEditor((s) => (s.tip ? s.doc.tips.find((p) => p.id === s.tip!.tipId)?.name ?? null : null))
 
   const hasNodes = pageNodes.length > 0 || commonVisible.length > 0
 
@@ -332,6 +345,8 @@ export default function Canvas() {
             ))}
           {/* 点击效果演示：弹出独立弹窗页（遮罩 + 置顶浮层，内容可交互，与原型预览共用） */}
           <PopupLayer defs={doc.customWidgets} boardW={boardW} boardH={boardH} toDoc={(e) => toDoc(e.clientX, e.clientY)} />
+          {/* 轻提示演示：锚定控件就近浮层（与原型预览共用） */}
+          <TipLayer defs={doc.customWidgets} boardW={boardW} boardH={boardH} toDoc={(e) => toDoc(e.clientX, e.clientY)} />
           {/* 安全区参考框（§6）：刘海屏参考，虚线示意 */}
           {showSafeArea && !editingDef && (
             <g style={{ pointerEvents: 'none' }}>
@@ -367,9 +382,18 @@ export default function Canvas() {
           👆 点击效果演示：弹窗「{popupName}」 — 点 ✕ / 遮罩或按 Esc 关闭
         </div>
       )}
-      {(isCommon || editingPopup) && (
+      {(isCommon || editingPopup || editingTip) && (
         <div className="common-badge">
-          {isCommon ? '● 正在编辑公共层 — 修改对所有页面生效' : `▣ 正在编辑弹窗「${editingPopup!.name}」— 由点击效果触发时遮罩弹出显示`}
+          {isCommon
+            ? '● 正在编辑公共层 — 修改对所有页面生效'
+            : editingPopup
+              ? `▣ 正在编辑弹窗「${editingPopup!.name}」— 由点击效果触发时遮罩弹出显示`
+              : `💬 正在编辑轻提示「${editingTip!.name}」— 由控件的「轻提示」标记悬停弹出`}
+        </div>
+      )}
+      {tipName && (
+        <div className="popup-badge">
+          👆 轻提示演示：「{tipName}」 — 点击画布或按 Esc 关闭
         </div>
       )}
       {!inPreview && <SelectionOverlay />}
@@ -385,6 +409,7 @@ function CanvasCtxMenu() {
   const doc = useEditor((s) => s.doc)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
   const editingPopupId = useEditor((s) => s.editingPopupId)
+  const editingTipId = useEditor((s) => s.editingTipId)
   const prevPageId = useEditor((s) => s.prevPageId)
 
   // 点击菜单外任意位置收起
@@ -405,7 +430,10 @@ function CanvasCtxMenu() {
   // 弹窗页内的弹窗本体（根级 dialog）不提供删除——它是弹窗本身，删除整个弹窗请用弹窗列表的 ✕
   const popupPage = editingPopupId ? doc.popups.find((p) => p.id === editingPopupId) : null
   const popupBodyIds = new Set(popupPage ? popupPage.nodes.filter((n) => n.type === 'dialog').map((n) => n.id) : [])
-  const canDelete = !selectedIds.some((id) => popupBodyIds.has(id))
+  // 轻提示页内的轻提示本体（根级 tooltip）同理不提供删除
+  const tipPage = editingTipId ? doc.tips.find((p) => p.id === editingTipId) : null
+  const tipBodyIds = new Set(tipPage ? tipPage.nodes.filter((n) => n.type === 'tooltip').map((n) => n.id) : [])
+  const canDelete = !selectedIds.some((id) => popupBodyIds.has(id) || tipBodyIds.has(id))
   if (!canDelete && !clickable) return null
   const act = clickable?.clickAction
   const backTarget = prevPageId ? doc.pages.find((p) => p.id === prevPageId) : undefined

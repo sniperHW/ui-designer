@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useEditor } from '../store/editorStore'
 import PreviewNode, { previewScrollOffsets } from './PreviewNode'
 import PopupLayer from './PopupLayer'
+import TipLayer from './TipLayer'
 
 /**
  * 原型预览（§8 / §10）：复用同一套 SVG 渲染器，把整套工程跑起来——
@@ -44,11 +45,15 @@ export default function Preview() {
   const scale = 1 / zoom
 
   return (
-    <div className="preview-overlay" onContextMenu={(e) => e.preventDefault()}>
+    <div
+      className="preview-overlay"
+      onContextMenu={(e) => e.preventDefault()}
+      onWheel={() => useEditor.getState().closeTip()}
+    >
       <div className="preview-top">
         <span className="preview-title">▶ 原型预览 · {page?.name ?? ''}</span>
         <span className="preview-hint">
-          可点击控件可跳转 / 返回 / 弹窗（✕ 关闭）· Tab 页签可切换 · 滚动区可滚轮滚动 · Esc 退出
+          可点击控件可跳转 / 返回 / 弹窗（✕ 关闭）· Tab 页签可切换 · 滚动区可滚轮滚动 · 悬停标记控件弹轻提示 · Esc 退出
         </span>
         <button className="tb-btn" onClick={() => useEditor.getState().stopPreview()}>
           ✕ 退出预览
@@ -77,6 +82,7 @@ export default function Preview() {
             .filter((n) => n.visible)
             .map((n) => <PreviewNode key={n.id} n={n} defs={doc.customWidgets} toDoc={toDoc} wheel scale={scale} />)}
           <PopupLayer defs={doc.customWidgets} boardW={dw} boardH={dh} toDoc={toDoc} wheel scale={scale} />
+          <TipLayer defs={doc.customWidgets} boardW={dw} boardH={dh} toDoc={toDoc} />
         </svg>
       </div>
     </div>

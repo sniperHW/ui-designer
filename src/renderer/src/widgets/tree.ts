@@ -9,9 +9,15 @@ export function isClickable(n: WidgetNode): boolean {
   return n.type === 'button' || n.clickable === true
 }
 
-/** 在全文档（公共层 + 所有页面 + 弹窗页 + 定制控件定义）中按 id 查找节点；找不到返回 null */
+/** 控件是否带轻提示标记（悬停弹出轻提示框）：与可点击同理，定制控件实例自身不支持（配在定义内） */
+export function hasTip(n: WidgetNode): boolean {
+  if (n.type === 'custom') return false
+  return !!n.tipTarget
+}
+
+/** 在全文档（公共层 + 所有页面 + 弹窗页 + 轻提示页 + 定制控件定义）中按 id 查找节点；找不到返回 null */
 export function findNodeInDoc(doc: ProjectDoc, id: string): WidgetNode | null {
-  for (const p of [doc.commonLayer, ...doc.pages, ...doc.popups]) {
+  for (const p of [doc.commonLayer, ...doc.pages, ...doc.popups, ...(doc.tips ?? [])]) {
     const r = findNodeById(p.nodes, id)
     if (r) return r
   }

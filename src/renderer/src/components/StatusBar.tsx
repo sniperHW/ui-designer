@@ -6,6 +6,7 @@ export default function StatusBar() {
   const currentPageIndex = useEditor((s) => s.currentPageIndex)
   const editingWidgetId = useEditor((s) => s.editingWidgetId)
   const editingPopupId = useEditor((s) => s.editingPopupId)
+  const editingTipId = useEditor((s) => s.editingTipId)
   const meta = useEditor((s) => s.doc.meta)
   const dirty = useEditor((s) => s.dirty)
   const filePath = useEditor((s) => s.filePath)
@@ -30,6 +31,8 @@ export default function StatusBar() {
   const pd = previewDims(meta, previewRatio)
   const editingDef = useEditor.getState().doc.customWidgets.find((w) => w.id === editingWidgetId)
   const editingPopup = !editingDef && editingPopupId ? useEditor.getState().doc.popups.find((p) => p.id === editingPopupId) : null
+  const editingTip =
+    !editingDef && !editingPopup && editingTipId ? useEditor.getState().doc.tips.find((p) => p.id === editingTipId) : null
 
   return (
     <div className="statusbar">
@@ -43,7 +46,9 @@ export default function StatusBar() {
           ? `编辑：定制控件「${editingDef.name}」`
           : editingPopup
             ? `编辑：弹窗「${editingPopup.name}」`
-            : currentPageIndex < 0
+            : editingTip
+              ? `编辑：轻提示「${editingTip.name}」`
+              : currentPageIndex < 0
               ? '编辑：公共层'
               : `编辑：页面 ${currentPageIndex + 1}`}
       </span>

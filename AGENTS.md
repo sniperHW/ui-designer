@@ -35,6 +35,7 @@ npm run build      # 构建产物到 out/
 - `node tests/cdp-m2.mjs` — 容器 / 锚点预览 / 定制控件
 - `node tests/cdp-click.mjs` — 点击交互 / 弹窗页
 - `node tests/cdp-preview.mjs` — 原型预览
+- `node tests/cdp-tip.mjs` — 轻提示（tooltip 控件 + 悬停弹出）
 - `node tests/gui-card/build.mjs` / `tests/gui-arena/*.mjs` — 示例工程的界面操作复现
 
 测试原则：**CDP 模拟真实输入事件驱动 UI，不直接改 store 数据**。新功能尽量补对应 cdp-*.mjs 用例。

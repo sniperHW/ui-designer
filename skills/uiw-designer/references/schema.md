@@ -12,6 +12,7 @@
   "commonLayer": { ... },          // PageData，公共层：内容显示在所有页面之下
   "customWidgets": [ ... ],        // CustomWidgetDef[]，定制控件定义库（可为空数组）
   "popups": [ ... ],               // PageData[]，弹窗页：独立设计的弹窗，由点击效果（popup）弹出
+  "tips": [ ... ],                 // PageData[]，轻提示页：独立设计的轻提示框，由轻提示标记（tipTarget）悬停弹出
   "pages": [ ... ]                 // PageData[]，至少 1 页
 }
 ```
@@ -27,6 +28,18 @@
 - 典型内容：一个居中的 `dialog`（+ 其 children 内容控件），按设计坐标摆放，触发弹出时原位浮层显示；
 - **弹窗页 `name` 应与其本体 dialog 的 `title`（标题栏文字）保持一致**——编辑器中两者双向同步（重命名弹窗页即改标题栏，反之亦然）；
 - 页面上的按钮 / 控件通过 `clickAction: { "type": "popup", "target": "<弹窗页 id>" }` 绑定弹窗。
+
+### 轻提示页（tips）
+
+轻提示框在**独立的轻提示页**中设计（普通页面 / 公共层 / 弹窗页 / 定制控件定义内均不允许放 `tooltip` 控件），页面结构同 PageData：
+
+```jsonc
+{ "id": "tp_res_help", "name": "资源说明", "nodes": [ { "type": "tooltip", ... } ] }
+```
+
+- 典型内容：一个 `tooltip`（+ 其 children 说明内容）；本体在页内的坐标不重要——弹出时整体平移到被悬停控件附近（上方优先，空间不够翻到下方并自动翻转尾箭头）；
+- 页面上的控件通过 `"tipTarget": "<轻提示页 id>"` 标记轻提示，预览中**悬停弹出、鼠标移开关闭**；
+- 轻提示标记与可点击同理：可配在**定制控件定义树内的控件**上（定义级，实例悬停对应区域触发）；定制控件实例自身 `tipTarget` 不生效。
 
 ## meta（ProjectMeta）
 
@@ -60,7 +73,7 @@
 | `props` | object | ✅ | 控件属性，每类控件的键见 widgets.md；无属性时为 `{}` |
 | `activeTab` | number | — | 仅 tab：当前激活页签下标（0 起） |
 | `pages` | WidgetNode[][] | — | 仅 tab：**每个页签一个子树数组**，子控件为页面绝对坐标 |
-| `children` | WidgetNode[] | — | 仅 panel / dialog / scroll：内容区子控件，页面绝对坐标 |
+| `children` | WidgetNode[] | — | 仅 panel / dialog / tooltip / scroll：内容区子控件，页面绝对坐标 |
 | `customId` | string | — | 仅 custom：引用 `customWidgets[].id` |
 | `overrides` | object | — | 仅 custom：暴露属性覆盖值，键 = 暴露属性名 |
 | `slots` | object | — | 仅 custom：插槽内容，键见下；值为页面绝对坐标的子控件数组 |
@@ -69,6 +82,13 @@
 | `itemTags` | string[] | — | 仅 list / grid：每项的标记值，与 `count` 对齐，供筛选器过滤 |
 | `clickable` | boolean | — | 设为 `true` 让非按钮控件**可点击**（`button` 天生可点击，无需此字段；**定制控件实例 `custom` 不支持**——点击标记统一配在定义树内控件上） |
 | `clickAction` | ClickAction | — | 点击效果：`{ "type": "goto", "target": "<目标页面 id>" }` 切换页面、`{ "type": "back" }` 返回上一页（无来路时无效）、或 `{ "type": "popup", "target": "<弹窗页 id>" }` 弹出弹窗 |
+| `tipTarget` | string | — | 轻提示标记：指向轻提示页（`tips`）id，预览中悬停该控件弹出对应轻提示框、移开关闭（**定制控件实例 `custom` 不支持**——标记配在定义树内控件上，定义级） |
+
+### 轻提示（tipTarget）
+
+- `tipTarget` 必须指向 `tips` 中某个**轻提示页 id**；
+- 任意单个控件（含弹窗页内、定制控件定义树内）可标记；定义树内为定义级，实例悬停对应区域即触发；
+- 编辑器中选中控件 → 属性面板「轻提示」区可勾选、选择轻提示框并「▶ 演示」；生成工程时给图标 / 资源项 / 帮助按钮配轻提示，可让原型具备悬停说明。
 
 ### 点击交互（clickable / clickAction）
 
@@ -78,15 +98,16 @@
 
 ### 结构性约束（违反 = 非法文档）
 
-- `pages` **只能**出现在 `tab` 上；`children` **只能**出现在 `panel` / `dialog` / `scroll` 上；`slots` / `customId` **只能**出现在 `custom` 上。
+- `pages` **只能**出现在 `tab` 上；`children` **只能**出现在 `panel` / `dialog` / `tooltip` / `scroll` 上；`slots` / `customId` **只能**出现在 `custom` 上。
 - `dialog` **只能**出现在弹窗页（`popups`）中——页面 / 公共层 / 定制控件定义树内不放弹窗（校验器对越位弹窗给 ⚠ 警告）。
+- `tooltip` **只能**出现在轻提示页（`tips`）中——页面 / 公共层 / 弹窗页 / 定制控件定义树内不放轻提示框（校验器对越位轻提示框给 ⚠ 警告）。
 - `list` / `grid` 的项是自动生成的占位格，**不能**挂子控件（需要自定义格子内容时改用 `grid` 容器手摆，或用 `scroll` + 手摆内容）。
 - 容器子控件会被**裁剪**到内容区矩形内，超出部分不显示。
 - 定制控件实例的插槽子控件同样是**页面绝对坐标**（不是相对实例的坐标）。
 
 ## WidgetType 一览
 
-`rect` `ellipse` `line` `placeholder` `nine` `text` `button` `checkbox` `progress` `input` `filter` `panel` `dialog` `scroll` `list` `grid` `tab` `custom`
+`rect` `ellipse` `line` `placeholder` `nine` `text` `button` `checkbox` `progress` `input` `filter` `panel` `dialog` `tooltip` `scroll` `list` `grid` `tab` `custom`
 
 各类控件默认尺寸、props 与语义见 [widgets.md](widgets.md)。
 

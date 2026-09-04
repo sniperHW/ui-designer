@@ -1,6 +1,6 @@
 # 控件类型参考（默认值来自 `src/renderer/src/widgets/registry.ts`）
 
-> 频率常量：Tab 页签栏默认高 `40`（可用 `props.barHeight` 调整，页签字号 `props.fontSize` 默认 22），弹窗标题栏高 `48`（内容区在标题栏下方）。
+> 频率常量：Tab 页签栏默认高 `40`（可用 `props.barHeight` 调整，页签字号 `props.fontSize` 默认 22），弹窗标题栏高 `48`（内容区在标题栏下方），轻提示框尾箭头长 `12`（默认下向）。
 > 文本一律垂直居中；字号默认区间 20–30；坐标建议对齐 10px 网格。
 
 ## 形状
@@ -56,12 +56,29 @@
 ] }
 ```
 
+轻提示：任意控件加 `"tipTarget": "<轻提示页id>"` 标记，预览中**悬停弹出轻提示框、鼠标移开关闭**（定制控件实例同样配在**定义树内的控件**上，实例悬停对应区域触发）。轻提示框在独立的**轻提示页** `tips` 中设计（与弹窗页同构，典型内容一个 `tooltip` 气泡 + 说明文字子控件）：
+
+```jsonc
+// 轻提示页（doc.tips 内）
+{ "id": "tp_gold_help", "name": "金币说明", "nodes": [
+  { "id": "n_tip", "type": "tooltip", "name": "金币说明", "x": 235, "y": 730, "w": 280, "h": 140,
+    "visible": true, "locked": false, "props": {}, "children": [
+      { "id": "n_tip_text", "type": "text", "name": "说明文字", "x": 259, "y": 762, "w": 232, "h": 76,
+        "visible": true, "locked": false,
+        "props": { "text": "金币：完成任务与出售道具获得\\n用于升级建筑与训练部队", "fontSize": 22 } }
+    ] }
+] }
+// 页面上的资源图标 → 悬停弹出上面的轻提示
+{ "id": "n_gold_icon", "type": "placeholder", "name": "金币图标", "tipTarget": "tp_gold_help", /* … */ }
+```
+
 ## 容器
 
 | type | 名称 | 默认尺寸 | 子控件挂载 | 内容区 |
 |---|---|---|---|---|
 | `panel` | 面板 | 320×240 | `children` | 整个矩形 |
 | `dialog` | 弹窗 | 480×320 | `children` | 标题栏（高 48）**下方**区域；props: `title`（弹窗页本体与页名保持一致，编辑器双向同步）；**仅弹窗页（popups）内可用**，页面 / 公共层 / 定制控件内不放 |
+| `tooltip` | 轻提示框 | 280×140 | `children` | 气泡矩形（扣除尾箭头一侧 12px）；props: `tail`（`top`/`bottom`/`left`/`right`，默认 `bottom` 指向被悬停控件；弹出时上下自动翻转）；**仅轻提示页（tips）内可用**，页面 / 公共层 / 弹窗页 / 定制控件内不放 |
 | `scroll` | 滚动区 | 320×240 | `children` | 整个矩形（超出裁剪 + 滚动条示意；预览中滚轮可滚动，滑块随内容移动） |
 | `tab` | Tab 页签 | 480×320 | `pages`（每页签一个数组） | 页签栏之外的区域；`barPosition`: `top`/`bottom`，`barHeight`: 页签栏高（默认 40，上限为控件高一半），`fontSize`: 页签字号（默认 22） |
 | `list` | 列表 | 300×320 | ❌ 不可挂子控件 | `direction`: `v`/`h`、`count`；项为生成的占位格 |

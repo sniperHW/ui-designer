@@ -1,5 +1,5 @@
 import type { CustomWidgetDef, ProjectMeta, WidgetNode, WidgetType } from '../types'
-import { isClickable } from './tree'
+import { hasTip, isClickable } from './tree'
 
 export type Category = 'shape' | 'text' | 'control' | 'container'
 
@@ -23,6 +23,8 @@ export const CATEGORY_LABEL: Record<Category, string> = {
 export const TAB_BAR_H = 40
 /** 弹窗标题栏高度 */
 export const DIALOG_TITLE_H = 48
+/** 轻提示框尾箭头长度（占节点矩形一侧） */
+export const TOOLTIP_TAIL = 12
 
 /** 内置控件（图元 + 交互图元 + 容器） */
 export const WIDGET_DEFS: WidgetDef[] = [
@@ -40,6 +42,7 @@ export const WIDGET_DEFS: WidgetDef[] = [
   { type: 'filter', label: '筛选器', category: 'control', w: 480, h: 56, props: { options: ['全部', '英雄', '部队', '建筑'], selected: 0 } },
   { type: 'panel', label: '面板', category: 'container', w: 320, h: 240, props: {} },
   { type: 'dialog', label: '弹窗', category: 'container', w: 480, h: 320, props: { title: '弹窗标题' } },
+  { type: 'tooltip', label: '轻提示框', category: 'container', w: 280, h: 140, props: {} },
   { type: 'scroll', label: '滚动区', category: 'container', w: 320, h: 240, props: {} },
   { type: 'list', label: '列表', category: 'container', w: 300, h: 320, props: { direction: 'v', count: 5 } },
   { type: 'grid', label: '网格', category: 'container', w: 400, h: 320, props: { cols: 3, count: 9 } },
@@ -170,6 +173,26 @@ export function tabBarRect(n: WidgetNode): Rect {
   return { x: n.x, y: bottom ? n.y + n.h - barH : n.y, w: n.w, h: barH }
 }
 
+/** 轻提示框尾箭头方向（默认 bottom：提示框悬在被提示控件上方） */
+export function tipTailOf(n: WidgetNode): 'top' | 'bottom' | 'left' | 'right' {
+  return n.props.tail ?? 'bottom'
+}
+
+/** 轻提示框的气泡矩形（节点矩形扣除尾箭头一侧；子控件裁剪与内容区都按它算） */
+export function tipBubbleRect(n: WidgetNode): Rect {
+  const t = Math.min(TOOLTIP_TAIL, n.w / 3, n.h / 3)
+  switch (tipTailOf(n)) {
+    case 'top':
+      return { x: n.x, y: n.y + t, w: n.w, h: n.h - t }
+    case 'left':
+      return { x: n.x + t, y: n.y, w: n.w - t, h: n.h }
+    case 'right':
+      return { x: n.x, y: n.y, w: n.w - t, h: n.h }
+    default:
+      return { x: n.x, y: n.y, w: n.w, h: n.h - t }
+  }
+}
+
 /** 容器的内容区矩形（可挂子控件的区域）；非容器返回 null */
 export function contentRectOf(n: WidgetNode): Rect | null {
   switch (n.type) {
@@ -182,31 +205,34 @@ export function contentRectOf(n: WidgetNode): Rect | null {
       const t = Math.min(DIALOG_TITLE_H, n.h / 2)
       return { x: n.x, y: n.y + t, w: n.w, h: Math.max(0, n.h - t) }
     }
+    case 'tooltip':
+      return tipBubbleRect(n)
     default:
       return null
   }
 }
 
-/** 容器在画布上显示的直接子控件（Tab = 当前页签；面板/弹窗/滚动区 = children）；非容器返回 null */
+/** 容器在画布上显示的直接子控件（Tab = 当前页签；面板/弹窗/轻提示框/滚动区 = children）；非容器返回 null */
 export function renderKidsOf(n: WidgetNode): WidgetNode[] | null {
   if (n.type === 'tab') return n.pages?.[activeTabIndex(n)] ?? null
-  if (n.type === 'panel' || n.type === 'dialog' || n.type === 'scroll') return n.children ?? null
+  if (n.type === 'panel' || n.type === 'dialog' || n.type === 'tooltip' || n.type === 'scroll') return n.children ?? null
   return null
 }
 
 /**
- * 点击拾取（预览 / 演示用）：在节点树（同一坐标系的绝对坐标）中从上层到下层找 (x,y) 命中的节点，
+ * 命中拾取（预览 / 演示用）：在节点树（同一坐标系的绝对坐标）中从上层到下层找 (x,y) 命中的节点，
  * 返回「根 → 命中节点」的路径。点在容器内容区内优先命中子孙（内容区外命中容器自身，如弹窗标题栏）；
  * 定制控件实例递归进定义树（实例矩形按比例换算回定义局部坐标）。
- * 命中链上没有可点击控件时不算命中、继续向下层找——文字 / 占位图等装饰性覆盖不挡住
- * 下方可点击控件的点击（否则点在卡牌文字上会无响应）。全无命中返回 null。
- * 用于实例内部静态渲染的控件（含定义里配了可点击的控件）在预览中的点击命中。
+ * 命中链上没有满足 match 的控件时不算命中、继续向下层找——文字 / 占位图等装饰性覆盖不挡住
+ * 下方可触发控件的命中（否则点在卡牌文字上会无响应）。全无命中返回 null。
+ * 默认 match = 可点击（预览点击）；轻提示悬停复用同一几何逻辑（match = 带轻提示标记）。
  */
 export function pickPathInTree(
   nodes: WidgetNode[],
   x: number,
   y: number,
-  defs: CustomWidgetDef[] = []
+  defs: CustomWidgetDef[] = [],
+  match: (n: WidgetNode) => boolean = isClickable
 ): WidgetNode[] | null {
   for (let i = nodes.length - 1; i >= 0; i--) {
     const n = nodes[i]
@@ -219,23 +245,27 @@ export function pickPathInTree(
           def.tree,
           ((x - n.x) * def.w) / n.w,
           ((y - n.y) * def.h) / n.h,
-          defs
+          defs,
+          match
         )
         if (hit) return [n, ...hit]
       }
-      continue // 实例自身不携带可点击标记，内部无命中时落到下层兄弟
+      continue // 实例自身不携带交互标记，内部无命中时落到下层兄弟
     }
-    if (isClickable(n)) return [n]
+    if (match(n)) return [n]
     const kids = renderKidsOf(n)
     const cr = contentRectOf(n)
     if (kids && cr && x >= cr.x && x <= cr.x + cr.w && y >= cr.y && y <= cr.y + cr.h) {
-      const hit = pickPathInTree(kids, x, y, defs)
+      const hit = pickPathInTree(kids, x, y, defs, match)
       if (hit) return [n, ...hit]
     }
-    // 不可点击且子孙无命中：落到下层兄弟（覆盖物不挡点击）
+    // 不满足 match 且子孙无命中：落到下层兄弟（覆盖物不挡触发）
   }
   return null
 }
+
+/** 导出给悬停拾取：带轻提示标记的命中判定 */
+export const matchTip = hasTip
 
 // ---------------------------------------------------------------------------
 // 多分辨率预览（§6）：按锚点规则把设计尺寸布局重排到目标分辨率
@@ -564,6 +594,35 @@ export function widgetInnerSVG(n: WidgetNode): string {
       const bc = y + t / 2
       s += `<path d="M ${bx - 8} ${bc - 8} L ${bx + 8} ${bc + 8} M ${bx + 8} ${bc - 8} L ${bx - 8} ${bc + 8}" ${STROKE}/>`
       return s
+    }
+    case 'tooltip': {
+      // 轻提示框：气泡（圆角矩形）+ 指向被提示控件的尾箭头；内容区 = 气泡矩形
+      const b = tipBubbleRect(n)
+      const tail = tipTailOf(n)
+      const rx = Math.min(16, b.w / 2, b.h / 2)
+      const tw = 24 // 尾箭头底边宽
+      const cx = b.x + b.w / 2
+      const cy = b.y + b.h / 2
+      let s = `<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="${rx}" fill="#ffffff" ${STROKE}/>`
+      const apex =
+        tail === 'bottom'
+          ? `M ${cx - tw / 2} ${b.y + b.h} L ${cx} ${n.y + n.h} L ${cx + tw / 2} ${b.y + b.h} Z`
+          : tail === 'top'
+            ? `M ${cx - tw / 2} ${b.y} L ${cx} ${n.y} L ${cx + tw / 2} ${b.y} Z`
+            : tail === 'left'
+              ? `M ${b.x} ${cy - tw / 2} L ${n.x} ${cy} L ${b.x} ${cy + tw / 2} Z`
+              : `M ${b.x + b.w} ${cy - tw / 2} L ${n.x + n.w} ${cy} L ${b.x + b.w} ${cy + tw / 2} Z`
+      s += `<path d="${apex}" fill="#ffffff" ${STROKE}/>`
+      // 白色小块擦掉尾箭头与气泡相接处的描边线
+      const patch =
+        tail === 'bottom'
+          ? `<rect x="${cx - tw / 2 + 2}" y="${b.y + b.h - 1.5}" width="${tw - 4}" height="3" fill="#ffffff"/>`
+          : tail === 'top'
+            ? `<rect x="${cx - tw / 2 + 2}" y="${b.y - 1.5}" width="${tw - 4}" height="3" fill="#ffffff"/>`
+            : tail === 'left'
+              ? `<rect x="${b.x - 1.5}" y="${cy - tw / 2 + 2}" width="3" height="${tw - 4}" fill="#ffffff"/>`
+              : `<rect x="${b.x + b.w - 1.5}" y="${cy - tw / 2 + 2}" width="3" height="${tw - 4}" fill="#ffffff"/>`
+      return s + patch
     }
     case 'scroll':
       // 滚动区：边框 + 右侧滚动条示意
