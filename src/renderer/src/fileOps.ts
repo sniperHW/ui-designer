@@ -18,7 +18,25 @@ export async function doSave(as = false): Promise<void> {
     : s.filePath
       ? await window.api.saveProject({ content, knownPath: s.filePath })
       : await window.api.saveProject({ content, defaultName: s.doc.meta.name + '.uiw' })
-  if (path) useEditor.getState().markSaved(path)
+  if (path) {
+    useEditor.getState().markSaved(path)
+    useEditor.getState().refreshRecent()
+  }
+}
+
+/** 校验并载入工程内容（对话框打开 / 最近列表打开共用）；格式不正确抛错 */
+function applyOpened(r: { path: string; content: string }): void {
+  const doc = JSON.parse(r.content)
+  if (doc?.version !== 1 || !Array.isArray(doc.pages) || !doc.meta?.designWidth) {
+    throw new Error('文件格式不正确')
+  }
+  // 兼容旧工程文件：无 commonLayer / customWidgets 时补默认值
+  if (!doc.commonLayer) {
+    doc.commonLayer = { id: 'common', name: '公共层', nodes: [] }
+  }
+  if (!doc.customWidgets) doc.customWidgets = []
+  useEditor.getState().loadProject(doc, r.path)
+  useEditor.getState().refreshRecent()
 }
 
 export async function doOpen(): Promise<void> {
@@ -26,16 +44,23 @@ export async function doOpen(): Promise<void> {
   const r = await window.api.openProject()
   if (!r) return
   try {
-    const doc = JSON.parse(r.content)
-    if (doc?.version !== 1 || !Array.isArray(doc.pages) || !doc.meta?.designWidth) {
-      throw new Error('文件格式不正确')
-    }
-    // 兼容旧工程文件：无 commonLayer / customWidgets 时补默认值
-    if (!doc.commonLayer) {
-      doc.commonLayer = { id: 'common', name: '公共层', nodes: [] }
-    }
-    if (!doc.customWidgets) doc.customWidgets = []
-    useEditor.getState().loadProject(doc, r.path)
+    applyOpened(r)
+  } catch (e) {
+    alert('无法打开工程文件：' + (e as Error).message)
+  }
+}
+
+/** 从最近打开记录按路径直接打开（不经对话框）；文件已被移动/删除时提示并刷新列表 */
+export async function doOpenPath(path: string): Promise<void> {
+  if (!confirmDiscard()) return
+  const r = await window.api.openRecentProject(path)
+  if (!r) {
+    alert('文件不存在或已被移动：\n' + path)
+    useEditor.getState().refreshRecent()
+    return
+  }
+  try {
+    applyOpened(r)
   } catch (e) {
     alert('无法打开工程文件：' + (e as Error).message)
   }

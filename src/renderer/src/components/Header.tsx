@@ -1,23 +1,26 @@
 import { useEffect, type ReactNode } from 'react'
 import { useEditor } from '../store/editorStore'
-import { doSave, doOpen, doExportPng, confirmDiscard } from '../fileOps'
+import { doSave, doOpen, doOpenPath, doExportPng, confirmDiscard } from '../fileOps'
 import { PREVIEW_RATIOS } from '../widgets/registry'
 import type { WidgetNode } from '../types'
 
 function MenuItem({
   label,
   accel,
+  title,
   disabled,
   onClick
 }: {
   label: string
   accel?: string
+  title?: string
   disabled?: boolean
   onClick: () => void
 }) {
   return (
     <div
       className={'menu-item' + (disabled ? ' disabled' : '')}
+      title={title}
       onClick={(e) => {
         if (disabled) return
         onClick()
@@ -25,14 +28,14 @@ function MenuItem({
         if (d) d.removeAttribute('open')
       }}
     >
-      <span>{label}</span>
+      <span className="menu-item-label">{label}</span>
       {accel && <span className="accel">{accel}</span>}
     </div>
   )
 }
 
-/** 菜单栏类别：有菜单处于展开状态时，悬停其它类别 = 收起旧的、展开新的 */
-function Menu({ label, children }: { label: string; children: ReactNode }) {
+/** 菜单栏类别：有菜单处于展开状态时，悬停其它类别 = 收起旧的、展开新的；onOpen = 每次展开时回调 */
+function Menu({ label, onOpen, children }: { label: string; onOpen?: () => void; children: ReactNode }) {
   const onSummaryEnter = (e: React.MouseEvent<HTMLElement>) => {
     if (!document.querySelector('details.menu[open]')) return
     const self = (e.currentTarget as HTMLElement).closest('details')
@@ -42,7 +45,12 @@ function Menu({ label, children }: { label: string; children: ReactNode }) {
     self?.setAttribute('open', '')
   }
   return (
-    <details className="menu">
+    <details
+      className="menu"
+      onToggle={(e) => {
+        if ((e.currentTarget as HTMLDetailsElement).open) onOpen?.()
+      }}
+    >
       <summary onMouseEnter={onSummaryEnter}>{label}</summary>
       <div className="menu-items">{children}</div>
     </details>
@@ -91,6 +99,7 @@ export default function Header() {
   const dirty = useEditor((s) => s.dirty)
   const docName = useEditor((s) => s.doc.meta.name)
   const hasProject = useEditor((s) => s.hasProject)
+  const recentFiles = useEditor((s) => s.recentFiles)
   const inst = useSingleCustomInstance()
 
   const st = () => useEditor.getState()
@@ -110,7 +119,12 @@ export default function Header() {
   return (
     <div className="header">
       <div className="menu-bar">
-        <Menu label="文件">
+        <Menu
+          label="文件"
+          onOpen={() => {
+            st().refreshRecent()
+          }}
+        >
           <MenuItem
             label="新建工程…"
             accel="⌘N"
@@ -119,6 +133,17 @@ export default function Header() {
             }}
           />
           <MenuItem label="打开…" accel="⌘O" onClick={() => void doOpen()} />
+          {recentFiles.length > 0 ? (
+            <>
+              <div className="menu-sep" />
+              <div className="menu-group-title">最近打开</div>
+              {recentFiles.slice(0, 8).map((f) => (
+                <MenuItem key={f.path} label={f.name} title={f.path} onClick={() => void doOpenPath(f.path)} />
+              ))}
+              <MenuItem label="清除最近记录…" onClick={() => st().clearRecent()} />
+            </>
+          ) : null}
+          <div className="menu-sep" />
           <MenuItem label="保存" accel="⌘S" disabled={!hasProject} onClick={() => void doSave(false)} />
           <MenuItem label="另存为…" disabled={!hasProject} onClick={() => void doSave(true)} />
           <MenuItem

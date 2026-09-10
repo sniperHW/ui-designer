@@ -217,6 +217,8 @@ interface EditorState {
   prevPageId: string | null
   /** 轻提示弹出：轻提示页 id + 锚定控件矩形（文档坐标；预览悬停 / 属性面板演示共用，会话状态不入文档） */
   tip: { tipId: string; x: number; y: number; w: number; h: number } | null
+  /** 最近打开的工程（主进程持久化，应用级会话状态，不入文档） */
+  recentFiles: { path: string; name: string }[]
 
   currentPage: () => PageData
   /** 当前编辑目标的节点数组（页面 / 公共层 / 弹窗页 / 定制控件定义树） */
@@ -297,6 +299,11 @@ interface EditorState {
   closeProject: () => void
   markSaved: (path: string) => void
 
+  /** 从主进程拉取最近打开列表（保存 / 打开 / 进入欢迎页 / 打开文件菜单时调用） */
+  refreshRecent: () => void
+  /** 清空最近打开记录（主进程 + 本地列表） */
+  clearRecent: () => void
+
   setViewport: (v: Viewport) => void
   panBy: (dx: number, dy: number) => void
   zoomAt: (sx: number, sy: number, factor: number) => void
@@ -328,6 +335,7 @@ export const useEditor = create<EditorState>((set, get) => ({
   doc: createDefaultDoc(),
   hasProject: false,
   filePath: null,
+  recentFiles: [],
   dirty: false,
   currentPageIndex: 0,
   editingWidgetId: null,
@@ -1224,6 +1232,14 @@ export const useEditor = create<EditorState>((set, get) => ({
   },
 
   markSaved: (path) => set({ filePath: path, dirty: false }),
+
+  refreshRecent: () => {
+    void window.api.recentList().then((list) => set({ recentFiles: list }))
+  },
+
+  clearRecent: () => {
+    void window.api.clearRecent().then(() => set({ recentFiles: [] }))
+  },
 
   setViewport: (v) => set({ viewport: v }),
 

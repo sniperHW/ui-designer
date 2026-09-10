@@ -92,6 +92,11 @@ select {
 .menu-item .accel {
   color: #9ca3af;
 }
+.menu-item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .menu-sep {
   height: 1px;
   background: #e6e6ea;
@@ -642,6 +647,67 @@ select {
   height: 36px;
   padding: 0 22px;
   font-size: 14px;
+}
+
+/* 欢迎页 · 最近打开 */
+.welcome-recent {
+  margin: 0 0 18px;
+  text-align: left;
+  border-top: 1px solid #f0f0f3;
+  padding-top: 12px;
+}
+.welcome-recent-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 4px;
+  padding: 0 2px;
+}
+.welcome-recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 176px;
+  overflow-y: auto;
+}
+.welcome-recent-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.welcome-recent-item:hover {
+  background: #f3f4f6;
+}
+.welcome-recent-name {
+  font-size: 13px;
+  color: #111827;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.welcome-recent-path {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.link-btn {
+  border: none;
+  background: none;
+  color: #9ca3af;
+  font-size: 12px;
+  padding: 0;
+  cursor: pointer;
+}
+.link-btn:hover {
+  color: #2563eb;
 }
 
 /* 公共层 */
