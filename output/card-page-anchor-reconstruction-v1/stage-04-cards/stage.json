@@ -1,0 +1,43 @@
+{
+  "canvas": [750,1600], "output_dir":"assets", "palette":{}, "chrome":[],
+  "backgrounds":[
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/page_background_colossus_750x1600.png","size":[750,1600],"file":"page_background_colossus_750x1600.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/resource_gem_153x58.png","size":[153,58],"file":"resource_gem_153x58.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/resource_wood_153x58.png","size":[153,58],"file":"resource_wood_153x58.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/resource_orb_153x58.png","size":[153,58],"file":"resource_orb_153x58.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/resource_coin_153x58.png","size":[153,58],"file":"resource_coin_153x58.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/deck_title_211x80.png","size":[211,80],"file":"deck_title_211x80.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/deck_title_gem_28x26.png","size":[28,26],"file":"deck_title_gem_28x26.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/deck_tab_default_98x80.png","size":[98,80],"file":"deck_tab_default_98x80.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/deck_tab_active_98x80.png","size":[98,80],"file":"deck_tab_active_98x80.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-03-background/assets/deck_active_gem_26x25.png","size":[26,25],"file":"deck_active_gem_26x25.png"}
+    ,{"source":"output/card-page-anchor-reconstruction-v1-assets/card_progress_fill_136x24.png","size":[136,24],"file":"card_progress_fill_136x24.png"}
+  ],
+  "anchor_extracts":[
+    {"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[25,225,170,270],"size":[160,220],"file":"card_frame_green_160x220.png","silhouette":[{"type":"round","rect":[4,6,148,214],"radius":12}],"clear_rects":[[12,38,136,112]],"trim_edge_dark_regions":[{"rect":[0,0,4,220]},{"rect":[152,0,8,220]},{"rect":[0,0,160,6]}]},
+    {"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[203,225,170,270],"size":[160,220],"file":"card_frame_blue_160x220.png","silhouette":[{"type":"round","rect":[4,6,148,214],"radius":12}],"clear_rects":[[12,38,136,112]],"trim_edge_dark_regions":[{"rect":[0,0,4,220]},{"rect":[152,0,8,220]},{"rect":[0,0,160,6]}]},
+    {"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[380,225,170,270],"size":[160,220],"file":"card_frame_purple_160x220.png","silhouette":[{"type":"round","rect":[4,6,148,214],"radius":12}],"clear_rects":[[12,38,136,112]],"trim_edge_dark_regions":[{"rect":[0,0,4,220]},{"rect":[152,0,8,220]},{"rect":[0,0,160,6]}]},
+    {"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[556,225,170,270],"size":[160,220],"file":"card_frame_gold_160x220.png","silhouette":[{"type":"round","rect":[4,6,148,214],"radius":12}],"clear_rects":[[12,38,136,112]],"trim_edge_dark_regions":[{"rect":[0,0,4,220]},{"rect":[152,0,8,220]},{"rect":[0,0,160,6]}]}
+    ,{"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[43,461,138,24],"size":[136,24],"file":"card_progress_track_136x24.png","silhouette":[{"type":"round","rect":[0,1,136,22],"radius":7}],"fill_rects":[{"rect":[5,5,126,14],"radius":5,"color":"#081A2B"}]}
+  ],
+  "reference_crops":[
+    {"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[25,225,170,270],"file":"reference/green-card.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[203,225,170,270],"file":"reference/blue-card.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[380,225,170,270],"file":"reference/purple-card.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[556,225,170,270],"file":"reference/gold-card.png"}
+    ,{"source":"output/card-page-anchor-reconstruction-v1/锚点图.png","canvas":[750,1600],"rect":[40,445,145,50],"file":"reference/progress.png"}
+  ],
+  "assembly": {
+    "name":"卡框-锚点验收预览 v1", "uiw_source":"output/card-page-anchor-reconstruction-v1/stage-03-background/背景-锚点验收预览-v1.uiw", "uiw_output":"卡框-锚点验收预览-v1.uiw", "main_page":1,
+    "background":"page_background_colossus_750x1600.png", "title_skin":"deck_title_211x80.png", "title_gem":"deck_title_gem_28x26.png", "tab_default_skin":"deck_tab_default_98x80.png", "tab_active_skin":"deck_tab_active_98x80.png", "filter_active_overlay":{"skin":"deck_active_gem_26x25.png","size":[26,25],"offset":[0,-13]}, "show_custom_cards":true,
+    "geometry":{"title":[20,112,211,80],"title_gem":[112,178,28,26],"tabs":[241,116,490,80]},
+    "resources":[
+      {"tag":"💎 6","skin":"resource_gem_153x58.png","rect":[25,18,153,58],"value":"6","value_rect":[78,29,48,30]},
+      {"tag":"🪵 400","skin":"resource_wood_153x58.png","rect":[195,18,153,58],"value":"400","value_rect":[249,29,52,30]},
+      {"tag":"🔮 139","skin":"resource_orb_153x58.png","rect":[375,18,153,58],"value":"139","value_rect":[431,29,52,30]},
+      {"tag":"🪙 280","skin":"resource_coin_153x58.png","rect":[545,18,153,58],"value":"280","value_rect":[600,29,52,30]}
+    ],
+    "card_frames":{"wmtfpf5my34k7":"card_frame_green_160x220.png","wmtfpf5my34k7-rarity-1":"card_frame_blue_160x220.png","wmtfpf5my34k7-rarity-2":"card_frame_purple_160x220.png","wmtfpf5my34k7-rarity-3":"card_frame_gold_160x220.png"},
+    "card_progress":{"track":"card_progress_track_136x24.png","fill":"card_progress_fill_136x24.png"}
+  }
+}

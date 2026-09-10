@@ -1,0 +1,41 @@
+{
+  "output_dir": "assets",
+  "backgrounds": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets/deck_title_211x80.png",
+      "size": [211, 80],
+      "file": "deck_title_211x80_clean.png",
+      "copy_regions": [
+        {"source_rect": [48, 60, 42, 20], "target_xy": [88, 60]}
+      ],
+      "edge_dark_matte_clear": {"max_value": 42},
+      "silhouette_chamfer": {"cut": 12, "antialias": 4},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-b53c0f8f-aaf2-4692-b273-634eefc762ff.png",
+      "size": [98, 80],
+      "file": "deck_tab_default_98x80_clean_v5.png",
+      "edge_dark_matte_clear": {"max_value": 42},
+      "silhouette_chamfer": {"cut": 10, "antialias": 4}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-b53c0f8f-aaf2-4692-b273-634eefc762ff.png",
+      "size": [98, 80],
+      "file": "deck_tab_active_98x80_clean_v5.png",
+      "edge_dark_matte_clear": {"max_value": 42},
+      "hue_remap": {"source_hue_range": [0.52, 0.70], "target_hue": 0.11, "saturation_multiplier": 1.32, "value_multiplier": 1.72},
+      "tint_regions": [
+        {"rect": [12, 12, 74, 56], "color": "#D49328", "opacity": 0.40, "brightness": 1.08}
+      ],
+      "silhouette_chamfer": {"cut": 10, "antialias": 4}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets/deck_tab_default_98x80.png",
+      "source_rect": [25, 18, 48, 48],
+      "size": [44, 44],
+      "file": "deck_tab_shield_44x44.png",
+      "edge_dark_matte_clear": {"max_value": 42}
+    }
+  ]
+}

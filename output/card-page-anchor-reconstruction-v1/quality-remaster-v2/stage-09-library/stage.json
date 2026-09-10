@@ -1,0 +1,92 @@
+{
+  "output_dir": "assets",
+  "palette": {
+    "shadow": "#06111D",
+    "outline": "#071724",
+    "default_fill": "#092033",
+    "active_fill": "#805716",
+    "gold": "#C99A36",
+    "active_gold": "#FFE4A0",
+    "inner_line": "#3A5870",
+    "glint": "#FFF0B0"
+  },
+  "chrome": [
+    {
+      "size": [169, 84],
+      "file": "library_page_default_169x84.png",
+      "state": "default",
+      "shape": "chamfer",
+      "corner_ratio": 0.18,
+      "line_ratio": 0.035
+    },
+    {
+      "size": [169, 84],
+      "file": "library_page_active_169x84.png",
+      "state": "active",
+      "shape": "chamfer",
+      "corner_ratio": 0.18,
+      "line_ratio": 0.035
+    },
+    {
+      "flat_icon": "cards",
+      "size": [48, 48],
+      "file": "library_page_cards_48.png",
+      "color": "#E0B84C",
+      "line_ratio": 0.10
+    },
+    {
+      "flat_icon": "relic",
+      "size": [48, 48],
+      "file": "library_page_relic_48.png",
+      "color": "#E0B84C",
+      "line_ratio": 0.10
+    },
+    {
+      "flat_icon": "chest",
+      "size": [48, 48],
+      "file": "library_page_chest_48.png",
+      "color": "#E0B84C",
+      "line_ratio": 0.10
+    },
+    {
+      "flat_icon": "emote",
+      "size": [48, 48],
+      "file": "library_page_emote_48.png",
+      "color": "#E0B84C",
+      "line_ratio": 0.10
+    }
+  ],
+  "backgrounds": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/filter_icon_default_72x64.png",
+      "size": [169, 84],
+      "file": "common_tab_default_169x84.png",
+      "nine_slice": {"insets": [12, 12, 12, 12]},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/filter_icon_active_72x64.png",
+      "size": [169, 84],
+      "file": "common_tab_active_169x84.png",
+      "nine_slice": {"insets": [12, 12, 12, 12]},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-c18a3d36-3373-4a69-8bd7-a46ee8d43b18.png",
+      "size": [700, 561],
+      "file": "card_library_scroll_frame_700x561_v1.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24},
+      "crop_alpha": true,
+      "edge_dark_matte_clear": {"max_value": 42},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    }
+  ],
+  "reference_crops": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600],
+      "rect": [25, 850, 700, 561],
+      "file": "reference/card_library_scroll_anchor_700x561.png"
+    }
+  ]
+}

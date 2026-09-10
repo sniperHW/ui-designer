@@ -1,0 +1,47 @@
+{
+  "output_dir": "assets",
+  "asset_source_dirs": [
+    "output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets",
+    "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-02-resources-v3/assets"
+  ],
+  "assembly": {
+    "name": "牌组按钮 v5 透明盾牌图标装配预览",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-01-deck-v3/牌组按钮-v3-无菱形选中态装配预览.uiw",
+    "uiw_output": "牌组按钮-v5-透明盾牌图标装配预览.uiw",
+    "main_page": 1,
+    "preserve_page_visibility": true,
+    "title_skin": "deck_title_211x80_clean.png",
+    "tab_default_skin": "deck_tab_default_98x80_clean_v5.png",
+    "tab_active_skin": "deck_tab_active_98x80_clean_v5.png",
+    "tab_icon": {"skin": "deck_tab_shield_44x44.png", "size": [44, 44]},
+    "resources": [
+      {"tag": "💎 6", "skin": "resource_bar_153x58_clean.png", "rect": [25, 18, 153, 58], "value": "6", "value_rect": [78, 29, 48, 30]},
+      {"tag": "🪵 400", "skin": "resource_bar_153x58_clean.png", "rect": [195, 18, 153, 58], "value": "400", "value_rect": [249, 29, 52, 30]},
+      {"tag": "🔮 139", "skin": "resource_bar_153x58_clean.png", "rect": [375, 18, 153, 58], "value": "139", "value_rect": [431, 29, 52, 30]},
+      {"tag": "🪙 280", "skin": "resource_bar_153x58_clean.png", "rect": [545, 18, 153, 58], "value": "280", "value_rect": [600, 29, 52, 30]}
+    ],
+    "resource_icons": [
+      {"node": "资源图标1", "skin": "resource_icon_gem_32x32.png", "rect": [32, 31, 32, 32]},
+      {"node": "资源图标2", "skin": "resource_icon_wood_32x32.png", "rect": [202, 31, 32, 32]},
+      {"node": "资源图标3", "skin": "resource_icon_orb_32x32.png", "rect": [382, 31, 32, 32]},
+      {"node": "资源图标4", "skin": "resource_icon_coin_32x32.png", "rect": [552, 31, 32, 32]}
+    ],
+    "clear_filter_active_overlay": true,
+    "hidden_page_nodes": ["牌组标题菱形装饰", "牌组首项菱形装饰"],
+    "page_node_overrides": {
+      "牌组标题文字": {
+        "visible": true,
+        "rect": [45, 132, 160, 40],
+        "props": {
+          "text": "牌组",
+          "fontSize": 28,
+          "fontWeight": 800,
+          "align": "left",
+          "textColor": "#FFF2B8",
+          "textStroke": "#07111D",
+          "textStrokeWidth": 1.2
+        }
+      }
+    }
+  }
+}

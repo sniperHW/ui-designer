@@ -1,0 +1,226 @@
+{
+  "canvas": [750, 1600],
+  "output_dir": "assets",
+  "palette": {},
+  "chrome": [
+    {
+      "flat_icon": "sword",
+      "size": [66, 66],
+      "file": "battle_icon_sword_white_66.png",
+      "color": "#F4F8FF",
+      "line_ratio": 0.11
+    },
+    {
+      "flat_icon": "bow",
+      "size": [66, 66],
+      "file": "battle_icon_bow_white_66.png",
+      "color": "#F4F8FF",
+      "line_ratio": 0.11
+    },
+    {
+      "reframe_chamfer": true,
+      "source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_strip_700x80_clean_v3.png",
+      "size": [700, 80],
+      "file": "battle_strip_700x80_frame_v4.png",
+      "margin": 3,
+      "cut": 12,
+      "content_inset": 11,
+      "content_shape": "rect",
+      "remove_source_rects": [
+        {"rect": [22, 16, 58, 52], "surface_sample_rect": [90, 16, 40, 52]},
+        {"rect": [295, 14, 43, 42], "surface_sample_rect": [340, 14, 24, 42]},
+        {"rect": [375, 14, 43, 42], "surface_sample_rect": [420, 14, 24, 42]},
+        {"rect": [455, 14, 43, 42], "surface_sample_rect": [500, 14, 24, 42]},
+        {"rect": [537, 14, 43, 42], "surface_sample_rect": [582, 14, 22, 42]},
+        {"rect": [620, 14, 43, 42], "surface_sample_rect": [665, 14, 20, 42]},
+        {"rect": [266, 10, 13, 60], "surface_sample_rect": [300, 15, 24, 50]}
+      ],
+      "frame_colours": ["#324D61", "#765019", "#C99D39", "#FFE6A0", "#9A691A", "#0A2131"],
+      "top_glint": "#FFF1AC",
+      "bottom_return": "#8A5E16",
+      "transparent_boundary_rects": [[0, 0, 700, 3], [0, 0, 3, 80], [697, 0, 3, 80], [0, 77, 700, 3]]
+    }
+  ],
+  "backgrounds": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_orc_64.png",
+      "size": [66, 66], "file": "battle_race_orc_white_66.png",
+      "fit": "contain", "recolor_visible_to_color": {"color": "#F4F8FF"},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_undead_64.png",
+      "size": [66, 66], "file": "battle_race_undead_white_66.png",
+      "fit": "contain", "recolor_visible_to_color": {"color": "#F4F8FF"},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_human_64.png",
+      "size": [66, 66], "file": "battle_race_human_white_66.png",
+      "fit": "contain", "recolor_visible_to_color": {"color": "#F4F8FF"},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_mechanical_64.png",
+      "size": [66, 66], "file": "battle_race_mechanical_white_66.png",
+      "fit": "contain", "recolor_visible_to_color": {"color": "#F4F8FF"},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_strip_700x80.png",
+      "size": [700, 80],
+      "file": "battle_strip_700x80_clean_v3.png",
+      "surface_inpaint_rects": [
+        {"rect": [80, 22, 161, 40], "surface_sample_rect": [242, 22, 24, 40]},
+        {"rect": [287, 45, 58, 25], "surface_sample_rect": [347, 45, 18, 25]},
+        {"rect": [365, 45, 59, 25], "surface_sample_rect": [426, 45, 18, 25]},
+        {"rect": [444, 45, 60, 25], "surface_sample_rect": [506, 45, 18, 25]},
+        {"rect": [525, 45, 61, 25], "surface_sample_rect": [588, 45, 16, 25]},
+        {"rect": [607, 45, 61, 25], "surface_sample_rect": [669, 45, 10, 25]}
+      ],
+      "edge_dark_matte_clear": {"max_value": 42, "max_opaque_depth": 3},
+      "quality_gate": {
+        "edge_dark_matte": {
+          "max_value": 42,
+          "max_opaque_depth": 3,
+          "max_pixels": 154,
+          "transparent_boundary_rects": [[0, 0, 700, 7], [0, 0, 4, 80], [693, 0, 7, 80]]
+        },
+        "forbid_warm_metal_regions": [
+          {"rect": [80, 22, 161, 40]},
+          {"rect": [287, 45, 58, 19]},
+          {"rect": [365, 45, 59, 19]},
+          {"rect": [444, 45, 60, 19]},
+          {"rect": [525, 45, 61, 19]},
+          {"rect": [607, 45, 61, 19]}
+        ]
+      }
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_strip_700x80_clean_v3.png",
+      "source_rect": [22, 16, 58, 52], "size": [48, 48], "file": "battle_icon_swords_48.png",
+      "dark_panel_to_alpha": {"max_value": 110}, "post_edge_dark_matte_clear": {"max_value": 70}, "post_crop_alpha": true, "post_fit": "contain",
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 80}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_strip_700x80_clean_v3.png",
+      "source_rect": [295, 14, 43, 42], "size": [22, 22], "file": "battle_icon_stat_1_22.png",
+      "dark_panel_to_alpha": {"max_value": 110}, "post_edge_dark_matte_clear": {"max_value": 70}, "post_crop_alpha": true, "post_fit": "contain",
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 80}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_strip_700x80_clean_v3.png",
+      "source_rect": [375, 14, 43, 42], "size": [22, 22], "file": "battle_icon_stat_2_22.png",
+      "dark_panel_to_alpha": {"max_value": 110}, "post_edge_dark_matte_clear": {"max_value": 70}, "post_crop_alpha": true, "post_fit": "contain",
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 80}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_strip_700x80_clean_v3.png",
+      "source_rect": [455, 14, 43, 42], "size": [22, 22], "file": "battle_icon_stat_3_22.png",
+      "dark_panel_to_alpha": {"max_value": 110}, "post_edge_dark_matte_clear": {"max_value": 70}, "post_crop_alpha": true, "post_fit": "contain",
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 80}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_strip_700x80_clean_v3.png",
+      "source_rect": [537, 14, 43, 42], "size": [22, 22], "file": "battle_icon_stat_4_22.png",
+      "dark_panel_to_alpha": {"max_value": 110}, "post_edge_dark_matte_clear": {"max_value": 70}, "post_crop_alpha": true, "post_fit": "contain",
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 80}}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_strip_700x80_clean_v3.png",
+      "source_rect": [620, 14, 43, 42], "size": [22, 22], "file": "battle_icon_stat_5_22.png",
+      "dark_panel_to_alpha": {"max_value": 110}, "post_edge_dark_matte_clear": {"max_value": 70}, "post_crop_alpha": true, "post_fit": "contain",
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 80}}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-296adbca-39ed-4299-8ca6-681c371c0d06.png",
+      "size": [700, 80],
+      "file": "battle_strip_imagegen_700x80.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24},
+      "crop_alpha": true,
+      "mirror_edges": [
+        {"source_rect": [0, 0, 700, 4], "target_xy": [0, 76]}
+      ]
+    }
+  ],
+  "asset_source_dirs": ["output/card-page-anchor-reconstruction-v1/stage-04-cards/assets"],
+  "anchor_extracts": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600],
+      "rect": [25, 785, 700, 80],
+      "size": [700, 80],
+      "file": "battle_strip_700x80.png",
+      "silhouette": [{"type": "chamfer", "rect": [4, 4, 692, 76], "cut": 12}],
+      "fill_rects": [
+        {"rect": [83, 24, 155, 35], "color": "#061422"},
+        {"rect": [290, 48, 52, 21], "color": "#061422"},
+        {"rect": [368, 48, 53, 21], "color": "#061422"},
+        {"rect": [447, 48, 54, 21], "color": "#061422"},
+        {"rect": [528, 48, 55, 21], "color": "#061422"},
+        {"rect": [610, 48, 55, 21], "color": "#061422"}
+      ],
+      "trim_edge_dark_regions": [
+        {"rect": [0, 0, 700, 8], "max_channel": 120},
+        {"rect": [0, 0, 8, 80], "max_channel": 120},
+        {"rect": [692, 0, 8, 80], "max_channel": 120}
+      ],
+      "mirror_edges": [
+        {"source_rect": [0, 7, 700, 8], "target_xy": [0, 72]}
+      ]
+    }
+  ],
+  "reference_crops": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600],
+      "rect": [25, 785, 700, 80],
+      "file": "reference/battle-strip.png"
+    }
+  ],
+  "assembly": {
+    "name": "战力条-锚点验收预览 v1",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/stage-04-cards/卡框-锚点验收预览-v1.uiw",
+    "uiw_output": "战力条-锚点验收预览-v1.uiw",
+    "main_page": 1,
+    "background": "page_background_colossus_750x1600.png",
+    "title_skin": "deck_title_211x80.png",
+    "title_gem": "deck_title_gem_28x26.png",
+    "tab_default_skin": "deck_tab_default_98x80.png",
+    "tab_active_skin": "deck_tab_active_98x80.png",
+    "filter_active_overlay": {"skin": "deck_active_gem_26x25.png", "size": [26, 25], "offset": [0, -13]},
+    "show_custom_cards": true,
+    "geometry": {"title": [20, 112, 211, 80], "title_gem": [112, 178, 28, 26], "tabs": [241, 116, 490, 80]},
+    "resources": [
+      {"tag": "💎 6", "skin": "resource_gem_153x58.png", "rect": [25, 18, 153, 58], "value": "6", "value_rect": [78, 29, 48, 30]},
+      {"tag": "🪵 400", "skin": "resource_wood_153x58.png", "rect": [195, 18, 153, 58], "value": "400", "value_rect": [249, 29, 52, 30]},
+      {"tag": "🔮 139", "skin": "resource_orb_153x58.png", "rect": [375, 18, 153, 58], "value": "139", "value_rect": [431, 29, 52, 30]},
+      {"tag": "🪙 280", "skin": "resource_coin_153x58.png", "rect": [545, 18, 153, 58], "value": "280", "value_rect": [600, 29, 52, 30]}
+    ],
+    "card_frames": {
+      "wmtfpf5my34k7": "card_frame_green_160x220.png",
+      "wmtfpf5my34k7-rarity-1": "card_frame_blue_160x220.png",
+      "wmtfpf5my34k7-rarity-2": "card_frame_purple_160x220.png",
+      "wmtfpf5my34k7-rarity-3": "card_frame_gold_160x220.png"
+    },
+    "card_progress": {"track": "card_progress_track_136x24.png", "fill": "card_progress_fill_136x24.png"},
+    "battle": {
+      "bar_node": "战力条",
+      "skin": "battle_strip_imagegen_700x80.png",
+      "rect": [25, 685, 700, 80],
+      "value": {
+        "node": "战力值",
+        "rect": [86, 707, 149, 24],
+        "props": {"text": "战力 9888", "fontSize": 20, "fontWeight": 800, "textColor": "#FFF2B8", "textStroke": "#08111F", "textStrokeWidth": 1.2, "align": "center"}
+      },
+      "stats": [
+        {"node": "兵种数值1", "rect": [294, 735, 47, 20], "props": {"text": "1", "fontSize": 16, "fontWeight": 800, "textColor": "#FFF2B8", "textStroke": "#08111F", "textStrokeWidth": 1.0, "align": "center"}},
+        {"node": "兵种数值2", "rect": [371, 735, 48, 20], "props": {"text": "2", "fontSize": 16, "fontWeight": 800, "textColor": "#FFF2B8", "textStroke": "#08111F", "textStrokeWidth": 1.0, "align": "center"}},
+        {"node": "兵种数值3", "rect": [450, 735, 50, 20], "props": {"text": "3", "fontSize": 16, "fontWeight": 800, "textColor": "#FFF2B8", "textStroke": "#08111F", "textStrokeWidth": 1.0, "align": "center"}},
+        {"node": "兵种数值4", "rect": [531, 735, 51, 20], "props": {"text": "4", "fontSize": 16, "fontWeight": 800, "textColor": "#FFF2B8", "textStroke": "#08111F", "textStrokeWidth": 1.0, "align": "center"}},
+        {"node": "兵种数值5", "rect": [613, 735, 51, 20], "props": {"text": "3", "fontSize": 16, "fontWeight": 800, "textColor": "#FFF2B8", "textStroke": "#08111F", "textStrokeWidth": 1.0, "align": "center"}}
+      ],
+      "hide_node_names": ["兵种统计", "兵种图标1", "兵种图标2", "兵种图标3", "兵种图标4", "兵种图标5", "兵种图标6"]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "output_dir": "assets",
+  "asset_source_dirs": [],
+  "assembly": {
+    "name": "绿色卡框 v2 真实装配预览",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/stage-05-battle/战力条-锚点验收预览-v1.uiw",
+    "uiw_output": "绿色卡框-v2-装配预览.uiw",
+    "main_page": 1,
+    "preserve_page_visibility": true,
+    "card_window": [12, 38, 136, 112],
+    "card_frames": {
+      "wmtfpf5my34k7": "card_frame_green_160x220_v2.png"
+    },
+    "card_portraits": {
+      "wmtfpf5my34k7": "portrait_green_miner_136x112_v2.png"
+    }
+  }
+}

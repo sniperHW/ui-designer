@@ -1,0 +1,23 @@
+{
+  "output_dir": "assets",
+  "backgrounds": [
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-2241ed71-b525-483a-b527-d7e121e99e1e.png",
+      "size": [160, 220],
+      "file": "card_frame_green_160x220_v3.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24},
+      "clear_alpha_rects": [[16, 24, 128, 131]],
+      "silhouette_chamfer": {"cut": 15, "antialias": 4}
+    }
+  ],
+  "card_art": [
+    {
+      "source": "output/card-page-ui-assets-2.0/card_art_green_112x96.png",
+      "size": [128, 131],
+      "file": "portrait_green_miner_128x131_v3.png",
+      "fit": "cover",
+      "backdrop_color": "#1A3510",
+      "require_opaque": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "output_dir": "assets",
+  "asset_source_dirs": [
+    "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-07-library/assets"
+  ],
+  "assembly": {
+    "name": "底部主导航 v1 累计装配预览",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-07-library/卡库图鉴-v1-累计装配预览.uiw",
+    "uiw_output": "底部主导航-v1-累计装配预览.uiw",
+    "main_page": 1,
+    "preserve_page_visibility": true,
+    "main_navigation": {
+      "tabs": ["商店", "卡牌", "战斗", "城堡", "成就"],
+      "bar_height": 110,
+      "default_skin": "main_nav_default_146x110_v2.png",
+      "active_skin": "main_nav_active_146x110_v2.png",
+      "icons": ["main_nav_shop_96x72_v2.png", "main_nav_cards_96x72_v2.png", "main_nav_battle_96x72_v2.png", "main_nav_castle_96x72_v2.png", "main_nav_achievement_96x72_v2.png"],
+      "icon_size": [96, 72],
+      "tab_widths": [146, 146, 146, 146, 146],
+      "tab_gap": 5
+    }
+  }
+}

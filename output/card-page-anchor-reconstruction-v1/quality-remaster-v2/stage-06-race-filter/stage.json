@@ -1,0 +1,17 @@
+{
+  "output_dir": "assets",
+  "backgrounds": [
+    {"source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/race_filter_default_1.png", "size": [120, 64], "file": "filter_all_default_120x64.png", "edge_dark_matte_clear": {"max_value": 42}},
+    {"source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/race_filter_default_1.png", "size": [72, 64], "file": "filter_icon_default_72x64.png", "edge_dark_matte_clear": {"max_value": 42}},
+    {"source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/race_filter_active_1.png", "size": [120, 64], "file": "filter_all_active_120x64.png", "edge_dark_matte_clear": {"max_value": 42}},
+    {"source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/race_filter_active_1.png", "size": [72, 64], "file": "filter_icon_active_72x64.png", "edge_dark_matte_clear": {"max_value": 42}},
+    {"source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/race_filter_default_2.png", "source_rect": [18, 12, 36, 36], "size": [32, 32], "file": "race_icon_1_32x32.png", "retain_hue_range": {"hue_range": [0.06, 0.18]}},
+    {"source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/race_filter_default_3.png", "source_rect": [18, 12, 36, 36], "size": [32, 32], "file": "race_icon_2_32x32.png", "retain_hue_range": {"hue_range": [0.06, 0.18]}},
+    {"source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/race_filter_default_4.png", "source_rect": [18, 12, 36, 36], "size": [32, 32], "file": "race_icon_3_32x32.png", "retain_hue_range": {"hue_range": [0.06, 0.18]}},
+    {"source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/race_filter_default_5.png", "source_rect": [18, 12, 36, 36], "size": [32, 32], "file": "race_icon_4_32x32.png", "retain_hue_range": {"hue_range": [0.06, 0.18]}}
+    ,{"source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-fe17beee-7410-4f01-8d2c-ed2e4648ded1.png", "source_rect": [0, 0, 640, 640], "size": [64, 64], "file": "shared_race_undead_64.png", "retain_hue_range": {"hue_range": [0.06, 0.18]}}
+    ,{"source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-fe17beee-7410-4f01-8d2c-ed2e4648ded1.png", "source_rect": [640, 0, 640, 640], "size": [64, 64], "file": "shared_race_orc_64.png", "retain_hue_range": {"hue_range": [0.06, 0.18]}}
+    ,{"source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-fe17beee-7410-4f01-8d2c-ed2e4648ded1.png", "source_rect": [0, 640, 640, 640], "size": [64, 64], "file": "shared_race_human_64.png", "retain_hue_range": {"hue_range": [0.06, 0.18]}}
+    ,{"source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-fe17beee-7410-4f01-8d2c-ed2e4648ded1.png", "source_rect": [640, 640, 640, 640], "size": [64, 64], "file": "shared_race_mechanical_64.png", "retain_hue_range": {"hue_range": [0.06, 0.18]}}
+  ]
+}

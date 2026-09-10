@@ -1,0 +1,31 @@
+{
+  "output_dir": "assets",
+  "backgrounds": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-04-cards/assets/card_frame_green_160x220_v5.png",
+      "size": [160, 220],
+      "file": "card_frame_blue_160x220_v5.png",
+      "hue_remap": {"source_hue_range": [0.20, 0.46], "target_hue": 0.59, "saturation_multiplier": 1.08, "value_multiplier": 0.96},
+      "silhouette_chamfer": {"cut": 15, "antialias": 4}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-04-cards/assets/card_frame_green_160x220_v5.png",
+      "size": [160, 220],
+      "file": "card_frame_purple_160x220_v5.png",
+      "hue_remap": {"source_hue_range": [0.20, 0.46], "target_hue": 0.76, "saturation_multiplier": 1.04, "value_multiplier": 0.94},
+      "silhouette_chamfer": {"cut": 15, "antialias": 4}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-04-cards/assets/card_frame_green_160x220_v5.png",
+      "size": [160, 220],
+      "file": "card_frame_gold_160x220_v5.png",
+      "hue_remap": {"source_hue_range": [0.20, 0.46], "target_hue": 0.10, "saturation_multiplier": 1.12, "value_multiplier": 1.03},
+      "silhouette_chamfer": {"cut": 15, "antialias": 4}
+    }
+  ],
+  "card_art": [
+    {"source": "output/card-page-ui-assets-2.0/card_art_blue_112x96.png", "size": [144, 142], "file": "portrait_blue_144x142_v5.png", "fit": "cover", "backdrop_color": "#102850", "require_opaque": true},
+    {"source": "output/card-page-ui-assets-2.0/card_art_purple_112x96.png", "size": [144, 142], "file": "portrait_purple_144x142_v5.png", "fit": "cover", "backdrop_color": "#2A1244", "require_opaque": true},
+    {"source": "output/card-page-ui-assets-2.0/card_art_gold_112x96.png", "size": [144, 142], "file": "portrait_gold_144x142_v5.png", "fit": "cover", "backdrop_color": "#4B3210", "require_opaque": true}
+  ]
+}

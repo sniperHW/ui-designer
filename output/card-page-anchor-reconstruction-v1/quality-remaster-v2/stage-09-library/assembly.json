@@ -1,0 +1,74 @@
+{
+  "output_dir": "assets",
+  "asset_source_dirs": [
+    "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-08-navigation/assets",
+    "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-07-library/assets",
+    "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets",
+    "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets"
+  ],
+  "assembly": {
+    "name": "卡库区 v16 累计装配预览",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-08-navigation/底部主导航-v1-累计装配预览.uiw",
+    "uiw_output": "卡库区-v16-累计装配预览.uiw",
+    "main_page": 1,
+    "preserve_page_visibility": true,
+    "filter": {
+      "node": "卡库筛选",
+      "rect": [25, 775, 700, 700],
+      "options": ["全部", "", "", "", ""],
+      "widths": [120, 72, 72, 72, 72],
+      "selected": 0,
+      "default_skins": ["filter_all_default_120x64.png", "filter_icon_default_72x64.png", "filter_icon_default_72x64.png", "filter_icon_default_72x64.png", "filter_icon_default_72x64.png"],
+      "active_skins": ["filter_all_active_120x64.png", "filter_icon_active_72x64.png", "filter_icon_active_72x64.png", "filter_icon_active_72x64.png", "filter_icon_active_72x64.png"],
+      "icons": ["", "shared_race_undead_64.png", "shared_race_orc_64.png", "shared_race_human_64.png", "shared_race_mechanical_64.png"],
+      "icon_size": [32, 32]
+    },
+    "library": {
+      "category_node": "卡牌分类",
+      "category_page": 0,
+      "flatten_category": true,
+      "pager": {
+        "node": "卡库切页栏",
+        "tabs": ["所有卡牌", "神器", "宝箱", "表情"],
+        "selected": 0,
+        "rect": [25, 1391, 700, 84],
+        "bar_height": 84,
+        "tab_widths": [169, 169, 169, 169],
+        "tab_gap": 8,
+        "default_skin": "common_tab_default_169x84.png",
+        "active_skin": "common_tab_active_169x84.png",
+        "icons": ["library_page_cards_48.png", "library_page_relic_48.png", "library_page_chest_48.png", "library_page_emote_48.png"],
+        "icon_size": [48, 48],
+        "font_size": 22,
+        "font_weight": 800,
+        "text_color": "#FFF2B8",
+        "text_stroke": "#07111D",
+        "text_stroke_width": 1.0
+      },
+      "scroll_rect": [25, 850, 700, 541],
+      "scroll_thumb_color": "#C59A45"
+    },
+    "battle": {
+      "bar_node": "战力条",
+      "skin": "battle_strip_700x80_frame_v4.png",
+      "rect": [25, 685, 700, 80],
+      "icons": [
+        {"node": "兵种图标1", "skin": "battle_race_orc_white_66.png", "rect": [245, 692, 66, 66]},
+        {"node": "兵种图标2", "skin": "battle_race_undead_white_66.png", "rect": [323, 692, 66, 66]},
+        {"node": "兵种图标3", "skin": "battle_race_human_white_66.png", "rect": [401, 692, 66, 66]},
+        {"node": "兵种图标4", "skin": "battle_race_mechanical_white_66.png", "rect": [479, 692, 66, 66]},
+        {"node": "兵种图标5", "skin": "battle_icon_sword_white_66.png", "rect": [557, 692, 66, 66]},
+        {"node": "兵种图标6", "skin": "battle_icon_bow_white_66.png", "rect": [635, 692, 66, 66]}
+      ],
+      "stats": [
+        {"node": "兵种数值1", "rect": [313, 711, 10, 28], "props": {"text": "1", "fontSize": 20, "fontWeight": 800, "align": "left", "textColor": "#F4F8FF", "textStroke": "#08111F", "textStrokeWidth": 1.0}},
+        {"node": "兵种数值2", "rect": [391, 711, 10, 28], "props": {"text": "2", "fontSize": 20, "fontWeight": 800, "align": "left", "textColor": "#F4F8FF", "textStroke": "#08111F", "textStrokeWidth": 1.0}},
+        {"node": "兵种数值3", "rect": [469, 711, 10, 28], "props": {"text": "3", "fontSize": 20, "fontWeight": 800, "align": "left", "textColor": "#F4F8FF", "textStroke": "#08111F", "textStrokeWidth": 1.0}},
+        {"node": "兵种数值4", "rect": [547, 711, 10, 28], "props": {"text": "4", "fontSize": 20, "fontWeight": 800, "align": "left", "textColor": "#F4F8FF", "textStroke": "#08111F", "textStrokeWidth": 1.0}},
+        {"node": "兵种数值5", "rect": [625, 711, 10, 28], "props": {"text": "3", "fontSize": 20, "fontWeight": 800, "align": "left", "textColor": "#F4F8FF", "textStroke": "#08111F", "textStrokeWidth": 1.0}},
+        {"node": "兵种数值6", "rect": [703, 711, 10, 28], "props": {"text": "3", "fontSize": 20, "fontWeight": 800, "align": "left", "textColor": "#F4F8FF", "textStroke": "#08111F", "textStrokeWidth": 1.0}}
+      ]
+    },
+    "hidden_page_nodes": ["战力徽记"]
+  }
+}

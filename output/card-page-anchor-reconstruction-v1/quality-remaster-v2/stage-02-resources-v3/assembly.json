@@ -1,0 +1,22 @@
+{
+  "output_dir": "assets",
+  "assembly": {
+    "name": "顶栏资源组 v3 分层素材装配预览",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-01-deck-v4/牌组按钮-v4-无菱形选中态装配预览.uiw",
+    "uiw_output": "顶栏资源组-v3-分层素材装配预览.uiw",
+    "main_page": 1,
+    "preserve_page_visibility": true,
+    "resources": [
+      {"tag": "💎 6", "skin": "resource_bar_153x58_clean.png", "rect": [25, 18, 153, 58], "value": "6", "value_rect": [78, 29, 48, 30]},
+      {"tag": "🪵 400", "skin": "resource_bar_153x58_clean.png", "rect": [195, 18, 153, 58], "value": "400", "value_rect": [249, 29, 52, 30]},
+      {"tag": "🔮 139", "skin": "resource_bar_153x58_clean.png", "rect": [375, 18, 153, 58], "value": "139", "value_rect": [431, 29, 52, 30]},
+      {"tag": "🪙 280", "skin": "resource_bar_153x58_clean.png", "rect": [545, 18, 153, 58], "value": "280", "value_rect": [600, 29, 52, 30]}
+    ],
+    "resource_icons": [
+      {"node": "资源图标1", "skin": "resource_icon_gem_32x32.png", "rect": [32, 31, 32, 32]},
+      {"node": "资源图标2", "skin": "resource_icon_wood_32x32.png", "rect": [202, 31, 32, 32]},
+      {"node": "资源图标3", "skin": "resource_icon_orb_32x32.png", "rect": [382, 31, 32, 32]},
+      {"node": "资源图标4", "skin": "resource_icon_coin_32x32.png", "rect": [552, 31, 32, 32]}
+    ]
+  }
+}

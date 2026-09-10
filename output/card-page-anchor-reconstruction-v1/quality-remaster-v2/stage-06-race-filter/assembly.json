@@ -1,0 +1,11 @@
+{
+  "output_dir": "assets",
+  "asset_source_dirs": ["output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-01-deck-v4/assets"],
+  "assembly": {
+    "name": "种族筛选 v1 透明图标装配预览",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-01-deck-v4/牌组按钮-v5-透明盾牌图标装配预览.uiw",
+    "uiw_output": "种族筛选-v1-透明图标装配预览.uiw",
+    "main_page": 1, "preserve_page_visibility": true,
+    "filter": {"node": "卡库筛选", "rect": [25, 775, 408, 64], "options": ["全部", "", "", "", ""], "widths": [120,72,72,72,72], "selected": 0, "default_skins": ["filter_all_default_120x64.png", "filter_icon_default_72x64.png", "filter_icon_default_72x64.png", "filter_icon_default_72x64.png", "filter_icon_default_72x64.png"], "active_skins": ["filter_all_active_120x64.png", "filter_icon_active_72x64.png", "filter_icon_active_72x64.png", "filter_icon_active_72x64.png", "filter_icon_active_72x64.png"], "icons": ["", "shared_race_undead_64.png", "shared_race_orc_64.png", "shared_race_human_64.png", "shared_race_mechanical_64.png"], "icon_size": [32,32]}
+  }
+}

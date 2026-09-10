@@ -1,0 +1,38 @@
+{
+  "output_dir": "assets",
+  "asset_source_dirs": [
+    "output/card-page-anchor-reconstruction-v1/stage-04-cards/assets"
+  ],
+  "assembly": {
+    "name": "绿色卡牌 v4 无内框装配预览",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-04-cards/绿色卡牌-v3-结构装配预览.uiw",
+    "uiw_output": "绿色卡牌-v4-无内框装配预览.uiw",
+    "main_page": 1,
+    "preserve_page_visibility": true,
+    "card_frames": {
+      "wmtfpf5my34k7": "card_frame_green_160x220_v4.png"
+    },
+    "card_portraits": {
+      "wmtfpf5my34k7": "portrait_green_miner_144x142_v4.png"
+    },
+    "card_progress_by_id": {
+      "wmtfpf5my34k7": {
+        "track": "card_progress_track_136x24.png",
+        "fill": "card_progress_fill_136x24.png"
+      }
+    },
+    "card_layouts": {
+      "wmtfpf5my34k7": {
+        "portrait": [8, 18, 144, 142],
+        "level": [16, 162, 128, 28],
+        "progress": [16, 196, 128, 16],
+        "progress_text": [16, 194, 128, 18],
+        "node_props": {
+          "等级文字": {"fontSize": 18, "fontWeight": 800, "textStrokeWidth": 1.0},
+          "碎片文字": {"fontSize": 16, "fontWeight": 800, "textStrokeWidth": 1.0},
+          "可升级标识": {"text": ""}
+        }
+      }
+    }
+  }
+}

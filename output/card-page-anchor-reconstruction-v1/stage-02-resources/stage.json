@@ -1,0 +1,41 @@
+{
+  "canvas": [750, 1600],
+  "output_dir": "assets",
+  "palette": {},
+  "anchor_extracts": [
+    {"source": "output/card-page-anchor-reconstruction-v1/锚点图.png", "canvas": [750,1600], "rect": [25,18,153,58], "file": "resource_gem_153x58.png", "silhouette": [{"type":"chamfer","rect":[0,3,153,55],"radius":10}], "erase_runtime_text": [{"rect":[50,9,65,40],"fill":"#081A2B"}]},
+    {"source": "output/card-page-anchor-reconstruction-v1/锚点图.png", "canvas": [750,1600], "rect": [195,18,153,58], "file": "resource_wood_153x58.png", "silhouette": [{"type":"chamfer","rect":[0,3,153,55],"radius":10}], "erase_runtime_text": [{"rect":[52,9,62,40],"fill":"#081A2B"}]},
+    {"source": "output/card-page-anchor-reconstruction-v1/锚点图.png", "canvas": [750,1600], "rect": [375,18,153,58], "file": "resource_orb_153x58.png", "silhouette": [{"type":"chamfer","rect":[0,3,153,55],"radius":10}], "erase_runtime_text": [{"rect":[53,9,62,40],"fill":"#081A2B"}]},
+    {"source": "output/card-page-anchor-reconstruction-v1/锚点图.png", "canvas": [750,1600], "rect": [545,18,153,58], "file": "resource_coin_153x58.png", "silhouette": [{"type":"chamfer","rect":[0,3,153,55],"radius":10}], "erase_runtime_text": [{"rect":[53,9,62,40],"fill":"#081A2B"}]}
+  ],
+  "chrome": [],
+  "backgrounds": [
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets/page_background_750x1600.png","size":[750,1600],"file":"page_background_750x1600.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets/deck_title_211x80.png","size":[211,80],"file":"deck_title_211x80.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets/deck_title_gem_28x26.png","size":[28,26],"file":"deck_title_gem_28x26.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets/deck_tab_default_98x80.png","size":[98,80],"file":"deck_tab_default_98x80.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets/deck_tab_active_98x80.png","size":[98,80],"file":"deck_tab_active_98x80.png"},
+    {"source":"output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/assets/deck_active_gem_26x25.png","size":[26,25],"file":"deck_active_gem_26x25.png"}
+  ],
+  "assembly": {
+    "name":"资源条-锚点验收预览 v1", "uiw_source":"output/card-page-anchor-reconstruction-v1/stage-01-deck-v2/牌组按钮-锚点验收预览-v2.uiw", "uiw_output":"资源条-锚点验收预览-v1.uiw", "main_page":1,
+    "background":"page_background_750x1600.png", "title_skin":"deck_title_211x80.png", "title_gem":"deck_title_gem_28x26.png", "tab_default_skin":"deck_tab_default_98x80.png", "tab_active_skin":"deck_tab_active_98x80.png", "filter_active_overlay":{"skin":"deck_active_gem_26x25.png","size":[26,25],"offset":[0,-13]},
+    "geometry":{"title":[20,112,211,80],"title_gem":[112,178,28,26],"tabs":[241,116,490,80]},
+    "resources":[
+      {"tag":"💎 6","skin":"resource_gem_153x58.png","rect":[25,18,153,58],"value":"6","value_rect":[78,29,48,30]},
+      {"tag":"🪵 400","skin":"resource_wood_153x58.png","rect":[195,18,153,58],"value":"400","value_rect":[249,29,52,30]},
+      {"tag":"🔮 139","skin":"resource_orb_153x58.png","rect":[375,18,153,58],"value":"139","value_rect":[431,29,52,30]},
+      {"tag":"🪙 280","skin":"resource_coin_153x58.png","rect":[545,18,153,58],"value":"280","value_rect":[600,29,52,30]}
+    ]
+  },
+  "preview": {
+    "anchor":"output/card-page-anchor-reconstruction-v1/锚点图.png", "background":"page_background_750x1600.png",
+    "resources":[
+      {"skin":"resource_gem_153x58.png","rect":[25,18,153,58],"value":"6","value_rect":[78,29,48,30]},
+      {"skin":"resource_wood_153x58.png","rect":[195,18,153,58],"value":"400","value_rect":[249,29,52,30]},
+      {"skin":"resource_orb_153x58.png","rect":[375,18,153,58],"value":"139","value_rect":[431,29,52,30]},
+      {"skin":"resource_coin_153x58.png","rect":[545,18,153,58],"value":"280","value_rect":[600,29,52,30]}
+    ],
+    "title_skin":"deck_title_211x80.png","title_xy":[20,112],"title_gem":"deck_title_gem_28x26.png","title_gem_xy":[112,178],"active_gem":"deck_active_gem_26x25.png","active_gem_xy":[276,179],"tab_default_skin":"deck_tab_default_98x80.png","tab_active_skin":"deck_tab_active_98x80.png","tab_xy":[241,116],"preview_output":"资源条-局部预览.png","compare_region":[0,0,750,225]
+  }
+}

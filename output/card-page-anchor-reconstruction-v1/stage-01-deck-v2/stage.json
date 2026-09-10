@@ -1,0 +1,109 @@
+{
+  "canvas": [750, 1600],
+  "output_dir": "assets",
+  "palette": {
+    "shadow": "#02060C",
+    "outline": "#07111D",
+    "default_fill": "#0A1B2C",
+    "active_fill": "#765015",
+    "gold": "#C99827",
+    "active_gold": "#F2C953",
+    "inner_line": "#536174",
+    "glint": "#FFE28A"
+  },
+  "reference_crops": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600],
+      "rect": [16, 93, 220, 118],
+      "file": "reference/title-and-gem.png"
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600],
+      "rect": [222, 104, 112, 88],
+      "file": "reference/tab-active.png"
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600],
+      "rect": [322, 104, 112, 88],
+      "file": "reference/tab-default.png"
+    }
+  ],
+  "anchor_extracts": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600], "rect": [20, 112, 211, 80],
+      "file": "deck_title_211x80.png",
+      "silhouette": [{"type": "chamfer", "rect": [3, 4, 205, 76], "radius": 10}]
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600], "rect": [112, 178, 28, 26],
+      "file": "deck_title_gem_28x26.png",
+      "silhouette": [{"type": "diamond", "center": [14, 13], "size": [26, 26]}]
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600], "rect": [241, 116, 98, 80],
+      "file": "deck_tab_active_98x80.png",
+      "silhouette": [{"type": "chamfer", "rect": [0, 4, 98, 76], "radius": 10}],
+      "erase_runtime_text": [{"rect": [38, 18, 22, 34], "fill": "#132238"}],
+      "erase_runtime_polygons": [{"points": [[49, 20], [59, 27], [57, 44], [49, 52], [39, 44], [37, 27]], "fill": "#132238"}]
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600], "rect": [338, 116, 98, 80],
+      "file": "deck_tab_default_98x80.png",
+      "silhouette": [{"type": "chamfer", "rect": [0, 4, 98, 76], "radius": 10}],
+      "erase_runtime_text": [{"rect": [38, 18, 22, 34], "fill": "#102033"}],
+      "erase_runtime_polygons": [{"points": [[49, 20], [59, 27], [57, 44], [49, 52], [39, 44], [37, 27]], "fill": "#102033"}]
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600], "rect": [276, 179, 26, 25],
+      "file": "deck_active_gem_26x25.png",
+      "silhouette": [{"type": "diamond", "center": [13, 12], "size": [24, 24]}]
+    }
+  ],
+  "chrome": [],
+  "backgrounds": [
+    {"source": "output/card-page-anchor-reconstruction-v1/stage-01-deck/assets/page_background_750x1600.png", "size": [750, 1600], "file": "page_background_750x1600.png"},
+    {"source": "output/card-page-anchor-reconstruction-v1/stage-01-deck/assets/resource_bar_160x44.png", "size": [160, 44], "file": "resource_bar_160x44.png"}
+  ],
+  "assembly": {
+    "name": "牌组按钮-锚点验收预览 v2",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/卡牌页-锚点重建结构规范-v1.uiw",
+    "uiw_output": "牌组按钮-锚点验收预览-v2.uiw",
+    "main_page": 1,
+    "background": "page_background_750x1600.png",
+    "resource_skin": "resource_bar_160x44.png",
+    "title_skin": "deck_title_211x80.png",
+    "title_gem": "deck_title_gem_28x26.png",
+    "filter_active_overlay": {"skin": "deck_active_gem_26x25.png", "size": [26, 25], "offset": [0, -13]},
+    "tab_default_skin": "deck_tab_default_98x80.png",
+    "tab_active_skin": "deck_tab_active_98x80.png",
+    "geometry": {
+      "title": [20, 112, 211, 80],
+      "title_gem": [112, 178, 28, 26],
+      "tabs": [241, 116, 490, 80],
+      "active_gem": [276, 179, 26, 25]
+    }
+  },
+  "preview": {
+    "anchor": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+    "background": "page_background_750x1600.png",
+    "resource_skin": "resource_bar_160x44.png",
+    "resource_x": [110, 270, 430, 590], "resource_y": 28,
+    "resource_values": ["6", "400", "139", "280"],
+    "title_skin": "deck_title_211x80.png", "title_xy": [20, 112],
+    "title_gem": "deck_title_gem_28x26.png", "title_gem_xy": [112, 178],
+    "active_gem": "deck_active_gem_26x25.png", "active_gem_xy": [276, 179],
+    "tab_default_skin": "deck_tab_default_98x80.png",
+    "tab_active_skin": "deck_tab_active_98x80.png",
+    "tab_xy": [241, 116],
+    "preview_output": "牌组按钮-局部预览.png",
+    "compare_region": [0, 78, 750, 225]
+  }
+}

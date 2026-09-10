@@ -1,0 +1,39 @@
+{
+  "output_dir": "assets",
+  "asset_source_dirs": [
+    "output/card-page-anchor-reconstruction-v1/stage-04-cards/assets",
+    "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets"
+  ],
+  "assembly": {
+    "name": "蓝紫金卡牌 v5 真实装配预览",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-04-cards/绿色卡牌-v5-单一徽章底座装配预览.uiw",
+    "uiw_output": "蓝紫金卡牌-v5-装配预览.uiw",
+    "main_page": 1,
+    "preserve_page_visibility": true,
+    "card_frames": {
+      "wmtfpf5my34k7-rarity-1": "card_frame_blue_160x220_v5.png",
+      "wmtfpf5my34k7-rarity-2": "card_frame_purple_160x220_v5.png",
+      "wmtfpf5my34k7-rarity-3": "card_frame_gold_160x220_v5.png"
+    },
+    "card_portraits": {
+      "wmtfpf5my34k7-rarity-1": "portrait_blue_144x142_v5.png",
+      "wmtfpf5my34k7-rarity-2": "portrait_purple_144x142_v5.png",
+      "wmtfpf5my34k7-rarity-3": "portrait_gold_144x142_v5.png"
+    },
+    "card_faction_icons": {
+      "wmtfpf5my34k7-rarity-1": "shared_race_orc_64.png",
+      "wmtfpf5my34k7-rarity-2": "shared_race_human_64.png",
+      "wmtfpf5my34k7-rarity-3": "shared_race_mechanical_64.png"
+    },
+    "card_progress_by_id": {
+      "wmtfpf5my34k7-rarity-1": {"track": "card_progress_track_136x24.png", "fill": "card_progress_fill_136x24.png"},
+      "wmtfpf5my34k7-rarity-2": {"track": "card_progress_track_136x24.png", "fill": "card_progress_fill_136x24.png"},
+      "wmtfpf5my34k7-rarity-3": {"track": "card_progress_track_136x24.png", "fill": "card_progress_fill_136x24.png"}
+    },
+    "card_layouts": {
+      "wmtfpf5my34k7-rarity-1": {"portrait": [8, 18, 144, 142], "level": [16, 162, 128, 28], "progress": [16, 196, 128, 16], "progress_text": [16, 194, 128, 18], "hidden_nodes": ["可升级标识"], "node_props": {"等级文字": {"fontSize": 18, "fontWeight": 800, "textStrokeWidth": 1.0}, "碎片文字": {"fontSize": 16, "fontWeight": 800, "textStrokeWidth": 1.0}}},
+      "wmtfpf5my34k7-rarity-2": {"portrait": [8, 18, 144, 142], "level": [16, 162, 128, 28], "progress": [16, 196, 128, 16], "progress_text": [16, 194, 128, 18], "hidden_nodes": ["可升级标识"], "node_props": {"等级文字": {"fontSize": 18, "fontWeight": 800, "textStrokeWidth": 1.0}, "碎片文字": {"fontSize": 16, "fontWeight": 800, "textStrokeWidth": 1.0}}},
+      "wmtfpf5my34k7-rarity-3": {"portrait": [8, 18, 144, 142], "level": [16, 162, 128, 28], "progress": [16, 196, 128, 16], "progress_text": [16, 194, 128, 18], "hidden_nodes": ["可升级标识"], "node_props": {"等级文字": {"fontSize": 18, "fontWeight": 800, "textStrokeWidth": 1.0}, "碎片文字": {"fontSize": 16, "fontWeight": 800, "textStrokeWidth": 1.0}}}
+    }
+  }
+}

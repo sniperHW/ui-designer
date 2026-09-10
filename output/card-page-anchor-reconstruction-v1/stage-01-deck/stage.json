@@ -1,0 +1,53 @@
+{
+  "canvas": [750, 1600],
+  "output_dir": "assets",
+  "palette": {
+    "shadow": "#02060C",
+    "outline": "#07111D",
+    "default_fill": "#0A1B2C",
+    "active_fill": "#765015",
+    "gold": "#C99827",
+    "active_gold": "#F2C953",
+    "inner_line": "#536174",
+    "glint": "#FFE28A"
+  },
+  "chrome": [
+    {"file": "deck_title_200x64.png", "size": [200, 64], "shape": "chamfer", "state": "default", "corner_ratio": 0.16, "line_ratio": 0.035},
+    {"file": "deck_tab_default_98x64.png", "size": [98, 64], "shape": "chamfer", "state": "default", "corner_ratio": 0.16, "line_ratio": 0.035, "emblem": "shield"},
+    {"file": "deck_tab_active_98x64.png", "size": [98, 64], "shape": "chamfer", "state": "active", "corner_ratio": 0.16, "line_ratio": 0.035, "emblem": "shield"},
+    {"file": "deck_title_gem_28x28.png", "size": [28, 28], "shape": "round", "state": "default", "corner_ratio": 0.1, "line_ratio": 0.02, "emblem": "diamond"},
+    {"file": "resource_bar_160x44.png", "size": [160, 44], "shape": "round", "state": "default", "corner_ratio": 0.23, "line_ratio": 0.045}
+  ],
+  "backgrounds": [
+    {"source": "output/card-page-anchor-reconstruction-v1/source/generated-background.png", "size": [750, 1600], "file": "page_background_750x1600.png"}
+  ],
+  "assembly": {
+    "name": "牌组按钮-锚点验收预览 v1",
+    "uiw_source": "output/card-page-anchor-reconstruction-v1/卡牌页-锚点重建结构规范-v1.uiw",
+    "uiw_output": "牌组按钮-锚点验收预览-v1.uiw",
+    "main_page": 1,
+    "background": "page_background_750x1600.png",
+    "resource_skin": "resource_bar_160x44.png",
+    "title_skin": "deck_title_200x64.png",
+    "title_gem": "deck_title_gem_28x28.png",
+    "tab_default_skin": "deck_tab_default_98x64.png",
+    "tab_active_skin": "deck_tab_active_98x64.png"
+  },
+  "preview": {
+    "anchor": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+    "background": "page_background_750x1600.png",
+    "resource_skin": "resource_bar_160x44.png",
+    "resource_x": [110, 270, 430, 590],
+    "resource_y": 28,
+    "resource_values": ["6", "400", "139", "280"],
+    "title_skin": "deck_title_200x64.png",
+    "title_xy": [25, 120],
+    "title_gem": "deck_title_gem_28x28.png",
+    "title_gem_xy": [111, 170],
+    "tab_default_skin": "deck_tab_default_98x64.png",
+    "tab_active_skin": "deck_tab_active_98x64.png",
+    "tab_xy": [235, 120],
+    "preview_output": "牌组按钮-局部预览.png",
+    "compare_region": [0, 0, 750, 230]
+  }
+}

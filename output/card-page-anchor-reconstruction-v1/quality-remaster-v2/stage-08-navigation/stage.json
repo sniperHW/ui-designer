@@ -1,0 +1,117 @@
+{
+  "output_dir": "assets",
+  "palette": {},
+  "chrome": [],
+  "backgrounds": [
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-78d4acce-0851-42d9-a14f-9a3391368cee.png",
+      "source_rect": [0, 0, 397, 793], "size": [96, 72], "fit": "contain", "file": "main_nav_shop_96x72_v2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24}, "crop_alpha": true,
+      "quality_gate": {"min_alpha_coverage": 0.22, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-78d4acce-0851-42d9-a14f-9a3391368cee.png",
+      "source_rect": [397, 0, 397, 793], "size": [96, 72], "fit": "contain", "file": "main_nav_cards_96x72_v2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24}, "crop_alpha": true,
+      "quality_gate": {"min_alpha_coverage": 0.22, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-78d4acce-0851-42d9-a14f-9a3391368cee.png",
+      "source_rect": [794, 0, 397, 793], "size": [96, 72], "fit": "contain", "file": "main_nav_battle_96x72_v2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24}, "crop_alpha": true,
+      "clear_alpha_rects": [[0, 0, 20, 72]],
+      "quality_gate": {"min_alpha_coverage": 0.22, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-78d4acce-0851-42d9-a14f-9a3391368cee.png",
+      "source_rect": [1191, 0, 396, 793], "size": [96, 72], "fit": "contain", "file": "main_nav_castle_96x72_v2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24}, "crop_alpha": true,
+      "quality_gate": {"min_alpha_coverage": 0.22, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-78d4acce-0851-42d9-a14f-9a3391368cee.png",
+      "source_rect": [1587, 0, 396, 793], "size": [96, 72], "fit": "contain", "file": "main_nav_achievement_96x72_v2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24}, "crop_alpha": true,
+      "quality_gate": {"min_alpha_coverage": 0.22, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-a5260501-22d0-430e-ab42-cb845e3ba38a.png",
+      "size": [146, 110],
+      "file": "main_nav_default_146x110_v2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24},
+      "crop_alpha": true,
+      "edge_dark_matte_clear": {"max_value": 42},
+      "quality_gate": {"min_alpha_coverage": 0.65, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-a5260501-22d0-430e-ab42-cb845e3ba38a.png",
+      "size": [146, 110],
+      "file": "main_nav_active_146x110_v2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24},
+      "crop_alpha": true,
+      "edge_dark_matte_clear": {"max_value": 42},
+      "tint_regions": [{"rect": [12, 10, 122, 90], "color": "#C8861B", "opacity": 0.56, "brightness": 1.04}],
+      "quality_gate": {"min_alpha_coverage": 0.65, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-647f7fda-8017-4e15-98ea-57dcedef3e9a.png",
+      "source_rect": [21, 194, 2018, 286],
+      "size": [750, 110],
+      "file": "main_nav_strip_clean_750x110.png",
+      "quality_gate": {"min_alpha_coverage": 0.98, "assert_no_dark_edge_matte": false}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-08-navigation/assets/main_nav_strip_clean_750x110.png",
+      "source_rect": [0, 0, 150, 110],
+      "size": [150, 110],
+      "file": "main_nav_default_150x110.png",
+      "quality_gate": {"min_alpha_coverage": 0.98, "assert_no_dark_edge_matte": false}
+    },
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-08-navigation/assets/main_nav_strip_clean_750x110.png",
+      "source_rect": [0, 0, 150, 110],
+      "size": [150, 110],
+      "file": "main_nav_active_150x110.png",
+      "tint_regions": [{"rect": [12, 10, 126, 90], "color": "#C8861B", "opacity": 0.56, "brightness": 1.04}],
+      "quality_gate": {"min_alpha_coverage": 0.98, "assert_no_dark_edge_matte": false}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-13774619-57de-4b84-a39c-1d9aafc85e26.png",
+      "source_rect": [0, 0, 434, 724], "size": [48, 48], "file": "main_nav_shop_48.png",
+      "retain_hue_range": {"hue_range": [0.06, 0.18]},
+      "quality_gate": {"min_alpha_coverage": 0.10, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-13774619-57de-4b84-a39c-1d9aafc85e26.png",
+      "source_rect": [434, 0, 434, 724], "size": [48, 48], "file": "main_nav_cards_48.png",
+      "retain_hue_range": {"hue_range": [0.06, 0.18]},
+      "quality_gate": {"min_alpha_coverage": 0.10, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-13774619-57de-4b84-a39c-1d9aafc85e26.png",
+      "source_rect": [868, 0, 435, 724], "size": [48, 48], "file": "main_nav_battle_48.png",
+      "retain_hue_range": {"hue_range": [0.06, 0.18]},
+      "quality_gate": {"min_alpha_coverage": 0.10, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-13774619-57de-4b84-a39c-1d9aafc85e26.png",
+      "source_rect": [1303, 0, 435, 724], "size": [48, 48], "file": "main_nav_castle_48.png",
+      "retain_hue_range": {"hue_range": [0.06, 0.18]},
+      "quality_gate": {"min_alpha_coverage": 0.10, "assert_no_dark_edge_matte": true}
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a06226-dd28-7bd2-bded-ab87ca129597/exec-13774619-57de-4b84-a39c-1d9aafc85e26.png",
+      "source_rect": [1737, 0, 435, 724], "size": [48, 48], "file": "main_nav_achievement_48.png",
+      "retain_hue_range": {"hue_range": [0.06, 0.18]},
+      "quality_gate": {"min_alpha_coverage": 0.10, "assert_no_dark_edge_matte": true}
+    }
+  ],
+  "reference_crops": [
+    {
+      "source": "output/card-page-anchor-reconstruction-v1/锚点图.png",
+      "canvas": [750, 1600],
+      "rect": [0, 1490, 750, 110],
+      "file": "reference/main_navigation_anchor_750x110.png"
+    }
+  ]
+}
