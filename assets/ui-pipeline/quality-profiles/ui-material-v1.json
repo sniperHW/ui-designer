@@ -1,0 +1,25 @@
+{
+  "id": "ui-material-v1",
+  "name": "UI 素材质量基线 v1",
+  "baseline": "../../../素材质量基线.md",
+  "requiredGates": [
+    "png.rgba",
+    "png.real-alpha",
+    "png.edge-clean",
+    "structure.no-baked-runtime-content",
+    "semantics.single-visual-base",
+    "visual.canvas-acceptance"
+  ],
+  "roleGates": {
+    "icon": ["semantics.shared-outline", "icon.no-background"],
+    "container": ["structure.complete-frame"],
+    "frame": ["structure.complete-frame", "edge.dark-matte"],
+    "button-skin": ["structure.complete-frame", "layout.closed-skin-spacing"],
+    "portrait": ["card.cover", "card.opaque"],
+    "progress": ["structure.no-baked-runtime-content"]
+  },
+  "notes": [
+    "页面合同只能添加门禁，不能移除本配置的必经门禁。",
+    "edge.dark-matte 仅在存在异形或深色外沿轮廓时适用，但适用后必须声明测量参数。"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "pageId": "替换为页面或页面族标识",
+  "baseUiw": "替换为当前验收 UIW 的路径",
+  "outputUiw": "替换为下一版候选 UIW 的路径",
+  "qualityProfile": "ui-material-v1",
+  "bindings": [
+    {
+      "assetId": "替换为全局素材 ID",
+      "variant": "替换为已验收派生版本 ID",
+      "target": {
+        "scope": "page",
+        "pageId": "替换为 UIW 页面 ID",
+        "nodeId": "替换为稳定节点 ID",
+        "property": "props.assetSrc"
+      },
+      "additionalGates": []
+    }
+  ]
+}

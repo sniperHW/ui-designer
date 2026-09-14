@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "pageId": "card-library-ranged-bow-r2",
+  "baseUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-09-library/卡库区-v16-累计装配预览.uiw",
+  "outputUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-09-library/candidates/卡库区-v17-远程弓箭-r2-候选预览.uiw",
+  "qualityProfile": "ui-material-v1",
+  "bindings": [
+    {
+      "assetId": "icon.ranged.bow",
+      "variant": "white-66-r2-candidate",
+      "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-stat-icon-5", "property": "props.src"},
+      "additionalGates": ["visual.context.battle-strip"]
+    }
+  ]
+}

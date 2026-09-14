@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "pageId": "card-library-race-icons",
+  "baseUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-09-library/卡库区-v16-累计装配预览.uiw",
+  "outputUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-09-library/卡库区-v17-累计装配预览.uiw",
+  "qualityProfile": "ui-material-v1",
+  "bindings": [
+    {"assetId": "icon.race.undead", "variant": "gold-64", "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-library-filter-tab", "property": "props.assetIconSrcs[1]"}, "additionalGates": []},
+    {"assetId": "icon.race.undead", "variant": "gold-64", "target": {"scope": "customWidget", "customWidgetId": "wmtfpf5my34k7", "nodeId": "nmtfpf5mxyvsr", "property": "props.assetSrc"}, "additionalGates": []},
+    {"assetId": "icon.race.undead", "variant": "white-66", "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-stat-icon-1", "property": "props.src"}, "additionalGates": []},
+
+    {"assetId": "icon.race.orc", "variant": "gold-64", "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-library-filter-tab", "property": "props.assetIconSrcs[2]"}, "additionalGates": []},
+    {"assetId": "icon.race.orc", "variant": "gold-64", "target": {"scope": "customWidget", "customWidgetId": "wmtfpf5my34k7-rarity-1", "nodeId": "nmtfpf5mxyvsr-rarity-1", "property": "props.assetSrc"}, "additionalGates": []},
+    {"assetId": "icon.race.orc", "variant": "white-66", "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-stat-icon-0", "property": "props.src"}, "additionalGates": []},
+
+    {"assetId": "icon.race.human", "variant": "gold-64", "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-library-filter-tab", "property": "props.assetIconSrcs[3]"}, "additionalGates": []},
+    {"assetId": "icon.race.human", "variant": "gold-64", "target": {"scope": "customWidget", "customWidgetId": "wmtfpf5my34k7-rarity-2", "nodeId": "nmtfpf5mxyvsr-rarity-2", "property": "props.assetSrc"}, "additionalGates": []},
+    {"assetId": "icon.race.human", "variant": "white-66", "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-stat-icon-2", "property": "props.src"}, "additionalGates": []},
+
+    {"assetId": "icon.race.mechanical", "variant": "gold-64", "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-library-filter-tab", "property": "props.assetIconSrcs[4]"}, "additionalGates": []},
+    {"assetId": "icon.race.mechanical", "variant": "gold-64", "target": {"scope": "customWidget", "customWidgetId": "wmtfpf5my34k7-rarity-3", "nodeId": "nmtfpf5mxyvsr-rarity-3", "property": "props.assetSrc"}, "additionalGates": []},
+    {"assetId": "icon.race.mechanical", "variant": "white-66", "target": {"scope": "page", "pageId": "pmtfpeemv42yh", "nodeId": "asset-stat-icon-3", "property": "props.src"}, "additionalGates": []}
+  ]
+}

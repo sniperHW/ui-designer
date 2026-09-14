@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "qualityProfiles": ["ui-material-v1"],
+  "assets": [
+    {
+      "assetId": "icon.ranged.bow",
+      "displayName": "远程弓箭图标",
+      "role": "icon",
+      "qualityProfile": "ui-material-v1",
+      "master": "scripts/ui_asset_pipeline/build_flat_icon_candidate.mjs",
+      "requiredGates": [
+        "png.rgba", "png.real-alpha", "png.edge-clean", "structure.no-baked-runtime-content", "semantics.single-visual-base", "visual.canvas-acceptance", "semantics.shared-outline", "icon.no-background"
+      ],
+      "variants": [
+        {"id": "white-66-r1", "size": [66, 66], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_icon_bow_white_66.png", "status": "accepted"},
+        {"id": "white-66-r2-candidate", "size": [66, 66], "file": "assets/ui-pipeline/candidates/icon.ranged.bow/r2/battle_icon_bow_white_66.png", "status": "candidate"}
+      ],
+      "consumers": [
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-ranged-bow-r2.json", "usage": "战力统计的远程弓箭图标"}
+      ]
+    },
+    {
+      "assetId": "icon.race.undead",
+      "displayName": "亡灵种族图标",
+      "role": "icon",
+      "qualityProfile": "ui-material-v1",
+      "master": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_undead_64.png",
+      "requiredGates": [
+        "png.rgba",
+        "png.real-alpha",
+        "png.edge-clean",
+        "structure.no-baked-runtime-content",
+        "semantics.single-visual-base",
+        "visual.canvas-acceptance",
+        "semantics.shared-outline",
+        "icon.no-background"
+      ],
+      "variants": [
+        {"id": "gold-64", "size": [64, 64], "file": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_undead_64.png"},
+        {"id": "white-66", "size": [66, 66], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_race_undead_white_66.png"},
+        {"id": "white-22", "size": [22, 22], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_race_undead_white_22.png"}
+      ],
+      "consumers": [
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "种族筛选栏的亡灵选项"},
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "绿色卡牌的种族角标"},
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "战力统计的亡灵白色图标"}
+      ]
+    },
+    {
+      "assetId": "icon.race.orc",
+      "displayName": "兽人种族图标",
+      "role": "icon",
+      "qualityProfile": "ui-material-v1",
+      "master": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_orc_64.png",
+      "requiredGates": [
+        "png.rgba", "png.real-alpha", "png.edge-clean", "structure.no-baked-runtime-content", "semantics.single-visual-base", "visual.canvas-acceptance", "semantics.shared-outline", "icon.no-background"
+      ],
+      "variants": [
+        {"id": "gold-64", "size": [64, 64], "file": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_orc_64.png"},
+        {"id": "white-66", "size": [66, 66], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_race_orc_white_66.png"},
+        {"id": "white-22", "size": [22, 22], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_race_orc_white_22.png"}
+      ],
+      "consumers": [
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "种族筛选栏的兽人选项"},
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "蓝色卡牌的种族角标"},
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "战力统计的兽人白色图标"}
+      ]
+    },
+    {
+      "assetId": "icon.race.human",
+      "displayName": "人类种族图标",
+      "role": "icon",
+      "qualityProfile": "ui-material-v1",
+      "master": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_human_64.png",
+      "requiredGates": [
+        "png.rgba", "png.real-alpha", "png.edge-clean", "structure.no-baked-runtime-content", "semantics.single-visual-base", "visual.canvas-acceptance", "semantics.shared-outline", "icon.no-background"
+      ],
+      "variants": [
+        {"id": "gold-64", "size": [64, 64], "file": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_human_64.png"},
+        {"id": "white-66", "size": [66, 66], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_race_human_white_66.png"},
+        {"id": "white-22", "size": [22, 22], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_race_human_white_22.png"}
+      ],
+      "consumers": [
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "种族筛选栏的人类选项"},
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "紫色卡牌的种族角标"},
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "战力统计的人类白色图标"}
+      ]
+    },
+    {
+      "assetId": "icon.race.mechanical",
+      "displayName": "机械种族图标",
+      "role": "icon",
+      "qualityProfile": "ui-material-v1",
+      "master": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_mechanical_64.png",
+      "requiredGates": [
+        "png.rgba", "png.real-alpha", "png.edge-clean", "structure.no-baked-runtime-content", "semantics.single-visual-base", "visual.canvas-acceptance", "semantics.shared-outline", "icon.no-background"
+      ],
+      "variants": [
+        {"id": "gold-64", "size": [64, 64], "file": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-06-race-filter/assets/shared_race_mechanical_64.png"},
+        {"id": "white-66", "size": [66, 66], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_race_mechanical_white_66.png"},
+        {"id": "white-22", "size": [22, 22], "file": "output/card-page-anchor-reconstruction-v1/stage-05-battle/assets/battle_race_mechanical_white_22.png"}
+      ],
+      "consumers": [
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "种族筛选栏的机械选项"},
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "金色卡牌的种族角标"},
+        {"project": "卡牌页锚点重构", "contract": "assets/ui-pipeline/page-contracts/card-library-race-icons.json", "usage": "战力统计的机械白色图标"}
+      ]
+    }
+  ]
+}
