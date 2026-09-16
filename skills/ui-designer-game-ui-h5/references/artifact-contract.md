@@ -1,5 +1,7 @@
 # 产物契约
 
+涉及重复对象及其关联详情时，先按 [data-model.md](data-model.md) 联合归纳业务实体。业务数据保存在 `ui-data.js` 等独立主源，读取选择器放在独立 `data-bindings.json` 或顶层 `dataBindings`；不得混入仅用于视觉的 `bindingOverlay`。列表与详情通过实体 ID 共用数据，`.uiw` 原始树与动作仍按以下契约无损保留。
+
 `ui-layout.json` 是 `.uiw` 到 H5/游戏引擎的唯一布局与资产关联层。它必须包含 `uiwDocument` 的无损 `.uiw` 副本，供引擎按原控件结构、父子关系和定制控件定义实例化；视觉资产与截图推断放在独立 `bindingOverlay`，不能反向修改 `uiwDocument`。所有布局单位都是 `.uiw` 的设计像素。
 
 ```json
