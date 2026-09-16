@@ -1,0 +1,19 @@
+{
+  "candidateId": "card-detail-green.property-icons.v16.r3",
+  "status": "candidate-awaiting-art-review",
+  "role": "transparent-property-icons",
+  "qualityProfile": "ui-material-v1",
+  "size": [46, 46],
+  "files": ["property-building-health-46.png", "property-production-time-46.png", "property-attack-46.png", "property-unit-health-46.png", "property-speed-46.png", "property-range-46.png"],
+  "visualDesign": "每枚图标仅保留可缩小识别的主体轮廓、3—5 个大色块和单层高光；保留城防、时钟、交叉兵刃、护心、翼靴、准星的造型与原有色彩编码。",
+  "gates": {
+    "png.rgba": "passed",
+    "png.exact-slot-size": "passed (46×46)",
+    "png.real-alpha": "passed (alpha min=0, max=255)",
+    "source.outside-project": "passed (仅保留页面尺寸成品)",
+    "visual.low-detail-silhouette": "passed by design",
+    "visual.canvas-acceptance": "passed"
+  },
+  "sizePolicy": "素材库仅保存 46×46 最终成品，不含高分辨率生成源图。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v15-简化属性图标画布验收候选.uiw"
+}

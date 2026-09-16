@@ -10,7 +10,7 @@
       "variant": "替换为已验收派生版本 ID",
       "target": {
         "scope": "page",
-        "pageId": "替换为 UIW 页面 ID",
+        "pageId": "替换为 UIW 页面 ID；若 scope 为 popup 则改用 popupId",
         "nodeId": "替换为稳定节点 ID",
         "property": "props.assetSrc"
       },

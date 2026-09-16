@@ -1,0 +1,13 @@
+{
+  "candidateId": "card-detail-green.power-bar.v16.r2",
+  "status": "rejected-by-art-review",
+  "role": "unlettered-runtime-value-bar",
+  "qualityProfile": "ui-material-v1",
+  "size": [668, 40],
+  "files": ["detail-power-bar-safe-668x40.png"],
+  "revision": "横条实体置于 [20,6,628,28] 安全区，左右各留 20px、上下各留 6px 透明边距。",
+  "gates": {"png.rgba":"passed","png.exact-slot-size":"passed (668×40)","png.real-alpha":"passed (alpha min=0, max=255)","alpha-safe-bounds":"passed ([21,7,648,26])","structure.no-baked-runtime-text":"passed","visual.canvas-acceptance":"passed"},
+  "sizePolicy": "素材库仅保存 668×40 最终横条，不含高分辨率生成源图。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v20-安全边距战力横条画布验收候选.uiw",
+  "rejection": "2026-09-15：源图透明外延被整体压缩，实体高度仍只有约 11px；改为裁取主实体视觉带并映射到 [40,5,588,30] 安全区。"
+}

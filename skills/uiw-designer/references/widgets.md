@@ -11,7 +11,8 @@
 | `ellipse` | 椭圆 / 圆 | 120×80 | — |
 | `line` | 线段 | 240×2 | —（水平线，绘制在节点垂直中线） |
 | `placeholder` | 占位图 | 160×120 | —（矩形 + 对角线，用于图片占位） |
-| `nine` | 九宫格 | 160×120 | —（带三分线的可拉伸图占位） |
+| `image` | 图片 | 160×120 | `src` | 显示本地 `file://` URI 或 data URI；画布、预览、导出共用 |
+| `nine` | 九宫格 | 160×120 | `assetSrc`、`nineInsets:[左,上,右,下]`、`nineSourceSize:[源宽,源高]` | 无来源时显示三分线示意；有来源时真实切成九片，四角和边缘不变形，仅中心拉伸。 |
 
 ## 文本
 
@@ -29,7 +30,7 @@
 | `checkbox` | 复选框 | 200×40 | `text`、`checked`、`fontSize`(24) | 左侧 18px 方框 + 标签 |
 | `progress` | 进度条 | 300×24 | `progress`（0–100） | |
 | `input` | 输入框 | 320×64 | `placeholder`、`fontSize`(24) | 灰色占位文本 |
-| `filter` | 筛选器 | 480×56 | `options`: string[]、`selected`: number | 一行标签单选（选中黑底白字）；通过 `binding` 过滤同页 list/grid |
+| `filter` | 筛选器 | 480×56 | `options`: string[]、`selected`: number、`fontSize` | 一行标签单选（选中黑底白字）；通过 `binding` 过滤同页 list/grid；可配普通/选中皮肤保持交互。可选 `assetActiveOverlaySrc` 及尺寸/偏移，让选中态下挂装饰随真实选项移动。 |
 
 筛选器联动示例：
 
@@ -77,10 +78,10 @@
 | type | 名称 | 默认尺寸 | 子控件挂载 | 内容区 |
 |---|---|---|---|---|
 | `panel` | 面板 | 320×240 | `children` | 整个矩形 |
-| `dialog` | 弹窗 | 480×320 | `children` | 标题栏（高 48）**下方**区域；props: `title`（弹窗页本体与页名保持一致，编辑器双向同步）；**仅弹窗页（popups）内可用**，页面 / 公共层 / 定制控件内不放 |
+| `dialog` | 弹窗 | 480×320 | `children` | 标题栏（高 48）**下方**区域；props: `title`（弹窗页本体与页名保持一致，编辑器双向同步）。可配 `assetSrc`、`nineInsets`、`nineSourceSize` 绘制皮肤，`hideDialogChrome` 隐藏默认标题栏，`dialogCloseRect` 与自绘关闭按钮对齐；**仅弹窗页（popups）内可用**，页面 / 公共层 / 定制控件内不放 |
 | `tooltip` | 轻提示框 | 280×140 | `children` | 气泡矩形（扣除尾箭头一侧 12px）；props: `tail`（`top`/`bottom`/`left`/`right`，默认 `bottom` 指向被悬停控件；弹出时上下自动翻转）；**仅轻提示页（tips）内可用**，页面 / 公共层 / 弹窗页 / 定制控件内不放 |
 | `scroll` | 滚动区 | 320×240 | `children` | 整个矩形（超出裁剪 + 滚动条示意；预览中滚轮可滚动，滑块随内容移动） |
-| `tab` | Tab 页签 | 480×320 | `pages`（每页签一个数组） | 页签栏之外的区域；`barPosition`: `top`/`bottom`，`barHeight`: 页签栏高（默认 40，上限为控件高一半），`fontSize`: 页签字号（默认 22） |
+| `tab` | Tab 页签 | 480×320 | `pages`（每页签一个数组） | 页签栏之外的区域；`barPosition`: `top`/`bottom`，`barHeight`: 页签栏高（默认 40，上限为控件高一半），`fontSize`: 页签字号（默认 22）。`tabWidths` 可为每个页签头指定设计像素宽度（总和不超过控件宽），未覆盖的页签栏余量不会触发切换。 |
 | `list` | 列表 | 300×320 | ❌ 不可挂子控件 | `direction`: `v`/`h`、`count`；项为生成的占位格 |
 | `grid` | 网格 | 400×320 | ❌ 不可挂子控件 | `cols`、`count`；项为生成的占位格 |
 | `custom` | 定制控件实例 | — | `slots` | 见 schema.md |

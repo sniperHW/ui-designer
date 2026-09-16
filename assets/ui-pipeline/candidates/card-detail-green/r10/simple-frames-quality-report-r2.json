@@ -1,0 +1,23 @@
+{
+  "candidateId": "card-detail-green.simple-frames.v16.r2",
+  "status": "superseded-by-r3",
+  "supersededReason": "2026-09-14：用户要求以旧版顶部/底部结构为准，并移除侧轨细条装饰；改用 r11 干净边轨外壳。",
+  "qualityProfile": "ui-material-v1",
+  "designRule": "普通对称切角；仅上下中部保留浅阶梯结构；禁止四角菱形、宝石、徽章和重复角部装饰。",
+  "assets": [
+    {"role": "detail-shell", "file": "assets/ui-pipeline/candidates/card-detail-green/r8/derived/detail-shell-v16-simple-688x862-alpha-r2.png", "size": [688, 862], "nineInsets": [48, 54, 48, 48]},
+    {"role": "property-tile", "file": "assets/ui-pipeline/candidates/card-detail-green/r9/derived/detail-property-tile-v16-simple-277x72-alpha-r2.png", "size": [277, 72], "nineInsets": [16, 12, 16, 12], "reusedBy": 6},
+    {"role": "skills-tray", "file": "assets/ui-pipeline/candidates/card-detail-green/r10/derived/detail-skills-tray-v16-simple-620x127-alpha-r2.png", "size": [620, 127], "nineInsets": [24, 22, 24, 22]}
+  ],
+  "gates": {
+    "png.rgba": "passed",
+    "png.real-alpha": "passed",
+    "png.edge-clean": "passed",
+    "structure.no-baked-runtime-content": "passed",
+    "semantics.single-visual-base": "passed",
+    "structure.complete-frame": "passed",
+    "visual.canvas-acceptance": "passed"
+  },
+  "sizePolicy": "工程候选区只保留与页面实际槽位一致的派生 PNG；生成源不复制入工程。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v9-简化框体画布验收候选.uiw"
+}

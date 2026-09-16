@@ -1,0 +1,30 @@
+{
+  "candidateId": "card-detail-green.detail-shell.v16.r2",
+  "status": "rejected-by-art-review",
+  "rejection": "2026-09-14：四角菱形装饰过于繁杂且比例不协调，改用 r8 的普通切角与中部浅阶梯方案。",
+  "role": "container",
+  "qualityProfile": "ui-material-v1",
+  "source": "assets/ui-pipeline/candidates/card-detail-green/r2/source/detail-shell-v16-imagegen-r2.png",
+  "derived": "assets/ui-pipeline/candidates/card-detail-green/r2/derived/detail-shell-v16-688x862-alpha-r1.png",
+  "size": [688, 862],
+  "nineSlice": {"insets": [52, 52, 52, 52], "sourceSize": [688, 862]},
+  "gates": {
+    "png.rgba": {"status": "passed", "evidence": "32bpp RGBA PNG"},
+    "png.real-alpha": {"status": "passed", "evidence": "四个画布角像素 alpha 均为 0"},
+    "png.edge-clean": {"status": "passed", "evidence": "edge_dark_matte_clear max_value=42；构建脚本断言通过"},
+    "structure.no-baked-runtime-content": {"status": "passed", "evidence": "无文字、数值、角色名、按钮文案或运行时图标"},
+    "semantics.single-visual-base": {"status": "passed", "evidence": "单一无字弹窗框体，运行时内容保持为节点"},
+    "structure.complete-frame": {"status": "passed", "evidence": "完整外沿、内衬与透明切角在同一素材内"},
+    "edge.dark-matte": {"status": "passed", "evidence": "max_value=42, max_pixels=0"},
+    "visual.canvas-acceptance": {
+      "status": "passed",
+      "evidence": "2026-09-14：Electron 真实画布切入绿色弹窗页；9/9 九宫格切片可见",
+      "validator": "scripts/ui_asset_pipeline/validate_card_detail_shell_canvas.mjs"
+    }
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v3-外壳画布验收候选.uiw",
+  "registration": {
+    "assetCatalog": "not-yet-registered",
+    "reason": "仅作为外壳候选完成画布验收；待与绿色卡面、透明图标共同完成页面级美术评审后再入库并绑定正式合同。"
+  }
+}

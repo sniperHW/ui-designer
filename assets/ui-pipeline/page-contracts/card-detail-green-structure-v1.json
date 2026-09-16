@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "kind": "popup-structure",
+  "pageId": "card-detail-green-v1",
+  "baseUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-09-library/candidates/卡库区-v17-远程弓箭-r2-候选预览.uiw",
+  "outputUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v1-结构候选.uiw",
+  "popup": {
+    "popupId": "ppmtv84xe0zm19",
+    "dialogNodeId": "nmtv84xe0l2t9",
+    "dialogRect": [50, 130, 640, 960],
+    "contentRect": [50, 178, 640, 912],
+    "closeInteraction": "dialog.titleBar.close"
+  },
+  "reuseStrategy": {
+    "structureFamily": "card-detail-rarity-v1",
+    "reuseFor": ["蓝色", "紫色", "金色"],
+    "replacementSurface": ["稀有度卡框", "卡面", "种族图标", "职业图标", "运行时数据映射"],
+    "mustNotRebuild": ["详情容器层级", "文字节点 ID", "属性区布局", "关闭与升级交互节点"]
+  },
+  "layers": [
+    {"id": "detail-green-inset-surface", "type": "image", "name": "详情内衬", "rect": [70, 198, 600, 860], "visualRole": "container-inset", "assetSlot": "card.detail.inset.green", "runtime": false},
+    {"id": "detail-green-card-art", "type": "image", "name": "大卡面", "rect": [198, 252, 354, 350], "visualRole": "card-portrait", "assetSlot": "card.detail.portrait.green.miner", "runtime": false},
+    {"id": "detail-green-card-frame", "type": "image", "name": "绿色稀有度卡框", "rect": [178, 208, 394, 542], "visualRole": "card-frame", "assetSlot": "card.detail.frame.green", "runtime": false},
+    {"id": "detail-green-race-badge-base", "type": "image", "name": "种族底座", "rect": [188, 228, 72, 72], "visualRole": "race-badge-base", "assetSlot": "card.detail.race-badge-base", "runtime": false},
+    {"id": "detail-green-race-icon", "type": "image", "name": "亡灵种族图标", "rect": [202, 242, 44, 44], "visualRole": "race-icon", "assetSlot": "icon.race.undead", "runtime": false},
+    {"id": "detail-green-card-level", "type": "text", "name": "卡面等级", "rect": [258, 684, 234, 36], "visualRole": "runtime-level", "runtime": true},
+    {"id": "detail-green-card-progress", "type": "text", "name": "卡面碎片进度", "rect": [258, 724, 234, 22], "visualRole": "runtime-progress", "runtime": true},
+    {"id": "detail-green-title", "type": "text", "name": "卡牌标题", "rect": [100, 770, 550, 44], "visualRole": "runtime-title", "runtime": true},
+    {"id": "detail-green-profession", "type": "text", "name": "种族与职业", "rect": [100, 818, 550, 28], "visualRole": "runtime-identity", "runtime": true},
+    {"id": "detail-green-divider", "type": "line", "name": "属性区分隔线", "rect": [100, 858, 550, 2], "visualRole": "fixed-divider", "runtime": false},
+    {"id": "detail-green-level-label", "type": "text", "name": "等级标签", "rect": [100, 874, 160, 28], "visualRole": "runtime-label", "runtime": true},
+    {"id": "detail-green-level-value", "type": "text", "name": "等级数值", "rect": [420, 874, 230, 28], "visualRole": "runtime-level-value", "runtime": true},
+    {"id": "detail-green-power-label", "type": "text", "name": "战力标签", "rect": [100, 908, 160, 28], "visualRole": "runtime-label", "runtime": true},
+    {"id": "detail-green-power-value", "type": "text", "name": "战力数值", "rect": [420, 908, 230, 28], "visualRole": "runtime-power", "runtime": true},
+    {"id": "detail-green-skills-heading", "type": "text", "name": "技能标题", "rect": [100, 954, 180, 34], "visualRole": "section-heading", "runtime": false},
+    {"id": "detail-green-skill-icon", "type": "image", "name": "职业技能图标", "rect": [100, 1004, 56, 56], "visualRole": "profession-icon", "assetSlot": "icon.profession.miner", "runtime": false},
+    {"id": "detail-green-skill-name", "type": "text", "name": "技能名称", "rect": [170, 998, 235, 28], "visualRole": "runtime-skill-name", "runtime": true},
+    {"id": "detail-green-skill-description", "type": "text", "name": "技能说明", "rect": [170, 1030, 235, 30], "visualRole": "runtime-skill-description", "runtime": true},
+    {"id": "detail-green-upgrade-button", "type": "button", "name": "升级按钮", "rect": [430, 996, 190, 64], "visualRole": "runtime-upgrade-action", "interaction": "runtime.command.upgrade"}
+  ],
+  "layeringInvariant": ["详情内衬", "大卡面", "稀有度卡框", "种族底座", "种族图标", "动态文字与交互"],
+  "assetRules": [
+    "素材库仅登记无字内衬、无字卡框、卡面与真实透明图标。",
+    "标题、等级、战力、碎片、技能说明和按钮文案均由运行时文字节点承担。",
+    "大卡面必须以精确窗口 cover 合成，最终 alpha 全不透明；图标必须为无底图真实透明 PNG。"
+  ]
+}

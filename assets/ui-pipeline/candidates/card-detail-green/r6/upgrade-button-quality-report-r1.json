@@ -1,0 +1,28 @@
+{
+  "candidateId": "card-detail.action.upgrade.v16.r6",
+  "status": "candidate-awaiting-art-review",
+  "role": "button-skin",
+  "qualityProfile": "ui-material-v1",
+  "source": "assets/ui-pipeline/candidates/card-detail-green/r6/source/detail-upgrade-button-v16-imagegen-r6.png",
+  "derived": "assets/ui-pipeline/candidates/card-detail-green/r6/derived/detail-upgrade-button-v16-214x82-alpha-r1.png",
+  "size": [214, 82],
+  "gates": {
+    "png.rgba": {"status": "passed", "evidence": "32bpp RGBA PNG"},
+    "png.real-alpha": {"status": "passed", "evidence": "中性背景已转换为真实透明画布"},
+    "png.edge-clean": {"status": "passed", "evidence": "edge_dark_matte_clear max_value=42；构建脚本断言通过"},
+    "structure.no-baked-runtime-content": {"status": "passed", "evidence": "无“升级”文案、费用、货币、箭头或功能图标"},
+    "semantics.single-visual-base": {"status": "passed", "evidence": "仅承担 button 皮肤；文字与费用均为原有运行时节点"},
+    "structure.complete-frame": {"status": "passed", "evidence": "上高光、四角与底部阴影构成完整封闭皮肤"},
+    "layout.closed-skin-spacing": {"status": "passed", "evidence": "中心留白可容纳运行时按钮文字"},
+    "visual.canvas-acceptance": {
+      "status": "passed",
+      "evidence": "2026-09-14：Electron 真实画布中升级皮肤与“升级”运行时文字同时可见",
+      "validator": "scripts/ui_asset_pipeline/validate_card_detail_shell_canvas.mjs"
+    }
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v7-升级按钮画布验收候选.uiw",
+  "registration": {
+    "assetCatalog": "not-yet-registered",
+    "reason": "等待完整绿色详情页面的美术评审后再正式入库并绑定消费者。"
+  }
+}

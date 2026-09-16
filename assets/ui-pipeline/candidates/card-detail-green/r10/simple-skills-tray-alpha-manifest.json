@@ -1,0 +1,14 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-73f90784-8209-486f-906d-dbb8a7d15594.png",
+      "size": [620, 127],
+      "file": "detail-skills-tray-v16-simple-620x127-alpha-r2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24},
+      "crop_alpha": true,
+      "edge_dark_matte_clear": {"max_value": 42},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    }
+  ]
+}

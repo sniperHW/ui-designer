@@ -1,0 +1,13 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-081afd1b-4bc0-4459-9a86-2e07bf2d156c.png",
+      "size": [688, 862],
+      "file": "detail-shell-v16-clean-rails-688x862-alpha-r3.png",
+      "edge_dark_matte_clear": {"max_value": 42},
+      "crop_alpha": true,
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    }
+  ]
+}

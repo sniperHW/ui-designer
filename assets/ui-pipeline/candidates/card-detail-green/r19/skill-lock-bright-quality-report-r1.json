@@ -1,0 +1,19 @@
+{
+  "candidateId": "card-detail-green.skill-lock.v16.r2",
+  "status": "candidate-awaiting-art-review",
+  "role": "transparent-runtime-state-icon",
+  "qualityProfile": "ui-material-v1",
+  "size": [31, 31],
+  "files": ["skill-lock-bright-31.png"],
+  "revision": "保持锁轮廓；提亮、轻度降饱和、加入冰青发光描边，并由 26×26 放大到 31×31。",
+  "gates": {
+    "png.rgba": "passed",
+    "png.exact-slot-size": "passed (31×31)",
+    "png.real-alpha": "passed (alpha min=0, max=255)",
+    "source.outside-project": "passed (仅保留页面尺寸成品)",
+    "structure.no-baked-text": "passed by design",
+    "visual.canvas-acceptance": "passed"
+  },
+  "sizePolicy": "素材库仅保存 31×31 最终锁图标，不含高分辨率生成源图。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v18-高亮技能锁定状态画布验收候选.uiw"
+}

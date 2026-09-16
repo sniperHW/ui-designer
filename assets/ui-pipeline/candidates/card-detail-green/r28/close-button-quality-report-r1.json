@@ -1,0 +1,20 @@
+{
+  "candidateId": "card-detail-green.close-button.v1.r1",
+  "status": "accepted-by-art-review",
+  "role": "close-interaction-skin",
+  "qualityProfile": "ui-material-v1",
+  "size": [56, 56],
+  "files": ["derived/detail-close-button-56x56.png"],
+  "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-93624e64-bff5-45ea-852e-c7bfd2e31f1c.png",
+  "revision": "红色立体关闭按钮，粗白色 X、深红侧影和细金边；以大形状确保 56×56 实际槽位内可辨识。",
+  "gates": {
+    "png.rgba":"passed",
+    "png.exact-slot-size":"passed (56×56)",
+    "structure.interaction-node-preserved":"passed",
+    "uiw.schema":"passed",
+    "canvas.real-render":"passed (nine-slice=9)",
+    "visual.art-review":"passed (用户确认通过)"
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v27-关闭按钮画布验收候选.uiw",
+  "sizePolicy": "项目素材只保存实际槽位 56×56 的最终 PNG；高分辨率生成源保留在外部生成目录。"
+}

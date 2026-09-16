@@ -1,0 +1,30 @@
+{
+  "candidateId": "card-detail.skills-tray.v16.r5",
+  "status": "rejected-by-art-review",
+  "rejection": "2026-09-14：四角菱形装饰过于繁杂且比例不协调，改用 r10 的普通切角与中部浅阶梯方案。",
+  "role": "container",
+  "qualityProfile": "ui-material-v1",
+  "source": "assets/ui-pipeline/candidates/card-detail-green/r5/source/detail-skills-tray-v16-imagegen-r5.png",
+  "derived": "assets/ui-pipeline/candidates/card-detail-green/r5/derived/detail-skills-tray-v16-620x127-alpha-r1.png",
+  "size": [620, 127],
+  "nineSlice": {"insets": [24, 24, 24, 24], "sourceSize": [620, 127]},
+  "gates": {
+    "png.rgba": {"status": "passed", "evidence": "32bpp RGBA PNG"},
+    "png.real-alpha": {"status": "passed", "evidence": "透明画布角已由中性背景提取流程验证"},
+    "png.edge-clean": {"status": "passed", "evidence": "edge_dark_matte_clear max_value=42；构建脚本断言通过"},
+    "structure.no-baked-runtime-content": {"status": "passed", "evidence": "无标题、技能图标、锁、数值或状态文字"},
+    "semantics.single-visual-base": {"status": "passed", "evidence": "仅承担技能分区托盘；五个技能槽和状态保持独立节点"},
+    "structure.complete-frame": {"status": "passed", "evidence": "四边与四角均为闭合连续框体"},
+    "edge.dark-matte": {"status": "passed", "evidence": "max_value=42, max_pixels=0"},
+    "visual.canvas-acceptance": {
+      "status": "passed",
+      "evidence": "2026-09-14：Electron 真实画布中 9/9 技能托盘切片可见",
+      "validator": "scripts/ui_asset_pipeline/validate_card_detail_shell_canvas.mjs"
+    }
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v6-技能托盘画布验收候选.uiw",
+  "registration": {
+    "assetCatalog": "not-yet-registered",
+    "reason": "等待完整绿色详情页面的美术评审后再正式入库并绑定消费者。"
+  }
+}

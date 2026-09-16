@@ -1,0 +1,20 @@
+{
+  "candidateId": "card-detail-green.reset-button.v1.r1",
+  "status": "accepted-by-art-review",
+  "role": "level-reset-interaction-skin",
+  "qualityProfile": "ui-material-v1",
+  "size": [58, 58],
+  "files": ["derived/detail-reset-button-58x58.png"],
+  "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-d9efa3d1-16bb-4f4d-9246-3f7e3fc7e6be.png",
+  "revision": "连续金边与深蓝圆形底座，粗青色双回转箭头；移除了初版的四处外圈卡扣，确保 58×58 下的简洁识别。",
+  "gates": {
+    "png.rgba":"passed",
+    "png.exact-slot-size":"passed (58×58)",
+    "structure.interaction-node-preserved":"passed",
+    "uiw.schema":"passed",
+    "canvas.real-render":"passed (nine-slice=9)",
+    "visual.art-review":"passed (用户确认通过)"
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v29-等级重制图标画布验收候选.uiw",
+  "sizePolicy": "项目素材只保存实际槽位 58×58 的最终 PNG；高分辨率编辑源保留在外部生成目录。"
+}

@@ -3,6 +3,7 @@ export type WidgetType =
   | 'ellipse'
   | 'line'
   | 'placeholder'
+  | 'image'
   | 'nine'
   | 'text'
   | 'button'
@@ -23,8 +24,41 @@ export interface WidgetProps {
   /** 文本内容 / 按钮文字 / 复选框标签 */
   text?: string
   placeholder?: string
+  /** 本地 PNG / SVG 的 file:// URI 或 data URI（图片控件） */
+  src?: string
+  /** 控件皮肤图片（适用于保留原控件交互的装配预览） */
+  assetSrc?: string
+  /** 九宫格皮肤切片边距：[左, 上, 右, 下]；未配置时按节点尺寸均分示意。 */
+  nineInsets?: [number, number, number, number]
+  /** 九宫格皮肤的原始设计尺寸；配合 nineInsets 在任意目标尺寸保持四角不变形。 */
+  nineSourceSize?: [number, number]
+  /** 多态控件（筛选 / Tab）的普通、选中皮肤，以及进度填充皮肤 */
+  assetDefaultSrc?: string
+  assetActiveSrc?: string
+  /** 筛选器选中项可选的悬挂装饰；随真实 selected 状态自动移动。 */
+  assetActiveOverlaySrc?: string
+  activeOverlayWidth?: number
+  activeOverlayHeight?: number
+  activeOverlayOffsetX?: number
+  activeOverlayOffsetY?: number
+  /** Tab：按页签下标指定的普通、选中皮肤；缺项回退到单一皮肤 */
+  assetDefaultSrcs?: string[]
+  assetActiveSrcs?: string[]
+  /** Tab：叠加在完整页签底板上的透明图标；不属于页签皮肤本身。 */
+  assetIconSrc?: string
+  assetIconSrcs?: string[]
+  assetIconWidth?: number
+  assetIconHeight?: number
+  /** Tab：图标导航不渲染标签，保留 tabs 作为真实页签与无障碍语义。 */
+  hideTabLabels?: boolean
+  assetFillSrc?: string
   fontSize?: number
   bold?: boolean
+  /** 文本颜色与描边：用于深色素材上的可读性 */
+  textColor?: string
+  textStroke?: string
+  textStrokeWidth?: number
+  fontWeight?: number
   align?: 'left' | 'center' | 'right'
   radius?: number
   /** 进度条百分比 0-100 */
@@ -32,12 +66,24 @@ export interface WidgetProps {
   checked?: boolean
   /** Tab：页签标题（每项一个页签） */
   tabs?: string[]
+  /** Tab：各页签头宽度（设计像素）；未设置时均分，剩余区域不作为页签点击区 */
+  tabWidths?: number[]
+  /** Tab：相邻独立页签之间的固定留缝，避免完整边框互相叠压。 */
+  tabGap?: number
   /** Tab：页签栏位置 */
   barPosition?: 'top' | 'bottom'
   /** Tab：页签栏高度（默认 40，上限为控件高一半） */
   barHeight?: number
+  /** 容器底面透明：用于让页面背景穿透，仍保留子控件与交互 */
+  transparentSurface?: boolean
+  /** 滚动区滑块颜色；框体素材由 assetSrc 承担，滑块仍保留真实滚动语义。 */
+  scrollThumbColor?: string
   /** 弹窗：标题栏文字 */
   title?: string
+  /** 弹窗：隐藏编辑器默认标题栏与叉号，改由皮肤及独立节点提供视觉。 */
+  hideDialogChrome?: boolean
+  /** 弹窗：自定义关闭热区（页面绝对坐标），用于与美术关闭按钮严格对齐。 */
+  dialogCloseRect?: [number, number, number, number]
   /** 轻提示框：尾箭头方向（默认 bottom，指向被提示控件） */
   tail?: 'top' | 'bottom' | 'left' | 'right'
   /** 列表：方向 */
@@ -48,6 +94,8 @@ export interface WidgetProps {
   cols?: number
   /** 筛选器：标签列表 */
   options?: string[]
+  /** 筛选器：每项宽度（设计像素）；不填时均分。 */
+  filterWidths?: number[]
   /** 筛选器：当前选中项下标 */
   selected?: number
 }

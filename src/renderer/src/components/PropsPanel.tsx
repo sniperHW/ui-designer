@@ -10,6 +10,7 @@ const TYPE_LABEL: Record<WidgetType, string> = {
   ellipse: '椭圆',
   line: '线段',
   placeholder: '占位图',
+  image: '图片',
   nine: '九宫格',
   text: '文本',
   button: '按钮',
@@ -816,6 +817,43 @@ function TypeProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[] }
           <NumField label="字号" value={p.fontSize ?? 24} min={8} max={200} onCommit={(v) => setProp({ fontSize: v })} />
         </div>
       )
+    case 'image':
+      return (
+        <div className="prop-section">
+          <h4>图片</h4>
+          <TextField label="来源" value={p.src ?? ''} onCommit={(v) => setProp({ src: v })} />
+          <div className="prop-hint">支持本地 file:// URI 或 data URI；画布、原型预览和 PNG 导出使用同一来源。</div>
+        </div>
+      )
+    case 'nine': {
+      const insets = p.nineInsets ?? [20, 20, 20, 20]
+      const source = p.nineSourceSize ?? [node.w, node.h]
+      const setInset = (index: number, value: number) => {
+        const next: [number, number, number, number] = [...insets] as [number, number, number, number]
+        next[index] = value
+        setProp({ nineInsets: next })
+      }
+      const setSource = (index: number, value: number) => {
+        const next: [number, number] = [...source] as [number, number]
+        next[index] = value
+        setProp({ nineSourceSize: next })
+      }
+      return (
+        <div className="prop-section">
+          <h4>九宫格皮肤</h4>
+          <TextField label="来源" value={p.assetSrc ?? ''} onCommit={(v) => setProp({ assetSrc: v })} />
+          <div className="grid-2">
+            <NumField label="左切边" value={insets[0]} min={0} onCommit={(v) => setInset(0, v)} />
+            <NumField label="上切边" value={insets[1]} min={0} onCommit={(v) => setInset(1, v)} />
+            <NumField label="右切边" value={insets[2]} min={0} onCommit={(v) => setInset(2, v)} />
+            <NumField label="下切边" value={insets[3]} min={0} onCommit={(v) => setInset(3, v)} />
+            <NumField label="源宽" value={source[0]} min={1} onCommit={(v) => setSource(0, v)} />
+            <NumField label="源高" value={source[1]} min={1} onCommit={(v) => setSource(1, v)} />
+          </div>
+          <div className="prop-hint">有来源时四角与边缘从原图裁切，仅中心区拉伸；画布、原型和 PNG 导出一致。</div>
+        </div>
+      )
+    }
     case 'rect':
       return (
         <div className="prop-section">
@@ -844,6 +882,13 @@ function TypeProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[] }
       // 弹窗页本体（首个根级 dialog）：标题与弹窗页名双向同步——改标题即改页名，显示处处一致
       const pop = editingPopupId ? doc.popups.find((x) => x.id === editingPopupId) : null
       const isBody = !!pop && pop.nodes.find((n) => n.type === 'dialog')?.id === node.id
+      const insets = p.nineInsets ?? [24, 24, 24, 24]
+      const source = p.nineSourceSize ?? [node.w, node.h]
+      const setInset = (index: number, value: number) => {
+        const next: [number, number, number, number] = [...insets] as [number, number, number, number]
+        next[index] = value
+        setProp({ nineInsets: next })
+      }
       return (
         <div className="prop-section">
           <h4>弹窗</h4>
@@ -863,6 +908,20 @@ function TypeProps({ node, defs }: { node: WidgetNode; defs: CustomWidgetDef[] }
               ? '弹窗本体：标题与弹窗页名称同步（左侧弹窗列表、点击效果下拉同步更新）。'
               : '把控件拖到标题栏以下的内容区即成为弹窗子控件。'}
           </div>
+          <TextField label="九宫格皮肤" value={p.assetSrc ?? ''} onCommit={(v) => setProp({ assetSrc: v })} />
+          <div className="grid-2">
+            <NumField label="左切边" value={insets[0]} min={0} onCommit={(v) => setInset(0, v)} />
+            <NumField label="上切边" value={insets[1]} min={0} onCommit={(v) => setInset(1, v)} />
+            <NumField label="右切边" value={insets[2]} min={0} onCommit={(v) => setInset(2, v)} />
+            <NumField label="下切边" value={insets[3]} min={0} onCommit={(v) => setInset(3, v)} />
+            <NumField label="源宽" value={source[0]} min={1} onCommit={(v) => setProp({ nineSourceSize: [v, source[1]] })} />
+            <NumField label="源高" value={source[1]} min={1} onCommit={(v) => setProp({ nineSourceSize: [source[0], v] })} />
+          </div>
+          <div className="prop-row">
+            <span>隐藏默认标题栏</span>
+            <input type="checkbox" checked={!!p.hideDialogChrome} onChange={(e) => setProp({ hideDialogChrome: e.target.checked })} />
+          </div>
+          <div className="prop-hint">皮肤按九宫格裁切，四角与边缘不会拉伸。若自绘关闭按钮不在默认位置，可在结构合同中配置关闭热区。</div>
         </div>
       )
     }

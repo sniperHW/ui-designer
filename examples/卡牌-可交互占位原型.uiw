@@ -1,0 +1,2751 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "卡牌内容机制 · 局部状态原型",
+    "designWidth": 1279,
+    "designHeight": 2774,
+    "orientation": "portrait"
+  },
+  "commonLayer": {
+    "id": "common",
+    "name": "公共层",
+    "nodes": [
+      {
+        "id": "common_top_band",
+        "type": "rect",
+        "name": "顶部信息底板",
+        "x": 0,
+        "y": 320,
+        "w": 1279,
+        "h": 113,
+        "visible": true,
+        "locked": false,
+        "props": {},
+        "anchor": {
+          "preset": "tc",
+          "mode": "stretch"
+        }
+      },
+      {
+        "id": "common_resource_strip",
+        "type": "panel",
+        "name": "资源栏底板",
+        "x": 295,
+        "y": 278,
+        "w": 938,
+        "h": 67,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "radius": 18
+        },
+        "anchor": {
+          "preset": "tr",
+          "mode": "fixed"
+        }
+      },
+      {
+        "id": "common_resource_a",
+        "type": "button",
+        "name": "资源 A",
+        "x": 298,
+        "y": 279,
+        "w": 185,
+        "h": 60,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "资源 A  +",
+          "fontSize": 24,
+          "bold": true
+        },
+        "clickAction": {
+          "type": "popup",
+          "target": "pp_item_purchase"
+        }
+      },
+      {
+        "id": "common_resource_b",
+        "type": "button",
+        "name": "资源 B",
+        "x": 535,
+        "y": 279,
+        "w": 202,
+        "h": 60,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "资源 B  +",
+          "fontSize": 24,
+          "bold": true
+        },
+        "clickAction": {
+          "type": "popup",
+          "target": "pp_item_purchase"
+        }
+      },
+      {
+        "id": "common_resource_c",
+        "type": "button",
+        "name": "资源 C",
+        "x": 772,
+        "y": 279,
+        "w": 176,
+        "h": 60,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "资源 C  +",
+          "fontSize": 24,
+          "bold": true
+        },
+        "clickAction": {
+          "type": "popup",
+          "target": "pp_item_purchase"
+        }
+      },
+      {
+        "id": "common_resource_d",
+        "type": "button",
+        "name": "资源 D",
+        "x": 1009,
+        "y": 274,
+        "w": 202,
+        "h": 70,
+        "visible": true,
+        "locked": false,
+        "props": {
+          "text": "资源 D  +",
+          "fontSize": 24,
+          "bold": true
+        },
+        "clickAction": {
+          "type": "popup",
+          "target": "pp_item_purchase"
+        }
+      },
+      {
+        "id": "common_primary_nav",
+        "type": "panel",
+        "name": "底部主导航",
+        "x": 0,
+        "y": 2536,
+        "w": 1279,
+        "h": 238,
+        "visible": true,
+        "locked": false,
+        "props": {},
+        "anchor": {
+          "preset": "bc",
+          "mode": "stretch"
+        },
+        "children": [
+          {
+            "id": "common_nav_shop",
+            "type": "button",
+            "name": "导航：商店",
+            "x": 10,
+            "y": 2548,
+            "w": 235,
+            "h": 214,
+            "visible": true,
+            "locked": false,
+            "props": {
+              "text": "商店",
+              "fontSize": 24,
+              "bold": true
+            },
+            "clickAction": {
+              "type": "goto",
+              "target": "p_shop"
+            }
+          },
+          {
+            "id": "common_nav_cards",
+            "type": "button",
+            "name": "导航：卡牌",
+            "x": 266,
+            "y": 2548,
+            "w": 235,
+            "h": 214,
+            "visible": true,
+            "locked": false,
+            "props": {
+              "text": "卡牌",
+              "fontSize": 24,
+              "bold": true
+            },
+            "clickAction": {
+              "type": "goto",
+              "target": "p_cards"
+            }
+          },
+          {
+            "id": "common_nav_battle",
+            "type": "button",
+            "name": "导航：战斗",
+            "x": 522,
+            "y": 2548,
+            "w": 235,
+            "h": 214,
+            "visible": true,
+            "locked": false,
+            "props": {
+              "text": "战斗",
+              "fontSize": 24,
+              "bold": true
+            },
+            "clickAction": {
+              "type": "goto",
+              "target": "p_battle"
+            }
+          },
+          {
+            "id": "common_nav_territory",
+            "type": "button",
+            "name": "导航：领地",
+            "x": 778,
+            "y": 2548,
+            "w": 235,
+            "h": 214,
+            "visible": true,
+            "locked": false,
+            "props": {
+              "text": "领地",
+              "fontSize": 24,
+              "bold": true
+            },
+            "clickAction": {
+              "type": "goto",
+              "target": "p_territory"
+            }
+          },
+          {
+            "id": "common_nav_rank",
+            "type": "button",
+            "name": "导航：排名",
+            "x": 1034,
+            "y": 2548,
+            "w": 235,
+            "h": 214,
+            "visible": true,
+            "locked": false,
+            "props": {
+              "text": "排名",
+              "fontSize": 24,
+              "bold": true
+            },
+            "clickAction": {
+              "type": "goto",
+              "target": "p_rank"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "customWidgets": [
+    {
+      "id": "w_player_card_slot",
+      "name": "玩家配置卡位",
+      "group": "卡牌原型",
+      "w": 263,
+      "h": 445,
+      "props": [
+        {
+          "name": "slotLabel",
+          "type": "string",
+          "default": "玩家配置卡位",
+          "binds": [
+            {
+              "nodeId": "w_card_slot_label",
+              "key": "text"
+            }
+          ]
+        },
+        {
+          "name": "slotNote",
+          "type": "string",
+          "default": "卡面、种族与数值待配置",
+          "binds": [
+            {
+              "nodeId": "w_card_slot_note",
+              "key": "text"
+            }
+          ]
+        }
+      ],
+      "tree": [
+        {
+          "id": "w_card_slot_bg",
+          "type": "rect",
+          "name": "卡位底板",
+          "x": 0,
+          "y": 0,
+          "w": 263,
+          "h": 445,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 19
+          },
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "pp_card_detail"
+          }
+        },
+        {
+          "id": "w_card_slot_art",
+          "type": "placeholder",
+          "name": "卡面角色占位",
+          "x": 16,
+          "y": 42,
+          "w": 230,
+          "h": 278,
+          "visible": true,
+          "locked": false,
+          "props": {}
+        },
+        {
+          "id": "w_card_slot_label",
+          "type": "text",
+          "name": "卡位标签",
+          "x": 16,
+          "y": 334,
+          "w": 230,
+          "h": 34,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "玩家配置卡位",
+            "fontSize": 24,
+            "bold": true,
+            "align": "center"
+          }
+        },
+        {
+          "id": "w_card_slot_note",
+          "type": "text",
+          "name": "卡位说明",
+          "x": 18,
+          "y": 380,
+          "w": 226,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "卡面、种族与数值待配置",
+            "fontSize": 18,
+            "bold": false,
+            "align": "center"
+          }
+        },
+        {
+          "id": "w_card_slot_hint",
+          "type": "text",
+          "name": "点击提示",
+          "x": 18,
+          "y": 416,
+          "w": 226,
+          "h": 22,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "点击查看详情占位",
+            "fontSize": 17,
+            "bold": false,
+            "align": "center"
+          }
+        }
+      ],
+      "slotNodeIds": []
+    },
+    {
+      "id": "w_synergy_slot",
+      "name": "协作属性占位",
+      "group": "卡牌原型",
+      "w": 130,
+      "h": 80,
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": "协作待配置",
+          "binds": [
+            {
+              "nodeId": "w_synergy_label",
+              "key": "text"
+            }
+          ]
+        }
+      ],
+      "tree": [
+        {
+          "id": "w_synergy_bg",
+          "type": "rect",
+          "name": "协作属性底板",
+          "x": 0,
+          "y": 0,
+          "w": 130,
+          "h": 80,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 18
+          },
+          "clickable": true,
+          "clickAction": {
+            "type": "popup",
+            "target": "pp_synergy"
+          }
+        },
+        {
+          "id": "w_synergy_icon",
+          "type": "ellipse",
+          "name": "协作属性图标占位",
+          "x": 12,
+          "y": 16,
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": {}
+        },
+        {
+          "id": "w_synergy_label",
+          "type": "text",
+          "name": "协作属性标签",
+          "x": 60,
+          "y": 18,
+          "w": 62,
+          "h": 44,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "协作待配置",
+            "fontSize": 16,
+            "bold": false,
+            "align": "center"
+          }
+        }
+      ],
+      "slotNodeIds": []
+    }
+  ],
+  "popups": [
+    {
+      "id": "pp_item_purchase",
+      "name": "物品介绍购买专属",
+      "nodes": [
+        {
+          "id": "pp_item_purchase_dialog",
+          "type": "dialog",
+          "name": "弹窗本体",
+          "x": 170,
+          "y": 850,
+          "w": 940,
+          "h": 760,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "物品介绍购买专属"
+          },
+          "children": [
+            {
+              "id": "pp_item_purchase_title",
+              "type": "text",
+              "name": "弹窗标题",
+              "x": 230,
+              "y": 940,
+              "w": 820,
+              "h": 54,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "物品介绍购买专属",
+                "fontSize": 38,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "pp_item_purchase_art",
+              "type": "placeholder",
+              "name": "弹窗内容占位",
+              "x": 420,
+              "y": 1030,
+              "w": 440,
+              "h": 230,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "pp_item_purchase_body",
+              "type": "text",
+              "name": "弹窗说明",
+              "x": 250,
+              "y": 1300,
+              "w": 780,
+              "h": 110,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "资源名称、价格和数值由后续数据表提供。\n当前仅保留购买流程占位。",
+                "fontSize": 25,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "pp_item_purchase_close_hint",
+              "type": "button",
+              "name": "关闭提示",
+              "x": 390,
+              "y": 1450,
+              "w": 500,
+              "h": 76,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "使用右上角 × 关闭",
+                "fontSize": 24,
+                "bold": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pp_card_detail",
+      "name": "卡牌专属",
+      "nodes": [
+        {
+          "id": "pp_card_detail_dialog",
+          "type": "dialog",
+          "name": "弹窗本体",
+          "x": 170,
+          "y": 850,
+          "w": 940,
+          "h": 760,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "卡牌专属"
+          },
+          "children": [
+            {
+              "id": "pp_card_detail_title",
+              "type": "text",
+              "name": "弹窗标题",
+              "x": 230,
+              "y": 940,
+              "w": 820,
+              "h": 54,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "卡牌专属",
+                "fontSize": 38,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "pp_card_detail_art",
+              "type": "placeholder",
+              "name": "弹窗内容占位",
+              "x": 420,
+              "y": 1030,
+              "w": 440,
+              "h": 230,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "pp_card_detail_body",
+              "type": "text",
+              "name": "弹窗说明",
+              "x": 250,
+              "y": 1300,
+              "w": 780,
+              "h": 110,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "卡面角色、种族、技能和数值由玩家配置与规范文档提供。\n当前仅保留卡牌详情入口。",
+                "fontSize": 25,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "pp_card_detail_close_hint",
+              "type": "button",
+              "name": "关闭提示",
+              "x": 390,
+              "y": 1450,
+              "w": 500,
+              "h": 76,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "使用右上角 × 关闭",
+                "fontSize": 24,
+                "bold": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pp_synergy",
+      "name": "协作属性界面",
+      "nodes": [
+        {
+          "id": "pp_synergy_dialog",
+          "type": "dialog",
+          "name": "弹窗本体",
+          "x": 170,
+          "y": 850,
+          "w": 940,
+          "h": 760,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "title": "协作属性界面"
+          },
+          "children": [
+            {
+              "id": "pp_synergy_title",
+              "type": "text",
+              "name": "弹窗标题",
+              "x": 230,
+              "y": 940,
+              "w": 820,
+              "h": 54,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "协作属性界面",
+                "fontSize": 38,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "pp_synergy_art",
+              "type": "placeholder",
+              "name": "弹窗内容占位",
+              "x": 420,
+              "y": 1030,
+              "w": 440,
+              "h": 230,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "pp_synergy_body",
+              "type": "text",
+              "name": "弹窗说明",
+              "x": 250,
+              "y": 1300,
+              "w": 780,
+              "h": 110,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "协作条件、效果和数值规则尚未提供。\n当前仅保留交互入口。",
+                "fontSize": 25,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "pp_synergy_close_hint",
+              "type": "button",
+              "name": "关闭提示",
+              "x": 390,
+              "y": 1450,
+              "w": 500,
+              "h": 76,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "使用右上角 × 关闭",
+                "fontSize": 24,
+                "bold": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tips": [
+    {
+      "id": "tp_resource_help",
+      "name": "资源说明",
+      "nodes": [
+        {
+          "id": "tp_resource_box",
+          "type": "tooltip",
+          "name": "资源说明轻提示",
+          "x": 400,
+          "y": 600,
+          "w": 360,
+          "h": 150,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "tail": "bottom"
+          },
+          "children": [
+            {
+              "id": "tp_resource_text",
+              "type": "text",
+              "name": "资源说明文字",
+              "x": 430,
+              "y": 635,
+              "w": 300,
+              "h": 80,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "资源数据待接入。\n点击可打开购买流程占位。",
+                "fontSize": 22,
+                "bold": false,
+                "align": "center"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "id": "p_cards",
+      "name": "卡牌",
+      "nodes": [
+        {
+          "id": "p_cards_title",
+          "type": "text",
+          "name": "页面标题",
+          "x": 106,
+          "y": 341,
+          "w": 130,
+          "h": 56,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "卡牌",
+            "fontSize": 34,
+            "bold": true,
+            "align": "center"
+          }
+        },
+        {
+          "id": "p_cards_scope_hint",
+          "type": "text",
+          "name": "状态范围说明",
+          "x": 250,
+          "y": 341,
+          "w": 250,
+          "h": 48,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "text": "局部状态原型",
+            "fontSize": 22,
+            "bold": false,
+            "align": "center"
+          }
+        },
+        {
+          "id": "p_cards_deck_tabs",
+          "type": "tab",
+          "name": "牌组卡位切换区",
+          "x": 57,
+          "y": 340,
+          "w": 1165,
+          "h": 1028,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "tabs": [
+              "牌组",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "tabWidths": [
+              371,
+              84,
+              84,
+              84,
+              84,
+              84
+            ],
+            "tabGap": 57,
+            "barPosition": "top",
+            "barHeight": 100,
+            "fontSize": 24
+          },
+          "activeTab": 1,
+          "pages": [
+            [
+              {
+                "id": "p_cards_deck_title_slot_1",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 1",
+                "x": 68,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 1",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_title_slot_2",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 2",
+                "x": 359,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 2",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_title_slot_3",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 3",
+                "x": 650,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 3",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_title_slot_4",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 4",
+                "x": 942,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 4",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_title_slot_5",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 5",
+                "x": 68,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 5",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_title_slot_6",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 6",
+                "x": 359,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 6",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_title_slot_7",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 7",
+                "x": 650,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 7",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_title_slot_8",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 8",
+                "x": 942,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 8",
+                  "slotNote": "由玩家自定义配置"
+                }
+              }
+            ],
+            [
+              {
+                "id": "p_cards_deck_1_slot_1",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 1",
+                "x": 68,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 1",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_1_slot_2",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 2",
+                "x": 359,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 2",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_1_slot_3",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 3",
+                "x": 650,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 3",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_1_slot_4",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 4",
+                "x": 942,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 4",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_1_slot_5",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 5",
+                "x": 68,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 5",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_1_slot_6",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 6",
+                "x": 359,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 6",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_1_slot_7",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 7",
+                "x": 650,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 7",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_1_slot_8",
+                "type": "custom",
+                "name": "牌组 1 · 玩家卡位 8",
+                "x": 942,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 1 · 玩家卡位 8",
+                  "slotNote": "由玩家自定义配置"
+                }
+              }
+            ],
+            [
+              {
+                "id": "p_cards_deck_2_slot_1",
+                "type": "custom",
+                "name": "牌组 2 · 玩家卡位 1",
+                "x": 68,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 2 · 玩家卡位 1",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_2_slot_2",
+                "type": "custom",
+                "name": "牌组 2 · 玩家卡位 2",
+                "x": 359,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 2 · 玩家卡位 2",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_2_slot_3",
+                "type": "custom",
+                "name": "牌组 2 · 玩家卡位 3",
+                "x": 650,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 2 · 玩家卡位 3",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_2_slot_4",
+                "type": "custom",
+                "name": "牌组 2 · 玩家卡位 4",
+                "x": 942,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 2 · 玩家卡位 4",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_2_slot_5",
+                "type": "custom",
+                "name": "牌组 2 · 玩家卡位 5",
+                "x": 68,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 2 · 玩家卡位 5",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_2_slot_6",
+                "type": "custom",
+                "name": "牌组 2 · 玩家卡位 6",
+                "x": 359,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 2 · 玩家卡位 6",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_2_slot_7",
+                "type": "custom",
+                "name": "牌组 2 · 玩家卡位 7",
+                "x": 650,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 2 · 玩家卡位 7",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_2_slot_8",
+                "type": "custom",
+                "name": "牌组 2 · 玩家卡位 8",
+                "x": 942,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 2 · 玩家卡位 8",
+                  "slotNote": "由玩家自定义配置"
+                }
+              }
+            ],
+            [
+              {
+                "id": "p_cards_deck_3_slot_1",
+                "type": "custom",
+                "name": "牌组 3 · 玩家卡位 1",
+                "x": 68,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 3 · 玩家卡位 1",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_3_slot_2",
+                "type": "custom",
+                "name": "牌组 3 · 玩家卡位 2",
+                "x": 359,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 3 · 玩家卡位 2",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_3_slot_3",
+                "type": "custom",
+                "name": "牌组 3 · 玩家卡位 3",
+                "x": 650,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 3 · 玩家卡位 3",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_3_slot_4",
+                "type": "custom",
+                "name": "牌组 3 · 玩家卡位 4",
+                "x": 942,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 3 · 玩家卡位 4",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_3_slot_5",
+                "type": "custom",
+                "name": "牌组 3 · 玩家卡位 5",
+                "x": 68,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 3 · 玩家卡位 5",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_3_slot_6",
+                "type": "custom",
+                "name": "牌组 3 · 玩家卡位 6",
+                "x": 359,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 3 · 玩家卡位 6",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_3_slot_7",
+                "type": "custom",
+                "name": "牌组 3 · 玩家卡位 7",
+                "x": 650,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 3 · 玩家卡位 7",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_3_slot_8",
+                "type": "custom",
+                "name": "牌组 3 · 玩家卡位 8",
+                "x": 942,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 3 · 玩家卡位 8",
+                  "slotNote": "由玩家自定义配置"
+                }
+              }
+            ],
+            [
+              {
+                "id": "p_cards_deck_4_slot_1",
+                "type": "custom",
+                "name": "牌组 4 · 玩家卡位 1",
+                "x": 68,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 4 · 玩家卡位 1",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_4_slot_2",
+                "type": "custom",
+                "name": "牌组 4 · 玩家卡位 2",
+                "x": 359,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 4 · 玩家卡位 2",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_4_slot_3",
+                "type": "custom",
+                "name": "牌组 4 · 玩家卡位 3",
+                "x": 650,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 4 · 玩家卡位 3",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_4_slot_4",
+                "type": "custom",
+                "name": "牌组 4 · 玩家卡位 4",
+                "x": 942,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 4 · 玩家卡位 4",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_4_slot_5",
+                "type": "custom",
+                "name": "牌组 4 · 玩家卡位 5",
+                "x": 68,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 4 · 玩家卡位 5",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_4_slot_6",
+                "type": "custom",
+                "name": "牌组 4 · 玩家卡位 6",
+                "x": 359,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 4 · 玩家卡位 6",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_4_slot_7",
+                "type": "custom",
+                "name": "牌组 4 · 玩家卡位 7",
+                "x": 650,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 4 · 玩家卡位 7",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_4_slot_8",
+                "type": "custom",
+                "name": "牌组 4 · 玩家卡位 8",
+                "x": 942,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 4 · 玩家卡位 8",
+                  "slotNote": "由玩家自定义配置"
+                }
+              }
+            ],
+            [
+              {
+                "id": "p_cards_deck_5_slot_1",
+                "type": "custom",
+                "name": "牌组 5 · 玩家卡位 1",
+                "x": 68,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 5 · 玩家卡位 1",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_5_slot_2",
+                "type": "custom",
+                "name": "牌组 5 · 玩家卡位 2",
+                "x": 359,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 5 · 玩家卡位 2",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_5_slot_3",
+                "type": "custom",
+                "name": "牌组 5 · 玩家卡位 3",
+                "x": 650,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 5 · 玩家卡位 3",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_5_slot_4",
+                "type": "custom",
+                "name": "牌组 5 · 玩家卡位 4",
+                "x": 942,
+                "y": 461,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 5 · 玩家卡位 4",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_5_slot_5",
+                "type": "custom",
+                "name": "牌组 5 · 玩家卡位 5",
+                "x": 68,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 5 · 玩家卡位 5",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_5_slot_6",
+                "type": "custom",
+                "name": "牌组 5 · 玩家卡位 6",
+                "x": 359,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 5 · 玩家卡位 6",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_5_slot_7",
+                "type": "custom",
+                "name": "牌组 5 · 玩家卡位 7",
+                "x": 650,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 5 · 玩家卡位 7",
+                  "slotNote": "由玩家自定义配置"
+                }
+              },
+              {
+                "id": "p_cards_deck_5_slot_8",
+                "type": "custom",
+                "name": "牌组 5 · 玩家卡位 8",
+                "x": 942,
+                "y": 922,
+                "w": 263,
+                "h": 445,
+                "visible": true,
+                "locked": false,
+                "props": {},
+                "customId": "w_player_card_slot",
+                "overrides": {
+                  "slotLabel": "牌组 5 · 玩家卡位 8",
+                  "slotNote": "由玩家自定义配置"
+                }
+              }
+            ]
+          ]
+        },
+        {
+          "id": "p_cards_power_bar",
+          "type": "panel",
+          "name": "战力与协作属性区",
+          "x": 57,
+          "y": 1379,
+          "w": 1165,
+          "h": 100,
+          "visible": true,
+          "locked": false,
+          "props": {},
+          "children": [
+            {
+              "id": "p_cards_power_label",
+              "type": "text",
+              "name": "数值占位",
+              "x": 78,
+              "y": 1400,
+              "w": 300,
+              "h": 44,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "战力：待接入数值表",
+                "fontSize": 28,
+                "bold": true,
+                "align": "left"
+              }
+            },
+            {
+              "id": "p_cards_synergy_1",
+              "type": "custom",
+              "name": "协作 A",
+              "x": 390,
+              "y": 1389,
+              "w": 130,
+              "h": 80,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_synergy_slot",
+              "overrides": {
+                "label": "协作 A"
+              }
+            },
+            {
+              "id": "p_cards_synergy_2",
+              "type": "custom",
+              "name": "协作 B",
+              "x": 522,
+              "y": 1389,
+              "w": 130,
+              "h": 80,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_synergy_slot",
+              "overrides": {
+                "label": "协作 B"
+              }
+            },
+            {
+              "id": "p_cards_synergy_3",
+              "type": "custom",
+              "name": "协作 C",
+              "x": 654,
+              "y": 1389,
+              "w": 130,
+              "h": 80,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_synergy_slot",
+              "overrides": {
+                "label": "协作 C"
+              }
+            },
+            {
+              "id": "p_cards_synergy_4",
+              "type": "custom",
+              "name": "协作 D",
+              "x": 786,
+              "y": 1389,
+              "w": 130,
+              "h": 80,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_synergy_slot",
+              "overrides": {
+                "label": "协作 D"
+              }
+            },
+            {
+              "id": "p_cards_synergy_5",
+              "type": "custom",
+              "name": "协作 E",
+              "x": 918,
+              "y": 1389,
+              "w": 130,
+              "h": 80,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_synergy_slot",
+              "overrides": {
+                "label": "协作 E"
+              }
+            },
+            {
+              "id": "p_cards_synergy_6",
+              "type": "custom",
+              "name": "协作 F",
+              "x": 1050,
+              "y": 1389,
+              "w": 130,
+              "h": 80,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_synergy_slot",
+              "overrides": {
+                "label": "协作 F"
+              }
+            }
+          ]
+        },
+        {
+          "id": "p_cards_filter_panel",
+          "type": "panel",
+          "name": "种族筛选区",
+          "x": 57,
+          "y": 1494,
+          "w": 1165,
+          "h": 107,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 17
+          },
+          "children": [
+            {
+              "id": "p_cards_race_filter",
+              "type": "filter",
+              "name": "种族筛选器",
+              "x": 95,
+              "y": 1510,
+              "w": 700,
+              "h": 62,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "options": [
+                  "全部",
+                  "兽族",
+                  "亡灵",
+                  "人族",
+                  "机械"
+                ],
+                "selected": 0,
+                "fontSize": 22
+              }
+            },
+            {
+              "id": "p_cards_filter_hint",
+              "type": "text",
+              "name": "筛选规则提示",
+              "x": 820,
+              "y": 1524,
+              "w": 340,
+              "h": 34,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "种族规则与卡池数据待接入",
+                "fontSize": 18,
+                "bold": false,
+                "align": "center"
+              }
+            }
+          ]
+        },
+        {
+          "id": "p_cards_pool_scroll",
+          "type": "scroll",
+          "name": "卡池卡位滚动区",
+          "x": 57,
+          "y": 1615,
+          "w": 1165,
+          "h": 642,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "scrollThumbColor": "#333333"
+          },
+          "children": [
+            {
+              "id": "p_cards_pool_slot_1",
+              "type": "custom",
+              "name": "卡池卡位 1",
+              "x": 68,
+              "y": 1625,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 1",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_2",
+              "type": "custom",
+              "name": "卡池卡位 2",
+              "x": 359,
+              "y": 1625,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 2",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_3",
+              "type": "custom",
+              "name": "卡池卡位 3",
+              "x": 650,
+              "y": 1625,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 3",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_4",
+              "type": "custom",
+              "name": "卡池卡位 4",
+              "x": 942,
+              "y": 1625,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 4",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_5",
+              "type": "custom",
+              "name": "卡池卡位 5",
+              "x": 68,
+              "y": 2093,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 5",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_6",
+              "type": "custom",
+              "name": "卡池卡位 6",
+              "x": 359,
+              "y": 2093,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 6",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_7",
+              "type": "custom",
+              "name": "卡池卡位 7",
+              "x": 650,
+              "y": 2093,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 7",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_8",
+              "type": "custom",
+              "name": "卡池卡位 8",
+              "x": 942,
+              "y": 2093,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 8",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_9",
+              "type": "custom",
+              "name": "卡池卡位 9",
+              "x": 68,
+              "y": 2561,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 9",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_10",
+              "type": "custom",
+              "name": "卡池卡位 10",
+              "x": 359,
+              "y": 2561,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 10",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_11",
+              "type": "custom",
+              "name": "卡池卡位 11",
+              "x": 650,
+              "y": 2561,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 11",
+                "slotNote": "种族与数值待规范"
+              }
+            },
+            {
+              "id": "p_cards_pool_slot_12",
+              "type": "custom",
+              "name": "卡池卡位 12",
+              "x": 942,
+              "y": 2561,
+              "w": 263,
+              "h": 445,
+              "visible": true,
+              "locked": false,
+              "props": {},
+              "customId": "w_player_card_slot",
+              "overrides": {
+                "slotLabel": "卡池卡位 12",
+                "slotNote": "种族与数值待规范"
+              }
+            }
+          ]
+        },
+        {
+          "id": "p_cards_secondary_nav",
+          "type": "panel",
+          "name": "二级导航",
+          "x": 141,
+          "y": 2269,
+          "w": 997,
+          "h": 158,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 28
+          },
+          "children": [
+            {
+              "id": "p_cards_secondary_deck",
+              "type": "button",
+              "name": "二级导航：牌组",
+              "x": 173,
+              "y": 2285,
+              "w": 171,
+              "h": 126,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "牌组",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_cards"
+              }
+            },
+            {
+              "id": "p_cards_secondary_artifact",
+              "type": "button",
+              "name": "二级导航：神器",
+              "x": 411,
+              "y": 2285,
+              "w": 170,
+              "h": 126,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "神器",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_artifact"
+              }
+            },
+            {
+              "id": "p_cards_secondary_items",
+              "type": "button",
+              "name": "二级导航：卡牌道具",
+              "x": 648,
+              "y": 2285,
+              "w": 170,
+              "h": 126,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "卡牌道具",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_card_items"
+              }
+            },
+            {
+              "id": "p_cards_secondary_emotes",
+              "type": "button",
+              "name": "二级导航：表情气泡",
+              "x": 885,
+              "y": 2285,
+              "w": 170,
+              "h": 126,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "表情气泡",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_emotes"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p_shop",
+      "name": "商店",
+      "nodes": [
+        {
+          "id": "p_shop_panel",
+          "type": "panel",
+          "name": "商店占位内容",
+          "x": 110,
+          "y": 650,
+          "w": 1059,
+          "h": 820,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 28
+          },
+          "children": [
+            {
+              "id": "p_shop_title",
+              "type": "text",
+              "name": "页面标题",
+              "x": 190,
+              "y": 750,
+              "w": 900,
+              "h": 64,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "商店",
+                "fontSize": 44,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_shop_art",
+              "type": "placeholder",
+              "name": "页面版式占位",
+              "x": 370,
+              "y": 880,
+              "w": 540,
+              "h": 280,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "p_shop_description",
+              "type": "text",
+              "name": "页面说明",
+              "x": 190,
+              "y": 1210,
+              "w": 900,
+              "h": 100,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "目标页面缺少原始版式，当前保留可返回占位。",
+                "fontSize": 26,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_shop_back",
+              "type": "button",
+              "name": "返回卡牌",
+              "x": 440,
+              "y": 1360,
+              "w": 400,
+              "h": 84,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "返回卡牌",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_cards"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p_battle",
+      "name": "战斗",
+      "nodes": [
+        {
+          "id": "p_battle_panel",
+          "type": "panel",
+          "name": "战斗占位内容",
+          "x": 110,
+          "y": 650,
+          "w": 1059,
+          "h": 820,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 28
+          },
+          "children": [
+            {
+              "id": "p_battle_title",
+              "type": "text",
+              "name": "页面标题",
+              "x": 190,
+              "y": 750,
+              "w": 900,
+              "h": 64,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "战斗",
+                "fontSize": 44,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_battle_art",
+              "type": "placeholder",
+              "name": "页面版式占位",
+              "x": 370,
+              "y": 880,
+              "w": 540,
+              "h": 280,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "p_battle_description",
+              "type": "text",
+              "name": "页面说明",
+              "x": 190,
+              "y": 1210,
+              "w": 900,
+              "h": 100,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "目标页面缺少原始版式，当前保留可返回占位。",
+                "fontSize": 26,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_battle_back",
+              "type": "button",
+              "name": "返回卡牌",
+              "x": 440,
+              "y": 1360,
+              "w": 400,
+              "h": 84,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "返回卡牌",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_cards"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p_territory",
+      "name": "领地",
+      "nodes": [
+        {
+          "id": "p_territory_panel",
+          "type": "panel",
+          "name": "领地占位内容",
+          "x": 110,
+          "y": 650,
+          "w": 1059,
+          "h": 820,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 28
+          },
+          "children": [
+            {
+              "id": "p_territory_title",
+              "type": "text",
+              "name": "页面标题",
+              "x": 190,
+              "y": 750,
+              "w": 900,
+              "h": 64,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "领地",
+                "fontSize": 44,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_territory_art",
+              "type": "placeholder",
+              "name": "页面版式占位",
+              "x": 370,
+              "y": 880,
+              "w": 540,
+              "h": 280,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "p_territory_description",
+              "type": "text",
+              "name": "页面说明",
+              "x": 190,
+              "y": 1210,
+              "w": 900,
+              "h": 100,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "目标页面缺少原始版式，当前保留可返回占位。",
+                "fontSize": 26,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_territory_back",
+              "type": "button",
+              "name": "返回卡牌",
+              "x": 440,
+              "y": 1360,
+              "w": 400,
+              "h": 84,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "返回卡牌",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_cards"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p_rank",
+      "name": "排名",
+      "nodes": [
+        {
+          "id": "p_rank_panel",
+          "type": "panel",
+          "name": "排名占位内容",
+          "x": 110,
+          "y": 650,
+          "w": 1059,
+          "h": 820,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 28
+          },
+          "children": [
+            {
+              "id": "p_rank_title",
+              "type": "text",
+              "name": "页面标题",
+              "x": 190,
+              "y": 750,
+              "w": 900,
+              "h": 64,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "排名",
+                "fontSize": 44,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_rank_art",
+              "type": "placeholder",
+              "name": "页面版式占位",
+              "x": 370,
+              "y": 880,
+              "w": 540,
+              "h": 280,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "p_rank_description",
+              "type": "text",
+              "name": "页面说明",
+              "x": 190,
+              "y": 1210,
+              "w": 900,
+              "h": 100,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "目标页面缺少原始版式，当前保留可返回占位。",
+                "fontSize": 26,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_rank_back",
+              "type": "button",
+              "name": "返回卡牌",
+              "x": 440,
+              "y": 1360,
+              "w": 400,
+              "h": 84,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "返回卡牌",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_cards"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p_artifact",
+      "name": "神器",
+      "nodes": [
+        {
+          "id": "p_artifact_panel",
+          "type": "panel",
+          "name": "神器占位内容",
+          "x": 110,
+          "y": 650,
+          "w": 1059,
+          "h": 820,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 28
+          },
+          "children": [
+            {
+              "id": "p_artifact_title",
+              "type": "text",
+              "name": "页面标题",
+              "x": 190,
+              "y": 750,
+              "w": 900,
+              "h": 64,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "神器",
+                "fontSize": 44,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_artifact_art",
+              "type": "placeholder",
+              "name": "页面版式占位",
+              "x": 370,
+              "y": 880,
+              "w": 540,
+              "h": 280,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "p_artifact_description",
+              "type": "text",
+              "name": "页面说明",
+              "x": 190,
+              "y": 1210,
+              "w": 900,
+              "h": 100,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "二级导航目标缺少原始版式，当前保留可返回占位。",
+                "fontSize": 26,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_artifact_back",
+              "type": "button",
+              "name": "返回卡牌",
+              "x": 440,
+              "y": 1360,
+              "w": 400,
+              "h": 84,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "返回卡牌",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_cards"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p_card_items",
+      "name": "卡牌道具",
+      "nodes": [
+        {
+          "id": "p_card_items_panel",
+          "type": "panel",
+          "name": "卡牌道具占位内容",
+          "x": 110,
+          "y": 650,
+          "w": 1059,
+          "h": 820,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 28
+          },
+          "children": [
+            {
+              "id": "p_card_items_title",
+              "type": "text",
+              "name": "页面标题",
+              "x": 190,
+              "y": 750,
+              "w": 900,
+              "h": 64,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "卡牌道具",
+                "fontSize": 44,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_card_items_art",
+              "type": "placeholder",
+              "name": "页面版式占位",
+              "x": 370,
+              "y": 880,
+              "w": 540,
+              "h": 280,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "p_card_items_description",
+              "type": "text",
+              "name": "页面说明",
+              "x": 190,
+              "y": 1210,
+              "w": 900,
+              "h": 100,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "二级导航目标缺少原始版式，当前保留可返回占位。",
+                "fontSize": 26,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_card_items_back",
+              "type": "button",
+              "name": "返回卡牌",
+              "x": 440,
+              "y": 1360,
+              "w": 400,
+              "h": 84,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "返回卡牌",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_cards"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p_emotes",
+      "name": "表情和语言气泡",
+      "nodes": [
+        {
+          "id": "p_emotes_panel",
+          "type": "panel",
+          "name": "表情和语言气泡占位内容",
+          "x": 110,
+          "y": 650,
+          "w": 1059,
+          "h": 820,
+          "visible": true,
+          "locked": false,
+          "props": {
+            "radius": 28
+          },
+          "children": [
+            {
+              "id": "p_emotes_title",
+              "type": "text",
+              "name": "页面标题",
+              "x": 190,
+              "y": 750,
+              "w": 900,
+              "h": 64,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "表情和语言气泡",
+                "fontSize": 44,
+                "bold": true,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_emotes_art",
+              "type": "placeholder",
+              "name": "页面版式占位",
+              "x": 370,
+              "y": 880,
+              "w": 540,
+              "h": 280,
+              "visible": true,
+              "locked": false,
+              "props": {}
+            },
+            {
+              "id": "p_emotes_description",
+              "type": "text",
+              "name": "页面说明",
+              "x": 190,
+              "y": 1210,
+              "w": 900,
+              "h": 100,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "二级导航目标缺少原始版式，当前保留可返回占位。",
+                "fontSize": 26,
+                "bold": false,
+                "align": "center"
+              }
+            },
+            {
+              "id": "p_emotes_back",
+              "type": "button",
+              "name": "返回卡牌",
+              "x": 440,
+              "y": 1360,
+              "w": 400,
+              "h": 84,
+              "visible": true,
+              "locked": false,
+              "props": {
+                "text": "返回卡牌",
+                "fontSize": 24,
+                "bold": true
+              },
+              "clickAction": {
+                "type": "goto",
+                "target": "p_cards"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

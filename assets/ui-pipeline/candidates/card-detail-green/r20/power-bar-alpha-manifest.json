@@ -1,0 +1,9 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [{
+    "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-9791a885-30fa-4279-b0ee-be4ac4800e18.png",
+    "file": "detail-power-bar-668x40.png",
+    "size": [668, 40],
+    "crop_alpha": true
+  }]
+}

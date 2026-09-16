@@ -84,11 +84,17 @@
 | `clickAction` | ClickAction | — | 点击效果：`{ "type": "goto", "target": "<目标页面 id>" }` 切换页面、`{ "type": "back" }` 返回上一页（无来路时无效）、或 `{ "type": "popup", "target": "<弹窗页 id>" }` 弹出弹窗 |
 | `tipTarget` | string | — | 轻提示标记：指向轻提示页（`tips`）id，预览中悬停该控件弹出对应轻提示框、移开关闭（**定制控件实例 `custom` 不支持**——标记配在定义树内控件上，定义级） |
 
+九宫格节点可选 `props.assetSrc`、`props.nineInsets: [左, 上, 右, 下]`、`props.nineSourceSize: [源宽, 源高]`。有来源时真实按九片裁切，四角与边缘不随节点尺寸拉伸；未配置来源时显示编辑器示意框。
+
+需要由自定义皮肤接管弹窗视觉时，`dialog.props` 可用 `assetSrc` 与九宫格字段绘制外壳，配 `hideDialogChrome: true` 隐藏默认标题栏；若关闭按钮不在默认标题栏位置，使用 `dialogCloseRect: [x, y, w, h]` 定义可点击的页面绝对热区。
+
 ### 轻提示（tipTarget）
 
 - `tipTarget` 必须指向 `tips` 中某个**轻提示页 id**；
 - 任意单个控件（含弹窗页内、定制控件定义树内）可标记；定义树内为定义级，实例悬停对应区域即触发；
 - 编辑器中选中控件 → 属性面板「轻提示」区可勾选、选择轻提示框并「▶ 演示」；生成工程时给图标 / 资源项 / 帮助按钮配轻提示，可让原型具备悬停说明。
+
+Tab 的 `props.tabWidths` 可选填为与 `props.tabs` 等长的正数数组：每项对应页签头的设计像素宽度，总和不得大于 Tab 宽度。未设置时各页签均分；若总和小于 Tab 宽度，余下页签栏区域不参与点击命中，适合在同一栏内预留运行时统计文字。
 
 ### 点击交互（clickable / clickAction）
 
@@ -107,7 +113,7 @@
 
 ## WidgetType 一览
 
-`rect` `ellipse` `line` `placeholder` `nine` `text` `button` `checkbox` `progress` `input` `filter` `panel` `dialog` `tooltip` `scroll` `list` `grid` `tab` `custom`
+`rect` `ellipse` `line` `placeholder` `image` `nine` `text` `button` `checkbox` `progress` `input` `filter` `panel` `dialog` `tooltip` `scroll` `list` `grid` `tab` `custom`
 
 各类控件默认尺寸、props 与语义见 [widgets.md](widgets.md)。
 

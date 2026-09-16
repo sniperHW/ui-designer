@@ -1,0 +1,47 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-6febd764-e1fd-4c08-bb3f-94dc0288d019.png",
+      "file": "property-building-health-46.png",
+      "size": [46, 46],
+      "crop_alpha": true,
+      "fit": "contain"
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-b0d12a5f-7040-4ad2-bd83-258a4e47ef84.png",
+      "file": "property-production-time-46.png",
+      "size": [46, 46],
+      "crop_alpha": true,
+      "fit": "contain"
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-9c66fe3f-d23d-4111-b6ea-2dcc260477ab.png",
+      "file": "property-attack-46.png",
+      "size": [46, 46],
+      "crop_alpha": true,
+      "fit": "contain"
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-fd184722-2e15-45af-8562-faaaee66e091.png",
+      "file": "property-unit-health-46.png",
+      "size": [46, 46],
+      "crop_alpha": true,
+      "fit": "contain"
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-c32d60c8-442c-488b-bcc5-9a65ffc9d671.png",
+      "file": "property-speed-46.png",
+      "size": [46, 46],
+      "crop_alpha": true,
+      "fit": "contain"
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-72e85546-0905-4826-b2b7-0261c470f14c.png",
+      "file": "property-range-46.png",
+      "size": [46, 46],
+      "crop_alpha": true,
+      "fit": "contain"
+    }
+  ]
+}

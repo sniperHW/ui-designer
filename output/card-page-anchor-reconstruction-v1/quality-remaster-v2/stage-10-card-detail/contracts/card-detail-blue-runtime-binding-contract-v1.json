@@ -1,0 +1,300 @@
+{
+  "version": 1,
+  "kind": "card-detail-runtime-binding",
+  "candidateUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-蓝色-v1-运行时绑定结构候选.uiw",
+  "popupId": "ppmtwmxwlmjjf1",
+  "dialogNodeId": "nmtwmxwlmdl84",
+  "sourceContext": "selectedCard",
+  "trigger": "上一级卡牌实例点击后注入 selectedCard；弹窗按 selectedCard.rarity === \"blue\" 展示。",
+  "staticReuse": [
+    "详情九宫格外壳、身份徽章底座、关闭/分享/等级重制控件、战力板、属性格、技能托盘、升级与装备按钮"
+  ],
+  "runtimePaths": [
+    "name",
+    "display.power",
+    "display.level",
+    "display.rarity",
+    "display.xp",
+    "attributes[0].display",
+    "attributes[1].display",
+    "attributes[2].display",
+    "attributes[3].display",
+    "attributes[4].display",
+    "attributes[5].display",
+    "skills[2].stateLabel",
+    "actions.upgrade.cost.display",
+    "visual.detailArtSrc",
+    "classification.typeIconSrc",
+    "classification.raceIconSrc",
+    "attributes[0].iconSrc",
+    "attributes[1].iconSrc",
+    "attributes[2].iconSrc",
+    "attributes[3].iconSrc",
+    "attributes[4].iconSrc",
+    "attributes[5].iconSrc",
+    "xp.progressPercent",
+    "actions.upgrade.currencyIconSrc",
+    "skills[0..4].slotAssetSrc",
+    "skills[3..4].locked",
+    "visual.cardFrameSrc"
+  ],
+  "nodeBindings": [
+    {
+      "id": "detail-blue-portrait",
+      "binding": {
+        "source": "selectedCard",
+        "path": "visual.detailArtSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "nmtwmxwlmdl84",
+      "binding": {
+        "source": "selectedCard",
+        "guard": "selectedCard.rarity === \"blue\"",
+        "skin": "cardDetailSkin.blue"
+      }
+    },
+    {
+      "id": "detail-blue-type-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "classification.typeIconSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "detail-blue-race-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "classification.raceIconSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "detail-blue-title",
+      "binding": {
+        "source": "selectedCard",
+        "path": "name",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-power",
+      "binding": {
+        "source": "selectedCard",
+        "path": "display.power",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-level",
+      "binding": {
+        "source": "selectedCard",
+        "path": "display.level",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-rarity",
+      "binding": {
+        "source": "selectedCard",
+        "path": "display.rarity",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-xp-bar",
+      "binding": {
+        "source": "selectedCard",
+        "path": "xp.progressPercent",
+        "mode": "replace-progress"
+      }
+    },
+    {
+      "id": "detail-blue-xp",
+      "binding": {
+        "source": "selectedCard",
+        "path": "display.xp",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-prop-1-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[0].iconSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "detail-blue-prop-2-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[1].iconSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "detail-blue-prop-3-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[2].iconSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "detail-blue-prop-4-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[3].iconSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "detail-blue-prop-5-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[4].iconSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "detail-blue-prop-6-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[5].iconSrc",
+        "mode": "replace-src"
+      }
+    },
+    {
+      "id": "detail-blue-prop-1-text",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[0].display",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-prop-2-text",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[1].display",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-prop-3-text",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[2].display",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-prop-4-text",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[3].display",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-prop-5-text",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[4].display",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-prop-6-text",
+      "binding": {
+        "source": "selectedCard",
+        "path": "attributes[5].display",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-skill-1",
+      "binding": {
+        "source": "selectedCard",
+        "path": "skills[0].slotAssetSrc",
+        "mode": "replace-nine-asset"
+      }
+    },
+    {
+      "id": "detail-blue-skill-2",
+      "binding": {
+        "source": "selectedCard",
+        "path": "skills[1].slotAssetSrc",
+        "mode": "replace-nine-asset"
+      }
+    },
+    {
+      "id": "detail-blue-skill-3",
+      "binding": {
+        "source": "selectedCard",
+        "path": "skills[2].slotAssetSrc",
+        "mode": "replace-nine-asset"
+      }
+    },
+    {
+      "id": "detail-blue-skill-4",
+      "binding": {
+        "source": "selectedCard",
+        "path": "skills[3].slotAssetSrc",
+        "mode": "replace-nine-asset"
+      }
+    },
+    {
+      "id": "detail-blue-skill-5",
+      "binding": {
+        "source": "selectedCard",
+        "path": "skills[4].slotAssetSrc",
+        "mode": "replace-nine-asset"
+      }
+    },
+    {
+      "id": "detail-blue-skill-3-state",
+      "binding": {
+        "source": "selectedCard",
+        "path": "skills[2].stateLabel",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-upgrade-cost-icon",
+      "binding": {
+        "source": "selectedCard",
+        "path": "actions.upgrade.currencyIconSrc",
+        "mode": "replace-src-when-present"
+      }
+    },
+    {
+      "id": "detail-blue-upgrade-cost",
+      "binding": {
+        "source": "selectedCard",
+        "path": "actions.upgrade.cost.display",
+        "mode": "replace-text"
+      }
+    },
+    {
+      "id": "detail-blue-skill-4-lock",
+      "binding": {
+        "source": "selectedCard",
+        "path": "skills[3].locked",
+        "mode": "visible-when-true"
+      }
+    },
+    {
+      "id": "detail-blue-skill-5-lock",
+      "binding": {
+        "source": "selectedCard",
+        "path": "skills[4].locked",
+        "mode": "visible-when-true"
+      }
+    }
+  ],
+  "invariant": "不在蓝色详情页固化任何具体卡牌名称、数值、属性、技能、立绘或卡框；它们全部继承自 selectedCard。"
+}

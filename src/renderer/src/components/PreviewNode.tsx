@@ -8,8 +8,8 @@ import {
   renderCustomInstance,
   renderKidsOf,
   renderTreeSVG,
-  scrollTrackSVG,
-  tabBarRect,
+  scrollBaseSVG,
+  tabIndexAt,
   widgetInnerSVG
 } from '../widgets/registry'
 import type { Rect, SlotInfo } from '../widgets/registry'
@@ -59,11 +59,8 @@ export default function PreviewNode({
     // Tab：点击页签栏就地切换内容页（§4.1 内容型）；导航型 goto 由页签内容里的可点击控件承担
     if (n.type === 'tab' && n.pages) {
       const pt = toDoc(e)
-      const py = pt.y - scrollDy
-      const bar = tabBarRect(n)
-      if (pt.x >= bar.x && pt.x <= bar.x + bar.w && py >= bar.y && py <= bar.y + bar.h) {
-        const count = Math.max(1, n.props.tabs?.length ?? 1)
-        const idx = Math.max(0, Math.min(count - 1, Math.floor((pt.x - n.x) / (n.w / count))))
+      const idx = tabIndexAt(n, pt.x, pt.y - scrollDy)
+      if (idx !== null) {
         if (idx !== activeTabIndex(n)) {
           st.updateNodes(
             [n.id],
@@ -75,6 +72,22 @@ export default function PreviewNode({
         }
         return
       }
+    }
+    // 筛选器：预览态点击标签即切换选中项。绑定到列表/网格时，后续渲染以该值为筛选状态来源。
+    if (n.type === 'filter') {
+      const pt = toDoc(e)
+      const count = Math.max(1, n.props.options?.length ?? 1)
+      const idx = Math.max(0, Math.min(count - 1, Math.floor((pt.x - n.x) / (n.w / count))))
+      if (idx !== (n.props.selected ?? 0)) {
+        st.updateNodes(
+          [n.id],
+          (m) => {
+            m.props.selected = idx
+          },
+          true
+        )
+      }
+      return
     }
     if (clickable) st.triggerClick(n.id)
   }
@@ -209,7 +222,7 @@ export default function PreviewNode({
     const thumbY = trackY + Math.round((maxScroll > 0 ? -offset / maxScroll : 0) * (trackH - thumbH))
     return (
       <g data-id={n.id} style={{ cursor }} onClick={onClick} onWheel={onWheel}>
-        <g dangerouslySetInnerHTML={{ __html: scrollTrackSVG(n.x, n.y, n.w, n.h) }} />
+        <g dangerouslySetInnerHTML={{ __html: scrollBaseSVG(n) }} />
         {kids.length > 0 && (
           <ClippedGroup clipId={`pclip-${n.id}`} rect={{ x: n.x, y: n.y, w: n.w, h: n.h }}>
             <g transform={`translate(0 ${offset})`}>
@@ -225,7 +238,7 @@ export default function PreviewNode({
             y={thumbY}
             width={sw - 5}
             height={thumbH}
-            fill="#9aa0ab"
+            fill={n.props.scrollThumbColor ?? (n.props.assetSrc ? '#C59A45' : '#9aa0ab')}
             style={{ pointerEvents: 'none' }}
           />
         )}

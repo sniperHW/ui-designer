@@ -32,6 +32,7 @@ function nodeIndex(doc) {
   const add = (scope, nodes) => walk(nodes, (node) => index.set(`${scope}:${node.id}`, node))
   add('commonLayer', doc.commonLayer?.nodes)
   for (const page of doc.pages ?? []) add(`page:${page.id}`, page.nodes)
+  for (const popup of doc.popups ?? []) add(`popup:${popup.id}`, popup.nodes)
   for (const widget of doc.customWidgets ?? []) add(`customWidget:${widget.id}`, widget.tree)
   return index
 }
@@ -51,6 +52,10 @@ function targetScope(target) {
   if (target.scope === 'page') {
     requireString(target.pageId, 'target.pageId')
     return `page:${target.pageId}`
+  }
+  if (target.scope === 'popup') {
+    requireString(target.popupId, 'target.popupId')
+    return `popup:${target.popupId}`
   }
   if (target.scope === 'customWidget') {
     requireString(target.customWidgetId, 'target.customWidgetId')

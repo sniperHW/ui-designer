@@ -1,0 +1,89 @@
+{
+  "version": 2,
+  "kind": "card-detail-reference-structure",
+  "pageId": "card-detail-green-v2",
+  "metaName": "卡面细节展示（绿色）v2 参考结构候选",
+  "baseUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-09-library/candidates/卡库区-v17-远程弓箭-r2-候选预览.uiw",
+  "outputUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v2-参考结构候选.uiw",
+  "reference": {
+    "image": "D:/JuXiang/conquest-demo-template/output/ui-layout-spec/card-unit-detail-dialog-v1/card-unit-detail-dialog-reference.png",
+    "designScale": 0.581395,
+    "scope": "仅采用版式、层级、交互节点与数据语义；美术延续 V16 巨像文明素材风格。"
+  },
+  "popup": {
+    "popupId": "ppmtv84xe0zm19",
+    "dialogNodeId": "nmtv84xe0l2t9",
+    "dialogRect": [31, 508, 688, 862],
+    "dialogProps": {
+      "title": "卡面细节展示（绿色）",
+      "transparentSurface": true,
+      "hideDialogChrome": true,
+      "dialogCloseRect": [649, 520, 56, 56]
+    }
+  },
+  "reuseStrategy": {
+    "structureFamily": "card-detail-rarity-v2",
+    "reuseFor": ["蓝色", "紫色", "金色"],
+    "replaceOnly": ["外壳/卡框皮肤", "卡面", "种族/职业透明图标", "运行时数值与解锁状态"],
+    "mustRemainStable": ["节点 ID", "根级与 dialog 分层", "属性区网格", "技能槽数量", "关闭/升级/装备/重制节点"]
+  },
+  "assetRules": [
+    "所有 assetSlot 均为空绑定槽，不生成、不登记、不引用候选 PNG。",
+    "只允许无字框体、卡面与真实透明图标进入素材库；标题、数值、百分比、按钮文案均为节点文字。",
+    "detail-green-shell 是正式九宫格素材位；四角和边缘不可拉伸，中心区域可拉伸。"
+  ],
+  "layers": [
+    {"id":"detail-green-portrait","type":"image","name":"大卡面","parent":"root-before-dialog","rect":[151,212,448,296],"visualRole":"card-portrait","assetSlot":"card.detail.portrait.green","runtime":false},
+    {"id":"detail-green-shell","type":"nine","name":"详情九宫格外壳","parent":"root-before-dialog","rect":[31,508,688,862],"visualRole":"detail-shell","assetSlot":"card.detail.shell.v16","runtime":false,"props":{"nineInsets":[48,62,48,48],"nineSourceSize":[688,862]}},
+
+    {"id":"detail-green-type-badge","type":"nine","name":"职业标签底座","parent":"root-after-dialog","rect":[74,474,52,52],"visualRole":"type-badge","assetSlot":"card.detail.badge.type","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[52,52]}},
+    {"id":"detail-green-type-icon","type":"image","name":"职业透明图标","parent":"root-after-dialog","rect":[85,485,30,30],"visualRole":"type-icon","assetSlot":"icon.profession.melee","runtime":false},
+    {"id":"detail-green-race-badge","type":"nine","name":"种族标签底座","parent":"root-after-dialog","rect":[126,474,52,52],"visualRole":"race-badge","assetSlot":"card.detail.badge.race","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[52,52]}},
+    {"id":"detail-green-race-icon","type":"image","name":"种族透明图标","parent":"root-after-dialog","rect":[137,485,30,30],"visualRole":"race-icon","assetSlot":"icon.race.human","runtime":false},
+    {"id":"detail-green-close","type":"nine","name":"关闭按钮","parent":"root-after-dialog","rect":[649,520,56,56],"visualRole":"close-action","assetSlot":"ui.dialog-close.v16","runtime":false,"props":{"nineInsets":[12,12,12,12],"nineSourceSize":[56,56]}},
+    {"id":"detail-green-title","type":"text","name":"卡牌标题","parent":"root-after-dialog","rect":[245,547,260,42],"visualRole":"runtime-title","runtime":true,"props":{"text":"矿工","fontSize":38,"bold":true,"align":"center"}},
+    {"id":"detail-green-power-bar","type":"nine","name":"战力横条","parent":"root-after-dialog","rect":[41,621,668,40],"visualRole":"power-bar","assetSlot":"card.detail.power-bar","runtime":false,"props":{"nineInsets":[18,10,18,10],"nineSourceSize":[668,40]}},
+    {"id":"detail-green-power","type":"text","name":"战力数值","parent":"root-after-dialog","rect":[270,626,220,30],"visualRole":"runtime-power","runtime":true,"props":{"text":"战力：46","fontSize":28,"bold":true,"align":"center"}},
+    {"id":"detail-green-share","type":"image","name":"分享图标","parent":"root-after-dialog","rect":[667,625,38,38],"visualRole":"share-action","assetSlot":"icon.action.share","runtime":false},
+    {"id":"detail-green-level","type":"text","name":"等级数值","parent":"root-after-dialog","rect":[76,692,160,34],"visualRole":"runtime-level","runtime":true,"props":{"text":"等级 1","fontSize":26,"bold":true,"align":"left"}},
+    {"id":"detail-green-rarity","type":"text","name":"稀有度文字","parent":"root-after-dialog","rect":[300,692,190,34],"visualRole":"runtime-rarity","runtime":true,"props":{"text":"普通卡牌","fontSize":26,"bold":true,"align":"center"}},
+    {"id":"detail-green-xp-bar","type":"progress","name":"经验进度条","parent":"root-after-dialog","rect":[79,746,592,21],"visualRole":"xp-bar","runtime":true,"props":{"progress":35}},
+    {"id":"detail-green-xp","type":"text","name":"经验进度文本","parent":"root-after-dialog","rect":[310,744,130,24],"visualRole":"runtime-xp","runtime":true,"props":{"text":"175/490","fontSize":18,"bold":true,"align":"center"}},
+
+    {"id":"detail-green-prop-1-bg","type":"nine","name":"建筑血量属性底","parent":"root-after-dialog","rect":[80,800,277,72],"visualRole":"property-tile","assetSlot":"card.detail.property-tile","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[277,72]}},
+    {"id":"detail-green-prop-2-bg","type":"nine","name":"生产时间属性底","parent":"root-after-dialog","rect":[392,800,277,72],"visualRole":"property-tile","assetSlot":"card.detail.property-tile-2","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[277,72]}},
+    {"id":"detail-green-prop-3-bg","type":"nine","name":"攻击力属性底","parent":"root-after-dialog","rect":[80,875,277,72],"visualRole":"property-tile","assetSlot":"card.detail.property-tile-3","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[277,72]}},
+    {"id":"detail-green-prop-4-bg","type":"nine","name":"单位血量属性底","parent":"root-after-dialog","rect":[392,875,277,72],"visualRole":"property-tile","assetSlot":"card.detail.property-tile-4","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[277,72]}},
+    {"id":"detail-green-prop-5-bg","type":"nine","name":"速度属性底","parent":"root-after-dialog","rect":[80,950,277,72],"visualRole":"property-tile","assetSlot":"card.detail.property-tile-5","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[277,72]}},
+    {"id":"detail-green-prop-6-bg","type":"nine","name":"攻击范围属性底","parent":"root-after-dialog","rect":[392,950,277,72],"visualRole":"property-tile","assetSlot":"card.detail.property-tile-6","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[277,72]}},
+
+    {"id":"detail-green-prop-1-icon","type":"image","name":"建筑血量图标","parent":"root-after-dialog","rect":[93,813,46,46],"visualRole":"property-icon","assetSlot":"icon.property.building-health","runtime":false},
+    {"id":"detail-green-prop-2-icon","type":"image","name":"生产时间图标","parent":"root-after-dialog","rect":[405,813,46,46],"visualRole":"property-icon","assetSlot":"icon.property.production-time","runtime":false},
+    {"id":"detail-green-prop-3-icon","type":"image","name":"攻击力图标","parent":"root-after-dialog","rect":[93,888,46,46],"visualRole":"property-icon","assetSlot":"icon.property.attack","runtime":false},
+    {"id":"detail-green-prop-4-icon","type":"image","name":"单位血量图标","parent":"root-after-dialog","rect":[405,888,46,46],"visualRole":"property-icon","assetSlot":"icon.property.unit-health","runtime":false},
+    {"id":"detail-green-prop-5-icon","type":"image","name":"速度图标","parent":"root-after-dialog","rect":[93,963,46,46],"visualRole":"property-icon","assetSlot":"icon.property.speed","runtime":false},
+    {"id":"detail-green-prop-6-icon","type":"image","name":"攻击范围图标","parent":"root-after-dialog","rect":[405,963,46,46],"visualRole":"property-icon","assetSlot":"icon.property.range","runtime":false},
+
+    {"id":"detail-green-prop-1-text","type":"text","name":"建筑血量数值","parent":"root-after-dialog","rect":[145,805,196,54],"visualRole":"runtime-property","runtime":true,"props":{"text":"建筑血量：\n980  +117","fontSize":19,"bold":true,"align":"left"}},
+    {"id":"detail-green-prop-2-text","type":"text","name":"生产时间数值","parent":"root-after-dialog","rect":[457,805,196,54],"visualRole":"runtime-property","runtime":true,"props":{"text":"生产时间：\n9","fontSize":19,"bold":true,"align":"left"}},
+    {"id":"detail-green-prop-3-text","type":"text","name":"攻击力数值","parent":"root-after-dialog","rect":[145,880,196,54],"visualRole":"runtime-property","runtime":true,"props":{"text":"攻击力：\n35  +5","fontSize":19,"bold":true,"align":"left"}},
+    {"id":"detail-green-prop-4-text","type":"text","name":"单位血量数值","parent":"root-after-dialog","rect":[457,880,196,54],"visualRole":"runtime-property","runtime":true,"props":{"text":"单位血量：\n325  +39","fontSize":19,"bold":true,"align":"left"}},
+    {"id":"detail-green-prop-5-text","type":"text","name":"速度数值","parent":"root-after-dialog","rect":[145,955,196,54],"visualRole":"runtime-property","runtime":true,"props":{"text":"速度：\n1","fontSize":19,"bold":true,"align":"left"}},
+    {"id":"detail-green-prop-6-text","type":"text","name":"攻击范围数值","parent":"root-after-dialog","rect":[457,955,196,54],"visualRole":"runtime-property","runtime":true,"props":{"text":"攻击范围：\n1.2","fontSize":19,"bold":true,"align":"left"}},
+
+    {"id":"detail-green-skills-tray","type":"nine","name":"技能托盘","parent":"root-after-dialog","rect":[65,1070,620,127],"visualRole":"skills-tray","assetSlot":"card.detail.skills-tray","runtime":false,"props":{"nineInsets":[24,30,24,22],"nineSourceSize":[620,127]}},
+    {"id":"detail-green-skills-title","type":"text","name":"技能标题","parent":"root-after-dialog","rect":[285,1074,180,28],"visualRole":"runtime-section-title","runtime":true,"props":{"text":"技能","fontSize":27,"bold":true,"align":"center"}},
+    {"id":"detail-green-skill-1","type":"nine","name":"技能槽 1","parent":"root-after-dialog","rect":[100,1112,70,70],"visualRole":"skill-slot-equipped","assetSlot":"card.detail.skill-slot-1","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[70,70]}},
+    {"id":"detail-green-skill-2","type":"nine","name":"技能槽 2","parent":"root-after-dialog","rect":[213,1112,70,70],"visualRole":"skill-slot-equipped","assetSlot":"card.detail.skill-slot-2","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[70,70]}},
+    {"id":"detail-green-skill-3","type":"nine","name":"技能槽 3","parent":"root-after-dialog","rect":[326,1112,70,70],"visualRole":"skill-slot-unlockable","assetSlot":"card.detail.skill-slot-3","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[70,70]}},
+    {"id":"detail-green-skill-4","type":"nine","name":"技能槽 4","parent":"root-after-dialog","rect":[439,1112,70,70],"visualRole":"skill-slot-locked","assetSlot":"card.detail.skill-slot-4","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[70,70]}},
+    {"id":"detail-green-skill-5","type":"nine","name":"技能槽 5","parent":"root-after-dialog","rect":[552,1112,70,70],"visualRole":"skill-slot-locked","assetSlot":"card.detail.skill-slot-5","runtime":false,"props":{"nineInsets":[16,16,16,16],"nineSourceSize":[70,70]}},
+    {"id":"detail-green-skill-3-state","type":"text","name":"可解锁状态","parent":"root-after-dialog","rect":[316,1174,90,24],"visualRole":"runtime-skill-state","runtime":true,"props":{"text":"可解锁","fontSize":18,"bold":true,"align":"center"}},
+
+    {"id":"detail-green-upgrade","type":"button","name":"升级交互节点","parent":"root-after-dialog","rect":[140,1244,214,82],"visualRole":"upgrade-action","runtime":true,"props":{"text":"升级","fontSize":30,"bold":true}},
+    {"id":"detail-green-upgrade-cost-icon","type":"image","name":"升级货币图标","parent":"root-after-dialog","rect":[184,1290,31,31],"visualRole":"upgrade-currency","assetSlot":"icon.currency.upgrade","runtime":false},
+    {"id":"detail-green-upgrade-cost","type":"text","name":"升级费用","parent":"root-after-dialog","rect":[219,1287,102,34],"visualRole":"runtime-upgrade-cost","runtime":true,"props":{"text":"1080","fontSize":25,"bold":true,"align":"left"}},
+    {"id":"detail-green-equip","type":"button","name":"装备交互节点","parent":"root-after-dialog","rect":[397,1244,214,82],"visualRole":"equip-action","runtime":true,"props":{"text":"装备","fontSize":30,"bold":true}},
+    {"id":"detail-green-reset","type":"nine","name":"等级重制交互节点","parent":"root-after-dialog","rect":[639,1280,58,58],"visualRole":"reset-action","assetSlot":"icon.action.level-reset","runtime":false,"props":{"nineInsets":[14,14,14,14],"nineSourceSize":[58,58]}}
+  ]
+}

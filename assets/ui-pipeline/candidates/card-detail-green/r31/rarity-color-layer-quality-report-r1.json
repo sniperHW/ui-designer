@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "candidate": "card-detail-green-r31-rarity-color-layer",
+  "status": "rejected-by-art-review",
+  "rejectionReason": "稀有度色层在详情页内的视觉效果不符合审查预期；回退到绿色 v29 等级重制图标画布验收候选。",
+  "scope": "绿色详情页的稀有度色层增量候选；基于绿色 v29，不覆盖其已通过版本。",
+  "method": "程序化无字 PNG，按实际节点尺寸输出；透明中心便于叠压现有大卡面。",
+  "assets": [
+    { "path": "derived/detail-green-rarity-card-frame-448x296.png", "size": [448, 296], "consumer": "detail-green-rarity-card-frame" },
+    { "path": "derived/detail-green-rarity-title-accent-260x8.png", "size": [260, 8], "consumer": "detail-green-rarity-title-accent" },
+    { "path": "derived/detail-green-rarity-xp-frame-592x21.png", "size": [592, 21], "consumer": "detail-green-rarity-xp-frame" }
+  ],
+  "invariants": ["无文字", "无四角独立装饰、菱形或宝石", "素材不超过实际节点尺寸", "不改动 v29 的运行时数据或交互节点"],
+  "canvasVerification": {
+    "uiwValidation": "passed",
+    "realCanvasValidation": "passed",
+    "nodeCount": 52,
+    "visibleMaterialCount": 180,
+    "screenshot": "green-v30-rarity-layer-canvas.png"
+  }
+}

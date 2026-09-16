@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "candidate": "card-detail-green-r32-xp-lake-progress",
+  "status": "pending-art-review",
+  "scope": "绿色详情 v29 的经验进度条；其余节点与素材不变。",
+  "method": "进度控件的 assetSrc 黑底槽与 assetFillSrc 湖蓝填充，由真实进度百分比裁切。",
+  "assets": [
+    { "path": "derived/detail-green-xp-track-black-592x21.png", "size": [592, 21], "consumer": "detail-green-xp-bar.assetSrc", "role": "黑色底槽" },
+    { "path": "derived/detail-green-xp-fill-lake-blue-592x21.png", "size": [592, 21], "consumer": "detail-green-xp-bar.assetFillSrc", "role": "湖蓝填充" }
+  ],
+  "invariants": ["无文字", "不覆盖或模拟进度百分比", "素材尺寸与经验条节点一致", "绿色 v29 的其他节点不变"],
+  "canvasVerification": {
+    "uiwValidation": "passed",
+    "realCanvasValidation": "passed",
+    "progressPercent": 35,
+    "filledWidth": 207.2,
+    "screenshot": "green-v31-xp-lake-progress-canvas.png"
+  }
+}

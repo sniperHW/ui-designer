@@ -1,0 +1,20 @@
+{
+  "candidateId": "card-detail-green.skill-lock.v16.r1",
+  "status": "rejected-by-art-review",
+  "role": "transparent-runtime-state-icon",
+  "qualityProfile": "ui-material-v1",
+  "size": [26, 26],
+  "files": ["skill-lock-26.png"],
+  "visualDesign": "钢蓝锁体、金色锁梁、单处青色高光；只保留锁的主轮廓与三层大材质结构。",
+  "gates": {
+    "png.rgba": "passed",
+    "png.exact-slot-size": "passed (26×26)",
+    "png.real-alpha": "passed (alpha min=0, max=255)",
+    "source.outside-project": "passed (仅保留页面尺寸成品)",
+    "structure.no-baked-text": "passed by design",
+    "visual.canvas-acceptance": "passed"
+  },
+  "sizePolicy": "素材库仅保存 26×26 最终锁图标，不含高分辨率生成源图。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v17-技能锁定状态画布验收候选.uiw",
+  "rejection": "2026-09-15：锁定角标与技能槽融合，识别度不足；升级为更亮、低饱和、带冰青发光描边的 31×31 版本。"
+}

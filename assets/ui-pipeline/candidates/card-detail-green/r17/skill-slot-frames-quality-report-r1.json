@@ -1,0 +1,24 @@
+{
+  "candidateId": "card-detail-green.skill-slots.v16.r1",
+  "status": "candidate-awaiting-art-review",
+  "role": "unlettered-skill-slot-frames",
+  "qualityProfile": "ui-material-v1",
+  "size": [70, 70],
+  "files": ["skill-slot-equipped-70.png", "skill-slot-muted-70.png"],
+  "stateMapping": {
+    "equipped": "亮青色六边框",
+    "unlockable": "压暗紫色六边框，运行时另叠加“可解锁”文字",
+    "locked": "压暗紫色六边框，运行时另叠加独立锁图标"
+  },
+  "visualDesign": "无角部装饰；金色连续外轮廓、单一状态色内环、深蓝内衬，只有三层大材质结构。",
+  "gates": {
+    "png.rgba": "passed",
+    "png.exact-slot-size": "passed (70×70)",
+    "png.real-alpha": "passed (alpha min=0, max=255)",
+    "source.outside-project": "passed (仅保留页面尺寸成品)",
+    "structure.no-baked-text-or-lock": "passed by design",
+    "visual.canvas-acceptance": "passed"
+  },
+  "sizePolicy": "素材库仅保存 70×70 最终槽框，不含高分辨率生成源图。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v16-技能槽框画布验收候选.uiw"
+}

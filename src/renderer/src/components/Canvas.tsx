@@ -7,7 +7,7 @@ import {
   renderCustomInstance,
   renderKidsOf,
   renderTreeSVG,
-  tabBarRect,
+  tabIndexAt,
   transformTree,
   widgetInnerSVG
 } from '../widgets/registry'
@@ -149,10 +149,8 @@ export default function Canvas() {
     // Tab：点击页签栏切换当前编辑页签
     if (n.type === 'tab' && n.pages) {
       const pt = toDoc(e.clientX, e.clientY)
-      const bar = tabBarRect(n)
-      if (pt.x >= bar.x && pt.x <= bar.x + bar.w && pt.y >= bar.y && pt.y <= bar.y + bar.h) {
-        const count = Math.max(1, n.props.tabs?.length ?? 1)
-        const idx = Math.max(0, Math.min(count - 1, Math.floor((pt.x - n.x) / (n.w / count))))
+      const idx = tabIndexAt(n, pt.x, pt.y)
+      if (idx !== null) {
         if (idx !== (n.activeTab ?? 0)) {
           st.updateNodes(
             [n.id],

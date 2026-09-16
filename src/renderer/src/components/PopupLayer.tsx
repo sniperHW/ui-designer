@@ -12,6 +12,11 @@ export function dialogCloseRects(nodes: WidgetNode[]): Rect[] {
   const out: Rect[] = []
   walkNodes(nodes, (n) => {
     if (n.type === 'dialog') {
+      const custom = n.props.dialogCloseRect
+      if (Array.isArray(custom) && custom.length === 4 && custom.every((v) => typeof v === 'number' && Number.isFinite(v))) {
+        out.push({ x: custom[0], y: custom[1], w: custom[2], h: custom[3] })
+        return
+      }
       const t = Math.min(DIALOG_TITLE_H, n.h / 2)
       const cx = n.x + n.w - t / 2 - 8
       const cy = n.y + t / 2

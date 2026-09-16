@@ -10,6 +10,7 @@ const TYPE_LABEL: Record<WidgetType, string> = {
   ellipse: '椭圆',
   line: '线段',
   placeholder: '占位图',
+  image: '图片',
   nine: '九宫格',
   text: '文本',
   button: '按钮',

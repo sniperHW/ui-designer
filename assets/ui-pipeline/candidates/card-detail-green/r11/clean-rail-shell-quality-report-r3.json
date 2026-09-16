@@ -1,0 +1,21 @@
+{
+  "candidateId": "card-detail-green.shell.clean-rails.r3",
+  "status": "candidate-awaiting-art-review",
+  "role": "container",
+  "qualityProfile": "ui-material-v1",
+  "file": "assets/ui-pipeline/candidates/card-detail-green/r11/derived/detail-shell-v16-clean-rails-688x862-alpha-r3.png",
+  "size": [688, 862],
+  "nineSlice": {"insets": [48, 54, 48, 48], "sourceSize": [688, 862]},
+  "designRule": "沿用旧版的上下凹槽/内线；四角改为无嵌件的切角；左右为无细条结构的连续金属边轨。",
+  "gates": {
+    "png.rgba": "passed",
+    "png.real-alpha": "passed（四角 alpha=0）",
+    "png.edge-clean": "passed",
+    "structure.no-baked-runtime-content": "passed",
+    "semantics.single-visual-base": "passed",
+    "structure.complete-frame": "passed",
+    "visual.canvas-acceptance": "passed"
+  },
+  "sizePolicy": "工程内仅保留实际槽位 688×862 的派生 PNG。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v10-干净边轨画布验收候选.uiw"
+}

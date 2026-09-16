@@ -33,7 +33,8 @@ export const WIDGET_DEFS: WidgetDef[] = [
   { type: 'ellipse', label: '椭圆', category: 'shape', w: 120, h: 80, props: {} },
   { type: 'line', label: '线段', category: 'shape', w: 240, h: 2, props: {} },
   { type: 'placeholder', label: '占位图', category: 'shape', w: 160, h: 120, props: {} },
-  { type: 'nine', label: '九宫格', category: 'shape', w: 160, h: 120, props: {} },
+  { type: 'image', label: '图片', category: 'shape', w: 160, h: 120, props: { src: '' } },
+  { type: 'nine', label: '九宫格', category: 'shape', w: 160, h: 120, props: { assetSrc: '', nineInsets: [20, 20, 20, 20], nineSourceSize: [160, 120] } },
   { type: 'text', label: '文本', category: 'text', w: 160, h: 32, props: { text: '文本', fontSize: 26, bold: false, align: 'left' } },
   { type: 'button', label: '按钮', category: 'control', w: 200, h: 80, props: { text: '按钮', fontSize: 26, bold: false } },
   { type: 'checkbox', label: '复选框', category: 'control', w: 200, h: 40, props: { text: '选项', checked: false, fontSize: 24 } },
@@ -63,6 +64,54 @@ function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
+function assetSVG(src: string, x: number, y: number, w: number, h: number): string {
+  return `<image x="${x}" y="${y}" width="${w}" height="${h}" href="${esc(src)}" preserveAspectRatio="none"/>`
+}
+
+function clampedPair(total: number, start: number, end: number): [number, number] {
+  const safeStart = Math.max(0, start)
+  const safeEnd = Math.max(0, end)
+  const sum = safeStart + safeEnd
+  if (sum <= total || sum === 0) return [safeStart, safeEnd]
+  const scale = total / sum
+  return [safeStart * scale, safeEnd * scale]
+}
+
+/** 在 SVG 中按九宫格绘制单张皮肤；画布、预览与导出共走同一条渲染路径。 */
+export function nineSliceSVG(n: WidgetNode): string {
+  const src = n.props.assetSrc
+  if (!src) return ''
+  const [sourceW, sourceH] = n.props.nineSourceSize ?? [n.w, n.h]
+  const rawInsets = n.props.nineInsets ?? [sourceW / 3, sourceH / 3, sourceW / 3, sourceH / 3]
+  const [sourceLeft, sourceRight] = clampedPair(sourceW, rawInsets[0], rawInsets[2])
+  const [sourceTop, sourceBottom] = clampedPair(sourceH, rawInsets[1], rawInsets[3])
+  const [targetLeft, targetRight] = clampedPair(n.w, sourceLeft, sourceRight)
+  const [targetTop, targetBottom] = clampedPair(n.h, sourceTop, sourceBottom)
+  const sourceXs = [0, sourceLeft, sourceW - sourceRight]
+  const sourceYs = [0, sourceTop, sourceH - sourceBottom]
+  const targetXs = [n.x, n.x + targetLeft, n.x + n.w - targetRight]
+  const targetYs = [n.y, n.y + targetTop, n.y + n.h - targetBottom]
+  const sourceWs = [sourceLeft, Math.max(0, sourceW - sourceLeft - sourceRight), sourceRight]
+  const sourceHs = [sourceTop, Math.max(0, sourceH - sourceTop - sourceBottom), sourceBottom]
+  const targetWs = [targetLeft, Math.max(0, n.w - targetLeft - targetRight), targetRight]
+  const targetHs = [targetTop, Math.max(0, n.h - targetTop - targetBottom), targetBottom]
+  let result = ''
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      if (sourceWs[col] <= 0 || sourceHs[row] <= 0 || targetWs[col] <= 0 || targetHs[row] <= 0) continue
+      result += `<svg x="${targetXs[col]}" y="${targetYs[row]}" width="${targetWs[col]}" height="${targetHs[row]}" viewBox="${sourceXs[col]} ${sourceYs[row]} ${sourceWs[col]} ${sourceHs[row]}" preserveAspectRatio="none"><image x="0" y="0" width="${sourceW}" height="${sourceH}" href="${esc(src)}" preserveAspectRatio="none"/></svg>`
+    }
+  }
+  return result
+}
+
+function textPaint(n: WidgetNode, fallback: string): string {
+  const fill = n.props.textColor ?? fallback
+  const stroke = n.props.textStroke
+  const strokeWidth = n.props.textStrokeWidth ?? 0
+  return `fill="${esc(fill)}"${stroke && strokeWidth > 0 ? ` stroke="${esc(stroke)}" stroke-width="${strokeWidth}" paint-order="stroke" stroke-linejoin="round"` : ''}`
+}
+
 const STROKE = `stroke="${INK}" stroke-width="2" vector-effect="non-scaling-stroke"`
 
 export interface Rect {
@@ -90,25 +139,37 @@ function textBlock(n: WidgetNode, x: number, width: number, fill = INK): string 
     tx = x + width
     anchor = 'end'
   }
-  const weight = n.props.bold ? ' font-weight="700"' : ''
+  const weight = n.props.fontWeight ? ` font-weight="${n.props.fontWeight}"` : n.props.bold ? ' font-weight="700"' : ''
   const spans = lines
     .map((l, i) => `<tspan x="${tx}" y="${Math.round(cy - total / 2 + i * lh)}">${esc(l) || ' '}</tspan>`)
     .join('')
-  return `<text x="${tx}" y="${Math.round(cy)}" fill="${fill}" font-size="${fontSize}" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif"${weight} text-anchor="${anchor}" dominant-baseline="central">${spans}</text>`
+  return `<text x="${tx}" y="${Math.round(cy)}" ${textPaint(n, fill)} font-size="${fontSize}" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif"${weight} text-anchor="${anchor}" dominant-baseline="central">${spans}</text>`
 }
 
 /** 滚动区边框 + 右侧滚动条轨道；滑块不在此画——编辑态画静态示意，预览随滚动位置动态计算 */
-export function scrollTrackSVG(x: number, y: number, w: number, h: number): string {
+export function scrollTrackSVG(x: number, y: number, w: number, h: number, transparentSurface = false): string {
   const sw = Math.min(14, w / 6)
-  let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>`
-  s += `<rect x="${x + w - sw}" y="${y + 2}" width="${sw - 3}" height="${h - 4}" fill="#f3f4f6" stroke="#c3c8d0" stroke-width="1" vector-effect="non-scaling-stroke"/>`
+  const surface = transparentSurface
+    ? `fill="none" stroke="#526176" stroke-width="1.5" vector-effect="non-scaling-stroke"`
+    : `fill="#ffffff" ${STROKE}`
+  const railFill = transparentSurface ? '#142033' : '#f3f4f6'
+  const railStroke = transparentSurface ? '#526176' : '#c3c8d0'
+  let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" ${surface}/>`
+  s += `<rect x="${x + w - sw}" y="${y + 2}" width="${sw - 3}" height="${h - 4}" fill="${railFill}" stroke="${railStroke}" stroke-width="1" vector-effect="non-scaling-stroke"/>`
   return s
 }
 
 /** 滚动区静态滑块（编辑态示意，位于顶部） */
-export function scrollThumbSVG(x: number, y: number, w: number, h: number): string {
+export function scrollThumbSVG(x: number, y: number, w: number, h: number, color = '#d1d5db'): string {
   const sw = Math.min(14, w / 6)
-  return `<rect x="${x + w - sw + 1}" y="${y + 4}" width="${sw - 5}" height="${Math.max(10, h * 0.35)}" fill="#d1d5db"/>`
+  return `<rect x="${x + w - sw + 1}" y="${y + 4}" width="${sw - 5}" height="${Math.max(10, h * 0.35)}" fill="${esc(color)}"/>`
+}
+
+/** 滚动区框体：默认轨道或绑定的独立美术素材。预览与画布必须共用。 */
+export function scrollBaseSVG(n: WidgetNode): string {
+  return n.props.assetSrc
+    ? assetSVG(n.props.assetSrc, n.x, n.y, n.w, n.h)
+    : scrollTrackSVG(n.x, n.y, n.w, n.h, !!n.props.transparentSurface)
 }
 
 /** Tab 页签栏有效高度：props.barHeight 可调（默认 40），上限 h/2 保证内容区非负 */
@@ -191,6 +252,32 @@ export function tipBubbleRect(n: WidgetNode): Rect {
     default:
       return { x: n.x, y: n.y, w: n.w, h: n.h - t }
   }
+}
+
+/** Tab 各页签头的命中/绘制矩形；完整皮肤可用固定留缝避免边框叠压。 */
+export function tabItemRects(n: WidgetNode): Rect[] {
+  const count = Math.max(1, n.props.tabs?.length ?? 1)
+  const bar = tabBarRect(n)
+  const gap = Math.max(0, n.props.tabGap ?? 0)
+  const usableWidth = Math.max(0, bar.w - gap * (count - 1))
+  const configured = n.props.tabWidths
+  const valid = Array.isArray(configured)
+    && configured.length === count
+    && configured.every((width) => typeof width === 'number' && width > 0)
+    && configured.reduce((sum, width) => sum + width, 0) <= usableWidth
+  const widths = valid ? configured : Array.from({ length: count }, () => usableWidth / count)
+  let cursor = bar.x
+  return widths.map((width) => {
+    const rect = { x: cursor, y: bar.y, w: width, h: bar.h }
+    cursor += width + gap
+    return rect
+  })
+}
+
+/** 返回命中的页签下标；页签宽度未覆盖的页签栏余量不响应切换。 */
+export function tabIndexAt(n: WidgetNode, x: number, y: number): number | null {
+  const index = tabItemRects(n).findIndex((rect) => x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h)
+  return index >= 0 ? index : null
 }
 
 /** 容器的内容区矩形（可挂子控件的区域）；非容器返回 null */
@@ -464,7 +551,7 @@ export function renderCustomInstance(
 ): { inner: string; slots: SlotInfo[] } {
   const resolved = resolveTree(def, n.overrides)
   const scaled = scaleTree(resolved, n.w / def.w, n.h / def.h, n.x, n.y)
-  const inner = scaled.map((t) => renderResolved(t, defs)).join('')
+  const inner = scaled.filter((t) => t.visible).map((t) => renderResolved(t, defs)).join('')
   const slots = slotsOfDef(scaled, def).map((s) => ({ ...s, children: n.slots?.[s.key] ?? [] }))
   return { inner, slots }
 }
@@ -507,18 +594,28 @@ export function widgetInnerSVG(n: WidgetNode): string {
   const cy = y + h / 2
   switch (n.type) {
     case 'rect':
+      if (n.props.assetSrc) return assetSVG(n.props.assetSrc, x, y, w, h)
       return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(n.props.radius ?? 0, w / 2, h / 2)}" fill="#ffffff" ${STROKE}/>`
     case 'ellipse':
+      if (n.props.assetSrc) return assetSVG(n.props.assetSrc, x, y, w, h)
       return `<ellipse cx="${x + w / 2}" cy="${cy}" rx="${w / 2}" ry="${h / 2}" fill="#ffffff" ${STROKE}/>`
     case 'line':
       return `<line x1="${x}" y1="${cy}" x2="${x + w}" y2="${cy}" ${STROKE}/>`
     case 'placeholder':
+      if (n.props.assetSrc) return assetSVG(n.props.assetSrc, x, y, w, h)
       return (
         `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>` +
         `<line x1="${x}" y1="${y}" x2="${x + w}" y2="${y + h}" ${STROKE}/>` +
         `<line x1="${x + w}" y1="${y}" x2="${x}" y2="${y + h}" ${STROKE}/>`
       )
+    case 'image':
+      // 本地文件使用 file:// URI；由浏览器在画布、预览和导出 SVG 中统一加载。
+      // 未设置来源时保持明确的空态，避免静默显示为白块。
+      return n.props.src
+        ? `<image x="${x}" y="${y}" width="${w}" height="${h}" href="${esc(n.props.src)}" preserveAspectRatio="none"/>`
+        : `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#f3f4f6" ${STROKE}/><path d="M ${x + 8} ${y + h - 10} L ${x + w * 0.42} ${y + h * 0.48} L ${x + w * 0.64} ${y + h * 0.68} L ${x + w - 8} ${y + 12}" fill="none" stroke="#9ca3af" stroke-width="2"/>`
     case 'nine': {
+      if (n.props.assetSrc) return nineSliceSVG(n)
       // 九宫格缩放占位图：三分线示意可拉伸区域
       let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>`
       for (let i = 1; i <= 2; i++) {
@@ -532,6 +629,7 @@ export function widgetInnerSVG(n: WidgetNode): string {
     case 'text':
       return textBlock(n, x + 2, w - 4)
     case 'button': {
+      if (n.props.assetSrc) return assetSVG(n.props.assetSrc, x, y, w, h) + textBlock({ ...n, props: { ...n.props, align: 'center' } }, x + 4, w - 8)
       const rect = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(12, w / 2, h / 2)}" fill="#ffffff" ${STROKE}/>`
       return rect + textBlock({ ...n, props: { ...n.props, align: 'center' } }, x + 4, w - 8)
     }
@@ -547,6 +645,14 @@ export function widgetInnerSVG(n: WidgetNode): string {
     }
     case 'progress': {
       const p = Math.max(0, Math.min(100, n.props.progress ?? 0))
+      if (n.props.assetSrc) {
+        let s = assetSVG(n.props.assetSrc, x, y, w, h)
+        if (n.props.assetFillSrc && p > 0) {
+          const clipId = `progress-${n.id}`
+          s += `<defs><clipPath id="${clipId}"><rect x="${x}" y="${y}" width="${w * (p / 100)}" height="${h}"/></clipPath></defs><g clip-path="url(#${clipId})">${assetSVG(n.props.assetFillSrc, x, y, w, h)}</g>`
+        }
+        return s
+      }
       return (
         `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>` +
         `<rect x="${x + 3}" y="${y + 3}" width="${Math.max(0, (w - 6) * (p / 100))}" height="${Math.max(0, h - 6)}" fill="#d1d5db"/>`
@@ -561,17 +667,46 @@ export function widgetInnerSVG(n: WidgetNode): string {
       // 筛选器（§4.2）：一行标签，单选高亮（黑底白字）
       const options = n.props.options?.length ? n.props.options : ['全部']
       const count = options.length
-      const cw = w / count
+      const configuredWidths = n.props.filterWidths
+      const widths = configuredWidths?.length === count && configuredWidths.every((value) => value > 0)
+        ? configuredWidths
+        : Array.from({ length: count }, () => w / count)
       const sel = Math.max(0, Math.min(count - 1, n.props.selected ?? 0))
+      const filterFontSize = n.props.fontSize ?? 20
+      const filterWeight = n.props.fontWeight ?? (n.props.bold ? 700 : 400)
       let s = ''
+      let offset = 0
       for (let i = 0; i < count; i++) {
-        const cx0 = x + i * cw
+        const cw = widths[i]
+        const cx0 = x + offset
+        offset += cw
         const active = i === sel
+        const skin = active
+          ? n.props.assetActiveSrcs?.[i] ?? n.props.assetActiveSrc
+          : n.props.assetDefaultSrcs?.[i] ?? n.props.assetDefaultSrc
+        const bg = skin
+          ? assetSVG(skin, cx0, y, cw, h)
+          : active
+            ? `<rect x="${cx0 + 2}" y="${y + 2}" width="${cw - 4}" height="${h - 4}" rx="${Math.min(10, (h - 4) / 2)}" fill="${INK}"/>`
+            : `<rect x="${cx0 + 2}" y="${y + 2}" width="${cw - 4}" height="${h - 4}" rx="${Math.min(10, (h - 4) / 2)}" fill="#ffffff" ${STROKE}/>`
+        const activeOverlay = active && n.props.assetActiveOverlaySrc
+          ? assetSVG(
+              n.props.assetActiveOverlaySrc,
+              cx0 + cw / 2 - (n.props.activeOverlayWidth ?? 0) / 2 + (n.props.activeOverlayOffsetX ?? 0),
+              y + h + (n.props.activeOverlayOffsetY ?? 0),
+              n.props.activeOverlayWidth ?? 0,
+              n.props.activeOverlayHeight ?? 0
+            )
+          : ''
+        const filterIcon = n.props.assetIconSrcs?.[i] ?? n.props.assetIconSrc
+        const icon = filterIcon && (n.props.assetIconWidth ?? 0) > 0 && (n.props.assetIconHeight ?? 0) > 0
+          ? assetSVG(filterIcon, cx0 + (cw - n.props.assetIconWidth!) / 2, y + (h - n.props.assetIconHeight!) / 2, n.props.assetIconWidth!, n.props.assetIconHeight!)
+          : ''
         s += active
-          ? `<rect x="${cx0 + 2}" y="${y + 2}" width="${cw - 4}" height="${h - 4}" rx="${Math.min(10, (h - 4) / 2)}" fill="${INK}"/>` +
-            `<text x="${cx0 + cw / 2}" y="${cy}" fill="#ffffff" font-size="20" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="central">${esc(options[i])}</text>`
-          : `<rect x="${cx0 + 2}" y="${y + 2}" width="${cw - 4}" height="${h - 4}" rx="${Math.min(10, (h - 4) / 2)}" fill="#ffffff" ${STROKE}/>` +
-            `<text x="${cx0 + cw / 2}" y="${cy}" fill="${INK}" font-size="20" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif" text-anchor="middle" dominant-baseline="central">${esc(options[i])}</text>`
+          ? bg +
+            icon + `<text x="${cx0 + cw / 2}" y="${cy}" ${textPaint(n, '#ffffff')} font-size="${filterFontSize}" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif" font-weight="${filterWeight}" text-anchor="middle" dominant-baseline="central">${esc(options[i])}</text>` + activeOverlay
+          : bg +
+            icon + `<text x="${cx0 + cw / 2}" y="${cy}" ${textPaint(n, INK)} font-size="${filterFontSize}" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif" font-weight="${filterWeight}" text-anchor="middle" dominant-baseline="central">${esc(options[i])}</text>`
       }
       return s
     }
@@ -579,7 +714,12 @@ export function widgetInnerSVG(n: WidgetNode): string {
       return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>`
     case 'dialog': {
       const t = Math.min(DIALOG_TITLE_H, h / 2)
-      let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>`
+      let s = n.props.assetSrc
+        ? nineSliceSVG(n)
+        : n.props.transparentSurface
+          ? `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="#526176" stroke-width="1.5" vector-effect="non-scaling-stroke"/>`
+          : `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>`
+      if (n.props.hideDialogChrome) return s
       s += `<rect x="${x + 1}" y="${y + 1}" width="${w - 2}" height="${t - 2}" fill="#eceff3"/>`
       s += `<line x1="${x + 1}" y1="${y + t}" x2="${x + w - 1}" y2="${y + t}" ${STROKE}/>`
       const title: WidgetNode = {
@@ -625,8 +765,10 @@ export function widgetInnerSVG(n: WidgetNode): string {
       return s + patch
     }
     case 'scroll':
-      // 滚动区：边框 + 右侧滚动条示意
-      return scrollTrackSVG(x, y, w, h) + scrollThumbSVG(x, y, w, h)
+      // 框体可以是独立素材，滚动区仍保留真实容器与滑块语义。
+      // 这样素材只承担美术，不会把一整张静态截图伪装成交互。
+      return scrollBaseSVG(n) +
+        scrollThumbSVG(x, y, w, h, n.props.scrollThumbColor ?? (n.props.assetSrc ? '#C59A45' : '#d1d5db'))
     case 'list':
     case 'grid': {
       // 列表 / 网格：数量可变的重复结构（项为生成的占位格，标记显示在格子底部）
@@ -654,26 +796,49 @@ export function widgetInnerSVG(n: WidgetNode): string {
     case 'tab': {
       const tabs = n.props.tabs && n.props.tabs.length ? n.props.tabs : ['页签 1']
       const count = tabs.length
-      const hw = w / count
+      const itemRects = tabItemRects(n)
       const barH = tabBarHeight(n)
       const fontSize = n.props.fontSize ?? 22
       const bottom = (n.props.barPosition ?? 'top') === 'bottom'
       const barY = bottom ? y + h - barH : y
       const active = activeTabIndex(n)
-      let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#ffffff" ${STROKE}/>`
-      s += `<rect x="${x + 1}" y="${barY + 1}" width="${w - 2}" height="${barH - 2}" fill="#eceff3"/>`
-      for (let i = 1; i < count; i++) {
-        const lx = x + i * hw
-        s += `<line x1="${lx}" y1="${barY + 5}" x2="${lx}" y2="${barY + barH - 5}" stroke="#9aa0ab" stroke-width="1.5" vector-effect="non-scaling-stroke"/>`
+      const skinned = !!(n.props.assetDefaultSrc || n.props.assetActiveSrc || n.props.assetDefaultSrcs?.length || n.props.assetActiveSrcs?.length)
+      const surface = n.props.transparentSurface
+        ? `fill="none" stroke="none"`
+        : `fill="#ffffff" ${STROKE}`
+      let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" ${surface}/>`
+      if (skinned) {
+        for (let i = 0; i < count; i++) {
+          const defaultSkin = n.props.assetDefaultSrcs?.[i] ?? n.props.assetDefaultSrc ?? n.props.assetActiveSrc
+          const activeSkin = n.props.assetActiveSrcs?.[i] ?? n.props.assetActiveSrc ?? defaultSkin
+          if (defaultSkin || activeSkin) s += assetSVG(i === active ? (activeSkin ?? defaultSkin!) : (defaultSkin ?? activeSkin!), itemRects[i].x, barY, itemRects[i].w, barH)
+        }
+      } else {
+        s += `<rect x="${x + 1}" y="${barY + 1}" width="${w - 2}" height="${barH - 2}" fill="#eceff3"/>`
+        for (let i = 1; i < count; i++) {
+          const lx = itemRects[i].x
+          s += `<line x1="${lx}" y1="${barY + 5}" x2="${lx}" y2="${barY + barH - 5}" stroke="#9aa0ab" stroke-width="1.5" vector-effect="non-scaling-stroke"/>`
+        }
+        const sepY = bottom ? barY : barY + barH
+        s += `<line x1="${x + 1}" y1="${sepY}" x2="${x + w - 1}" y2="${sepY}" ${STROKE}/>`
+        const activeRect = itemRects[active]
+        const ax = activeRect.x
+        const coverY = bottom ? barY - 1 : barY + 1
+        s += `<rect x="${ax + 2}" y="${coverY}" width="${activeRect.w - 4}" height="${barH - 1}" fill="#ffffff"/>`
       }
-      const sepY = bottom ? barY : barY + barH
-      s += `<line x1="${x + 1}" y1="${sepY}" x2="${x + w - 1}" y2="${sepY}" ${STROKE}/>`
-      const ax = x + active * hw
-      const coverY = bottom ? barY - 1 : barY + 1
-      s += `<rect x="${ax + 2}" y="${coverY}" width="${hw - 4}" height="${barH - 1}" fill="#ffffff"/>`
       for (let i = 0; i < count; i++) {
-        const bold = i === active ? ' font-weight="700"' : ''
-        s += `<text x="${x + (i + 0.5) * hw}" y="${barY + barH / 2}" fill="${INK}" font-size="${fontSize}" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif"${bold} text-anchor="middle" dominant-baseline="central">${esc(tabs[i] || `页签 ${i + 1}`)}</text>`
+        const weight = n.props.fontWeight ?? (i === active || n.props.bold ? 700 : 400)
+        const tabIcon = n.props.assetIconSrcs?.[i] ?? n.props.assetIconSrc
+        if (tabIcon) {
+          const iconW = Math.min(n.props.assetIconWidth ?? 0, itemRects[i].w)
+          const iconH = Math.min(n.props.assetIconHeight ?? 0, barH)
+          if (iconW > 0 && iconH > 0) {
+            s += assetSVG(tabIcon, itemRects[i].x + (itemRects[i].w - iconW) / 2, barY + (barH - iconH) / 2, iconW, iconH)
+          }
+        }
+        if (!n.props.hideTabLabels) {
+          s += `<text x="${itemRects[i].x + itemRects[i].w / 2}" y="${barY + barH / 2}" ${textPaint(n, INK)} font-size="${fontSize}" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif" font-weight="${weight}" text-anchor="middle" dominant-baseline="central">${esc(tabs[i] ?? '')}</text>`
+        }
       }
       return s
     }

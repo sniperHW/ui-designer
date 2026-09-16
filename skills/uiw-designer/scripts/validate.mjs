@@ -13,7 +13,7 @@ import { readFileSync } from 'node:fs'
 import { basename } from 'node:path'
 
 const WIDGET_TYPES = new Set([
-  'rect', 'ellipse', 'line', 'placeholder', 'nine', 'text', 'button', 'checkbox',
+  'rect', 'ellipse', 'line', 'placeholder', 'image', 'nine', 'text', 'button', 'checkbox',
   'progress', 'input', 'filter', 'panel', 'dialog', 'tooltip', 'scroll', 'list', 'grid', 'tab', 'custom'
 ])
 const CONTAINER_WITH_CHILDREN = new Set(['panel', 'dialog', 'tooltip', 'scroll'])
@@ -117,8 +117,32 @@ function checkTree(arr, rootLabel, rep, ctx) {
     if (n.type === 'dialog' && n.props?.title !== undefined && typeof n.props.title !== 'string') {
       rep.err(where, 'props.title 必须是字符串')
     }
+    if (n.type === 'dialog' && n.props?.hideDialogChrome !== undefined && typeof n.props.hideDialogChrome !== 'boolean') {
+      rep.err(where, 'dialog props.hideDialogChrome 必须是 boolean')
+    }
+    if (n.type === 'dialog' && n.props?.dialogCloseRect !== undefined) {
+      const close = n.props.dialogCloseRect
+      if (!Array.isArray(close) || close.length !== 4 || !close.every(isFiniteNum) || close[2] <= 0 || close[3] <= 0) {
+        rep.err(where, 'dialog props.dialogCloseRect 必须是 [x, y, w, h] 且 w/h 大于 0')
+      }
+    }
     if (n.type === 'tooltip' && n.props?.tail !== undefined && !TIP_TAILS.has(n.props.tail)) {
       rep.err(where, `props.tail 只能是 top/bottom/left/right，实际 ${JSON.stringify(n.props.tail)}`)
+    }
+    if (n.type === 'image' && n.props?.src !== undefined && typeof n.props.src !== 'string') {
+      rep.err(where, 'props.src 必须是字符串（file:// URI 或 data URI）')
+    }
+    if (n.type === 'nine') {
+      if (n.props?.assetSrc !== undefined && typeof n.props.assetSrc !== 'string') rep.err(where, '九宫格 props.assetSrc 必须是字符串')
+      for (const [key, length] of [['nineInsets', 4], ['nineSourceSize', 2]]) {
+        const value = n.props?.[key]
+        if (value !== undefined && (!Array.isArray(value) || value.length !== length || !value.every((v) => isFiniteNum(v) && v >= 0))) {
+          rep.err(where, `九宫格 props.${key} 必须是 ${length} 个非负数字组成的数组`)
+        }
+      }
+      if (Array.isArray(n.props?.nineSourceSize) && (n.props.nineSourceSize[0] <= 0 || n.props.nineSourceSize[1] <= 0)) {
+        rep.err(where, '九宫格 props.nineSourceSize 两项必须大于 0')
+      }
     }
 
     // 定制控件实例

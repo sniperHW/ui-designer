@@ -1,0 +1,11 @@
+{
+  "candidateId": "card-detail-green.power-bar.v16.r4",
+  "status": "superseded-by-r24-renderer-contract-fix",
+  "role": "unlettered-runtime-value-bar-and-contrast-text",
+  "qualityProfile": "ui-material-v1",
+  "size": [668, 40],
+  "files": ["detail-power-bar-max-height-668x40.png"],
+  "revision": "保留左右安全区；实体高提升至最大可容纳约 30px。原候选误写 text 的 color 属性，实际画布仍为黑字；已由 r24 使用 textColor 修正。",
+  "gates": {"png.rgba":"passed","png.exact-slot-size":"passed (668×40)","png.real-alpha":"passed (实体 alpha bbox：x=40..649，y=7..35) ","structure.no-baked-runtime-text":"passed by design","runtime.text-contrast":"failed (color 非渲染器读取字段)","visual.canvas-acceptance":"superseded"},
+  "sizePolicy": "素材库仅保存 668×40 最终横条，不含高分辨率生成源图。"
+}

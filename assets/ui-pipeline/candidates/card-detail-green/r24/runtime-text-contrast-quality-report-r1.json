@@ -1,0 +1,16 @@
+{
+  "candidateId": "card-detail-green.power-bar.v16.r5",
+  "status": "candidate-awaiting-art-review",
+  "role": "runtime-text-contrast",
+  "qualityProfile": "ui-material-v1",
+  "runtimeNodes": ["detail-green-title", "detail-green-power", "detail-green-level", "detail-green-rarity", "detail-green-xp"],
+  "revision": "保持 r23 的最大实体高度横条和安全边距不变；运行时文本改用 SVG 渲染器实际读取的 textColor=#ffffff。",
+  "gates": {
+    "structure.node-binding":"passed (5/5)",
+    "runtime.textColor":"passed (5/5 #ffffff)",
+    "uiw.schema":"passed",
+    "canvas.real-render":"passed",
+    "visual.art-review":"pending"
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v23-最大横条与白色文本画布验收候选.uiw"
+}

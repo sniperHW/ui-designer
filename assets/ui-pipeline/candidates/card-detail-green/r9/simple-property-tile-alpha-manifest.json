@@ -1,0 +1,14 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-cf6cf961-7eab-4e6e-a8cb-e5968bd75f2f.png",
+      "size": [277, 72],
+      "file": "detail-property-tile-v16-simple-277x72-alpha-r2.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24},
+      "crop_alpha": true,
+      "edge_dark_matte_clear": {"max_value": 42},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    }
+  ]
+}

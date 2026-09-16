@@ -1,0 +1,27 @@
+{
+  "candidateId": "card-detail-green.property-icons.v16.r2",
+  "status": "rejected-by-art-review",
+  "role": "transparent-property-icons",
+  "qualityProfile": "ui-material-v1",
+  "size": [46, 46],
+  "files": [
+    "property-building-health-46.png",
+    "property-production-time-46.png",
+    "property-attack-46.png",
+    "property-unit-health-46.png",
+    "property-speed-46.png",
+    "property-range-46.png"
+  ],
+  "visualDesign": "城防、机械时钟、交叉兵刃、护心红心、翼靴、机械准星；饱满彩色、金属体积与青色能量高光。",
+  "gates": {
+    "png.rgba": "passed",
+    "png.exact-slot-size": "passed (46×46)",
+    "png.real-alpha": "passed (alpha min=0, max=255)",
+    "source.outside-project": "passed (仅保留页面尺寸成品)",
+    "structure.no-baked-runtime-content": "passed",
+    "visual.canvas-acceptance": "passed"
+  },
+  "sizePolicy": "素材库仅保存 46×46 最终成品，不含高分辨率生成源图。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v14-立体属性图标画布验收候选.uiw",
+  "rejection": "2026-09-15：细节结构过多、过于精致，不适合 46×46 小分辨率下的辨识度要求；保留该候选供版本追溯。"
+}

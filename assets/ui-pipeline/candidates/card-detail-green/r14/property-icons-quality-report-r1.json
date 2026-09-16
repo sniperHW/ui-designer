@@ -1,0 +1,12 @@
+{
+  "candidateId": "card-detail-green.property-icons.v16.r1",
+  "status": "rejected-by-art-review",
+  "role": "icon",
+  "qualityProfile": "ui-material-v1",
+  "size": [46, 46],
+  "files": ["property-building-health-46.png", "property-production-time-46.png", "property-attack-46.png", "property-unit-health-46.png", "property-speed-46.png", "property-range-46.png"],
+  "gates": {"png.rgba": "passed", "png.real-alpha": "passed", "png.edge-clean": "passed", "structure.no-baked-runtime-content": "passed", "semantics.single-visual-base": "passed", "semantics.shared-outline": "passed", "icon.no-background": "passed", "visual.canvas-acceptance": "passed"},
+  "sizePolicy": "每张图标精确 46×46，与实际页面槽位一致。",
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v13-属性图标画布验收候选.uiw",
+  "rejection": "2026-09-15：属性图标过于单薄、轮廓化，缺少具象物件、色彩与立体感；保留该候选供版本追溯。"
+}

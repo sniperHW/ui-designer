@@ -1,0 +1,20 @@
+{
+  "candidateId": "card-detail-green.share-icon.v1.r1",
+  "status": "accepted-by-art-review",
+  "role": "share-interaction-icon",
+  "qualityProfile": "ui-material-v1",
+  "size": [38, 38],
+  "files": ["derived/detail-share-icon-38x38.png"],
+  "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-a08696d2-36a4-437a-bbb8-da061752ead3.png",
+  "revision": "深蓝金属圆形底座、细金边、粗象牙白导出箭头；以大轮廓保证 38×38 槽位中的识别度。",
+  "gates": {
+    "png.rgba":"passed",
+    "png.exact-slot-size":"passed (38×38)",
+    "structure.interaction-node-preserved":"passed",
+    "uiw.schema":"passed",
+    "canvas.real-render":"passed (透明图标=1)",
+    "visual.art-review":"passed (用户确认通过)"
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v28-分享图标画布验收候选.uiw",
+  "sizePolicy": "项目素材只保存实际槽位 38×38 的最终 PNG；高分辨率生成源保留在外部生成目录。"
+}

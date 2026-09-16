@@ -1,0 +1,21 @@
+{
+  "candidateId": "card-detail-green.power-plate.v17.r1",
+  "status": "candidate-awaiting-art-review",
+  "role": "unlettered-power-value-plate",
+  "qualityProfile": "ui-material-v1",
+  "size": [668, 40],
+  "files": ["derived/detail-power-plate-blue-metal-668x40.png"],
+  "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-97c920c0-f4b5-49be-b7a3-cf3a598ea58c.png",
+  "revision": "保留已确认的当前宽度和 40px 左右安全缩进；以完整蓝金属板替换细横条，两端采用短阶梯式金属卡扣，并与底部操作栏保持同一蓝金边、阴影与立体结构语言。",
+  "gates": {
+    "png.rgba":"passed",
+    "png.exact-slot-size":"passed (668×40)",
+    "structure.no-baked-runtime-text":"passed",
+    "runtime.text-contrast":"passed (五项相邻文字均为 #ffffff)",
+    "uiw.schema":"passed",
+    "canvas.real-render":"passed",
+    "visual.art-review":"pending"
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v24-蓝金属战力板画布验收候选.uiw",
+  "sizePolicy": "项目素材只保存实际槽位 668×40 的最终 PNG；高分辨率生成源保留在外部生成目录。"
+}

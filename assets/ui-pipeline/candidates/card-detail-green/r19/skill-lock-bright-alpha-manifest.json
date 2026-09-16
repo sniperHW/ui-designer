@@ -1,0 +1,12 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-54711aab-434f-45cb-b305-7c6632aa2732.png",
+      "file": "skill-lock-bright-31.png",
+      "size": [31, 31],
+      "crop_alpha": true,
+      "fit": "contain"
+    }
+  ]
+}

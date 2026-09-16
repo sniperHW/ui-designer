@@ -1,0 +1,14 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {
+      "source": "assets/ui-pipeline/candidates/card-detail-green/r5/source/detail-skills-tray-v16-imagegen-r5.png",
+      "size": [620, 127],
+      "file": "detail-skills-tray-v16-620x127-alpha-r1.png",
+      "neutral_background_to_alpha": {"min_value": 220, "max_spread": 24},
+      "crop_alpha": true,
+      "edge_dark_matte_clear": {"max_value": 42},
+      "quality_gate": {"edge_dark_matte": {"max_value": 42, "max_pixels": 0}}
+    }
+  ]
+}

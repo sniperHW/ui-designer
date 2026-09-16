@@ -1,0 +1,879 @@
+{
+  "packageVersion": 1,
+  "name": "卡面细节展示绿色 v31 黑底湖蓝经验条素材包",
+  "generatedAt": "2026-09-16T03:30:32.312Z",
+  "source": {
+    "uiw": "卡面细节展示-绿色-v31-黑底湖蓝经验条画布验收候选.uiw",
+    "originalRelativePath": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v31-黑底湖蓝经验条画布验收候选.uiw",
+    "sha256": "d2e566f325f37a1cdf6e24fdae4b1e9da66cc0a83ce3402de0e7f687f81c0bff",
+    "bytes": 4336861
+  },
+  "content": {
+    "materialReferenceCount": 80,
+    "uniqueEmbeddedMaterialCount": 54,
+    "externalDependencyCount": 0,
+    "note": "工程内素材均为 data URI 内嵌 PNG；assets 目录是为审查与复用导出的去重副本，原始 .uiw 未改写。"
+  },
+  "assets": [
+    {
+      "file": "assets/asset-01-d25604f2f476.png",
+      "filename": "asset-01-d25604f2f476.png",
+      "mimeType": "image/png",
+      "bytes": 1166228,
+      "hash": "d25604f2f4766a7691b00ce71812662b1a661274760b128abbd5878dc3b1f65d"
+    },
+    {
+      "file": "assets/asset-02-f9fb8d2e735a.png",
+      "filename": "asset-02-f9fb8d2e735a.png",
+      "mimeType": "image/png",
+      "bytes": 1315,
+      "hash": "f9fb8d2e735a47678f76305d36ac01710e6890c331af95dace0a08ab6dd9da86"
+    },
+    {
+      "file": "assets/asset-03-cdf81d953d3a.png",
+      "filename": "asset-03-cdf81d953d3a.png",
+      "mimeType": "image/png",
+      "bytes": 1318,
+      "hash": "cdf81d953d3a124cd1c7a3e78fbd1bf3cfff8361434a33caad64fce772ed9d36"
+    },
+    {
+      "file": "assets/asset-04-246404de4733.png",
+      "filename": "asset-04-246404de4733.png",
+      "mimeType": "image/png",
+      "bytes": 1539,
+      "hash": "246404de4733f9c583a2681fa58d99a34d46db4c8e80cb000ee79c40b29fcc79"
+    },
+    {
+      "file": "assets/asset-05-a3ffea633402.png",
+      "filename": "asset-05-a3ffea633402.png",
+      "mimeType": "image/png",
+      "bytes": 12453,
+      "hash": "a3ffea633402a4cfcf6de3d34ea76ee64ba100cdc84564988038c1dd37652340"
+    },
+    {
+      "file": "assets/asset-06-ad2bb42c1cc1.png",
+      "filename": "asset-06-ad2bb42c1cc1.png",
+      "mimeType": "image/png",
+      "bytes": 2761,
+      "hash": "ad2bb42c1cc178f97015918caf9ec2d03279d9243d4b021cf695ae4e60621207"
+    },
+    {
+      "file": "assets/asset-07-afc0bab02eab.png",
+      "filename": "asset-07-afc0bab02eab.png",
+      "mimeType": "image/png",
+      "bytes": 2933,
+      "hash": "afc0bab02eab72af0bf9d234379f78c4113aa259f0aec75f17c99d3181c8c5b3"
+    },
+    {
+      "file": "assets/asset-08-0c92f7768646.png",
+      "filename": "asset-08-0c92f7768646.png",
+      "mimeType": "image/png",
+      "bytes": 3253,
+      "hash": "0c92f77686468d6c51be7e0ad2be5dc38abed61d635bbd2101286adc852e3f04"
+    },
+    {
+      "file": "assets/asset-09-781e8266074b.png",
+      "filename": "asset-09-781e8266074b.png",
+      "mimeType": "image/png",
+      "bytes": 3240,
+      "hash": "781e8266074be184e3600c4bd703d4d754a6dd7b4bb767628aa8f585976c09b5"
+    },
+    {
+      "file": "assets/asset-10-b0171aa1a560.png",
+      "filename": "asset-10-b0171aa1a560.png",
+      "mimeType": "image/png",
+      "bytes": 48380,
+      "hash": "b0171aa1a56012cb5e9c90959928a4d149a4e3d56c26e78e05f9cd0787655026"
+    },
+    {
+      "file": "assets/asset-11-05491e1fd534.png",
+      "filename": "asset-11-05491e1fd534.png",
+      "mimeType": "image/png",
+      "bytes": 37158,
+      "hash": "05491e1fd53404ca787859e8ef453f17a9156dcf232dd1b9ec65fdfba31e117f"
+    },
+    {
+      "file": "assets/asset-12-c181f6f86b0b.png",
+      "filename": "asset-12-c181f6f86b0b.png",
+      "mimeType": "image/png",
+      "bytes": 2882,
+      "hash": "c181f6f86b0b5c6501a5298650a7a0539dbe3e6a5dfbe2484cc53b445817a651"
+    },
+    {
+      "file": "assets/asset-13-35b70ad9926b.png",
+      "filename": "asset-13-35b70ad9926b.png",
+      "mimeType": "image/png",
+      "bytes": 3902,
+      "hash": "35b70ad9926bbffb1feffbf1723afb2232bffcba0ccc61ef13a7d8cefd9d2bbf"
+    },
+    {
+      "file": "assets/asset-14-b5ac072d0a49.png",
+      "filename": "asset-14-b5ac072d0a49.png",
+      "mimeType": "image/png",
+      "bytes": 3021,
+      "hash": "b5ac072d0a49d34a073f95471a820771528aedcb94daa7058fae442b63886a7d"
+    },
+    {
+      "file": "assets/asset-15-e408b08f7b7a.png",
+      "filename": "asset-15-e408b08f7b7a.png",
+      "mimeType": "image/png",
+      "bytes": 662,
+      "hash": "e408b08f7b7ab4db413cdebbbade190148b178ed82f12d0a0d3153a1eb6453e7"
+    },
+    {
+      "file": "assets/asset-16-44534f57b10b.png",
+      "filename": "asset-16-44534f57b10b.png",
+      "mimeType": "image/png",
+      "bytes": 45169,
+      "hash": "44534f57b10b4422c5168f7a6427411134217f9b8021012a7a2b42b0c31fd3df"
+    },
+    {
+      "file": "assets/asset-17-09b063a796b8.png",
+      "filename": "asset-17-09b063a796b8.png",
+      "mimeType": "image/png",
+      "bytes": 36402,
+      "hash": "09b063a796b8d743ed52635914b3c6003c3bcae657e56fef3bcd990d84798da9"
+    },
+    {
+      "file": "assets/asset-18-a7ecb6b2e0e2.png",
+      "filename": "asset-18-a7ecb6b2e0e2.png",
+      "mimeType": "image/png",
+      "bytes": 5057,
+      "hash": "a7ecb6b2e0e23849a436acdde0609df970344ce540dd1bb8d3baf3784028e648"
+    },
+    {
+      "file": "assets/asset-19-d65e59720413.png",
+      "filename": "asset-19-d65e59720413.png",
+      "mimeType": "image/png",
+      "bytes": 47823,
+      "hash": "d65e5972041338c99abd4ac07d61d2f23d692e9fc6cacb1094810274778adc96"
+    },
+    {
+      "file": "assets/asset-20-5322fee4728c.png",
+      "filename": "asset-20-5322fee4728c.png",
+      "mimeType": "image/png",
+      "bytes": 36693,
+      "hash": "5322fee4728c6548be58f7fbe0741c2e32a908c0b20127a00e83369580d99951"
+    },
+    {
+      "file": "assets/asset-21-f5bd39ddb692.png",
+      "filename": "asset-21-f5bd39ddb692.png",
+      "mimeType": "image/png",
+      "bytes": 3942,
+      "hash": "f5bd39ddb6928215bf6ada8dd1b9ddf7f8008815bd73df06d7600ae6e6969dbe"
+    },
+    {
+      "file": "assets/asset-22-35ddd6af912c.png",
+      "filename": "asset-22-35ddd6af912c.png",
+      "mimeType": "image/png",
+      "bytes": 47408,
+      "hash": "35ddd6af912c0ee7ab89c88abffe19c7d687412fe41d172ee0c11081eeb7b4f9"
+    },
+    {
+      "file": "assets/asset-23-b35c618cac14.png",
+      "filename": "asset-23-b35c618cac14.png",
+      "mimeType": "image/png",
+      "bytes": 36277,
+      "hash": "b35c618cac1470ba7c1c0314515b81d6250a66495eb98f3f1fe67a40027847f6"
+    },
+    {
+      "file": "assets/asset-24-e7d600689c5c.png",
+      "filename": "asset-24-e7d600689c5c.png",
+      "mimeType": "image/png",
+      "bytes": 4551,
+      "hash": "e7d600689c5c75d5f70a4e76749c32fe5d3f344349bf1adb5864386215212a40"
+    },
+    {
+      "file": "assets/asset-25-adf131cab317.png",
+      "filename": "asset-25-adf131cab317.png",
+      "mimeType": "image/png",
+      "bytes": 20954,
+      "hash": "adf131cab317f0a5bb1f109f4d6ead4d652c65aec68977eb08f6f6d7a9d2c559"
+    },
+    {
+      "file": "assets/asset-26-0a69b8a12713.png",
+      "filename": "asset-26-0a69b8a12713.png",
+      "mimeType": "image/png",
+      "bytes": 17413,
+      "hash": "0a69b8a12713e7f852b61abc60cf614dec6d3141c4e083d53ef5664d00cbe81c"
+    },
+    {
+      "file": "assets/asset-27-99bd7e48febd.png",
+      "filename": "asset-27-99bd7e48febd.png",
+      "mimeType": "image/png",
+      "bytes": 3192,
+      "hash": "99bd7e48febddfeee43248a5e2fdabd4ddea461ecc6d852f03139749cee0f06a"
+    },
+    {
+      "file": "assets/asset-28-c1206b87a1d7.png",
+      "filename": "asset-28-c1206b87a1d7.png",
+      "mimeType": "image/png",
+      "bytes": 2421,
+      "hash": "c1206b87a1d7c7028ac9559adc388ec16e26a91b592cf115bb8777723bc647d5"
+    },
+    {
+      "file": "assets/asset-29-8e0aec7f1c5d.png",
+      "filename": "asset-29-8e0aec7f1c5d.png",
+      "mimeType": "image/png",
+      "bytes": 2522,
+      "hash": "8e0aec7f1c5d3f19af031777b71442c4c6ff527ecaa0aa0ad1f292be2af78ade"
+    },
+    {
+      "file": "assets/asset-30-ce1df6133271.png",
+      "filename": "asset-30-ce1df6133271.png",
+      "mimeType": "image/png",
+      "bytes": 2915,
+      "hash": "ce1df6133271c2cc557498ca7cb8b1f988d6c136f70067a548db27afad9807da"
+    },
+    {
+      "file": "assets/asset-31-2fb94ef3a344.png",
+      "filename": "asset-31-2fb94ef3a344.png",
+      "mimeType": "image/png",
+      "bytes": 1831,
+      "hash": "2fb94ef3a344e64f30e74cf8174e4e242598953b857f21dcb5eca14f1be70829"
+    },
+    {
+      "file": "assets/asset-32-85dcb665c5ef.png",
+      "filename": "asset-32-85dcb665c5ef.png",
+      "mimeType": "image/png",
+      "bytes": 806,
+      "hash": "85dcb665c5ef4fd84da85b03d14371107571a54ff22405ccfa33addd58654f16"
+    },
+    {
+      "file": "assets/asset-33-c6c1523f8c6a.png",
+      "filename": "asset-33-c6c1523f8c6a.png",
+      "mimeType": "image/png",
+      "bytes": 2243,
+      "hash": "c6c1523f8c6a6c36b3c93afd584d3e0d64ae362e06f283a85d0c5081f6fa86e1"
+    },
+    {
+      "file": "assets/asset-34-0cd37f9c7c78.png",
+      "filename": "asset-34-0cd37f9c7c78.png",
+      "mimeType": "image/png",
+      "bytes": 315456,
+      "hash": "0cd37f9c7c78d9d2d9cefea2d4eceea38bba06ef8a17ef4095ebed2df370000d"
+    },
+    {
+      "file": "assets/asset-35-f305b9f51f9c.png",
+      "filename": "asset-35-f305b9f51f9c.png",
+      "mimeType": "image/png",
+      "bytes": 631623,
+      "hash": "f305b9f51f9c60bfa20430daf51a992efd29d3e9b3d903b04b86a22e6624bcb9"
+    },
+    {
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "filename": "asset-36-9f674d5fbbf1.png",
+      "mimeType": "image/png",
+      "bytes": 17299,
+      "hash": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "file": "assets/asset-37-ec004f3c2fc4.png",
+      "filename": "asset-37-ec004f3c2fc4.png",
+      "mimeType": "image/png",
+      "bytes": 6868,
+      "hash": "ec004f3c2fc44109b7ea395b75d5c32a599a57b2545669a3ddbaf2062ba7c6ec"
+    },
+    {
+      "file": "assets/asset-38-f655e239c2e4.png",
+      "filename": "asset-38-f655e239c2e4.png",
+      "mimeType": "image/png",
+      "bytes": 29497,
+      "hash": "f655e239c2e4828695d13c80a129e2c46f9cbe69d61b88ef3ee16cab18e8e869"
+    },
+    {
+      "file": "assets/asset-39-2211ed1aaec5.png",
+      "filename": "asset-39-2211ed1aaec5.png",
+      "mimeType": "image/png",
+      "bytes": 3837,
+      "hash": "2211ed1aaec5c4b512e415e3a59d7493c8e3af14bda4f1dddff9ac4182fc9e52"
+    },
+    {
+      "file": "assets/asset-40-232b424d5382.png",
+      "filename": "asset-40-232b424d5382.png",
+      "mimeType": "image/png",
+      "bytes": 424,
+      "hash": "232b424d53828afc1d446ab106c91dde406fb93897647dd3a66c90d3338b35d9"
+    },
+    {
+      "file": "assets/asset-41-27b2fbab2689.png",
+      "filename": "asset-41-27b2fbab2689.png",
+      "mimeType": "image/png",
+      "bytes": 448,
+      "hash": "27b2fbab2689e958dcfe4cee46aa0c931020ce2f207e590156d997ec96da133c"
+    },
+    {
+      "file": "assets/asset-42-524012952e03.png",
+      "filename": "asset-42-524012952e03.png",
+      "mimeType": "image/png",
+      "bytes": 4295,
+      "hash": "524012952e0382d6de0f7548d50219cb293971cb4dcaf82d58a1772db004772b"
+    },
+    {
+      "file": "assets/asset-43-95e1f14b0613.png",
+      "filename": "asset-43-95e1f14b0613.png",
+      "mimeType": "image/png",
+      "bytes": 4515,
+      "hash": "95e1f14b06139ab6bec379dac5ac37afdbb40ce405e795558262faabf6b5e9dc"
+    },
+    {
+      "file": "assets/asset-44-258037ba8d9a.png",
+      "filename": "asset-44-258037ba8d9a.png",
+      "mimeType": "image/png",
+      "bytes": 5031,
+      "hash": "258037ba8d9a11e9df4da98fd24c1d123cd6a59ebcbda30cd434290c44b7228d"
+    },
+    {
+      "file": "assets/asset-45-2b8fcad17d30.png",
+      "filename": "asset-45-2b8fcad17d30.png",
+      "mimeType": "image/png",
+      "bytes": 4606,
+      "hash": "2b8fcad17d30aded3437f1e91a9f99e94e4be9debe636340082259c4a3f5497c"
+    },
+    {
+      "file": "assets/asset-46-ca37e3753fd8.png",
+      "filename": "asset-46-ca37e3753fd8.png",
+      "mimeType": "image/png",
+      "bytes": 4174,
+      "hash": "ca37e3753fd84c9b36b3319c8dd2be29a0f59aa7fee4b40eb85e53ea0f32ca81"
+    },
+    {
+      "file": "assets/asset-47-9c4591a4ad34.png",
+      "filename": "asset-47-9c4591a4ad34.png",
+      "mimeType": "image/png",
+      "bytes": 4650,
+      "hash": "9c4591a4ad340ce243ff945c3adf8a6475a2005842db8863063633ef9fcf01d1"
+    },
+    {
+      "file": "assets/asset-48-691c5521e7f9.png",
+      "filename": "asset-48-691c5521e7f9.png",
+      "mimeType": "image/png",
+      "bytes": 74084,
+      "hash": "691c5521e7f961e4b6fc115fae634d8feabb0db091c000e1bba03a1723621484"
+    },
+    {
+      "file": "assets/asset-49-c63c85fa99be.png",
+      "filename": "asset-49-c63c85fa99be.png",
+      "mimeType": "image/png",
+      "bytes": 7319,
+      "hash": "c63c85fa99be04d07de5b316e26ee0862c2ed57dc3c28e77e114fc565ae85d63"
+    },
+    {
+      "file": "assets/asset-50-bf22fa20bb51.png",
+      "filename": "asset-50-bf22fa20bb51.png",
+      "mimeType": "image/png",
+      "bytes": 6895,
+      "hash": "bf22fa20bb5142c719bd09ad724cbdc6f94aa880bd9027683953a0dcce3d1381"
+    },
+    {
+      "file": "assets/asset-51-e1375b155a55.png",
+      "filename": "asset-51-e1375b155a55.png",
+      "mimeType": "image/png",
+      "bytes": 31267,
+      "hash": "e1375b155a552dafc177189290bc52b81f0bebff320b58fe1cd34c8607bbb5f5"
+    },
+    {
+      "file": "assets/asset-52-db93ce041f91.png",
+      "filename": "asset-52-db93ce041f91.png",
+      "mimeType": "image/png",
+      "bytes": 33532,
+      "hash": "db93ce041f915bd43dbcc2ea81b9f7d32fbf3d786e3f32a6060c5e81333241a3"
+    },
+    {
+      "file": "assets/asset-53-1e0599d2b328.png",
+      "filename": "asset-53-1e0599d2b328.png",
+      "mimeType": "image/png",
+      "bytes": 7863,
+      "hash": "1e0599d2b328e81a4facabc86c2e8cfcb483cc94ec3190e8c7a51caa741a560c"
+    },
+    {
+      "file": "assets/asset-54-5ac4fcb039b9.png",
+      "filename": "asset-54-5ac4fcb039b9.png",
+      "mimeType": "image/png",
+      "bytes": 1474,
+      "hash": "5ac4fcb039b9f88335e2b38eae738bb2dbd660b536cf7336b09b2819f3695e27"
+    }
+  ],
+  "materialReferences": [
+    {
+      "property": "src",
+      "nodePath": "$/commonLayer/nodes[0]/node:asset-card-page-background（页面背景素材）/props/src",
+      "file": "assets/asset-01-d25604f2f476.png",
+      "sha256": "d25604f2f4766a7691b00ce71812662b1a661274760b128abbd5878dc3b1f65d"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/commonLayer/nodes[1]/node:nmtfpefjik20h（定位按钮）/props/assetSrc",
+      "file": "assets/asset-02-f9fb8d2e735a.png",
+      "sha256": "f9fb8d2e735a47678f76305d36ac01710e6890c331af95dace0a08ab6dd9da86"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/commonLayer/nodes[2]/node:nmtfpeg8oppmt（更多按钮）/props/assetSrc",
+      "file": "assets/asset-03-cdf81d953d3a.png",
+      "sha256": "cdf81d953d3a124cd1c7a3e78fbd1bf3cfff8361434a33caad64fce772ed9d36"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/commonLayer/nodes[3]/node:nmtfpeh682mie（录制按钮）/props/assetSrc",
+      "file": "assets/asset-04-246404de4733.png",
+      "sha256": "246404de4733f9c583a2681fa58d99a34d46db4c8e80cb000ee79c40b29fcc79"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/commonLayer/nodes[4]/node:nmtfpehuyuv6v（资源条💎 6）/props/assetSrc",
+      "file": "assets/asset-05-a3ffea633402.png",
+      "sha256": "a3ffea633402a4cfcf6de3d34ea76ee64ba100cdc84564988038c1dd37652340"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/commonLayer/nodes[8]/node:nmtfpelgdfx5t（资源条🪵 400）/props/assetSrc",
+      "file": "assets/asset-05-a3ffea633402.png",
+      "sha256": "a3ffea633402a4cfcf6de3d34ea76ee64ba100cdc84564988038c1dd37652340"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/commonLayer/nodes[12]/node:nmtfpep27rvqd（资源条🔮 139）/props/assetSrc",
+      "file": "assets/asset-05-a3ffea633402.png",
+      "sha256": "a3ffea633402a4cfcf6de3d34ea76ee64ba100cdc84564988038c1dd37652340"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/commonLayer/nodes[16]/node:nmtfpesol58ij（资源条🪙 280）/props/assetSrc",
+      "file": "assets/asset-05-a3ffea633402.png",
+      "sha256": "a3ffea633402a4cfcf6de3d34ea76ee64ba100cdc84564988038c1dd37652340"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/commonLayer/nodes[20]/node:asset-resource-icon-0（资源图标1）/props/src",
+      "file": "assets/asset-06-ad2bb42c1cc1.png",
+      "sha256": "ad2bb42c1cc178f97015918caf9ec2d03279d9243d4b021cf695ae4e60621207"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/commonLayer/nodes[21]/node:asset-resource-icon-1（资源图标2）/props/src",
+      "file": "assets/asset-07-afc0bab02eab.png",
+      "sha256": "afc0bab02eab72af0bf9d234379f78c4113aa259f0aec75f17c99d3181c8c5b3"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/commonLayer/nodes[22]/node:asset-resource-icon-2（资源图标3）/props/src",
+      "file": "assets/asset-08-0c92f7768646.png",
+      "sha256": "0c92f77686468d6c51be7e0ad2be5dc38abed61d635bbd2101286adc852e3f04"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/commonLayer/nodes[23]/node:asset-resource-icon-3（资源图标4）/props/src",
+      "file": "assets/asset-09-781e8266074b.png",
+      "sha256": "781e8266074be184e3600c4bd703d4d754a6dd7b4bb767628aa8f585976c09b5"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[0]/tree[0]/node:nmtfpf5mxp1mw（卡面图片）/props/assetSrc",
+      "file": "assets/asset-10-b0171aa1a560.png",
+      "sha256": "b0171aa1a56012cb5e9c90959928a4d149a4e3d56c26e78e05f9cd0787655026"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[0]/tree[1]/node:nmtfpf5mxr8wc（卡框）/props/assetSrc",
+      "file": "assets/asset-11-05491e1fd534.png",
+      "sha256": "05491e1fd53404ca787859e8ef453f17a9156dcf232dd1b9ec65fdfba31e117f"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[0]/tree[2]/node:nmtfpf5mxyl0p（配型底）/props/assetSrc",
+      "file": "assets/asset-12-c181f6f86b0b.png",
+      "sha256": "c181f6f86b0b5c6501a5298650a7a0539dbe3e6a5dfbe2484cc53b445817a651"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[0]/tree[3]/node:nmtfpf5mxyvsr（配型图标）/props/assetSrc",
+      "file": "assets/asset-13-35b70ad9926b.png",
+      "sha256": "35b70ad9926bbffb1feffbf1723afb2232bffcba0ccc61ef13a7d8cefd9d2bbf"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[0]/tree[5]/node:nmtfpf5mydhsa（碎片进度条）/props/assetSrc",
+      "file": "assets/asset-14-b5ac072d0a49.png",
+      "sha256": "b5ac072d0a49d34a073f95471a820771528aedcb94daa7058fae442b63886a7d"
+    },
+    {
+      "property": "assetFillSrc",
+      "nodePath": "$/customWidgets[0]/tree[5]/node:nmtfpf5mydhsa（碎片进度条）/props/assetFillSrc",
+      "file": "assets/asset-15-e408b08f7b7a.png",
+      "sha256": "e408b08f7b7ab4db413cdebbbade190148b178ed82f12d0a0d3153a1eb6453e7"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[1]/tree[0]/node:nmtfpf5mxp1mw-rarity-1（卡面图片）/props/assetSrc",
+      "file": "assets/asset-16-44534f57b10b.png",
+      "sha256": "44534f57b10b4422c5168f7a6427411134217f9b8021012a7a2b42b0c31fd3df"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[1]/tree[1]/node:nmtfpf5mxr8wc-rarity-1（卡框）/props/assetSrc",
+      "file": "assets/asset-17-09b063a796b8.png",
+      "sha256": "09b063a796b8d743ed52635914b3c6003c3bcae657e56fef3bcd990d84798da9"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[1]/tree[2]/node:nmtfpf5mxyl0p-rarity-1（配型底）/props/assetSrc",
+      "file": "assets/asset-12-c181f6f86b0b.png",
+      "sha256": "c181f6f86b0b5c6501a5298650a7a0539dbe3e6a5dfbe2484cc53b445817a651"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[1]/tree[3]/node:nmtfpf5mxyvsr-rarity-1（配型图标）/props/assetSrc",
+      "file": "assets/asset-18-a7ecb6b2e0e2.png",
+      "sha256": "a7ecb6b2e0e23849a436acdde0609df970344ce540dd1bb8d3baf3784028e648"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[1]/tree[5]/node:nmtfpf5mydhsa-rarity-1（碎片进度条）/props/assetSrc",
+      "file": "assets/asset-14-b5ac072d0a49.png",
+      "sha256": "b5ac072d0a49d34a073f95471a820771528aedcb94daa7058fae442b63886a7d"
+    },
+    {
+      "property": "assetFillSrc",
+      "nodePath": "$/customWidgets[1]/tree[5]/node:nmtfpf5mydhsa-rarity-1（碎片进度条）/props/assetFillSrc",
+      "file": "assets/asset-15-e408b08f7b7a.png",
+      "sha256": "e408b08f7b7ab4db413cdebbbade190148b178ed82f12d0a0d3153a1eb6453e7"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[2]/tree[0]/node:nmtfpf5mxp1mw-rarity-2（卡面图片）/props/assetSrc",
+      "file": "assets/asset-19-d65e59720413.png",
+      "sha256": "d65e5972041338c99abd4ac07d61d2f23d692e9fc6cacb1094810274778adc96"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[2]/tree[1]/node:nmtfpf5mxr8wc-rarity-2（卡框）/props/assetSrc",
+      "file": "assets/asset-20-5322fee4728c.png",
+      "sha256": "5322fee4728c6548be58f7fbe0741c2e32a908c0b20127a00e83369580d99951"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[2]/tree[2]/node:nmtfpf5mxyl0p-rarity-2（配型底）/props/assetSrc",
+      "file": "assets/asset-12-c181f6f86b0b.png",
+      "sha256": "c181f6f86b0b5c6501a5298650a7a0539dbe3e6a5dfbe2484cc53b445817a651"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[2]/tree[3]/node:nmtfpf5mxyvsr-rarity-2（配型图标）/props/assetSrc",
+      "file": "assets/asset-21-f5bd39ddb692.png",
+      "sha256": "f5bd39ddb6928215bf6ada8dd1b9ddf7f8008815bd73df06d7600ae6e6969dbe"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[2]/tree[5]/node:nmtfpf5mydhsa-rarity-2（碎片进度条）/props/assetSrc",
+      "file": "assets/asset-14-b5ac072d0a49.png",
+      "sha256": "b5ac072d0a49d34a073f95471a820771528aedcb94daa7058fae442b63886a7d"
+    },
+    {
+      "property": "assetFillSrc",
+      "nodePath": "$/customWidgets[2]/tree[5]/node:nmtfpf5mydhsa-rarity-2（碎片进度条）/props/assetFillSrc",
+      "file": "assets/asset-15-e408b08f7b7a.png",
+      "sha256": "e408b08f7b7ab4db413cdebbbade190148b178ed82f12d0a0d3153a1eb6453e7"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[3]/tree[0]/node:nmtfpf5mxp1mw-rarity-3（卡面图片）/props/assetSrc",
+      "file": "assets/asset-22-35ddd6af912c.png",
+      "sha256": "35ddd6af912c0ee7ab89c88abffe19c7d687412fe41d172ee0c11081eeb7b4f9"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[3]/tree[1]/node:nmtfpf5mxr8wc-rarity-3（卡框）/props/assetSrc",
+      "file": "assets/asset-23-b35c618cac14.png",
+      "sha256": "b35c618cac1470ba7c1c0314515b81d6250a66495eb98f3f1fe67a40027847f6"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[3]/tree[2]/node:nmtfpf5mxyl0p-rarity-3（配型底）/props/assetSrc",
+      "file": "assets/asset-12-c181f6f86b0b.png",
+      "sha256": "c181f6f86b0b5c6501a5298650a7a0539dbe3e6a5dfbe2484cc53b445817a651"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[3]/tree[3]/node:nmtfpf5mxyvsr-rarity-3（配型图标）/props/assetSrc",
+      "file": "assets/asset-24-e7d600689c5c.png",
+      "sha256": "e7d600689c5c75d5f70a4e76749c32fe5d3f344349bf1adb5864386215212a40"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/customWidgets[3]/tree[5]/node:nmtfpf5mydhsa-rarity-3（碎片进度条）/props/assetSrc",
+      "file": "assets/asset-14-b5ac072d0a49.png",
+      "sha256": "b5ac072d0a49d34a073f95471a820771528aedcb94daa7058fae442b63886a7d"
+    },
+    {
+      "property": "assetFillSrc",
+      "nodePath": "$/customWidgets[3]/tree[5]/node:nmtfpf5mydhsa-rarity-3（碎片进度条）/props/assetFillSrc",
+      "file": "assets/asset-15-e408b08f7b7a.png",
+      "sha256": "e408b08f7b7ab4db413cdebbbade190148b178ed82f12d0a0d3153a1eb6453e7"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][0]/node:spec2-deck-title-plate（牌组标题底板）/props/assetSrc",
+      "file": "assets/asset-25-adf131cab317.png",
+      "sha256": "adf131cab317f0a5bb1f109f4d6ead4d652c65aec68977eb08f6f6d7a9d2c559"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][11]/node:nmtfpfe5qqumv（战力条）/props/assetSrc",
+      "file": "assets/asset-26-0a69b8a12713.png",
+      "sha256": "0a69b8a12713e7f852b61abc60cf614dec6d3141c4e083d53ef5664d00cbe81c"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][16]/node:asset-stat-icon-0（兵种图标1）/props/src",
+      "file": "assets/asset-27-99bd7e48febd.png",
+      "sha256": "99bd7e48febddfeee43248a5e2fdabd4ddea461ecc6d852f03139749cee0f06a"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][18]/node:asset-stat-icon-1（兵种图标2）/props/src",
+      "file": "assets/asset-28-c1206b87a1d7.png",
+      "sha256": "c1206b87a1d7c7028ac9559adc388ec16e26a91b592cf115bb8777723bc647d5"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][20]/node:asset-stat-icon-2（兵种图标3）/props/src",
+      "file": "assets/asset-29-8e0aec7f1c5d.png",
+      "sha256": "8e0aec7f1c5d3f19af031777b71442c4c6ff527ecaa0aa0ad1f292be2af78ade"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][22]/node:asset-stat-icon-3（兵种图标4）/props/src",
+      "file": "assets/asset-30-ce1df6133271.png",
+      "sha256": "ce1df6133271c2cc557498ca7cb8b1f988d6c136f70067a548db27afad9807da"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][24]/node:asset-stat-icon-4（兵种图标5）/props/src",
+      "file": "assets/asset-31-2fb94ef3a344.png",
+      "sha256": "2fb94ef3a344e64f30e74cf8174e4e242598953b857f21dcb5eca14f1be70829"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][26]/node:asset-stat-icon-5（兵种图标6）/props/src",
+      "file": "assets/asset-32-85dcb665c5ef.png",
+      "sha256": "85dcb665c5ef4fd84da85b03d14371107571a54ff22405ccfa33addd58654f16"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/pages[0]/nodes[0]/node:nmtfpewglapzq（底部导航）/pages[1][29]/node:anchor-stage01-title_gem（牌组标题菱形装饰）/props/src",
+      "file": "assets/asset-33-c6c1523f8c6a.png",
+      "sha256": "c6c1523f8c6a6c36b3c93afd584d3e0d64ae362e06f283a85d0c5081f6fa86e1"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[0]/node:detail-green-portrait（大卡面）/props/src",
+      "file": "assets/asset-34-0cd37f9c7c78.png",
+      "sha256": "0cd37f9c7c78d9d2d9cefea2d4eceea38bba06ef8a17ef4095ebed2df370000d"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[1]/node:detail-green-shell（详情九宫格外壳）/props/assetSrc",
+      "file": "assets/asset-35-f305b9f51f9c.png",
+      "sha256": "f305b9f51f9c60bfa20430daf51a992efd29d3e9b3d903b04b86a22e6624bcb9"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[3]/node:detail-green-type-badge（职业标签底座）/props/assetSrc",
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "sha256": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[4]/node:detail-green-type-icon（职业透明图标）/props/src",
+      "file": "assets/asset-31-2fb94ef3a344.png",
+      "sha256": "2fb94ef3a344e64f30e74cf8174e4e242598953b857f21dcb5eca14f1be70829"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[5]/node:detail-green-race-badge（种族标签底座）/props/assetSrc",
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "sha256": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[6]/node:detail-green-race-icon（种族透明图标）/props/src",
+      "file": "assets/asset-21-f5bd39ddb692.png",
+      "sha256": "f5bd39ddb6928215bf6ada8dd1b9ddf7f8008815bd73df06d7600ae6e6969dbe"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[7]/node:detail-green-close（关闭按钮）/props/assetSrc",
+      "file": "assets/asset-37-ec004f3c2fc4.png",
+      "sha256": "ec004f3c2fc44109b7ea395b75d5c32a599a57b2545669a3ddbaf2062ba7c6ec"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[9]/node:detail-green-power-bar（战力横条）/props/assetSrc",
+      "file": "assets/asset-38-f655e239c2e4.png",
+      "sha256": "f655e239c2e4828695d13c80a129e2c46f9cbe69d61b88ef3ee16cab18e8e869"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[11]/node:detail-green-share（分享图标）/props/src",
+      "file": "assets/asset-39-2211ed1aaec5.png",
+      "sha256": "2211ed1aaec5c4b512e415e3a59d7493c8e3af14bda4f1dddff9ac4182fc9e52"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[14]/node:detail-green-xp-bar（经验进度条）/props/assetSrc",
+      "file": "assets/asset-40-232b424d5382.png",
+      "sha256": "232b424d53828afc1d446ab106c91dde406fb93897647dd3a66c90d3338b35d9"
+    },
+    {
+      "property": "assetFillSrc",
+      "nodePath": "$/popups[0]/nodes[14]/node:detail-green-xp-bar（经验进度条）/props/assetFillSrc",
+      "file": "assets/asset-41-27b2fbab2689.png",
+      "sha256": "27b2fbab2689e958dcfe4cee46aa0c931020ce2f207e590156d997ec96da133c"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[16]/node:detail-green-prop-1-bg（建筑血量属性底）/props/assetSrc",
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "sha256": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[17]/node:detail-green-prop-2-bg（生产时间属性底）/props/assetSrc",
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "sha256": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[18]/node:detail-green-prop-3-bg（攻击力属性底）/props/assetSrc",
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "sha256": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[19]/node:detail-green-prop-4-bg（单位血量属性底）/props/assetSrc",
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "sha256": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[20]/node:detail-green-prop-5-bg（速度属性底）/props/assetSrc",
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "sha256": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[21]/node:detail-green-prop-6-bg（攻击范围属性底）/props/assetSrc",
+      "file": "assets/asset-36-9f674d5fbbf1.png",
+      "sha256": "9f674d5fbbf1eef1ea8596872df45b5836ae56e8882746f179680073b31447e6"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[22]/node:detail-green-prop-1-icon（建筑血量图标）/props/src",
+      "file": "assets/asset-42-524012952e03.png",
+      "sha256": "524012952e0382d6de0f7548d50219cb293971cb4dcaf82d58a1772db004772b"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[23]/node:detail-green-prop-2-icon（生产时间图标）/props/src",
+      "file": "assets/asset-43-95e1f14b0613.png",
+      "sha256": "95e1f14b06139ab6bec379dac5ac37afdbb40ce405e795558262faabf6b5e9dc"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[24]/node:detail-green-prop-3-icon（攻击力图标）/props/src",
+      "file": "assets/asset-44-258037ba8d9a.png",
+      "sha256": "258037ba8d9a11e9df4da98fd24c1d123cd6a59ebcbda30cd434290c44b7228d"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[25]/node:detail-green-prop-4-icon（单位血量图标）/props/src",
+      "file": "assets/asset-45-2b8fcad17d30.png",
+      "sha256": "2b8fcad17d30aded3437f1e91a9f99e94e4be9debe636340082259c4a3f5497c"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[26]/node:detail-green-prop-5-icon（速度图标）/props/src",
+      "file": "assets/asset-46-ca37e3753fd8.png",
+      "sha256": "ca37e3753fd84c9b36b3319c8dd2be29a0f59aa7fee4b40eb85e53ea0f32ca81"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[27]/node:detail-green-prop-6-icon（攻击范围图标）/props/src",
+      "file": "assets/asset-47-9c4591a4ad34.png",
+      "sha256": "9c4591a4ad340ce243ff945c3adf8a6475a2005842db8863063633ef9fcf01d1"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[34]/node:detail-green-skills-tray（技能托盘）/props/assetSrc",
+      "file": "assets/asset-48-691c5521e7f9.png",
+      "sha256": "691c5521e7f961e4b6fc115fae634d8feabb0db091c000e1bba03a1723621484"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[36]/node:detail-green-skill-1（技能槽 1）/props/assetSrc",
+      "file": "assets/asset-49-c63c85fa99be.png",
+      "sha256": "c63c85fa99be04d07de5b316e26ee0862c2ed57dc3c28e77e114fc565ae85d63"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[37]/node:detail-green-skill-2（技能槽 2）/props/assetSrc",
+      "file": "assets/asset-49-c63c85fa99be.png",
+      "sha256": "c63c85fa99be04d07de5b316e26ee0862c2ed57dc3c28e77e114fc565ae85d63"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[38]/node:detail-green-skill-3（技能槽 3）/props/assetSrc",
+      "file": "assets/asset-50-bf22fa20bb51.png",
+      "sha256": "bf22fa20bb5142c719bd09ad724cbdc6f94aa880bd9027683953a0dcce3d1381"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[39]/node:detail-green-skill-4（技能槽 4）/props/assetSrc",
+      "file": "assets/asset-50-bf22fa20bb51.png",
+      "sha256": "bf22fa20bb5142c719bd09ad724cbdc6f94aa880bd9027683953a0dcce3d1381"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[40]/node:detail-green-skill-5（技能槽 5）/props/assetSrc",
+      "file": "assets/asset-50-bf22fa20bb51.png",
+      "sha256": "bf22fa20bb5142c719bd09ad724cbdc6f94aa880bd9027683953a0dcce3d1381"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[42]/node:detail-green-upgrade（升级交互节点）/props/assetSrc",
+      "file": "assets/asset-51-e1375b155a55.png",
+      "sha256": "e1375b155a552dafc177189290bc52b81f0bebff320b58fe1cd34c8607bbb5f5"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[43]/node:detail-green-upgrade-cost-icon（升级货币图标）/props/src",
+      "file": "assets/asset-09-781e8266074b.png",
+      "sha256": "781e8266074be184e3600c4bd703d4d754a6dd7b4bb767628aa8f585976c09b5"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[45]/node:detail-green-equip（装备交互节点）/props/assetSrc",
+      "file": "assets/asset-52-db93ce041f91.png",
+      "sha256": "db93ce041f915bd43dbcc2ea81b9f7d32fbf3d786e3f32a6060c5e81333241a3"
+    },
+    {
+      "property": "assetSrc",
+      "nodePath": "$/popups[0]/nodes[46]/node:detail-green-reset（等级重制交互节点）/props/assetSrc",
+      "file": "assets/asset-53-1e0599d2b328.png",
+      "sha256": "1e0599d2b328e81a4facabc86c2e8cfcb483cc94ec3190e8c7a51caa741a560c"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[47]/node:detail-green-skill-4-lock（技能槽 4 锁定图标）/props/src",
+      "file": "assets/asset-54-5ac4fcb039b9.png",
+      "sha256": "5ac4fcb039b9f88335e2b38eae738bb2dbd660b536cf7336b09b2819f3695e27"
+    },
+    {
+      "property": "src",
+      "nodePath": "$/popups[0]/nodes[48]/node:detail-green-skill-5-lock（技能槽 5 锁定图标）/props/src",
+      "file": "assets/asset-54-5ac4fcb039b9.png",
+      "sha256": "5ac4fcb039b9f88335e2b38eae738bb2dbd660b536cf7336b09b2819f3695e27"
+    }
+  ]
+}

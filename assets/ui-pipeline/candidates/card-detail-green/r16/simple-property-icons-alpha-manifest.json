@@ -1,0 +1,11 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {"source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-01ae5e84-15fc-4992-bc58-691a65007c73.png", "file": "property-building-health-46.png", "size": [46, 46], "crop_alpha": true, "fit": "contain"},
+    {"source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-8030c166-35a4-41ca-b096-203fe609ac07.png", "file": "property-production-time-46.png", "size": [46, 46], "crop_alpha": true, "fit": "contain"},
+    {"source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-57e326af-8c0b-49bd-9c79-4f6ca21afa45.png", "file": "property-attack-46.png", "size": [46, 46], "crop_alpha": true, "fit": "contain"},
+    {"source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-71fb6c9d-7f6c-468f-b09c-9df3794ea6cc.png", "file": "property-unit-health-46.png", "size": [46, 46], "crop_alpha": true, "fit": "contain"},
+    {"source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-b238c2a1-0bfc-4618-a144-b7b347d78b96.png", "file": "property-speed-46.png", "size": [46, 46], "crop_alpha": true, "fit": "contain"},
+    {"source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-92050974-f8c5-4fdb-8762-12f883fbcd7a.png", "file": "property-range-46.png", "size": [46, 46], "crop_alpha": true, "fit": "contain"}
+  ]
+}

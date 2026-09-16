@@ -1,0 +1,31 @@
+{
+  "candidateId": "card-detail.property-tile.v16.r4",
+  "status": "rejected-by-art-review",
+  "rejection": "2026-09-14：四角菱形装饰过于繁杂且比例不协调，改用 r9 的普通切角与中部浅阶梯方案。",
+  "role": "container",
+  "qualityProfile": "ui-material-v1",
+  "source": "assets/ui-pipeline/candidates/card-detail-green/r4/source/detail-property-tile-v16-imagegen-r4.png",
+  "derived": "assets/ui-pipeline/candidates/card-detail-green/r4/derived/detail-property-tile-v16-277x72-alpha-r1.png",
+  "size": [277, 72],
+  "nineSlice": {"insets": [16, 12, 16, 12], "sourceSize": [277, 72]},
+  "reuse": {"greenDetailNodes": ["detail-green-prop-1-bg", "detail-green-prop-2-bg", "detail-green-prop-3-bg", "detail-green-prop-4-bg", "detail-green-prop-5-bg", "detail-green-prop-6-bg"]},
+  "gates": {
+    "png.rgba": {"status": "passed", "evidence": "32bpp RGBA PNG"},
+    "png.real-alpha": {"status": "passed", "evidence": "四个画布角像素 alpha 均为 0"},
+    "png.edge-clean": {"status": "passed", "evidence": "edge_dark_matte_clear max_value=42；构建脚本断言通过"},
+    "structure.no-baked-runtime-content": {"status": "passed", "evidence": "仅含空信息底座，不含图标、文字、数值或状态"},
+    "semantics.single-visual-base": {"status": "passed", "evidence": "六个属性格复用同一视觉底座，数值与图标保持独立节点"},
+    "structure.complete-frame": {"status": "passed", "evidence": "四边与四角为闭合连续金属框"},
+    "edge.dark-matte": {"status": "passed", "evidence": "max_value=42, max_pixels=0"},
+    "visual.canvas-acceptance": {
+      "status": "passed",
+      "evidence": "2026-09-14：Electron 真实画布中 6 个属性格均以 9 切片渲染，计 54/54 可见切片",
+      "validator": "scripts/ui_asset_pipeline/validate_card_detail_shell_canvas.mjs"
+    }
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v5-属性格画布验收候选.uiw",
+  "registration": {
+    "assetCatalog": "not-yet-registered",
+    "reason": "等待完整绿色详情页面的美术评审后再正式入库并绑定消费者。"
+  }
+}

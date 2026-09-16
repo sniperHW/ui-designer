@@ -1,0 +1,28 @@
+{
+  "candidateId": "card-detail-green.power-plate.v17.r3",
+  "status": "accepted-by-art-review",
+  "role": "unlettered-outer-rail-overlapping-power-value-plate",
+  "qualityProfile": "ui-material-v1",
+  "size": [688, 40],
+  "files": ["derived/detail-power-plate-outboard-clamps-688x40.png"],
+  "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-3c10e7e7-b731-41c8-9d10-4914e9193fc3.png",
+  "revision": "修正此前将“压住边框”误解为下垂卡扣的候选；中央板保持旧版视觉起止，卡扣外伸至外壳左右边界，并以同宽节点覆盖金色竖向立柱。",
+  "assembly": {
+    "powerPlate": {"x": 31, "y": 621, "w": 688, "h": 40},
+    "shell": {"x": 31, "y": 508, "w": 688, "h": 862},
+    "nineInsets": [58, 10, 58, 10],
+    "relationship": "两端前景卡扣与外壳同宽，覆盖左右金色立柱；中央板仍内缩。"
+  },
+  "gates": {
+    "png.rgba":"passed",
+    "png.exact-slot-size":"passed (688×40)",
+    "structure.no-baked-runtime-text":"passed",
+    "runtime.text-contrast":"passed (五项相邻文字均为 #ffffff)",
+    "uiw.schema":"passed",
+    "canvas.real-render":"passed",
+    "canvas.outer-rail-overlap":"passed (shell x/w = power x/w = 31/688)",
+    "visual.art-review":"passed (用户确认通过)"
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v26-外框叠压卡扣战力板画布验收候选.uiw",
+  "sizePolicy": "项目素材只保存实际槽位 688×40 的最终 PNG；高分辨率编辑源保留在外部生成目录。"
+}

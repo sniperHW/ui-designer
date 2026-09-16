@@ -29,6 +29,7 @@ function nodeIndex(doc) {
   const add = (scope, nodes) => walk(nodes, (node) => index.set(`${scope}:${node.id}`, node))
   add('commonLayer', doc.commonLayer?.nodes)
   for (const page of doc.pages ?? []) add(`page:${page.id}`, page.nodes)
+  for (const popup of doc.popups ?? []) add(`popup:${popup.id}`, popup.nodes)
   for (const widget of doc.customWidgets ?? []) add(`customWidget:${widget.id}`, widget.tree)
   return index
 }
@@ -36,6 +37,7 @@ function nodeIndex(doc) {
 function scopeOf(target) {
   if (target.scope === 'commonLayer') return 'commonLayer'
   if (target.scope === 'page') return `page:${target.pageId}`
+  if (target.scope === 'popup') return `popup:${target.popupId}`
   if (target.scope === 'customWidget') return `customWidget:${target.customWidgetId}`
   fail(`target.scope 非法：${target.scope}`)
 }

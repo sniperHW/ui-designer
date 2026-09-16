@@ -1,0 +1,21 @@
+{
+  "candidateId": "card-detail-green.power-plate.v17.r2",
+  "status": "candidate-awaiting-art-review",
+  "role": "unlettered-overlapping-power-value-plate",
+  "qualityProfile": "ui-material-v1",
+  "size": [668, 40],
+  "files": ["derived/detail-power-plate-clamped-668x40.png"],
+  "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-7ca6ceae-4f1b-4ccd-8042-677433ab6b61.png",
+  "revision": "保留 r25 的中心板材、宽度、蓝金色与文字留白；两端改为向下外伸的蓝金属卡扣，作为压在下部面板顶边上的前景机械连接件。",
+  "gates": {
+    "png.rgba":"passed",
+    "png.exact-slot-size":"passed (668×40)",
+    "structure.no-baked-runtime-text":"passed",
+    "runtime.text-contrast":"passed (五项相邻文字均为 #ffffff)",
+    "uiw.schema":"passed",
+    "canvas.real-render":"passed",
+    "visual.art-review":"pending"
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v25-卡扣叠压战力板画布验收候选.uiw",
+  "sizePolicy": "项目素材只保存实际槽位 668×40 的最终 PNG；高分辨率编辑源保留在外部生成目录。"
+}

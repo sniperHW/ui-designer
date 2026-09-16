@@ -230,7 +230,7 @@ export default function Header() {
           <MenuItem
             label="关于…"
             onClick={() =>
-              alert('手游 UI 雏形设计工具 v0.1\n线框图原型编辑器（M0 – M2）\n\n设计文档见：概念设计.md')
+              alert('手游 UI 雏形设计工具 v0.2.0\n支持九宫格皮肤、素材装配与交互原型预览\n\n设计文档见：概念设计.md')
             }
           />
         </Menu>

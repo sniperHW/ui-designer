@@ -1,0 +1,10 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {
+      "source": "assets/ui-pipeline/candidates/card-detail-green/r3/source/green-miner-v16-imagegen-r3.png",
+      "size": [448, 296],
+      "file": "green-miner-v16-448x296-r1.png"
+    }
+  ]
+}

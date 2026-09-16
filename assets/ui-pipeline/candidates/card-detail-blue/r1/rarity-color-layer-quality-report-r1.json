@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "candidate": "card-detail-blue-r1-rarity-color-layer",
+  "status": "rejected-by-art-review",
+  "rejectionReason": "稀有度色层在详情页内的视觉效果不符合审查预期；回退到蓝色 v1 运行时绑定结构候选。",
+  "scope": "蓝色卡牌详情页的稀有度色层；不改变绿色候选或运行时数据合同。",
+  "method": "程序化无字 PNG，按实际节点尺寸输出；用于精确保留干净直线边框和透明中心。",
+  "assets": [
+    {
+      "path": "derived/detail-blue-rarity-card-frame-448x296.png",
+      "size": [448, 296],
+      "consumer": "detail-blue-rarity-card-frame",
+      "role": "主稀有度识别；覆盖动态立绘边缘，使用蓝色金属细框与上下中心凹凸衔接。"
+    },
+    {
+      "path": "derived/detail-blue-rarity-title-accent-260x8.png",
+      "size": [260, 8],
+      "consumer": "detail-blue-rarity-title-accent",
+      "role": "标题下方低面积辅助色。"
+    },
+    {
+      "path": "derived/detail-blue-rarity-xp-frame-592x21.png",
+      "size": [592, 21],
+      "consumer": "detail-blue-rarity-xp-frame",
+      "role": "经验条外沿的低面积辅助色。"
+    }
+  ],
+  "invariants": [
+    "无文字",
+    "无四角独立装饰、菱形或宝石",
+    "框体、铭牌、经验槽均不超过实际节点尺寸",
+    "运行时 selectedCard 数据与素材来源不被写死"
+  ],
+  "canvasVerification": {
+    "uiwValidation": "passed",
+    "realCanvasValidation": "passed",
+    "nodeCount": 52,
+    "runtimeBindingNodeCount": 32
+  }
+}

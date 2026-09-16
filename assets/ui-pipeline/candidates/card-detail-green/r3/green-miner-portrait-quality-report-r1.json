@@ -1,0 +1,28 @@
+{
+  "candidateId": "card-detail-green.portrait.green-miner.v16.r3",
+  "status": "candidate-awaiting-art-review",
+  "role": "portrait",
+  "qualityProfile": "ui-material-v1",
+  "source": "assets/ui-pipeline/candidates/card-detail-green/r3/source/green-miner-v16-imagegen-r3.png",
+  "derived": "assets/ui-pipeline/candidates/card-detail-green/r3/derived/green-miner-v16-448x296-r1.png",
+  "size": [448, 296],
+  "gates": {
+    "png.rgba": {"status": "passed", "evidence": "32bpp RGBA PNG"},
+    "png.real-alpha": {"status": "passed", "evidence": "保留有效 alpha 通道；卡面角色职责要求合成后全不透明"},
+    "png.edge-clean": {"status": "passed", "evidence": "无展示底、棋盘底、白边或透明边缘"},
+    "structure.no-baked-runtime-content": {"status": "passed", "evidence": "无名称、等级、数值、按钮、UI 图标或水印"},
+    "semantics.single-visual-base": {"status": "passed", "evidence": "仅作为卡面图片，卡框与信息层仍是独立节点"},
+    "card.cover": {"status": "passed", "evidence": "3:2 横向构图，精确输出为详情卡面槽位 448×296"},
+    "card.opaque": {"status": "passed", "evidence": "全图 alpha_min=255, alpha_max=255"},
+    "visual.canvas-acceptance": {
+      "status": "passed",
+      "evidence": "2026-09-14：Electron 真实画布的绿色详情弹窗中，大卡面 1/1 可见；外壳 9/9 切片同时可见",
+      "validator": "scripts/ui_asset_pipeline/validate_card_detail_shell_canvas.mjs"
+    }
+  },
+  "canvasCandidate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-10-card-detail/candidates/卡面细节展示-绿色-v4-外壳与卡面画布验收候选.uiw",
+  "registration": {
+    "assetCatalog": "not-yet-registered",
+    "reason": "等待页面级美术评审后，与外壳及透明图标一起建立正式资产注册与消费者绑定。"
+  }
+}

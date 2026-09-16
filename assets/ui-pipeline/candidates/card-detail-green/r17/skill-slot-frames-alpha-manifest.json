@@ -1,0 +1,19 @@
+{
+  "output_dir": "derived",
+  "backgrounds": [
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-0364b9c2-b29d-40ca-8e48-92b25e187714.png",
+      "file": "skill-slot-equipped-70.png",
+      "size": [70, 70],
+      "crop_alpha": true,
+      "fit": "contain"
+    },
+    {
+      "source": "C:/Users/Administrator/.codex/generated_images/01a09edf-bb57-7e03-9978-808029468989/exec-61b8b343-9b35-4994-b133-733dddbf1d88.png",
+      "file": "skill-slot-muted-70.png",
+      "size": [70, 70],
+      "crop_alpha": true,
+      "fit": "contain"
+    }
+  ]
+}

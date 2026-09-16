@@ -3,3 +3,8 @@ out/
 dist/
 *.log
 .DS_Store
+
+# 本地验收截图、临时调试产物与 Python 字节码不进入设计交付历史
+tmp/
+__pycache__/
+*.pyc
