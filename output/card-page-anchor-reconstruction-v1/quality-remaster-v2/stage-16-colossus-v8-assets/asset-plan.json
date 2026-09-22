@@ -1,0 +1,292 @@
+{
+  "version": 1,
+  "status": "locked-for-production",
+  "sourceUiw": "../stage-09-library/卡库区-v16-累计装配预览.uiw",
+  "styleReference": "../stage-15-contract-style-image/巨像文明-卡牌页-装配合同风格图-v8-final-750x1600.png",
+  "assemblyContract": "../stage-15-contract-style-image/风格图装配合同.json",
+  "qualityProfile": "../../../../assets/ui-pipeline/quality-profiles/ui-material-v1.json",
+  "styleStandard": "巨像文明卡牌页-专用美术风格标准-v1.md",
+  "assets": [
+    {
+      "assetId": "card-page.background.runtime",
+      "visualRole": "page-background",
+      "decision": "runtime",
+      "target": { "size": [750, 1600], "render": "solid-deep-navy" },
+      "consumerLayoutIds": ["asset-card-page-background"],
+      "notes": "UIW 使用 8×8 纯色填充垫片模拟运行时底色；禁止整页大图。H5/引擎可直接使用颜色值或小纹理平铺。",
+      "production": { "status": "passed-runtime-shim", "file": "assets/background-solid-deep-navy-8x8.png" }
+    },
+    {
+      "assetId": "card-page.resource.frame",
+      "familyId": "resource-bar",
+      "visualRole": "container",
+      "decision": "generate",
+      "target": { "size": [153, 58], "resizeMode": "fixed", "states": ["default"] },
+      "consumerLayoutIds": ["nmtfpehuyuv6v", "nmtfpelgdfx5t", "nmtfpep27rvqd", "nmtfpesol58ij"],
+      "reuse": "one frame shared by all four bars",
+      "contentPolicy": "no icons, numbers, or action button baked in",
+      "production": { "status": "passed", "file": "assets/resource-frame-153x58.png" }
+    },
+    {
+      "assetId": "card-page.resource.action-energy",
+      "familyId": "resource-action",
+      "visualRole": "button-skin",
+      "decision": "generate",
+      "target": { "size": [32, 32], "resizeMode": "fixed", "states": ["default"] },
+      "consumerLayoutIds": ["nmtfpejokzj2k", "nmtfpen9x9pve", "nmtfpeqvojqd9", "nmtfpeuibte3u"],
+      "reuse": "one cyan energy button shared by all four bars",
+      "production": { "status": "passed", "file": "assets/resource-action-energy-32x32.png" }
+    },
+    {
+      "assetId": "card-page.resource.icons",
+      "familyId": "resource-icons",
+      "visualRole": "icon",
+      "decision": "generate",
+      "target": { "size": [32, 32], "variants": ["crystal", "bars", "orb", "coin"] },
+      "consumerLayoutIds": ["asset-resource-icon-0", "asset-resource-icon-1", "asset-resource-icon-2", "asset-resource-icon-3"],
+      "contentPolicy": "transparent icons with no local background plate",
+      "production": {
+        "status": "passed",
+        "files": {
+          "crystal": "assets/resource-icon-crystal-32x32.png",
+          "bars": "assets/resource-icon-bars-32x32.png",
+          "orb": "assets/resource-icon-orb-32x32.png",
+          "coin": "assets/resource-icon-coin-32x32.png"
+        }
+      }
+    },
+    {
+      "assetId": "card-page.deck.title",
+      "familyId": "deck-title",
+      "visualRole": "container",
+      "decision": "generate",
+      "target": { "size": [211, 80], "resizeMode": "fixed" },
+      "consumerLayoutIds": ["spec2-deck-title-plate"],
+      "contentPolicy": "no title text or decorative diamond baked in",
+      "production": { "status": "passed", "file": "assets/deck-title-211x80.png" }
+    },
+    {
+      "assetId": "card-page.deck.tab",
+      "familyId": "deck-tab",
+      "visualRole": "button-skin",
+      "decision": "generate",
+      "target": { "size": [98, 80], "resizeMode": "fixed", "states": ["default", "active"], "borderWidth": "1.5x-v6" },
+      "consumerLayoutIds": ["spec2-deck-selector"],
+      "stateRule": "identical canvas and alpha silhouette; active changes inset and cyan highlight only",
+      "contentPolicy": "runtime Arabic digits 1-5; no pendant",
+      "production": {
+        "status": "passed",
+        "files": {
+          "default": "assets/deck-tab-default-98x80.png",
+          "active": "assets/deck-tab-active-98x80.png"
+        },
+        "alphaSilhouetteMismatchPixels": 0
+      }
+    },
+    {
+      "assetId": "card-page.card.frame",
+      "familyId": "card-frame",
+      "visualRole": "frame",
+      "decision": "generate",
+      "target": { "size": [160, 220], "resizeMode": "fixed", "transparentPortraitWindow": [8, 18, 144, 142] },
+      "consumerLayoutIds": ["nmtfpf5mxr8wc", "nmtfpf5mxr8wc-rarity-1", "nmtfpf5mxr8wc-rarity-2", "nmtfpf5mxr8wc-rarity-3"],
+      "reuse": "one common frame for deck and library cards",
+      "structure": "four simple corner blocks; four narrow straight continuous uniform-width sides; no mid-span structure",
+      "production": { "status": "passed", "file": "assets/card-frame-common-160x220.png" }
+    },
+    {
+      "assetId": "card-page.card.race-badge-base",
+      "familyId": "card-race-badge",
+      "visualRole": "container",
+      "decision": "generate",
+      "target": { "size": [36, 36], "resizeMode": "fixed" },
+      "consumerLayoutIds": ["wmtfpf5my34k7", "wmtfpf5my34k7-rarity-1", "wmtfpf5my34k7-rarity-2", "wmtfpf5my34k7-rarity-3"],
+      "contentPolicy": "badge base only; race icon remains independent",
+      "production": { "status": "passed", "file": "assets/card-race-badge-base-36x36-v2.png" }
+    },
+    {
+      "assetId": "card-page.card.progress-track",
+      "familyId": "card-progress",
+      "visualRole": "progress",
+      "decision": "generate",
+      "target": { "size": [128, 16], "resizeMode": "fixed", "variant": "track" },
+      "consumerLayoutIds": ["nmtfpf5mydhsa", "nmtfpf5mydhsa-rarity-1", "nmtfpf5mydhsa-rarity-2", "nmtfpf5mydhsa-rarity-3"],
+      "contentPolicy": "empty track only",
+      "production": { "status": "passed", "file": "assets/card-progress-track-128x16.png" }
+    },
+    {
+      "assetId": "card-page.card.progress-fill",
+      "familyId": "card-progress",
+      "visualRole": "progress",
+      "decision": "runtime",
+      "target": { "size": [120, 6], "render": "runtime-horizontal-cyan-fill", "variant": "cyan-fill" },
+      "consumerLayoutIds": ["nmtfpf5mydhsa", "nmtfpf5mydhsa-rarity-1", "nmtfpf5mydhsa-rarity-2", "nmtfpf5mydhsa-rarity-3"],
+      "notes": "进度值是动态状态；完整 fill 皮肤由运行时按 progress 裁剪，禁止把任意固定比例烘焙成图片。",
+      "production": { "status": "passed-runtime-fill-template", "file": "assets/card-progress-fill-cyan-128x16.png" }
+    },
+    {
+      "assetId": "card-page.power.strip",
+      "familyId": "power-strip",
+      "visualRole": "container",
+      "decision": "reuse",
+      "target": { "size": [700, 80], "resizeMode": "fixed", "borderWidth": "1.5x-v6" },
+      "consumerLayoutIds": ["nmtfpfe5qqumv"],
+      "contentPolicy": "frame and inset only; no label, icons, values, or slots baked in",
+      "production": {
+        "status": "passed-derived-nine-slice",
+        "source": "assets/deck-title-211x80.png",
+        "nineInsets": [22, 18, 22, 18],
+        "file": "assets/power-strip-derived-700x80.png"
+      }
+    },
+    {
+      "assetId": "card-page.race.icons",
+      "familyId": "race-icon-outline",
+      "visualRole": "icon",
+      "decision": "generate",
+      "target": { "masterSize": [72, 72], "variants": ["undead", "orc", "human", "machine"], "derivedColors": ["warm-gold", "flat-white"] },
+      "consumerLayoutIds": ["asset-stat-icon-0", "asset-stat-icon-1", "asset-stat-icon-2", "asset-stat-icon-3", "asset-library-filter-tab", "wmtfpf5my34k7", "wmtfpf5my34k7-rarity-1", "wmtfpf5my34k7-rarity-2", "wmtfpf5my34k7-rarity-3"],
+      "reuse": "same outline reused in filter, card badge, and power statistics",
+      "production": {
+        "status": "passed",
+        "files": {
+          "undead-white": "assets/race-icon-undead-white-72x72.png",
+          "undead-gold": "assets/race-icon-undead-gold-72x72.png",
+          "orc-white": "assets/race-icon-orc-white-72x72.png",
+          "orc-gold": "assets/race-icon-orc-gold-72x72.png",
+          "human-white": "assets/race-icon-human-white-72x72.png",
+          "human-gold": "assets/race-icon-human-gold-72x72.png",
+          "machine-white": "assets/race-icon-machine-white-72x72.png",
+          "machine-gold": "assets/race-icon-machine-gold-72x72.png"
+        },
+        "alphaSilhouetteMismatchPixels": {
+          "undead": 0,
+          "orc": 0,
+          "human": 0,
+          "machine": 0
+        }
+      }
+    },
+    {
+      "assetId": "card-page.battle.icons",
+      "familyId": "battle-icon-outline",
+      "visualRole": "icon",
+      "decision": "generate",
+      "target": { "masterSize": [72, 72], "variants": ["sword", "bow"], "derivedColor": "flat-white" },
+      "consumerLayoutIds": ["asset-stat-icon-4", "asset-stat-icon-5"],
+      "production": {
+        "status": "passed",
+        "files": {
+          "sword": "assets/battle-icon-sword-white-72x72.png",
+          "bow": "assets/battle-icon-bow-white-72x72.png"
+        }
+      }
+    },
+    {
+      "assetId": "card-page.race-filter.button",
+      "familyId": "race-filter",
+      "visualRole": "button-skin",
+      "decision": "reuse",
+      "target": { "size": [132, 64], "resizeMode": "fixed", "states": ["default", "active"], "borderWidth": "1.5x-v6" },
+      "consumerLayoutIds": ["asset-library-filter-tab"],
+      "stateRule": "identical silhouette; active changes inset and cyan highlight only",
+      "contentPolicy": "no text or race icon baked in",
+      "production": {
+        "status": "passed-derived-nine-slice",
+        "source": "assets/deck-tab-default-98x80.png",
+        "derivation": "按母版 alpha 有效轮廓重建目标尺寸；active 仅在不透明内区增加青蓝高光",
+        "files": {
+          "default-120": "assets/race-filter-default-120x64.png",
+          "active-120": "assets/race-filter-active-120x64.png",
+          "default-72": "assets/race-filter-default-72x64.png",
+          "active-72": "assets/race-filter-active-72x64.png"
+        },
+        "alphaSilhouetteMismatchPixels": { "120x64": 0, "72x64": 0 }
+      }
+    },
+    {
+      "assetId": "card-page.library.scroll-background",
+      "familyId": "library-scroll",
+      "visualRole": "container",
+      "decision": "runtime",
+      "target": { "size": [700, 541], "render": "solid-deep-navy-with-thin-runtime-outline" },
+      "consumerLayoutIds": ["asset-library-scroll-0", "asset-library-scroll-1", "asset-library-scroll-2", "asset-library-scroll-3", "asset-library-scroll-4"],
+      "notes": "no fixed image frame and no fixed bottom border asset"
+    },
+    {
+      "assetId": "card-page.library.pager-button",
+      "familyId": "library-pager",
+      "visualRole": "button-skin",
+      "decision": "reuse",
+      "target": { "size": [169, 84], "resizeMode": "fixed", "states": ["default", "active"] },
+      "consumerLayoutIds": ["library-category-pager"],
+      "stateRule": "four independent equal-width complete rectangular skins; identical silhouettes",
+      "contentPolicy": "no icons baked in; never circular dots or shared backing plate",
+      "production": {
+        "status": "passed-derived-nine-slice",
+        "source": "assets/deck-tab-default-98x80.png",
+        "derivation": "按母版 alpha 有效轮廓重建目标尺寸；active 仅在不透明内区增加青蓝高光",
+        "files": {
+          "default": "assets/pager-default-169x84.png",
+          "active": "assets/pager-active-169x84.png"
+        },
+        "alphaSilhouetteMismatchPixels": 0
+      }
+    },
+    {
+      "assetId": "card-page.library.pager-icons",
+      "familyId": "library-pager-icons",
+      "visualRole": "icon",
+      "decision": "generate",
+      "target": { "size": [48, 48], "variants": ["grid", "layers", "storage-chest", "smiley"] },
+      "consumerLayoutIds": ["library-category-pager"],
+      "contentPolicy": "transparent warm-gold icons",
+      "production": {
+        "status": "passed",
+        "files": {
+          "grid": "assets/pager-icon-grid-gold-48x48.png",
+          "layers": "assets/pager-icon-layers-gold-48x48.png",
+          "storage-chest": "assets/pager-icon-storage-chest-gold-48x48.png",
+          "smiley": "assets/pager-icon-smiley-gold-48x48.png"
+        }
+      }
+    },
+    {
+      "assetId": "card-page.navigation.button",
+      "familyId": "bottom-navigation",
+      "visualRole": "button-skin",
+      "decision": "generate",
+      "target": { "size": [146, 110], "resizeMode": "fixed", "states": ["default", "active"] },
+      "consumerLayoutIds": ["nmtfpewglapzq"],
+      "stateRule": "identical silhouette; active changes inset and cyan highlight only",
+      "contentPolicy": "no icons baked in",
+      "production": {
+        "status": "passed",
+        "files": {
+          "default": "assets/nav-default-146x110.png",
+          "active": "assets/nav-active-146x110.png"
+        },
+        "alphaSilhouetteMismatchPixels": 0
+      }
+    },
+    {
+      "assetId": "card-page.navigation.icons",
+      "familyId": "bottom-navigation-icons",
+      "visualRole": "icon",
+      "decision": "generate",
+      "target": { "size": [96, 72], "variants": ["chest", "cards", "crossed-swords", "castle", "shield-handshake"] },
+      "consumerLayoutIds": ["nmtfpewglapzq"],
+      "contentPolicy": "transparent two-color icons preserving V8 volume and readability",
+      "production": {
+        "status": "passed",
+        "files": {
+          "chest": "assets/nav-icon-chest-96x72.png",
+          "cards": "assets/nav-icon-cards-96x72.png",
+          "crossed-swords": "assets/nav-icon-crossed-swords-96x72.png",
+          "castle": "assets/nav-icon-castle-96x72.png",
+          "shield-handshake": "assets/nav-icon-shield-handshake-96x72.png"
+        }
+      }
+    }
+  ]
+}

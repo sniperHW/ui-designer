@@ -1,0 +1,64 @@
+{
+  "batch": "colossus-v8-structural-masters-01",
+  "status": "passed",
+  "reference": "../stage-15-contract-style-image/巨像文明-卡牌页-装配合同风格图-v8-final-750x1600.png",
+  "rules": {
+    "outerCornersAlpha": 0,
+    "opaqueInteriorAlpha": 255,
+    "alphaNormalization": "alpha >= 250 => 255; alpha <= 2 => 0; keep antialiasing transition",
+    "textAndIconsBakedIntoContainers": false,
+    "realSizeChecked": true
+  },
+  "accepted": [
+    {
+      "file": "assets/card-frame-common-160x220.png",
+      "size": [160, 220],
+      "centerAlpha": 0,
+      "purpose": "transparent portrait window",
+      "sha256": "2CF05BDB1CA93C6FBB78403EE74304B20E6CBEEFC610C06C31DFB4800FEB19F9"
+    },
+    {
+      "file": "assets/resource-frame-153x58.png",
+      "size": [153, 58],
+      "centerAlpha": 255,
+      "sha256": "585ED437F1CC3BE47A28B7FE8E95014B771563B8B319D0093C7E08E286B42C4F"
+    },
+    {
+      "file": "assets/resource-action-energy-32x32.png",
+      "size": [32, 32],
+      "centerAlpha": 255,
+      "sha256": "F73224C04AC1D4BF2ED676D0612530EE706A781CD525EEBC08B2006AB51CB6D8"
+    },
+    {
+      "file": "assets/deck-tab-default-98x80.png",
+      "size": [98, 80],
+      "centerAlpha": 255,
+      "sha256": "0DF596D8C2B47E07A96467EF1D00B1FC6BEFB529312E6D306D2DF7CCCFAB5977"
+    },
+    {
+      "file": "assets/deck-tab-active-98x80.png",
+      "size": [98, 80],
+      "centerAlpha": 255,
+      "sha256": "60D696EE74CB09CEA0507F8F7954F34891DC500BC578D286F76AE40FA5B9C691"
+    },
+    {
+      "file": "assets/deck-title-211x80.png",
+      "size": [211, 80],
+      "centerAlpha": 255,
+      "sha256": "9A4E7B375FB406BA040EAFA4902DEBAD9C2AC91D619AF58E9B5CE65EE096123D"
+    }
+  ],
+  "crossStateChecks": {
+    "deckTabDefaultActiveAlphaMismatchPixels": 0
+  },
+  "rejectedSources": [
+    {
+      "source": "source/resource-frame-rejected-circle-baked-raw.png",
+      "reason": "最初生成版本把右侧圆形动作按钮烘焙进资源框，违反装配合同；已返修后才进入正式资产。"
+    },
+    {
+      "source": "source/deck-title-v1-raw.png",
+      "reason": "非透明实体轮廓过扁，按 211x80 等比缩放会产生过大上下留白；未进入正式资产。"
+    }
+  ]
+}

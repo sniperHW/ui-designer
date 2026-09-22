@@ -1,0 +1,254 @@
+{
+  "status": "assembled-awaiting-real-render-qa",
+  "source": "output\\card-page-anchor-reconstruction-v1\\quality-remaster-v2\\stage-09-library\\卡库区-v16-累计装配预览.uiw",
+  "output": "output\\card-page-anchor-reconstruction-v1\\quality-remaster-v2\\stage-16-colossus-v8-assets\\卡库区-v23-巨像文明V8立绘安全边装配预览.uiw",
+  "sourceSha256": "142E1B8C2BC54D598AEF9141AE208B1C08EBB784711B614669DDA26A4A8EE96F",
+  "outputSha256": "E73704BFAAE7D8AFFAB705DED5B447DADF61BD1E28A1E19B9FB884D92DEC3131",
+  "authority": "V16 only",
+  "preserved": [
+    "750×1600 竖屏画布",
+    "页面、Tab、滚动容器、定制控件与卡库内容层级",
+    "资源值、标题、等级、碎片数、战力值与六个统计值的运行时文字节点",
+    "卡牌立绘独立层与滚动区行为",
+    "五个底部导航入口、五个牌组按钮、五个种族筛选入口、四个卡库切页按钮"
+  ],
+  "explicitUserOverrides": [
+    "牌组标签由罗马数字改为阿拉伯数字 1–5",
+    "移除蓝色菱形选中挂件",
+    "六个战力图标统一为 66×66 且数字保持在各图标右侧",
+    "四个资源能量按钮改用独立 32×32 透明素材并回到各自资源框内",
+    "四种卡牌定义的立绘窗口统一由 x=8,w=144 收紧为 x=14,w=132；y=18,h=142 保持不变"
+  ],
+  "runtimeRules": [
+    "背景使用 8×8 纯色填充垫片，不使用整页背景图或拉伸纹理",
+    "卡库保持真实 scroll，无遮盖底部的固定背景框",
+    "进度填充由完整 fill 皮肤按 runtime progress 动态裁剪"
+  ],
+  "reusedFamilies": {
+    "resourceFrame": [
+      "nmtfpehuyuv6v",
+      "nmtfpelgdfx5t",
+      "nmtfpep27rvqd",
+      "nmtfpesol58ij"
+    ],
+    "deckTab": [
+      "spec2-deck-selector"
+    ],
+    "cardFrame": [
+      "wmtfpf5my34k7",
+      "wmtfpf5my34k7-rarity-1",
+      "wmtfpf5my34k7-rarity-2",
+      "wmtfpf5my34k7-rarity-3"
+    ],
+    "raceOutline": [
+      "card badge",
+      "race filter",
+      "power statistics"
+    ],
+    "navigation": [
+      "nmtfpewglapzq"
+    ]
+  },
+  "boundAssets": [
+    {
+      "file": "assets/background-solid-deep-navy-8x8.png",
+      "sha256": "F8C06432D9719AA660EEF7EA6E758042524CFF73D447CCF3FE59BA7C0E87C000"
+    },
+    {
+      "file": "assets/battle-icon-bow-white-72x72.png",
+      "sha256": "5BC1220BDE40BFB9D0FAD70200FEC3635E8C4D292B6BC1F4AE0D2F2249B346E3"
+    },
+    {
+      "file": "assets/battle-icon-sword-white-72x72.png",
+      "sha256": "5D26BB0020E04B9D3D64BD26023A212BC786F8B8106DE1457987FF9D910296E8"
+    },
+    {
+      "file": "assets/card-frame-common-160x220-v1.png",
+      "sha256": "F7B508AF8BFC8F845F1BA93E75CC9E6DD3CD0106673C7634D8F80475EC3297C7"
+    },
+    {
+      "file": "assets/card-frame-common-160x220.png",
+      "sha256": "2CF05BDB1CA93C6FBB78403EE74304B20E6CBEEFC610C06C31DFB4800FEB19F9"
+    },
+    {
+      "file": "assets/card-progress-fill-cyan-128x16.png",
+      "sha256": "A395784E34D34C0E2A2821B07FA63FCCEDBB353FF0A085B7CE9262880C2D521A"
+    },
+    {
+      "file": "assets/card-progress-track-128x16.png",
+      "sha256": "1FCC94A23F5E3C08D97768CF20C16EF14D7860207DD9FEDBBAC74FE80CF54FC2"
+    },
+    {
+      "file": "assets/card-race-badge-base-36x36-v2.png",
+      "sha256": "27A41F6380E219DFB94378CD76747F0E8C63EB08B040F09E7A3706A0DB90BD7B"
+    },
+    {
+      "file": "assets/card-race-badge-base-36x36.png",
+      "sha256": "F00A2E552C1E747DD8370D256CE46065F0B9D75F767417FD19707A85A4448725"
+    },
+    {
+      "file": "assets/deck-tab-active-98x80-v1.png",
+      "sha256": "1488D19071EFDFC7EC14F9AFC0EE5F868FABAB62F4614E47D70CB27144282043"
+    },
+    {
+      "file": "assets/deck-tab-active-98x80.png",
+      "sha256": "60D696EE74CB09CEA0507F8F7954F34891DC500BC578D286F76AE40FA5B9C691"
+    },
+    {
+      "file": "assets/deck-tab-default-98x80-v1.png",
+      "sha256": "4E8799BC05BBCCFE30D041E5CD0CF1ED80E528F5BE13341F285938A25E15DDB9"
+    },
+    {
+      "file": "assets/deck-tab-default-98x80.png",
+      "sha256": "0DF596D8C2B47E07A96467EF1D00B1FC6BEFB529312E6D306D2DF7CCCFAB5977"
+    },
+    {
+      "file": "assets/deck-title-211x80-v1.png",
+      "sha256": "D7C48D74AAC9B545BE7E9C617092AA20DF8E6E1AA45CC59DC18BDA281EE63060"
+    },
+    {
+      "file": "assets/deck-title-211x80-v2.png",
+      "sha256": "B8E96C9F9A9AC7F7BF959CFA230A74EE78519703A84834E0F9CE2E2CA56D8C5A"
+    },
+    {
+      "file": "assets/deck-title-211x80.png",
+      "sha256": "9A4E7B375FB406BA040EAFA4902DEBAD9C2AC91D619AF58E9B5CE65EE096123D"
+    },
+    {
+      "file": "assets/nav-active-146x110.png",
+      "sha256": "B6683B4143A8FDF889371E4BE40B8104206397A08655A9198A646D5FCDC2026C"
+    },
+    {
+      "file": "assets/nav-default-146x110.png",
+      "sha256": "D9DBD71A6FD5AE073A53F190F87ADEC5C9157140AC7F3C66ABE078F985141CEA"
+    },
+    {
+      "file": "assets/nav-icon-cards-96x72.png",
+      "sha256": "5F67D0A8DDF0E8F16B721D392A826C10CC9FCC02BD500555C4556B78E06EACC3"
+    },
+    {
+      "file": "assets/nav-icon-castle-96x72.png",
+      "sha256": "B39050DDB0FE495A67B6CE911809EAF0EC37ECC0CB679C14C3EE05FD0517EFCF"
+    },
+    {
+      "file": "assets/nav-icon-chest-96x72.png",
+      "sha256": "E815BAC11D3FCC3B5ACB0492B65FE2637880A4AAF462FBF84D0AEB9D1107B1B5"
+    },
+    {
+      "file": "assets/nav-icon-crossed-swords-96x72.png",
+      "sha256": "097A3C39B236E1C89392FAAEEF2345899852F303F3BBC76E44D478E0DFA6E3BA"
+    },
+    {
+      "file": "assets/nav-icon-shield-handshake-96x72.png",
+      "sha256": "72926F198BD84CC16AA88EEEB42E389209F336C007ED48B1EC070E6B07B61EBD"
+    },
+    {
+      "file": "assets/pager-active-169x84.png",
+      "sha256": "9475F5AFD7EB1AB89E14BE001112D8E775D64B008854F0BB572DBFE009E5DDFE"
+    },
+    {
+      "file": "assets/pager-default-169x84.png",
+      "sha256": "273F0AD1428E3B5597227F82C15C43BF4C78B7DD6704812E51B0C02AFC115658"
+    },
+    {
+      "file": "assets/pager-icon-grid-gold-48x48.png",
+      "sha256": "0EFF60388CDDCD6F61E93509867A8D1CE647916EFCE05B2E6966C83D5CB7BDC6"
+    },
+    {
+      "file": "assets/pager-icon-layers-gold-48x48.png",
+      "sha256": "1105E8645FAEBCDDC67F8344B6CBB23079F0C9A2200D9BF14EBB70AF2D2C3851"
+    },
+    {
+      "file": "assets/pager-icon-smiley-gold-48x48.png",
+      "sha256": "9A017F4B726533778F2FD7A2591D75D29236C74DFC8F0880ED777B87815B1751"
+    },
+    {
+      "file": "assets/pager-icon-storage-chest-gold-48x48.png",
+      "sha256": "C10D7B1D015EBDE17AD647FB29805BC75B931979151EA05F34712CE48E2A28C5"
+    },
+    {
+      "file": "assets/power-strip-derived-700x80.png",
+      "sha256": "5DA7405DD051B0D9B2E4A77785221D677551FCE8BD901919408C6828728F5B46"
+    },
+    {
+      "file": "assets/race-filter-active-120x64.png",
+      "sha256": "CA0AF7947490A324F42098702739ED002FC6715D60B1FE09778153F88495D872"
+    },
+    {
+      "file": "assets/race-filter-active-72x64.png",
+      "sha256": "10274E2CEB6FFEAFDB7D000FF59E703EC749905FF78C79B49D215F07E10F67FE"
+    },
+    {
+      "file": "assets/race-filter-default-120x64.png",
+      "sha256": "200D17FD411B679F2F079C031BD69AEF9570766F4BF23B9CD3F0AF40B729FCE2"
+    },
+    {
+      "file": "assets/race-filter-default-72x64.png",
+      "sha256": "3E17459D17E5D96BC530D53C65ED021FB21AC5E91FAA5467BB48BB2F66E55A17"
+    },
+    {
+      "file": "assets/race-icon-human-gold-72x72.png",
+      "sha256": "536F0D102C929D1FB8D3BD4A544D31680D4C45D596A10576A7BA0AADE681317E"
+    },
+    {
+      "file": "assets/race-icon-human-white-72x72.png",
+      "sha256": "8C12F9A1BD70F9BCCD7749AB0A919F680B1100C1EA688C7498F3F3F43AFB128A"
+    },
+    {
+      "file": "assets/race-icon-machine-gold-72x72.png",
+      "sha256": "DFE72E81D5758D6F4034F33083C3171A20201E7357C49E2E3DF3D6B1AF241863"
+    },
+    {
+      "file": "assets/race-icon-machine-white-72x72.png",
+      "sha256": "0E064B29A1C1A57491B54751805698854F8AB7B83BDC53F1DA83BF49CB770894"
+    },
+    {
+      "file": "assets/race-icon-orc-gold-72x72.png",
+      "sha256": "2AAE09E396259863C38383F1352282A19CF4108E4AC5C2BCFB4C3BBA70C87D93"
+    },
+    {
+      "file": "assets/race-icon-orc-white-72x72.png",
+      "sha256": "1D045A21B610D1101A3B347BB97586F81A1750B9823539908CB80C10AFE2A959"
+    },
+    {
+      "file": "assets/race-icon-undead-gold-72x72.png",
+      "sha256": "E66C8D6ACC4C92055479E9CB4DA6FD76F97E7B0054B553ADF96CE98510E8F55A"
+    },
+    {
+      "file": "assets/race-icon-undead-white-72x72.png",
+      "sha256": "3F5A4408DE5C41F2593C9EB1EAA448D8D3E45599192D9DB3C45A53B748AA5C81"
+    },
+    {
+      "file": "assets/resource-action-energy-32x32-v1.png",
+      "sha256": "CF71922BD7A96D7E25AEA8CF50574DA36D77CA1A0FFC3D8F0F0EFF835E02A6C7"
+    },
+    {
+      "file": "assets/resource-action-energy-32x32.png",
+      "sha256": "F73224C04AC1D4BF2ED676D0612530EE706A781CD525EEBC08B2006AB51CB6D8"
+    },
+    {
+      "file": "assets/resource-frame-153x58-v1.png",
+      "sha256": "C6B059D46A1C7BE573ED99624F1B0DD7C664ED17E482124054903835A147FB99"
+    },
+    {
+      "file": "assets/resource-frame-153x58.png",
+      "sha256": "585ED437F1CC3BE47A28B7FE8E95014B771563B8B319D0093C7E08E286B42C4F"
+    },
+    {
+      "file": "assets/resource-icon-bars-32x32.png",
+      "sha256": "693956A84927495728B20B5D5FE00F8EDEA07C3B94D64911E78739DA1FA9AA0E"
+    },
+    {
+      "file": "assets/resource-icon-coin-32x32.png",
+      "sha256": "19E2CFA7262650D8D50B43AAEF034CD8C552E97F14428999536F72A8DF8E2BEC"
+    },
+    {
+      "file": "assets/resource-icon-crystal-32x32.png",
+      "sha256": "209F34BA7BC457C23DD8B84D1043613AFA56F8FBC4F73E8C8B791355AE7BBE94"
+    },
+    {
+      "file": "assets/resource-icon-orb-32x32.png",
+      "sha256": "024327ECCAA893FA5CE3F3F6209C8506365E4E86335C5EAF2730CB92B36317D1"
+    }
+  ]
+}

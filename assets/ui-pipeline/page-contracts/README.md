@@ -19,3 +19,14 @@ node scripts/ui_asset_pipeline/apply_page_asset_contract.mjs assets/ui-pipeline/
 ```
 
 去掉 `--dry-run` 才会生成 `outputUiw`。装配器拒绝覆盖已有输出，因此每次迭代必须生成新候选版本。
+
+## 用户确认后的封版
+
+用户明确确认页面效果后，页面合同必须从 `candidate` 晋升为 `approved-runtime-baseline`，并补齐：
+
+- `approvedBaseline`：确认版本、UIW、真实预览、质量门禁、装配审计及 SHA-256；
+- `assemblyGates`：本页所有机器可读结构门禁，例如内容窗口矩形与安全边；
+- `releaseCommand`：合同、可复现装配、UIW、真实画布、哈希与版本控制检查的单一入口；
+- `versionControl.requiredTracked`：必须纳入 Git 的规范、合同、素材和验收产物。
+
+确认信息不得只保留在聊天记录或截图中。下一轮迭代以 `approvedBaseline.uiw` 为事实源，早期版本只作为历史或可复现装配来源。

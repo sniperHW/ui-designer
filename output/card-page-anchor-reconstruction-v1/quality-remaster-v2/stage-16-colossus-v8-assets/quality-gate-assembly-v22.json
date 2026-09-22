@@ -1,0 +1,30 @@
+{
+  "candidate": "卡库区-v22-巨像文明V8全量装配预览.uiw",
+  "status": "passed-real-render-qa",
+  "sourceAuthority": "../stage-09-library/卡库区-v16-累计装配预览.uiw",
+  "candidateSha256": "AEB1013D882864074C2331522215E14C92302318681F83BDA06F46032719DE16",
+  "realPreview": {
+    "file": "qa/卡库区-v22-真实预览.png",
+    "sha256": "DE4CEF33A7AFB74782D0A9BE78A10AACD950A6494E444461A72660BD12D5D06C",
+    "renderer": "UIW Electron 真实原型预览"
+  },
+  "checks": {
+    "uiwSchema": "passed",
+    "canvas750x1600": true,
+    "fullPageBackgroundImage": false,
+    "deckLabelsArabic1To5": true,
+    "obsoleteBlueDiamondRemoved": true,
+    "resourceFrameReuse": true,
+    "resourceActionButtonsRendered": 4,
+    "powerIconsUniform66x66": true,
+    "powerValuesOnIconRight": true,
+    "raceFilterStateSilhouetteStable": true,
+    "pagerFourIndependentCompleteBorders": true,
+    "bottomNavigationFiveIndependentButtons": true,
+    "libraryRealScrollWithoutFixedImageFrame": true,
+    "cardFrameReuseAcrossFourDefinitions": true,
+    "independentRaceIconLayers": true,
+    "runtimeProgressClip": true,
+    "renderedDataImageLayerCount": 117
+  }
+}

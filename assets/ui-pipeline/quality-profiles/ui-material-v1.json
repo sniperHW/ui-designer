@@ -18,6 +18,12 @@
     "portrait": ["card.cover", "card.opaque"],
     "progress": ["structure.no-baked-runtime-content"]
   },
+  "pageAssemblyGates": [
+    "assembly.approved-baseline-hash",
+    "assembly.contract-slot-rect",
+    "visual.real-render",
+    "vcs.required-artifacts"
+  ],
   "notes": [
     "页面合同只能添加门禁，不能移除本配置的必经门禁。",
     "edge.dark-matte 仅在存在异形或深色外沿轮廓时适用，但适用后必须声明测量参数。"

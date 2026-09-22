@@ -1,0 +1,23 @@
+{
+  "batch": "colossus-v8-runtime-and-derived-assets-07",
+  "status": "passed",
+  "rules": {
+    "derivedFromApprovedFamilyMasters": true,
+    "nineSliceSourceReuse": true,
+    "stateAlphaSilhouetteMismatchPixels": 0,
+    "fullPageBackgroundImage": false,
+    "runtimeProgressValueBaked": false,
+    "realSizeChecked": true
+  },
+  "accepted": [
+    { "file": "assets/background-solid-deep-navy-8x8.png", "size": [8, 8], "sha256": "F8C06432D9719AA660EEF7EA6E758042524CFF73D447CCF3FE59BA7C0E87C000" },
+    { "file": "assets/card-progress-fill-cyan-128x16.png", "size": [128, 16], "sha256": "A395784E34D34C0E2A2821B07FA63FCCEDBB353FF0A085B7CE9262880C2D521A" },
+    { "file": "assets/power-strip-derived-700x80.png", "size": [700, 80], "sha256": "5DA7405DD051B0D9B2E4A77785221D677551FCE8BD901919408C6828728F5B46" },
+    { "file": "assets/race-filter-default-120x64.png", "size": [120, 64], "sha256": "200D17FD411B679F2F079C031BD69AEF9570766F4BF23B9CD3F0AF40B729FCE2" },
+    { "file": "assets/race-filter-active-120x64.png", "size": [120, 64], "sha256": "CA0AF7947490A324F42098702739ED002FC6715D60B1FE09778153F88495D872" },
+    { "file": "assets/race-filter-default-72x64.png", "size": [72, 64], "sha256": "3E17459D17E5D96BC530D53C65ED021FB21AC5E91FAA5467BB48BB2F66E55A17" },
+    { "file": "assets/race-filter-active-72x64.png", "size": [72, 64], "sha256": "10274E2CEB6FFEAFDB7D000FF59E703EC749905FF78C79B49D215F07E10F67FE" },
+    { "file": "assets/pager-default-169x84.png", "size": [169, 84], "sha256": "273F0AD1428E3B5597227F82C15C43BF4C78B7DD6704812E51B0C02AFC115658" },
+    { "file": "assets/pager-active-169x84.png", "size": [169, 84], "sha256": "9475F5AFD7EB1AB89E14BE001112D8E775D64B008854F0BB572DBFE009E5DDFE" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "batch": "colossus-v8-pager-icons-05",
+  "status": "passed",
+  "rules": {
+    "size": [48, 48],
+    "allFourCornerAlpha": 0,
+    "flatSingleColor": "warm-gold",
+    "localBackgroundPlate": false,
+    "realSizeChecked": true
+  },
+  "accepted": [
+    { "file": "assets/pager-icon-grid-gold-48x48.png", "sha256": "0EFF60388CDDCD6F61E93509867A8D1CE647916EFCE05B2E6966C83D5CB7BDC6" },
+    { "file": "assets/pager-icon-layers-gold-48x48.png", "sha256": "1105E8645FAEBCDDC67F8344B6CBB23079F0C9A2200D9BF14EBB70AF2D2C3851" },
+    { "file": "assets/pager-icon-storage-chest-gold-48x48.png", "sha256": "C10D7B1D015EBDE17AD647FB29805BC75B931979151EA05F34712CE48E2A28C5" },
+    { "file": "assets/pager-icon-smiley-gold-48x48.png", "sha256": "9A017F4B726533778F2FD7A2591D75D29236C74DFC8F0880ED777B87815B1751" }
+  ]
+}

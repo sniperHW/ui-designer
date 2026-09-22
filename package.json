@@ -8,7 +8,8 @@
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "gate:card-library-v23": "node scripts/ui_asset_pipeline/release_card_library_colossus_v8.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",

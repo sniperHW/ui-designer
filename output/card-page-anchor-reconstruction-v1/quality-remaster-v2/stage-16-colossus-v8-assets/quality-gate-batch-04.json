@@ -1,0 +1,29 @@
+{
+  "batch": "colossus-v8-race-and-battle-icons-04",
+  "status": "passed",
+  "rules": {
+    "masterSize": [72, 72],
+    "allFourCornerAlpha": 0,
+    "flatSingleColor": true,
+    "localBackgroundPlate": false,
+    "realSizeChecked": true
+  },
+  "accepted": [
+    { "file": "assets/race-icon-undead-white-72x72.png", "sha256": "3F5A4408DE5C41F2593C9EB1EAA448D8D3E45599192D9DB3C45A53B748AA5C81" },
+    { "file": "assets/race-icon-undead-gold-72x72.png", "sha256": "E66C8D6ACC4C92055479E9CB4DA6FD76F97E7B0054B553ADF96CE98510E8F55A" },
+    { "file": "assets/race-icon-orc-white-72x72.png", "sha256": "1D045A21B610D1101A3B347BB97586F81A1750B9823539908CB80C10AFE2A959" },
+    { "file": "assets/race-icon-orc-gold-72x72.png", "sha256": "2AAE09E396259863C38383F1352282A19CF4108E4AC5C2BCFB4C3BBA70C87D93" },
+    { "file": "assets/race-icon-human-white-72x72.png", "sha256": "8C12F9A1BD70F9BCCD7749AB0A919F680B1100C1EA688C7498F3F3F43AFB128A" },
+    { "file": "assets/race-icon-human-gold-72x72.png", "sha256": "536F0D102C929D1FB8D3BD4A544D31680D4C45D596A10576A7BA0AADE681317E" },
+    { "file": "assets/race-icon-machine-white-72x72.png", "sha256": "0E064B29A1C1A57491B54751805698854F8AB7B83BDC53F1DA83BF49CB770894" },
+    { "file": "assets/race-icon-machine-gold-72x72.png", "sha256": "DFE72E81D5758D6F4034F33083C3171A20201E7357C49E2E3DF3D6B1AF241863" },
+    { "file": "assets/battle-icon-sword-white-72x72.png", "sha256": "5D26BB0020E04B9D3D64BD26023A212BC786F8B8106DE1457987FF9D910296E8" },
+    { "file": "assets/battle-icon-bow-white-72x72.png", "sha256": "5BC1220BDE40BFB9D0FAD70200FEC3635E8C4D292B6BC1F4AE0D2F2249B346E3" }
+  ],
+  "crossVariantChecks": {
+    "undeadWhiteGoldAlphaMismatchPixels": 0,
+    "orcWhiteGoldAlphaMismatchPixels": 0,
+    "humanWhiteGoldAlphaMismatchPixels": 0,
+    "machineWhiteGoldAlphaMismatchPixels": 0
+  }
+}

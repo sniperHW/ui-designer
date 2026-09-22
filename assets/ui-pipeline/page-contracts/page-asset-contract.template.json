@@ -1,9 +1,16 @@
 {
   "version": 1,
   "pageId": "替换为页面或页面族标识",
+  "status": "candidate",
   "baseUiw": "替换为当前验收 UIW 的路径",
   "outputUiw": "替换为下一版候选 UIW 的路径",
   "qualityProfile": "ui-material-v1",
+  "approvedBaseline": null,
+  "assemblyGates": [],
+  "releaseCommand": "替换为本页面失败即停的单一发布命令",
+  "versionControl": {
+    "requiredTracked": []
+  },
   "bindings": [
     {
       "assetId": "替换为全局素材 ID",

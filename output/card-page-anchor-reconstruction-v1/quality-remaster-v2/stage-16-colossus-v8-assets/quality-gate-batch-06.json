@@ -1,0 +1,18 @@
+{
+  "batch": "colossus-v8-navigation-icons-06",
+  "status": "passed",
+  "rules": {
+    "size": [96, 72],
+    "allFourCornerAlpha": 0,
+    "twoColorDominant": true,
+    "localBackgroundPlate": false,
+    "realSizeChecked": true
+  },
+  "accepted": [
+    { "file": "assets/nav-icon-chest-96x72.png", "sha256": "E815BAC11D3FCC3B5ACB0492B65FE2637880A4AAF462FBF84D0AEB9D1107B1B5" },
+    { "file": "assets/nav-icon-cards-96x72.png", "sha256": "5F67D0A8DDF0E8F16B721D392A826C10CC9FCC02BD500555C4556B78E06EACC3" },
+    { "file": "assets/nav-icon-crossed-swords-96x72.png", "sha256": "097A3C39B236E1C89392FAAEEF2345899852F303F3BBC76E44D478E0DFA6E3BA" },
+    { "file": "assets/nav-icon-castle-96x72.png", "sha256": "B39050DDB0FE495A67B6CE911809EAF0EC37ECC0CB679C14C3EE05FD0517EFCF" },
+    { "file": "assets/nav-icon-shield-handshake-96x72.png", "sha256": "72926F198BD84CC16AA88EEEB42E389209F336C007ED48B1EC070E6B07B61EBD" }
+  ]
+}

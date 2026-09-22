@@ -1,0 +1,30 @@
+{
+  "status": "locked-for-style-image",
+  "authority": {
+    "uiw": "../stage-09-library/卡库区-v16-累计装配预览.uiw",
+    "approvedScreenshotRegion": "用户提供对比截图的左半页",
+    "materialReferenceOnly": "../stage-12-colossus-card-page/reference/巨像文明-卡牌页视觉母版.png"
+  },
+  "canvas": { "width": 750, "height": 1600, "orientation": "portrait" },
+  "lockedRegions": [
+    { "familyId": "resource-bar", "count": 4, "rects": [[25,18,153,58],[195,18,153,58],[375,18,153,58],[545,18,153,58]], "borderTier": "secondary; continuous solid stone; thinner than card frame and thicker than tertiary tabs", "layers": ["skin","icon","runtime-value","runtime-action"] },
+    { "familyId": "deck-title", "count": 1, "rect": [20,112,211,80], "layers": ["skin","runtime-title"] },
+    { "familyId": "deck-tab", "count": 5, "hostRect": [241,116,490,80], "labels": ["1","2","3","4","5"], "borderRule": "reinforced border at approximately 1.5x the V6 base width; grows inward without changing outer geometry", "stateRule": "default/active share identical geometry, border width, and alpha silhouette", "layers": ["skin","runtime-arabic-number"] },
+    { "familyId": "deck-card", "count": 8, "size": [160,220], "x": [30,206,382,558], "y": [210,445], "portraitWindow": [8,18,144,142], "frameRule": "one reusable continuous solid-stone frame; four simple single-form beveled corner blocks are the only structural accents; all four side spans are narrow, straight, continuous, and uniform-width with no buttresses, segmentation, center connectors, or ornament; never tubular, skeletal, or content-overlapping", "layers": ["portrait","frame","independent-race-icon","runtime-level","runtime-progress"] },
+    { "familyId": "power-strip", "count": 1, "rect": [25,685,700,80], "borderRule": "reinforced border at approximately 1.5x the V6 base width; grows inward without moving internal content", "layers": ["skin","runtime-label","six-independent-icons","six-runtime-values"] },
+    { "familyId": "race-filter", "count": 5, "hostRect": [25,775,700,64], "borderRule": "reinforced border at approximately 1.5x the V6 base width; grows inward without changing outer geometry", "stateRule": "default/active share identical geometry, border width, and alpha silhouette", "layers": ["skin","independent-icon","runtime-state"] },
+    { "familyId": "library-scroll", "count": 1, "rect": [25,850,700,541], "behavior": "real vertical scroll; no fixed bottom frame", "background": "runtime solid color only" },
+    { "familyId": "library-card", "countVisible": 4, "size": [160,220], "x": [31,207,383,559], "y": [870], "frameReuse": "exactly reuse deck-card frame geometry", "layers": ["portrait","frame","independent-race-icon","runtime-level","runtime-progress"] },
+    { "familyId": "library-pager", "count": 4, "hostRect": [25,1391,700,84], "shape": "four independent equal-width rectangular icon buttons with complete borders", "iconOrder": ["grid","layers","storage-chest","smiley"], "activeIndex": 1, "stateRule": "default/active share identical geometry and alpha silhouette; never simplify to circular dots or merge into a shared base", "layers": ["skin","independent-icon","runtime-state"] },
+    { "familyId": "bottom-navigation", "count": 5, "hostRect": [0,1490,750,110], "stateRule": "default/active share identical geometry and alpha silhouette", "layers": ["skin","independent-icon","runtime-state"] }
+  ],
+  "stylePrompt": "巨像文明创造出来的实体化游戏界面——厚重圆润的石质建筑结构、暖砂岩与少量青铜、青蓝能量核心、简洁古代几何刻纹、轻微风化与苔痕、明显的层叠体积和可触摸感。",
+  "forbidden": [
+    "改变区域数量、坐标、比例、层级或滚动语义",
+    "把图标、文字、数值或进度烘焙进底板",
+    "改变默认态与选中态的轮廓",
+    "在卡框中新增占用立绘区或种族角标位置的结构",
+    "整页叙事背景图、巨像、建筑场景或拉伸纹理",
+    "将右侧失败版本的结构作为参考"
+  ]
+}

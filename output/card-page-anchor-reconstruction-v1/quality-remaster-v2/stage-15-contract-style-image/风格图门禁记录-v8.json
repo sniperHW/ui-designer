@@ -1,0 +1,26 @@
+{
+  "result": "pass-for-style-review",
+  "asset": "巨像文明-卡牌页-装配合同风格图-v8-final-750x1600.png",
+  "scope": "风格图预览，不作为运行时整图或直接切图源",
+  "canvas": { "width": 750, "height": 1600, "verified": true },
+  "reinforcedBorderAudit": {
+    "baseline": "V6",
+    "widthMultiplier": 1.5,
+    "targets": ["five deck tabs", "power strip", "five race filters"],
+    "growsInward": true,
+    "outerGeometryChanged": false,
+    "reachesCardFrameWeight": false,
+    "addedOrnaments": false
+  },
+  "protectedAssembly": {
+    "deckTabLabels": ["1", "2", "3", "4", "5"],
+    "activeDeckTab": 2,
+    "activeRaceFilter": 2,
+    "cardFrame": "V6 simplified corners plus narrow uniform side spans",
+    "resourceBars": "V6 secondary width",
+    "libraryPagerIcons": ["grid", "layers", "storage-chest", "smiley"],
+    "libraryPagerActiveIndex": 1,
+    "bottomNavigationActiveIndex": 2
+  },
+  "violations": []
+}

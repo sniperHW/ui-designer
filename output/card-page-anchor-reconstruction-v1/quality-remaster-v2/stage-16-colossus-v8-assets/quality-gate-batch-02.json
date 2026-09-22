@@ -1,0 +1,57 @@
+{
+  "batch": "colossus-v8-small-components-and-reuse-02",
+  "status": "passed",
+  "accepted": [
+    {
+      "file": "assets/card-race-badge-base-36x36-v2.png",
+      "size": [36, 36],
+      "centerAlpha": 255,
+      "sha256": "27A41F6380E219DFB94378CD76747F0E8C63EB08B040F09E7A3706A0DB90BD7B"
+    },
+    {
+      "file": "assets/card-progress-track-128x16.png",
+      "size": [128, 16],
+      "centerAlpha": 255,
+      "sha256": "1FCC94A23F5E3C08D97768CF20C16EF14D7860207DD9FEDBBAC74FE80CF54FC2"
+    },
+    {
+      "file": "assets/nav-default-146x110.png",
+      "size": [146, 110],
+      "centerAlpha": 255,
+      "sha256": "D9DBD71A6FD5AE073A53F190F87ADEC5C9157140AC7F3C66ABE078F985141CEA"
+    },
+    {
+      "file": "assets/nav-active-146x110.png",
+      "size": [146, 110],
+      "centerAlpha": 255,
+      "sha256": "B6683B4143A8FDF889371E4BE40B8104206397A08655A9198A646D5FCDC2026C"
+    }
+  ],
+  "crossStateChecks": {
+    "navigationDefaultActiveAlphaMismatchPixels": 0
+  },
+  "reuseChecks": [
+    {
+      "consumer": "power-strip-700x80",
+      "source": "assets/deck-title-211x80.png",
+      "nineInsets": [22, 18, 22, 18],
+      "status": "passed"
+    },
+    {
+      "consumers": ["race-filter-132x64", "library-pager-169x84"],
+      "sources": ["assets/deck-tab-default-98x80.png", "assets/deck-tab-active-98x80.png"],
+      "nineInsets": [20, 18, 20, 18],
+      "status": "passed"
+    }
+  ],
+  "runtimeDecisions": [
+    "进度条青蓝填充由运行时按数值裁切，不生成固定比例图片。",
+    "卡库滚动区继续使用运行时深蓝底与细线，不生成固定底框。"
+  ],
+  "rejectedSources": [
+    {
+      "source": "source/card-race-badge-base-v1-raw.png",
+      "reason": "四向尖角会与卡框角结构抢层级，已改为简洁圆形底座。"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "candidate": "卡库区-v23-巨像文明V8立绘安全边装配预览.uiw",
+  "status": "passed-real-render-qa",
+  "userConfirmation": {
+    "status": "approved",
+    "confirmedOn": "2026-09-22",
+    "message": "效果确认！"
+  },
+  "sourceCandidate": "卡库区-v22-巨像文明V8全量装配预览.uiw",
+  "sourceAuthority": "../stage-09-library/卡库区-v16-累计装配预览.uiw",
+  "candidateSha256": "E73704BFAAE7D8AFFAB705DED5B447DADF61BD1E28A1E19B9FB884D92DEC3131",
+  "realPreview": {
+    "file": "qa/卡库区-v23-立绘安全边真实预览.png",
+    "sha256": "FC1D1026D6EBA2FA1BA9B139360AC86DBA3D543E420B78C4C0E741E82B33A8A6",
+    "renderer": "UIW Electron 真实原型预览"
+  },
+  "portraitSafeInset": {
+    "before": [8, 18, 144, 142],
+    "after": [14, 18, 132, 142],
+    "definitions": 4,
+    "horizontalInsetPerSide": 6,
+    "verticalWindowChanged": false
+  },
+  "checks": {
+    "uiwSchema": "passed",
+    "canvas750x1600": true,
+    "allPortraitsInsideCardSideRails": true,
+    "portraitAspectStrategy": "uniform horizontal safe inset",
+    "deckAndLibraryInstancesUpdatedByReuse": true,
+    "cardFrameGeometryChanged": false,
+    "cardVerticalCropChanged": false,
+    "fullPageBackgroundImage": false,
+    "obsoleteBlueDiamondRemoved": true,
+    "resourceFrameReuse": true,
+    "powerIconsUniform66x66": true,
+    "powerValuesOnIconRight": true,
+    "libraryRealScrollWithoutFixedImageFrame": true,
+    "runtimeProgressClip": true,
+    "renderedDataImageLayerCount": 117
+  }
+}

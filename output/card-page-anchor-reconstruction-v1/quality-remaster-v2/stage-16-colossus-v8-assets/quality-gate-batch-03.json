@@ -1,0 +1,28 @@
+{
+  "batch": "colossus-v8-resource-icons-03",
+  "status": "passed",
+  "rules": {
+    "size": [32, 32],
+    "allFourCornerAlpha": 0,
+    "localBackgroundPlate": false,
+    "realSizeChecked": true
+  },
+  "accepted": [
+    {
+      "file": "assets/resource-icon-crystal-32x32.png",
+      "sha256": "209F34BA7BC457C23DD8B84D1043613AFA56F8FBC4F73E8C8B791355AE7BBE94"
+    },
+    {
+      "file": "assets/resource-icon-bars-32x32.png",
+      "sha256": "693956A84927495728B20B5D5FE00F8EDEA07C3B94D64911E78739DA1FA9AA0E"
+    },
+    {
+      "file": "assets/resource-icon-orb-32x32.png",
+      "sha256": "024327ECCAA893FA5CE3F3F6209C8506365E4E86335C5EAF2730CB92B36317D1"
+    },
+    {
+      "file": "assets/resource-icon-coin-32x32.png",
+      "sha256": "19E2CFA7262650D8D50B43AAEF034CD8C552E97F14428999536F72A8DF8E2BEC"
+    }
+  ]
+}

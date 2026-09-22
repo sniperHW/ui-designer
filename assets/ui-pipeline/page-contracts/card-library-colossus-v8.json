@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "id": "card-library-colossus-v8",
+  "status": "approved-runtime-baseline",
+  "structuralOriginUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-09-library/卡库区-v16-累计装配预览.uiw",
+  "sourceUiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/卡库区-v23-巨像文明V8立绘安全边装配预览.uiw",
+  "approvedBaseline": {
+    "version": "V23",
+    "uiw": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/卡库区-v23-巨像文明V8立绘安全边装配预览.uiw",
+    "uiwSha256": "E73704BFAAE7D8AFFAB705DED5B447DADF61BD1E28A1E19B9FB884D92DEC3131",
+    "realPreview": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/qa/卡库区-v23-立绘安全边真实预览.png",
+    "realPreviewSha256": "FC1D1026D6EBA2FA1BA9B139360AC86DBA3D543E420B78C4C0E741E82B33A8A6",
+    "qualityGate": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/quality-gate-assembly-v23.json",
+    "assemblyAudit": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/装配审计-v23.json",
+    "userConfirmed": true,
+    "confirmedOn": "2026-09-22",
+    "confirmation": "效果确认！"
+  },
+  "styleReference": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-15-contract-style-image/巨像文明-卡牌页-装配合同风格图-v8-final-750x1600.png",
+  "styleStandard": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/巨像文明卡牌页-专用美术风格标准-v1.md",
+  "qualityProfile": "ui-material-v1",
+  "canvas": [750, 1600],
+  "assemblyGates": [
+    {
+      "id": "card.portrait-slot-safe-inset",
+      "scope": "customWidgets",
+      "selector": { "nodeName": "卡面图片" },
+      "expectedDefinitionCount": 4,
+      "expectedRect": [14, 18, 132, 142],
+      "parentCardSize": [160, 220],
+      "minimumHorizontalInset": 14,
+      "verticalWindowLocked": true,
+      "requireAllInstancesByReuse": true
+    }
+  ],
+  "invariants": [
+    "装配合同优先于质量标准和专用风格",
+    "不生成或拉伸整页背景图",
+    "动态文字、数值、进度、图标和状态保持独立",
+    "同一 family 复用同一结构模板",
+    "默认态与选中态画布和 alpha 轮廓一致",
+    "卡库保持真实滚动容器且无固定底框",
+    "卡框只在四角设置结构重点，四边窄、直、连续、等宽",
+    "卡库切页栏固定为四个矩形图标按钮，禁止简化成圆点"
+  ],
+  "assetPlan": "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/asset-plan.json",
+  "releaseCommand": "npm run gate:card-library-v23",
+  "versionControl": {
+    "requiredTracked": [
+      "AGENTS.md",
+      "装配合同.md",
+      "素材质量基线.md",
+      "assets/ui-pipeline/page-contracts/card-library-colossus-v8.json",
+      "assets/ui-pipeline/quality-profiles/ui-material-v1.json",
+      "scripts/ui_asset_pipeline/assemble_card_library_colossus_v8.mjs",
+      "scripts/ui_asset_pipeline/validate_card_library_colossus_v8_contract.mjs",
+      "scripts/ui_asset_pipeline/validate_card_library_colossus_v8_canvas.mjs",
+      "scripts/ui_asset_pipeline/release_card_library_colossus_v8.mjs",
+      "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-15-contract-style-image/风格图装配合同.json",
+      "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-15-contract-style-image/巨像文明-卡牌页-装配合同风格图-v8-final-750x1600.png",
+      "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/巨像文明卡牌页-专用美术风格标准-v1.md",
+      "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/卡库区-v23-巨像文明V8立绘安全边装配预览.uiw",
+      "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/qa/卡库区-v23-立绘安全边真实预览.png",
+      "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/quality-gate-assembly-v23.json",
+      "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/装配审计-v23.json",
+      "output/card-page-anchor-reconstruction-v1/quality-remaster-v2/stage-16-colossus-v8-assets/asset-plan.json"
+    ]
+  }
+}
